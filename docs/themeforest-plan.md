@@ -16,7 +16,7 @@
 | Envato account | `TreeTech_Themes`, author since Aug 2024, but `/upload` redirects to the dashboard and the menu still shows "Become an Author". Support ticket sent 2026-10-20 — **waiting** |
 | Figma design ownership | **Unconfirmed** (TF0-T02) |
 | `npm install` in the copy | **Fails** (checked 2026-10-20, Node 24.18, no VS Build Tools) on `better-sqlite3` (no prebuilt binary for Node 24.18, no C++ build tools). Local-machine issue, not a repo problem. Fix in TF1-T00 below; the problem disappears for good once TF1-T09 removes the native module |
-| Not started | TF0 answers, TF1–TF8 |
+| Progress (updated 2026-10-21) | TF1 and TF2 passed; TF3 T01-T11 done (T12 evidence and gate G3 open); TF0 answers and TF4–TF8 not started. See the master checklist in section 6 |
 
 ---
 
@@ -429,10 +429,10 @@ Stop at the TF1 exit gate and report evidence.
 - [x] Loading/error states (error screens site-wide; loading screen for Home only, see B6 note)
 
 **TF3 Responsive & a11y**
-- [ ] Mobile frames/spec approved
-- [ ] Breakpoint tokens; header, shop, PDP, cart, checkout, carousels, modals responsive
-- [ ] Contrast fixed; keyboard walk-through
-- [ ] 5 viewports × full suite green
+- [x] Mobile frames/spec approved (written spec `docs/responsive-spec.md`, gate G1; Gate G2 on Header, Home and Shop also passed)
+- [x] Breakpoint tokens; header, shop, PDP, cart, checkout, carousels, modals responsive (T01-T10 done and committed locally; breakpoints 1439 / 1100 / 767, `--tap` 44px token)
+- [x] Contrast fixed; keyboard walk-through (T11: contrast audit 0 failing pairs at 1920, 1440, 1180, 768, 390 and 320; R-03 touch sizes and R-04 axe pass at 768, 390, 320 (R-04 also at 1024); R-05 keyboard and reduced-motion specs pass at 1024, 768, 390, 320)
+- [ ] 5 viewports × full suite green (T12 in progress: full 1920 run and the C13 comparison with commit `8f64f4d` still to finish, then decision-log entry and gate G3 sign-off)
 
 **TF4 Quality**
 - [ ] Chromium, Firefox, WebKit
