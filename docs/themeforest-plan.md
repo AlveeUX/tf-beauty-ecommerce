@@ -217,7 +217,7 @@ T05 `/demos` hub + catalogue tests. T06 `loading.tsx`, `error.tsx`, `global-erro
 | Completion criteria | No horizontal scroll at any viewport on any route; all journeys pass at all viewports; axe 0 critical/serious including contrast. |
 | Exit gate | Responsive + a11y report recorded in the decision log. |
 
-#### TF3 task contract — **status: AWAITING APPROVAL** (written 2026-10-20)
+#### TF3 task contract — **status: APPROVED by the user 2026-10-20 (spec-first approach); T01 spec awaiting gate G1**
 
 **Baseline measured before writing this** (production build, `tests/visual/overflow-audit.mjs`, 26 routes x 5 widths, plus screenshots at 390 px):
 
@@ -275,7 +275,7 @@ Visual verification: tests/visual capture at 1440/1024/768/390 for Home, Shop (g
 Regression risks:   mega menu and dropdown specs (E2E-MEG-*), shop layout and filter specs (E2E-SHP-*, E2E-CAT-*), product layouts, cart drawer and checkout
                     specs, the home header and hero, popups (E2E-OVL-*), and the 404 specs (no loading.tsx under (site), see D-054).
 Evidence required:  R-01 table (route x width), axe counts per width, the screenshot set, the C13 comparison, typecheck/lint/Vitest/Playwright counts per sub-task.
-Status:             NOT_STARTED
+Status:             IN_PROGRESS (T01 written: docs/responsive-spec.md awaits gate G1; no layout code yet)
 ```
 
 **Sub-tasks and review gates**
