@@ -22,7 +22,7 @@ export function addComment(
   clientKey: string,
   now = Date.now(),
 ): CommentResult {
-  const postId = postIdFor(db, slug);
+  const postId = postIdFor(slug);
   if (postId === null) return { ok: false, reason: "not_found" };
   if (input.parentId !== null) {
     const parent = db

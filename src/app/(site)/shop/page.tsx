@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { getDb } from "@/db/client";
 import { CatalogView } from "@/components/shop/CatalogView";
 import { parseCatalogQuery } from "@/server/catalog/query";
 import { getFacets, listProducts } from "@/server/catalog/service";
@@ -12,14 +11,13 @@ type Props = { searchParams: Promise<Record<string, string | string[] | undefine
 export default async function ShopPage({ searchParams }: Props) {
   // Invalid parameters are dropped (not fatal) so a mistyped link still shows the shop.
   const { query } = parseCatalogQuery(await searchParams);
-  const db = getDb();
   return (
     <CatalogView
       title="Shop"
       basePath="/shop"
       query={query}
-      result={listProducts(db, query)}
-      facets={getFacets(db, query)}
+      result={listProducts(query)}
+      facets={getFacets(query)}
     />
   );
 }

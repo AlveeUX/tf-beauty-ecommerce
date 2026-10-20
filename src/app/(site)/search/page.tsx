@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { getDb } from "@/db/client";
 import { CatalogView } from "@/components/shop/CatalogView";
 import { parseCatalogQuery } from "@/server/catalog/query";
 import { getFacets, listProducts } from "@/server/catalog/service";
@@ -12,15 +11,14 @@ type Props = { searchParams: Promise<Record<string, string | string[] | undefine
 /** Full search results (SRC-002): the shop listing with a text query, so every filter and sort still applies. */
 export default async function SearchPage({ searchParams }: Props) {
   const { query } = parseCatalogQuery(await searchParams);
-  const db = getDb();
   return (
     <CatalogView
       title={query.q ? `Search: ${query.q}` : "Search"}
       crumbs={[{ label: "Search" }]}
       basePath="/search"
       query={query}
-      result={listProducts(db, query)}
-      facets={getFacets(db, query)}
+      result={listProducts(query)}
+      facets={getFacets(query)}
     />
   );
 }

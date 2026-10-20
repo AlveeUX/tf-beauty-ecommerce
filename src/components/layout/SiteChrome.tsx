@@ -1,4 +1,3 @@
-import { getDb } from "@/db/client";
 import type { ProductSummary } from "@/lib/catalog-types";
 import { getCategoryTree, getCollectionProducts } from "@/server/catalog/service";
 import { Footer } from "./Footer";
@@ -7,7 +6,7 @@ import { NewsletterPopup } from "./NewsletterPopup";
 
 function headerCategories(): NavLink[] {
   try {
-    return getCategoryTree(getDb()).map((c) => ({
+    return getCategoryTree().map((c) => ({
       label: c.name,
       href: `/shop?category=${c.slug}`,
     }));
@@ -20,7 +19,7 @@ function headerCategories(): NavLink[] {
 
 export function trendingProducts(): ProductSummary[] {
   try {
-    return getCollectionProducts(getDb(), "trending-now", 4);
+    return getCollectionProducts("trending-now", 4);
   } catch {
     return [];
   }

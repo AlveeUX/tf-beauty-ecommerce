@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { getDb } from "@/db/client";
 import { FlashSale } from "@/components/home/FlashSale";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import {
@@ -27,7 +26,6 @@ export const metadata: Metadata = { title: { absolute: "Cosmia | Skincare & Cosm
 export const dynamic = "force-dynamic";
 
 export default function Home() {
-  const db = getDb();
 
   // Product counts for the category cards (shown on hover).
   const counts: Record<string, number> = {};
@@ -36,11 +34,11 @@ export default function Home() {
       counts[n.slug] = n.count;
       walk(n.children);
     });
-  walk(getCategoryTree(db));
+  walk(getCategoryTree());
 
   // Designed cards first (banner data overrides price/rating/badge), then the live collection.
-  const designed = getBanners(db, "home-trending").flatMap((b) => {
-    const base = getProductsBySlugs(db, [String(b.data.productSlug)])[0];
+  const designed = getBanners("home-trending").flatMap((b) => {
+    const base = getProductsBySlugs([String(b.data.productSlug)])[0];
     if (!base) return [];
     return [
       {
@@ -57,11 +55,11 @@ export default function Home() {
   const taken = new Set(designed.map((p) => p.slug));
   const trending = [
     ...designed,
-    ...getCollectionProducts(db, "trending-now", 12).filter((p) => !taken.has(p.slug)),
+    ...getCollectionProducts("trending-now", 12).filter((p) => !taken.has(p.slug)),
   ].slice(0, 8);
 
-  const loved = getBanners(db, "home-loved").flatMap((b) => {
-    const base = getProductsBySlugs(db, [String(b.data.productSlug)])[0];
+  const loved = getBanners("home-loved").flatMap((b) => {
+    const base = getProductsBySlugs([String(b.data.productSlug)])[0];
     if (!base) return [];
     return [
       {
@@ -80,21 +78,21 @@ export default function Home() {
 
   return (
     <>
-      <HeroSlider slides={getBanners(db, "home-hero")} />
-      <CategoryCards cards={getBanners(db, "home-categories")} counts={counts} />
-      <Marquee items={getBanners(db, "home-marquee")} />
+      <HeroSlider slides={getBanners("home-hero")} />
+      <CategoryCards cards={getBanners("home-categories")} counts={counts} />
+      <Marquee items={getBanners("home-marquee")} />
       <TrendingNow products={trending} />
       <FreshDrops
-        banner={getBanners(db, "home-fresh-drops")[0]}
-        items={getBanners(db, "home-fresh-items")}
+        banner={getBanners("home-fresh-drops")[0]}
+        items={getBanners("home-fresh-items")}
       />
-      <FeatureStrip items={getBanners(db, "home-features")} />
-      <EditorialBanner banner={getBanners(db, "home-editorial")[0]} />
+      <FeatureStrip items={getBanners("home-features")} />
+      <EditorialBanner banner={getBanners("home-editorial")[0]} />
       <MostLoved items={loved} />
-      <FlashSale banner={getBanners(db, "home-flash")[0]} />
-      <PersonalBand stories={getBanners(db, "home-testimonials")} bundles={getBundles(db)} />
-      <Journal posts={getBanners(db, "home-journal")} />
-      <InstagramStrip items={getBanners(db, "home-instagram")} />
+      <FlashSale banner={getBanners("home-flash")[0]} />
+      <PersonalBand stories={getBanners("home-testimonials")} bundles={getBundles()} />
+      <Journal posts={getBanners("home-journal")} />
+      <InstagramStrip items={getBanners("home-instagram")} />
     </>
   );
 }

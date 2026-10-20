@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { getDb } from "@/db/client";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
 import { PageHero } from "@/components/layout/PageHero";
 import { Icon } from "@/components/ui/Icon";
@@ -13,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 /** Categories index (CAT-008, Figma 3:28043): every active category that has products and an image. */
 export default function CategoriesPage() {
-  const cards = getCategoryCards(getDb());
+  const cards = getCategoryCards();
   return (
     <>
       <PageHero title="Categories" />

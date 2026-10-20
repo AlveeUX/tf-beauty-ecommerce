@@ -1,9 +1,5 @@
-import { eq } from "drizzle-orm";
-import { beforeAll, describe, expect, it } from "vitest";
-import { createDb, type Db } from "../../src/db/client";
-import { runMigrations } from "../../src/db/migrate";
-import { seedCatalog } from "../../src/db/seed";
-import { inventory, products, variants } from "../../src/db/schema";
+import { afterEach, describe, expect, it } from "vitest";
+import { tables } from "../../src/data/tables";
 import { DEFAULT_QUERY, parseCatalogQuery, toSearchParams } from "../../src/server/catalog/query";
 import {
   getApprovedReviews,
@@ -16,24 +12,19 @@ import {
   searchSuggestions,
 } from "../../src/server/catalog/service";
 
-let db: Db;
+import { resetTables, withTables } from "../helpers/tables";
+
 const query = (params: Record<string, string | string[]>) => parseCatalogQuery(params).query;
 
-beforeAll(() => {
-  db = createDb(":memory:").db;
-  runMigrations(db);
-  seedCatalog(db);
-});
+afterEach(resetTables);
 
-describe("seed", () => {
-  it("creates the design's 36 products and is repeatable", () => {
-    expect(db.select().from(products).all()).toHaveLength(36);
-    seedCatalog(db);
-    expect(db.select().from(products).all()).toHaveLength(36);
+describe("catalog data", () => {
+  it("holds the design's 36 products", () => {
+    expect(tables.products).toHaveLength(36);
   });
 
   it("stores money as integer cents", () => {
-    for (const v of db.select().from(variants).all()) {
+    for (const v of tables.variants) {
       expect(Number.isInteger(v.priceCents)).toBe(true);
       if (v.compareAtCents !== null) expect(v.compareAtCents).toBeGreaterThan(v.priceCents);
     }
@@ -94,25 +85,25 @@ describe("parseCatalogQuery (CAT-002/004/005, SEC-003)", () => {
 
 describe("listProducts (CAT-001/003/004/005)", () => {
   it("returns page 1 of 12 with an accurate 'Showing x-y of N'", () => {
-    const r = listProducts(db, DEFAULT_QUERY);
+    const r = listProducts(DEFAULT_QUERY);
     expect(r).toMatchObject({ total: 36, page: 1, pageSize: 12, pageCount: 3, from: 1, to: 12 });
     expect(r.items).toHaveLength(12);
   });
 
   it("clamps an out-of-range page to the last page", () => {
-    const r = listProducts(db, query({ page: "99" }));
+    const r = listProducts(query({ page: "99" }));
     expect(r.page).toBe(3);
     expect(r.items).toHaveLength(12);
   });
 
   it("expands a parent category to its children", () => {
-    expect(listProducts(db, query({ category: "skincare" })).total).toBe(16);
-    expect(listProducts(db, query({ category: "face" })).total).toBe(7);
-    expect(listProducts(db, query({ category: "cleansers,tools" })).total).toBe(7);
+    expect(listProducts(query({ category: "skincare" })).total).toBe(16);
+    expect(listProducts(query({ category: "face" })).total).toBe(7);
+    expect(listProducts(query({ category: "cleansers,tools" })).total).toBe(7);
   });
 
   it("filters by price range inclusive of bounds", () => {
-    const r = listProducts(db, query({ price: "20-30", pageSize: "48" }));
+    const r = listProducts(query({ price: "20-30", pageSize: "48" }));
     expect(r.total).toBeGreaterThan(0);
     for (const p of r.items) {
       expect(p.priceCents).toBeGreaterThanOrEqual(2000);
@@ -121,36 +112,36 @@ describe("listProducts (CAT-001/003/004/005)", () => {
   });
 
   it("filters by size bucket using any variant (the serum has a 15ml variant)", () => {
-    const mini = listProducts(db, query({ size: "mini", pageSize: "48" }));
+    const mini = listProducts(query({ size: "mini", pageSize: "48" }));
     expect(mini.items.map((p) => p.slug)).toContain("the-renewal-serum");
     expect(
-      listProducts(db, query({ size: "jumbo", pageSize: "48" })).items.map((p) => p.slug),
+      listProducts(query({ size: "jumbo", pageSize: "48" })).items.map((p) => p.slug),
     ).toContain("skin-rescue-shampoo");
   });
 
   it("filters by color, rating and badge", () => {
-    expect(listProducts(db, query({ color: "crimson" })).total).toBe(4);
-    const rated = listProducts(db, query({ rating: "4.5", pageSize: "48" }));
+    expect(listProducts(query({ color: "crimson" })).total).toBe(4);
+    const rated = listProducts(query({ rating: "4.5", pageSize: "48" }));
     expect(rated.total).toBeLessThan(36);
     for (const p of rated.items) expect(p.rating).toBeGreaterThanOrEqual(4.5);
-    for (const p of listProducts(db, query({ badge: "new", pageSize: "48" })).items)
+    for (const p of listProducts(query({ badge: "new", pageSize: "48" })).items)
       expect(p.badge).toBe("new");
   });
 
   it("handles availability: out-of-stock products are excluded from 'in-stock' and 'on-sale' uses compare-at", () => {
-    const inStock = listProducts(db, query({ availability: "in-stock", pageSize: "48" }));
+    const inStock = listProducts(query({ availability: "in-stock", pageSize: "48" }));
     expect(inStock.total).toBe(35);
     expect(inStock.items.map((p) => p.slug)).not.toContain("glass-glow-primer");
-    const onSale = listProducts(db, query({ availability: "on-sale", pageSize: "48" }));
+    const onSale = listProducts(query({ availability: "on-sale", pageSize: "48" }));
     expect(onSale.total).toBe(8);
     for (const p of onSale.items) expect(p.compareAtCents!).toBeGreaterThan(p.priceCents);
   });
 
   it("sorts by price both ways with a stable tie-break", () => {
-    const asc = listProducts(db, query({ sort: "price-asc", pageSize: "48" })).items.map(
+    const asc = listProducts(query({ sort: "price-asc", pageSize: "48" })).items.map(
       (p) => p.priceCents,
     );
-    const desc = listProducts(db, query({ sort: "price-desc", pageSize: "48" })).items.map(
+    const desc = listProducts(query({ sort: "price-desc", pageSize: "48" })).items.map(
       (p) => p.priceCents,
     );
     expect(asc).toEqual([...asc].sort((a, b) => a - b));
@@ -161,55 +152,53 @@ describe("listProducts (CAT-001/003/004/005)", () => {
 
   it("combines filters (AND) and returns an empty result without error", () => {
     expect(
-      listProducts(db, query({ category: "face", color: "peach", availability: "in-stock" })).total,
+      listProducts(query({ category: "face", color: "peach", availability: "in-stock" })).total,
     ).toBe(5);
-    const none = listProducts(db, query({ category: "fragrance", color: "crimson" }));
+    const none = listProducts(query({ category: "fragrance", color: "crimson" }));
     expect(none).toMatchObject({ total: 0, items: [], page: 1, pageCount: 1, from: 0, to: 0 });
   });
 
   it("returns nothing for an unknown category rather than ignoring the filter", () => {
-    expect(listProducts(db, query({ category: "does-not-exist" })).total).toBe(0);
+    expect(listProducts(query({ category: "does-not-exist" })).total).toBe(0);
   });
 
   it("marks unavailable products as not in stock", () => {
-    const primer = listProducts(db, query({ q: "glass glow primer" })).items[0]!;
+    const primer = listProducts(query({ q: "glass glow primer" })).items[0]!;
     expect(primer.inStock).toBe(false);
   });
 });
 
 describe("search (SRC-001)", () => {
   it("matches name, type, tag and category, case-insensitively, with all terms required", () => {
-    expect(listProducts(db, query({ q: "SERUM" })).items.map((p) => p.slug)).toContain(
+    expect(listProducts(query({ q: "SERUM" })).items.map((p) => p.slug)).toContain(
       "the-renewal-serum",
     );
-    expect(listProducts(db, query({ q: "lip" })).total).toBeGreaterThan(2);
-    expect(listProducts(db, query({ q: "renewal serum" })).items.map((p) => p.slug)).toEqual([
+    expect(listProducts(query({ q: "lip" })).total).toBeGreaterThan(2);
+    expect(listProducts(query({ q: "renewal serum" })).items.map((p) => p.slug)).toEqual([
       "the-renewal-serum",
     ]);
-    expect(listProducts(db, query({ q: "xyzzy" })).total).toBe(0);
+    expect(listProducts(query({ q: "xyzzy" })).total).toBe(0);
   });
 
   it("treats % and _ literally and is safe against SQL metacharacters", () => {
     // "%" is matched literally: only the serum's ingredient list contains "(5%)", a wildcard would match all 36.
-    expect(listProducts(db, query({ q: "%" })).items.map((p) => p.slug)).toEqual([
-      "the-renewal-serum",
-    ]);
-    expect(listProducts(db, query({ q: "_" })).total).toBe(0);
-    expect(listProducts(db, query({ q: "'; drop table products; --" })).total).toBe(0);
-    expect(db.select().from(products).all()).toHaveLength(36);
+    expect(listProducts(query({ q: "%" })).items.map((p) => p.slug)).toEqual(["the-renewal-serum"]);
+    expect(listProducts(query({ q: "_" })).total).toBe(0);
+    expect(listProducts(query({ q: "'; drop table products; --" })).total).toBe(0);
+    expect(tables.products).toHaveLength(36);
   });
 
   it("suggests products and categories, and ignores one-character input", () => {
-    const s = searchSuggestions(db, "face");
+    const s = searchSuggestions("face");
     expect(s.categories.map((c) => c.slug)).toContain("face");
     expect(s.products.length).toBeGreaterThan(0);
-    expect(searchSuggestions(db, "f")).toEqual({ products: [], categories: [] });
+    expect(searchSuggestions("f")).toEqual({ products: [], categories: [] });
   });
 });
 
 describe("facets (CAT-002)", () => {
   it("counts each group while ignoring only its own filter", () => {
-    const f = getFacets(db, query({ category: "skincare" }));
+    const f = getFacets(query({ category: "skincare" }));
     const skincare = f.categories.find((c) => c.slug === "skincare")!;
     const makeup = f.categories.find((c) => c.slug === "makeup")!;
     expect(skincare.count).toBe(16);
@@ -226,13 +215,13 @@ describe("facets (CAT-002)", () => {
   });
 
   it("reports the global price range for the slider", () => {
-    expect(getFacets(db, DEFAULT_QUERY).price).toEqual({ minCents: 1000, maxCents: 14900 });
+    expect(getFacets(DEFAULT_QUERY).price).toEqual({ minCents: 1000, maxCents: 14900 });
   });
 });
 
 describe("categories and collections", () => {
   it("builds the tree and hides empty categories (Nails has no products)", () => {
-    const tree = getCategoryTree(db);
+    const tree = getCategoryTree();
     expect(tree.map((c) => c.slug)).toEqual([
       "skincare",
       "makeup",
@@ -246,21 +235,21 @@ describe("categories and collections", () => {
       "face",
     ]);
     expect(
-      getCategoryTree(db, { includeEmpty: true })
+      getCategoryTree({ includeEmpty: true })
         .find((c) => c.slug === "makeup")!
         .children.map((c) => c.slug),
     ).toContain("nails");
   });
 
   it("serves the Home collections", () => {
-    expect(getCollectionProducts(db, "trending-now", 8).length).toBeGreaterThan(0);
-    expect(getCollectionProducts(db, "nope")).toEqual([]);
+    expect(getCollectionProducts("trending-now", 8).length).toBeGreaterThan(0);
+    expect(getCollectionProducts("nope")).toEqual([]);
   });
 });
 
 describe("product detail (PRD-001/002/007, BR-10, BR-11)", () => {
   it("returns variants with availability and a default", () => {
-    const p = getProductBySlug(db, "the-renewal-serum")!;
+    const p = getProductBySlug("the-renewal-serum")!;
     expect(p.variants.map((v) => v.sizeLabel)).toEqual(["15ml", "30ml", "50ml"]);
     expect(p.defaultVariant).toMatchObject({
       sizeLabel: "30ml",
@@ -273,36 +262,37 @@ describe("product detail (PRD-001/002/007, BR-10, BR-11)", () => {
   });
 
   it("reports sold-out products and returns null for unknown slugs", () => {
-    expect(getProductBySlug(db, "glass-glow-primer")!.inStock).toBe(false);
-    expect(getProductBySlug(db, "nope")).toBeNull();
+    expect(getProductBySlug("glass-glow-primer")!.inStock).toBe(false);
+    expect(getProductBySlug("nope")).toBeNull();
   });
 
   it("hides draft and archived products everywhere", () => {
-    db.update(products).set({ status: "draft" }).where(eq(products.slug, "facial-roller")).run();
-    expect(getProductBySlug(db, "facial-roller")).toBeNull();
-    expect(listProducts(db, DEFAULT_QUERY).total).toBe(35);
-    expect(listProducts(db, query({ q: "roller" })).total).toBe(0);
-    expect(getCategoryTree(db).find((c) => c.slug === "tools")!.count).toBe(3);
-    db.update(products).set({ status: "archived" }).where(eq(products.slug, "facial-roller")).run();
-    expect(getProductBySlug(db, "facial-roller")).toBeNull();
-    db.update(products)
-      .set({ status: "published" })
-      .where(eq(products.slug, "facial-roller"))
-      .run();
-    expect(listProducts(db, DEFAULT_QUERY).total).toBe(36);
+    const setStatus = (status: "draft" | "archived") =>
+      withTables((t) => {
+        t.products.find((p) => p.slug === "facial-roller")!.status = status;
+      });
+    setStatus("draft");
+    expect(getProductBySlug("facial-roller")).toBeNull();
+    expect(listProducts(DEFAULT_QUERY).total).toBe(35);
+    expect(listProducts(query({ q: "roller" })).total).toBe(0);
+    expect(getCategoryTree().find((c) => c.slug === "tools")!.count).toBe(3);
+    setStatus("archived");
+    expect(getProductBySlug("facial-roller")).toBeNull();
+    resetTables();
+    expect(listProducts(DEFAULT_QUERY).total).toBe(36);
   });
 
   it("shows only approved reviews", () => {
-    const p = getProductBySlug(db, "the-renewal-serum")!;
-    const r = getApprovedReviews(db, p.id);
+    const p = getProductBySlug("the-renewal-serum")!;
+    const r = getApprovedReviews(p.id);
     expect(r).toHaveLength(3);
     expect(r.some((x) => x.title === "Awaiting moderation")).toBe(false);
     expect(r.find((x) => x.brandReply)?.brandReplyAuthor).toBe("Cosmia Skin Team");
   });
 
   it("returns related products from the same category first, never the product itself", () => {
-    const p = getProductBySlug(db, "the-renewal-serum")!;
-    const related = getRelatedProducts(db, p.id, 4);
+    const p = getProductBySlug("the-renewal-serum")!;
+    const related = getRelatedProducts(p.id, 4);
     expect(related).toHaveLength(4);
     expect(related.map((r) => r.slug)).not.toContain("the-renewal-serum");
     expect(
@@ -314,17 +304,14 @@ describe("product detail (PRD-001/002/007, BR-10, BR-11)", () => {
     ).toBe(true);
   });
 
-  it("reflects stock changes immediately (admin -> storefront consistency)", () => {
-    const p = getProductBySlug(db, "the-renewal-serum")!;
-    for (const v of p.variants)
-      db.update(inventory).set({ onHand: 0 }).where(eq(inventory.variantId, v.id)).run();
-    expect(getProductBySlug(db, "the-renewal-serum")!.inStock).toBe(false);
+  it("reflects stock changes immediately (provider data -> storefront consistency)", () => {
+    const p = getProductBySlug("the-renewal-serum")!;
+    withTables((t) => {
+      for (const v of p.variants) t.inventory.find((i) => i.variantId === v.id)!.onHand = 0;
+    });
+    expect(getProductBySlug("the-renewal-serum")!.inStock).toBe(false);
     expect(
-      listProducts(db, query({ availability: "in-stock", pageSize: "48" })).items.map(
-        (i) => i.slug,
-      ),
+      listProducts(query({ availability: "in-stock", pageSize: "48" })).items.map((i) => i.slug),
     ).not.toContain("the-renewal-serum");
-    for (const v of p.variants)
-      db.update(inventory).set({ onHand: 40 }).where(eq(inventory.variantId, v.id)).run();
   });
 });

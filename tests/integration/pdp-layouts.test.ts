@@ -1,20 +1,11 @@
-import { eq } from "drizzle-orm";
-import { beforeEach, describe, expect, it } from "vitest";
-import { createDb, type Db } from "../../src/db/client";
-import { runMigrations } from "../../src/db/migrate";
-import { products } from "../../src/db/schema";
-import { seedCatalog } from "../../src/db/seed";
+import { afterEach, describe, expect, it } from "vitest";
 import { SUBSCRIBE_DISCOUNT_PERCENT } from "../../src/config/store";
 import { GALLERY_FOR, PDP_LAYOUTS, parsePdpLayout } from "../../src/lib/pdp-layouts";
 import { subscriptionCents } from "../../src/components/product/PurchaseOptions";
 import { getProductBySlug } from "../../src/server/catalog/service";
+import { resetTables, withTables } from "../helpers/tables";
 
-let db: Db;
-beforeEach(() => {
-  db = createDb(":memory:").db;
-  runMigrations(db);
-  seedCatalog(db);
-});
+afterEach(resetTables);
 
 describe("product page layouts (PRD-012)", () => {
   it("knows the ten Figma layouts and a gallery setup for each", () => {
@@ -30,24 +21,22 @@ describe("product page layouts (PRD-012)", () => {
   });
 
   it("returns the stored layout (validated) and sale end with the product", () => {
-    expect(getProductBySlug(db, "the-renewal-serum")?.pdpLayout).toBeNull();
-    db.update(products)
-      .set({ pdpLayout: "gallery-2-column" })
-      .where(eq(products.slug, "the-renewal-serum"))
-      .run();
-    expect(getProductBySlug(db, "the-renewal-serum")?.pdpLayout).toBe("gallery-2-column");
-    db.update(products)
-      .set({ pdpLayout: "not-a-layout" })
-      .where(eq(products.slug, "the-renewal-serum"))
-      .run();
-    expect(getProductBySlug(db, "the-renewal-serum")?.pdpLayout).toBeNull();
+    expect(getProductBySlug("the-renewal-serum")?.pdpLayout).toBeNull();
+    const setLayout = (layout: string) =>
+      withTables(
+        (t) => (t.products.find((p) => p.slug === "the-renewal-serum")!.pdpLayout = layout),
+      );
+    setLayout("gallery-2-column");
+    expect(getProductBySlug("the-renewal-serum")?.pdpLayout).toBe("gallery-2-column");
+    setLayout("not-a-layout");
+    expect(getProductBySlug("the-renewal-serum")?.pdpLayout).toBeNull();
   });
 
   it("seeds a sale end only for products with a compare-at price", () => {
-    const sale = getProductBySlug(db, "barrier-repair-cream")!;
+    const sale = getProductBySlug("barrier-repair-cream")!;
     expect(sale.defaultVariant.compareAtCents).not.toBeNull();
     expect(sale.saleEndsAt!.getTime()).toBeGreaterThan(Date.now());
-    expect(getProductBySlug(db, "the-renewal-serum")!.saleEndsAt).toBeNull();
+    expect(getProductBySlug("the-renewal-serum")!.saleEndsAt).toBeNull();
   });
 
   it("prices the subscription in whole cents", () => {

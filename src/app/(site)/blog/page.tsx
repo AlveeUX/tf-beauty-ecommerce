@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { BlogIndex } from "@/components/blog/BlogIndex";
 import { PageHero } from "@/components/layout/PageHero";
-import { getDb } from "@/db/client";
 import { BLOG_PAGE_SIZE, parseBlogLayout } from "@/lib/blog";
 import { listPosts, sidebarData } from "@/server/blog/queries";
 
@@ -28,9 +27,7 @@ export default async function BlogRoute({ searchParams }: Props) {
     q: first(params.q)?.slice(0, 80),
   };
   const requested = Number.parseInt(first(params.page) ?? "1", 10);
-  const db = getDb();
   const result = listPosts(
-    db,
     filter,
     Number.isFinite(requested) ? requested : 1,
     BLOG_PAGE_SIZE[layout],
@@ -44,7 +41,7 @@ export default async function BlogRoute({ searchParams }: Props) {
         page={result.page}
         pages={result.pages}
         total={result.total}
-        sidebar={sidebarData(db)}
+        sidebar={sidebarData()}
         filter={filter}
       />
     </>

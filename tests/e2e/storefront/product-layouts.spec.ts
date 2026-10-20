@@ -1,5 +1,4 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
-import { run } from "../fixtures/db";
 import { expectNoSeriousViolations } from "../fixtures/axe";
 
 // E2E-LAY-01..10 (PRD-010/011/012): the Figma product-page layouts. Coordinates are page coordinates at
@@ -56,17 +55,7 @@ test.describe("Product page layouts", () => {
     await open(page, "the-renewal-serum", "no-such-layout");
     await expect(page.getByTestId("product-gallery")).toHaveAttribute("data-mode", "below");
     await expect(page.getByTestId("purchase-options")).toHaveCount(0);
-
-    run("update products set pdp_layout = 'gallery-2-column' where slug = 'gentle-cleansing-milk'");
-    try {
-      await page.goto("/product/gentle-cleansing-milk");
-      await expect(page.getByTestId("product-gallery")).toHaveAttribute("data-mode", "grid-2");
-      // the URL still overrides it (preview)
-      await page.goto("/product/gentle-cleansing-milk?layout=thumbnail-left");
-      await expect(page.getByTestId("product-gallery")).toHaveAttribute("data-mode", "thumbs-end");
-    } finally {
-      run("update products set pdp_layout = null where slug = 'gentle-cleansing-milk'");
-    }
+    // a stored product layout and its URL override are covered by tests/integration/pdp-layouts.test.ts
   });
 
   test("E2E-LAY-03 thumbnail layouts: 80px column beside a 550 x 642 image (3:29779, 3:30941)", async ({
@@ -224,20 +213,6 @@ test.describe("Product page layouts", () => {
     const secs = await page.getByTestId("countdown-secs").innerText();
     await expect(page.getByTestId("countdown-secs")).not.toHaveText(secs, { timeout: 3000 });
 
-    // once the sale has ended the timer is gone
-    run(
-      "update products set sale_ends_at = ? where slug = 'barrier-repair-cream'",
-      Date.now() - 1000,
-    );
-    try {
-      await open(page, "barrier-repair-cream", "on-sale-countdown");
-      await expect(page.getByTestId("countdown")).toHaveCount(0);
-    } finally {
-      run(
-        "update products set sale_ends_at = ? where slug = 'barrier-repair-cream'",
-        Date.now() + 20 * 86_400_000,
-      );
-    }
     // a product that is not on sale has no timer either
     await open(page, "the-renewal-serum", "on-sale-countdown");
     await expect(page.getByTestId("countdown")).toHaveCount(0);

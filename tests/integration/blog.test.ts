@@ -26,38 +26,38 @@ const input = (over: Partial<Parameters<typeof addComment>[2]> = {}) =>
 
 describe("blog queries (BLG-001..003)", () => {
   it("seeds the 12 design posts in list order and pages them", () => {
-    const first = listPosts(db, {}, 1, 12);
+    const first = listPosts({}, 1, 12);
     expect(first.total).toBe(12);
     expect(first.pages).toBe(1);
     expect(first.posts[0]!.slug).toBe("inside-the-formula-behind-beautiful-skin");
-    const sixPerPage = listPosts(db, {}, 2, BLOG_PAGE_SIZE.list);
+    const sixPerPage = listPosts({}, 2, BLOG_PAGE_SIZE.list);
     expect(sixPerPage.pages).toBe(2);
     expect(sixPerPage.posts).toHaveLength(6);
     // a page past the end falls back to the last one
-    expect(listPosts(db, {}, 99, 6).page).toBe(2);
+    expect(listPosts({}, 99, 6).page).toBe(2);
   });
 
   it("filters by category, tag and search text", () => {
-    expect(listPosts(db, { category: "science" }, 1, 12).total).toBe(1);
-    expect(listPosts(db, { tag: "Evening" }, 1, 12).total).toBe(2);
-    expect(listPosts(db, { q: "makeup" }, 1, 12).posts[0]!.category).toBe("Makeup");
-    expect(listPosts(db, { q: "zzzz" }, 1, 12).total).toBe(0);
+    expect(listPosts({ category: "science" }, 1, 12).total).toBe(1);
+    expect(listPosts({ tag: "Evening" }, 1, 12).total).toBe(2);
+    expect(listPosts({ q: "makeup" }, 1, 12).posts[0]!.category).toBe("Makeup");
+    expect(listPosts({ q: "zzzz" }, 1, 12).total).toBe(0);
     // wildcard characters are literal
-    expect(listPosts(db, { q: "%" }, 1, 12).total).toBe(12);
+    expect(listPosts({ q: "%" }, 1, 12).total).toBe(12);
   });
 
   it("builds the sidebar and finds a post with neighbours that wrap around", () => {
-    const side = sidebarData(db, "inside-the-formula-behind-beautiful-skin");
+    const side = sidebarData("inside-the-formula-behind-beautiful-skin");
     expect(side.categories).toHaveLength(6);
     expect(side.recent).toHaveLength(3);
     expect(side.recent.map((p) => p.slug)).not.toContain(
       "inside-the-formula-behind-beautiful-skin",
     );
     expect(side.tags.length).toBeGreaterThan(0);
-    const post = getPost(db, "inside-the-formula-behind-beautiful-skin");
+    const post = getPost("inside-the-formula-behind-beautiful-skin");
     expect(post?.blocks.some((b) => b.type === "quote")).toBe(true);
-    expect(getPost(db, "nope")).toBeNull();
-    const around = neighbours(db, "inside-the-formula-behind-beautiful-skin");
+    expect(getPost("nope")).toBeNull();
+    const around = neighbours("inside-the-formula-behind-beautiful-skin");
     expect(around.next?.slug).toBe("skin-simplified-for-smarter-skincare-routine");
     expect(around.previous?.slug).toBe("how-to-create-a-skincare-routine-that-works");
   });
@@ -73,7 +73,7 @@ describe("blog comments (BLG-004)", () => {
   const slug = "inside-the-formula-behind-beautiful-skin";
 
   it("shows the three approved seed comments with one reply", () => {
-    const comments = approvedComments(db, postIdFor(db, slug)!);
+    const comments = approvedComments(postIdFor(slug)!);
     expect(comments).toHaveLength(3);
     expect(comments.filter((c) => c.parentId === null)).toHaveLength(2);
   });
@@ -81,7 +81,7 @@ describe("blog comments (BLG-004)", () => {
   it("stores new comments as pending, so they do not show until approved", () => {
     const result = addComment(db, slug, input(), "ip-a");
     expect(result.ok).toBe(true);
-    expect(approvedComments(db, postIdFor(db, slug)!)).toHaveLength(3);
+    expect(approvedComments(postIdFor(slug)!)).toHaveLength(3);
   });
 
   it("rejects unknown posts and replies to comments that are not visible", () => {

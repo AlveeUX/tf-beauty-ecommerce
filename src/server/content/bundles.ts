@@ -1,4 +1,3 @@
-import type { Db } from "@/db/client";
 import type { Bundle } from "@/components/home/BundleBuilder";
 import { getProductsBySlugs } from "@/server/catalog/service";
 
@@ -59,9 +58,9 @@ const BUNDLE_DEFINITIONS: BundleDefinition[] = [
 
 export const BUNDLE_DISCOUNT_PERCENT = 20;
 
-export function getBundles(db: Db): Bundle[] {
+export function getBundles(): Bundle[] {
   return BUNDLE_DEFINITIONS.map((def) => {
-    const found = getProductsBySlugs(db, [...def.slugs]);
+    const found = getProductsBySlugs([...def.slugs]);
     // keep the order of `slugs`
     const products = def.slugs.flatMap((slug, i) => {
       const p = found.find((f) => f.slug === slug);

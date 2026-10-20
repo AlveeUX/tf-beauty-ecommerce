@@ -1,5 +1,4 @@
 import { notFound, redirect } from "next/navigation";
-import { getDb } from "@/db/client";
 import { getCategoryTree } from "@/server/catalog/service";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +12,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       known.add(n.slug);
       walk(n.children);
     });
-  walk(getCategoryTree(getDb()));
+  walk(getCategoryTree());
   if (!known.has(slug)) notFound();
   redirect(`/shop?category=${encodeURIComponent(slug)}`);
 }

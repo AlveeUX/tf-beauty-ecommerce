@@ -1,4 +1,3 @@
-import { getDb } from "@/db/client";
 import { parseCatalogQuery } from "@/server/catalog/query";
 import { getFacets, listProducts } from "@/server/catalog/service";
 import { jsonError } from "@/server/http";
@@ -12,10 +11,9 @@ export function GET(request: Request) {
   if (issues.length > 0) {
     return jsonError(400, "invalid_query", "One or more query parameters are invalid.", issues);
   }
-  const db = getDb();
-  const result = listProducts(db, query);
+  const result = listProducts(query);
   return Response.json({
     ...result,
-    ...(params.get("facets") === "1" ? { facets: getFacets(db, query) } : {}),
+    ...(params.get("facets") === "1" ? { facets: getFacets(query) } : {}),
   });
 }

@@ -1,4 +1,3 @@
-import { getDb } from "@/db/client";
 import { lookupProducts } from "@/server/catalog/lookup";
 
 export const dynamic = "force-dynamic";
@@ -9,5 +8,5 @@ const SLUG = /^[a-z0-9-]{1,120}$/;
 export async function GET(request: Request) {
   const raw = new URL(request.url).searchParams.get("slugs") ?? "";
   const slugs = [...new Set(raw.split(",").filter((s) => SLUG.test(s)))].slice(0, 24);
-  return Response.json({ items: lookupProducts(getDb(), slugs) });
+  return Response.json({ items: lookupProducts(slugs) });
 }

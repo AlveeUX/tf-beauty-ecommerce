@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDb } from "@/db/client";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
 import { IngredientHighlights } from "@/components/product/IngredientHighlights";
 import { ProductCarousel } from "@/components/product/ProductCarousel";
@@ -29,7 +28,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(getDb(), slug);
+  const product = getProductBySlug(slug);
   if (!product) return { title: "Product not found" };
   return { title: product.name, description: product.shortDescription ?? undefined };
 }
@@ -37,17 +36,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const { layout: requested, sticky } = await searchParams;
-  const db = getDb();
-  const product = getProductBySlug(db, slug); // drafts/archived products are not public (BR-10)
+  const product = getProductBySlug(slug); // drafts/archived products are not public (BR-10)
   if (!product) notFound();
 
   // ?layout= previews any of the Figma layouts; otherwise the layout chosen for this product (PRD-012)
   const layout = parsePdpLayout(requested) ?? product.pdpLayout ?? "details-default";
   const gallery = GALLERY_FOR[layout];
 
-  const reviews = getApprovedReviews(db, product.id);
-  const moreFromCollection = getRelatedProducts(db, product.id, 8);
-  const trending = getCollectionProducts(db, "trending-now", 9).filter(
+  const reviews = getApprovedReviews(product.id);
+  const moreFromCollection = getRelatedProducts(product.id, 8);
+  const trending = getCollectionProducts("trending-now", 9).filter(
     (p) => p.slug !== product.slug,
   );
 
