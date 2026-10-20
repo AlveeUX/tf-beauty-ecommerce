@@ -357,9 +357,58 @@
   color: var(--color-dark-02);
 }
 
+/* Laptop (1101-1439): the 870 + 420px columns become a flexible table beside a 340px totals card */
+@media (max-width: 1439px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 30px;
+  }
+
+  .main {
+    min-width: 0;
+  }
+
+  .main > :first-child,
+  .table,
+  .actions {
+    width: 100%;
+  }
+
+  .totals {
+    width: 340px;
+    padding: 24px;
+  }
+
+  .table th:first-child,
+  .table td:first-child {
+    width: auto;
+    padding-left: 20px;
+  }
+
+  .table th:nth-child(2),
+  .table td:nth-child(2),
+  .table th:nth-child(3),
+  .table td:nth-child(3),
+  .table th:nth-child(4),
+  .table td:nth-child(4) {
+    width: 1%;
+    padding-right: 20px;
+    white-space: nowrap;
+  }
+
+  .coupon input {
+    width: 200px;
+  }
+
+  .actions {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}
+
 @media (max-width: 1100px) {
   .layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 40px;
   }
 
@@ -378,5 +427,118 @@
   .actions {
     flex-direction: column;
     gap: 16px;
+  }
+}
+
+/* Tablet and phone: 44px targets */
+@media (max-width: 1100px) {
+  .x {
+    align-items: center;
+    justify-content: center;
+    min-width: var(--tap);
+    min-height: var(--tap);
+  }
+
+  .coupon input,
+  .dark,
+  .outline,
+  .checkout {
+    min-height: var(--tap);
+  }
+
+  .totals {
+    padding: 24px;
+  }
+}
+
+/* Phone: each cart line is a card (picture and name on top, quantity and subtotal under them) */
+@media (max-width: 767px) {
+  .page {
+    padding-block: 48px 64px;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+  }
+
+  .table {
+    border: 0;
+    background: transparent;
+  }
+
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .table tr {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 16px;
+    border: 1px dashed var(--color-border-light);
+    background: var(--color-bg-body);
+  }
+
+  .table td,
+  .table td:first-child,
+  .table td:nth-child(3),
+  .table td:nth-child(4) {
+    width: auto;
+    padding: 0;
+    border: 0;
+    white-space: normal;
+  }
+
+  .table td:first-child {
+    grid-column: 1 / -1;
+    padding-right: var(--tap);
+  }
+
+  .table td:nth-child(5) {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+  }
+
+  .table td:nth-child(4) {
+    text-align: right;
+  }
+
+  .thumb {
+    width: 72px;
+    height: 84px;
+  }
+
+  .name {
+    font-size: var(--text-16);
+    line-height: 22px;
+  }
+
+  .label {
+    margin-top: 8px;
+  }
+
+  .coupon {
+    flex-wrap: wrap;
+  }
+
+  .coupon input {
+    flex: 1 1 140px;
+    width: auto;
+    min-width: 0;
+  }
+
+  .outline {
+    width: 100%;
   }
 }

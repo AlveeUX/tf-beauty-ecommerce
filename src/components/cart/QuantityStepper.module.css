@@ -32,3 +32,20 @@
   text-transform: uppercase;
   color: var(--color-dark-01);
 }
+
+/* Tablet and phone: 44px targets (the stepper grows to hold them) */
+@media (max-width: 1100px) {
+  .stepper,
+  .sm {
+    width: 140px;
+    height: var(--tap);
+    padding: 0 4px;
+  }
+
+  .stepper button {
+    align-items: center;
+    justify-content: center;
+    width: var(--tap);
+    height: var(--tap);
+  }
+}

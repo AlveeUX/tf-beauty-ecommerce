@@ -304,3 +304,87 @@
     padding-left: 12px;
   }
 }
+
+/* Tablet and phone: 44px remove targets and buttons */
+@media (max-width: 1100px) {
+  .page {
+    padding-block: 48px 64px;
+  }
+
+  .x {
+    align-items: center;
+    justify-content: center;
+    min-width: var(--tap);
+    min-height: var(--tap);
+  }
+
+  .dark {
+    min-height: var(--tap);
+  }
+}
+
+/* Phone: each wishlist line is a card; the compare table keeps its columns and scrolls inside its box */
+@media (max-width: 767px) {
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+  }
+
+  .table {
+    border: 0;
+  }
+
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .table tr {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 12px 16px;
+    margin-bottom: 12px;
+    padding: 16px;
+    border: 1px dashed var(--color-border-light);
+  }
+
+  .table td,
+  .table .tdEnd {
+    padding: 0 !important;
+    border: 0;
+    text-align: left;
+  }
+
+  .table td:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .table .product {
+    padding-left: 0;
+    gap: 12px;
+  }
+
+  .table .thumb {
+    width: 72px;
+    height: 84px;
+  }
+
+  .table .name {
+    font-size: var(--text-16);
+    line-height: 22px;
+  }
+
+  .table td:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .table .dark {
+    width: 100%;
+  }
+}

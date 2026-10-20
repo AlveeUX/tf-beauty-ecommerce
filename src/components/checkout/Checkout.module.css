@@ -449,3 +449,94 @@
 .empty p {
   color: var(--color-dark-02);
 }
+
+/* Laptop (1101-1439): the 870 + 420px columns become the form beside a 360px order panel */
+@media (max-width: 1439px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 30px;
+  }
+
+  .main {
+    min-width: 0;
+  }
+
+  .panel {
+    padding: 24px;
+  }
+
+  .method p {
+    width: auto;
+  }
+}
+
+/* Tablet and phone: one column (form, then the order panel with payment and Place order); 44px targets */
+@media (max-width: 1100px) {
+  .page {
+    padding-block: 48px 64px;
+  }
+
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 40px;
+  }
+
+  .couponBar {
+    height: auto;
+    min-height: 70px;
+    padding-block: 16px;
+  }
+
+  .couponForm input,
+  .dark,
+  .place {
+    min-height: var(--tap);
+  }
+
+  .method label {
+    height: auto;
+    min-height: var(--tap);
+  }
+
+  .method + .method {
+    margin-top: 0;
+  }
+
+  .method input {
+    width: var(--tap);
+    height: var(--tap);
+  }
+
+  .method p {
+    margin-top: 4px;
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .heading {
+    margin-block: 40px 24px;
+    font-size: 2rem;
+    line-height: 40px;
+  }
+
+  .couponForm input {
+    flex: 1 1 140px;
+    width: auto;
+    min-width: 0;
+  }
+
+  .panel {
+    padding: 20px 16px;
+  }
+
+  .thumb {
+    width: 72px;
+    height: 84px;
+  }
+
+  .itemName {
+    font-size: var(--text-16);
+    line-height: 22px;
+  }
+}

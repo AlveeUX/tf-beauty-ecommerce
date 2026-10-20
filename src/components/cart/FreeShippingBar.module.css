@@ -51,3 +51,22 @@
     transition: none;
   }
 }
+
+/* Phone: the message can take two lines, so the track moves down with it */
+@media (max-width: 767px) {
+  .box {
+    height: auto;
+    padding: 20px 20px 52px;
+  }
+
+  .track {
+    top: auto;
+    bottom: 26px;
+    left: 20px;
+    right: 20px;
+  }
+
+  .page .track {
+    right: 44px;
+  }
+}

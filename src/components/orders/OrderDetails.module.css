@@ -120,7 +120,7 @@
 
 .meta {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 30px;
 }
 
@@ -155,7 +155,7 @@
 /* ---- timeline ---- */
 .steps {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
   gap: 0;
   margin: 0;
   padding: 0;
@@ -241,4 +241,45 @@
   flex: none;
   width: 170px;
   color: var(--color-dark-03);
+}
+
+/* Phone: the items table shrinks to the screen, log entries stack */
+@media (max-width: 767px) {
+  .items th,
+  .items td {
+    padding-inline: 10px;
+  }
+
+  .items th:nth-child(2),
+  .items td:nth-child(2) {
+    width: 44px;
+  }
+
+  .items th:nth-child(3),
+  .items td:nth-child(3) {
+    width: 84px;
+  }
+
+  .thumb {
+    width: 48px;
+    height: 56px;
+  }
+
+  .product {
+    gap: 10px;
+  }
+
+  .name,
+  .label {
+    overflow-wrap: anywhere;
+  }
+
+  .log li {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .log time {
+    width: auto;
+  }
 }
