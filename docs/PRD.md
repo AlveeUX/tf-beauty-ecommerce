@@ -1,5 +1,7 @@
 # Product Requirements Document — E-Commerce Platform
 
+> **ThemeForest branch note (D-050):** on branch `themeforest` the plan in force is `themeforest-plan.md`. Requirements about the database, server auth, orders, payments and the admin dashboard describe the full-stack app on `main` and do not apply to the template.
+
 > Working name of the design brand: **COSMIA** ("Skincare & Cosmetics"). Whether this is the client's real brand is an open question (OQ-01).
 
 ---
@@ -13,7 +15,7 @@
 | Version | 0.1 (draft for approval) |
 | Status | Approved to proceed 2026-10-19 (P0-P4 delivered; see section 16). Open questions use provisional defaults — see `decision-log.md` D-004. P1 foundation code exists; no storefront/admin features yet. |
 | Last updated | 2026-10-19 |
-| Companion documents | `context.md`, `development-plan.md`, `e2e-testing-strategy.md` |
+| Companion documents | `context.md`, `themeforest-plan.md`, `e2e-testing-strategy.md` |
 
 ### 1.1 Evidence and assumptions policy
 
@@ -504,7 +506,7 @@ All entities below are **P** (proposals derived from Figma-visible data fields p
 | BR-11 | Reviews display only when approved; "Verified" badge only for customers with a delivered order of that product. | P |
 | BR-12 | Tracking requires Order ID **and** billing email. | V (form fields) |
 
-Lifecycle diagrams and detailed transition tables will be added to `development-plan.md` task contracts when the owning phase starts.
+Lifecycle diagrams and detailed transition tables will be added to `themeforest-plan.md` task contracts when the owning phase starts.
 
 ---
 
@@ -710,7 +712,7 @@ Implementation modules and E2E IDs are *planned names*; nothing is implemented y
 | *(none — not designed)* | Admin | ADM-*, ACT-*, AIN-*, AOR-*, ACS-*, APM-*, ACN-*, AST-*, AUR-*, ARP-* | `admin/*` | E2E-ADM-*, E2E-ACT-*, … |
 | `3:42651`, `3:41609`, `3:42576` | Reference sheets | CAT-009, seed data, assets | `db/seed`, `assets` | seed verification |
 
-*This table must be kept current in `development-plan.md` task contracts as implementation begins.*
+*This table must be kept current in `themeforest-plan.md` task contracts as implementation begins.*
 
 
 ---

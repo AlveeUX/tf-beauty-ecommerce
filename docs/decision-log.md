@@ -7,7 +7,7 @@ Purpose: record **why** development decisions were made, so that when something 
 | Version | 0.2 |
 | Created | 2026-10-19 |
 | Owner | Claude Code sessions, reviewed by the project owner |
-| Related | `context.md` (current state), `PRD.md` (requirements), `development-plan.md` (phases), `e2e-testing-strategy.md` |
+| Related | `context.md` (current state), `PRD.md` (requirements), `themeforest-plan.md` (phases TF0-TF8, the plan in force), `e2e-testing-strategy.md`; `development-plan.md` was retired by D-050 |
 
 ## How to use this log
 
@@ -79,6 +79,8 @@ Purpose: record **why** development decisions were made, so that when something 
 | D-048 | 2026-10-20 | P2 | Home header dropdowns use the light "Menu dropdown" panel | APPROVED |
 | D-047 | 2026-10-20 | P4d | Quick view, size guide, share popup and wishlist popup (last four frames) | APPROVED |
 | D-046 | 2026-10-20 | P0 | Git repository created locally and first push to the user's GitHub repo | APPROVED |
+| D-050 | 2026-10-20 | TF0 | ThemeForest product decisions TF-D1..TF-D7; `themeforest-plan.md` becomes the plan; `development-plan.md` retired | APPROVED |
+| D-051 | 2026-10-20 | TF0 | ThemeForest copy pushed to a new PUBLIC repo `tf-beauty-ecommerce` (risk accepted) | APPROVED |
 | D-045 | 2026-10-20 | P4c | The ten Shop listing layouts (sidebar, list, load more, top filter, horizontal, drawer) | APPROVED |
 
 ---
@@ -568,3 +570,19 @@ Not verified: behavior from a truly clean clone (`npm install` on another machin
 | Git repository created / anything pushed or deployed | No / No |
 
 Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P11); keyboard-only walkthrough beyond the search overlay; automated pixel diffs; behavior from a clean clone on another machine; ~48 of 60 Figma frames were not visually compared (they are built in later phases).
+
+### D-050 · 2026-10-20 · TF0 · APPROVED — ThemeForest release plan becomes the plan in force; `development-plan.md` retired
+- **Request:** the user is preparing the project to be sold on ThemeForest as an author, said `docs/themeforest-plan.md` is the plan to execute now, allowed removing `development-plan.md`, and asked for the other docs to follow the ThemeForest plan.
+- **Decisions (TF-D1..TF-D7, full reasoning in `themeforest-plan.md` §0):** (1) the product is a Next.js eCommerce **front-end template with JSON mock data**: no database, no server auth, no admin; (2) work happens on branch `themeforest`, `main` stays the full-stack app; (3) P7-P9 (admin) are out of scope, P11 becomes TF3, P12 becomes TF4-TF7; (4) all layout variants ship as demos (10 shop, 11 product, 6 blog; replaces OQ-06 for this branch); (5) placeholder images in the zip, licensed photos only in the live preview; (6) `src/server/*` read functions keep their names and types but read JSON, write flows move to client stores; (7) deploy target is any Node host or Vercel/Netlify, static export is a stretch goal.
+- **Docs changed:** `development-plan.md` deleted (history stays in Git; its task-contract template moved into `themeforest-plan.md` §3; phases P0-P6 are recorded in this log, P7-P12 are superseded). `CLAUDE.md`, `context.md`, `README.md` rewritten to point at the ThemeForest plan. `PRD.md` and `e2e-testing-strategy.md` keep their text but carry a banner: database, auth, orders and admin requirements apply to `main` only.
+- **Superseded on this branch:** the admin scope, OQ-06 (one layout per route), D-033 "accept contrast failures" (TF3-T08 fixes them), the "no Git push / no deploy" wording of the early entries (D-046 still governs pushes).
+- **Consequences / watch-outs:** old entries that mention `development-plan.md` are history and stay unchanged. Phase IDs P0-P12 in old entries do not map to TF IDs except as listed above.
+- **Revisit when:** Envato refuses upload rights (TF0 gate): the same zip can be sold elsewhere, only TF8 changes.
+- **Decided by:** User.
+
+### D-051 · 2026-10-20 · TF0 · APPROVED — ThemeForest copy pushed to a new public repo, risk accepted
+- **What happened:** the original remote was removed from the copy and `origin` now points to `https://github.com/AlveeUX/tf-beauty-ecommerce.git` (verified: fetch and push both show only that URL). The new repo was empty. The full history (about 130 MB) was pushed on `main`. The `themeforest` branch has not been pushed yet; ask first.
+- **Warning given:** the repo is **public** (an unauthenticated API call returned 200). The history contains Figma-sourced photos and product images whose rights are unconfirmed (PRD OQ-02, plan TF0-T02). The plan had asked to make it private first. **The user declined to make it private for now and asked to push anyway.** Pushed material cannot be un-published, only stopped from further spreading.
+- **Mitigation if the photos prove not to be the user's:** delete the GitHub repo, remove the photos from the working tree (TF5-T01), create a fresh history from a clean snapshot, push again.
+- **Also found:** `npm install` fails on this machine (`better-sqlite3` has no prebuilt binary for Node 24.18 and Visual Studio Build Tools are not installed). Handled by TF1-T00, then removed for good by TF1-T09.
+- **Decided by:** User.

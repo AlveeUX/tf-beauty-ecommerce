@@ -1,7 +1,7 @@
-# Beauty Ecommerce (local development)
+# Cosmia - Beauty eCommerce (ThemeForest edition, in preparation)
 
-Storefront + administration dashboard built from the Figma design (see `docs/context.md`).
-**Local-only phase:** nothing here is deployed, pushed, or connected to external services.
+Next.js eCommerce storefront built from the Figma design, being prepared for sale on ThemeForest as a front-end template with JSON mock data (see `docs/themeforest-plan.md`).
+**Work in progress on branch `themeforest`:** until TF1 is finished the app still uses SQLite (`better-sqlite3`); the database, server auth and admin are being removed from this edition. Nothing here is deployed.
 
 ## Requirements
 
@@ -41,7 +41,7 @@ npm run dev                       # http://localhost:3000  (health: /api/health)
 | Search | header search icon, or `/search?q=serum` |
 | Component catalog (dev only) | `/dev/components` |
 
-Cart, wishlist, compare, checkout, accounts and the admin dashboard are not built yet (see `docs/development-plan.md`).
+The storefront pages (cart, wishlist, compare, checkout, accounts, blog, content pages and all layout variants) are built. The admin dashboard is **not** part of the ThemeForest edition.
 
 ## Layout
 
@@ -59,4 +59,4 @@ tests/         unit, integration, api, e2e, visual, reports
 
 ## Project documents (in `docs/`)
 
-`docs/PRD.md` (what) - `docs/development-plan.md` (when/how) - `docs/e2e-testing-strategy.md` (verification) - `docs/context.md` (current state) - `docs/decision-log.md` (why).
+`docs/themeforest-plan.md` (the plan: phases, task contracts, checklist) - `docs/PRD.md` (requirements and Figma inventory; database/auth/admin parts apply to `main` only) - `docs/e2e-testing-strategy.md` (verification) - `docs/context.md` (current state) - `docs/decision-log.md` (why).

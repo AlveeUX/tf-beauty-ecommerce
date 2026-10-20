@@ -1,10 +1,12 @@
 # End-to-End Testing and Visual Verification Strategy
 
+> **ThemeForest branch note (D-050):** on branch `themeforest` the plan in force is `themeforest-plan.md`. Requirements about the database, server auth, orders, payments and the admin dashboard describe the full-stack app on `main` and do not apply to the template.
+
 | Item | Value |
 |---|---|
 | Version | 0.1 (draft, awaiting approval) |
 | Last updated | 2026-10-19 |
-| Related | `PRD.md` (requirements/IDs), `development-plan.md` (phases/tasks), `context.md` |
+| Related | `PRD.md` (requirements/IDs), `themeforest-plan.md` (phases/tasks), `context.md` |
 | State | **Nothing is implemented or tested yet.** No test tools are installed. Tools named here are proposals. |
 
 ---
@@ -255,7 +257,7 @@ A module is done only when **all** are true:
 - [ ] No unresolved critical/high defects without explicit user approval.
 - [ ] Regression checks for affected modules completed.
 - [ ] Evidence and status recorded (§8).
-- [ ] `context.md` and `development-plan.md` updated.
+- [ ] `context.md` and `themeforest-plan.md` updated.
 
 ---
 

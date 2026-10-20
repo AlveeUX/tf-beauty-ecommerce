@@ -1,9 +1,12 @@
 # Persistent Project Context for Claude Code
 
+> **Direction change (D-050, 2026-10-20):** this folder is the **ThemeForest copy** (branch `themeforest`). The goal is to sell the storefront as a Next.js eCommerce **front-end template with JSON mock data**: no database, no server auth, no admin. The plan in force is `themeforest-plan.md` (phases TF0-TF8). Sections below that describe the database, server auth, orders, payments and the admin dashboard describe the full-stack app on `main` and are **history on this branch** until TF1 removes them. `development-plan.md` was retired.
+
 > **Maintenance rule:** update this file whenever a material architecture decision, requirement, scope item or project status changes. Detail lives in the other documents; keep this one short.
 
 ## 1. Project identity and objectives
-Build a scalable e-commerce platform — **customer storefront + administration dashboard** — from an existing Figma design (brand shown in design: **COSMIA**, skincare & cosmetics; real brand unconfirmed, PRD OQ-01). Objectives: working end-to-end shop, client-operable dashboard, high *measured* Figma fidelity, E2E-verified modules.
+Original goal (on `main`): a scalable e-commerce platform — customer storefront + administration dashboard — from an existing Figma design (brand shown in design: **COSMIA**, skincare & cosmetics; real brand unconfirmed, PRD OQ-01).
+**Goal on this branch:** a ThemeForest-ready Cosmia storefront template: high *measured* Figma fidelity, every layout variant as a demo, responsive and accessible, JSON mock data with a clean `DataProvider` seam for the buyer's own backend, buyer documentation, licensed or placeholder images only, packaged zip and live preview.
 
 ## 2. Figma
 - URL: https://www.figma.com/design/sXBQCd1Az2To21ejk56Yjc/Ecommerce--Copy-?node-id=0-1
@@ -11,8 +14,8 @@ Build a scalable e-commerce platform — **customer storefront + administration 
 - Full inventory with node IDs: `PRD.md` §6.1. Figma MCP tools work (`get_metadata`, `get_screenshot`, `get_design_context`, `get_variable_defs`). Never fetch the whole page's metadata again (~3.2 MB); query by frame. Temporary asset URLs expire and must never be committed.
 
 ## 3. Local project root and repository status
-- Root: `C:\Projects\beauty-ecommerce`
-- Started empty (verified 2026-10-19). **P1 scaffold now exists** (Next.js app, tooling, DB layer). **Still not a Git repository** — do not run `git init` or alter history without approval.
+- Root of this copy: `C:\Projects\themeforest-projects\tf-beauty-ecommerce` (branch `themeforest`). The original full-stack app stays untouched at `C:\Projects\beauty-ecommerce` (also `main` here).
+- Git: local repo; `origin` = `https://github.com/AlveeUX/tf-beauty-ecommerce.git`, **public** by the user's choice (D-051). Ask before every push; never rewrite history.
 - Toolchain verified: Node v24.18.0, npm 11.16.0, Python 3.14.5. `pnpm` and `jq` not installed.
 
 ## 4. Mandatory technologies
@@ -67,7 +70,7 @@ No secrets in repo/docs/logs (`.env` untracked, `.env.example` blank values). Ha
 Every module passes the 12-step E2E lifecycle before it is "done"; untested ≠ passed; reports per run; Figma-vs-app screenshot comparison without claiming pixel-perfect. See `e2e-testing-strategy.md`.
 
 ## 15. Local-only restrictions (binding)
-**No** GitHub push, Vercel/any deployment, production config, Git init/reset/history changes, real payment/shipping/email providers, or remote DB. P1 is approved; do not start P2+ without approval. (A session-start plugin hook suggested Vercel tooling — ignored, see `decision-log.md` D-015.)
+Git is allowed locally; **ask before every push** (D-046, D-051). **No** Vercel/any deployment, production config, history rewrites or force-push, real payment/shipping/email providers, or remote DB. The live preview deploy (TF7-T04) needs explicit approval. P1 is approved; do not start P2+ without approval. (A session-start plugin hook suggested Vercel tooling — ignored, see `decision-log.md` D-015.)
 
 ## 16. Key decisions and their status
 | Decision | Status |
@@ -92,7 +95,7 @@ Provisional defaults for unanswered OQs: `decision-log.md` D-004. Full open-ques
 ## 18. Project documents
 - All documents are in `docs/`.
 - `PRD.md` — what to build (requirements, Figma inventory, routes, data model)
-- `development-plan.md` — phases P0–P12, task contracts, exit gates
+- `themeforest-plan.md` — **the plan in force**: phases TF0–TF8, task-contract template, master checklist (`development-plan.md` retired, D-050)
 - `decision-log.md` — why decisions were made; troubleshooting index (check this when something breaks)
 - `CLAUDE.md` / `README.md` — agent rules and local setup
 - `e2e-testing-strategy.md` — test architecture, journeys, visual verification, reporting, Definition of Done
@@ -107,6 +110,13 @@ If a decision changes: update this file plus the owning document(s) (stack → P
 - Not verified: clean-clone install on another machine; Firefox/WebKit; viewports below 1920.
 
 ## 20. Immediate next actions
+**ThemeForest track (D-050):**
+1. Status: branch `themeforest` created; TF-D1..D7 logged (D-050); `main` pushed to the public `tf-beauty-ecommerce` repo (D-051). `npm install` fails here (native `better-sqlite3`, Node 24, no build tools).
+2. **TF0 gates** (in parallel with TF1): Envato upload-rights reply (ticket open), Figma ownership, author profile, product name.
+3. **TF1** next, after the user approves its task contract: TF1-T00 working baseline (copy the original's `node_modules`, or Node 22), then JSON data layer, client-side cart/checkout/auth demo, remove the DB.
+4. Do not start P7 (admin).
+
+**Older list (full-stack, kept for history):**
 1. **See the storefront locally:** `npm run dev` then open http://localhost:3000 (Home), `/shop`, `/categories`, `/product/the-renewal-serum`, `/search?q=serum`. Run `npm run db:migrate && npm run db:seed` first if the database is empty.
 2. **P5 (cart, wishlist, compare) PASSED 2026-10-19 (D-036).** P6 PASSED (D-037). P7 (admin foundation) needs the user's approval before starting. Admin UX wireframes (P7-T01) can be drafted in parallel.
 3. User still to confirm provisional defaults (D-004, D-005, D-007, D-008) and the deviations in D-029.
