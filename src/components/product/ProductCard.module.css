@@ -417,3 +417,142 @@
     margin-top: 8px;
   }
 }
+
+/* Tablet and phone: no hover, so the action stack is always visible and its buttons are 44px targets */
+@media (max-width: 1100px) {
+  .actions {
+    opacity: 1;
+    transform: none;
+  }
+
+  .actions a,
+  .actions button {
+    width: var(--tap);
+    height: var(--tap);
+  }
+
+  .stdName a,
+  .ctaName a {
+    display: inline-block;
+  }
+}
+
+/* Phone: compact standard card, text in normal flow; only wishlist and add to cart stay on the picture */
+@media (max-width: 767px) {
+  .actions li:nth-child(1),
+  .actions li:nth-child(2) {
+    display: none;
+  }
+
+  .actions {
+    top: 8px;
+    right: 8px;
+  }
+
+  .badge {
+    top: 8px;
+    left: 8px;
+    max-width: calc(100% - 68px);
+    font-size: var(--text-12);
+    line-height: 18px;
+  }
+
+  .card:not(.cta):not(.row) .body {
+    height: auto;
+    gap: 4px;
+    padding: 12px 12px 16px;
+  }
+
+  .card:not(.cta):not(.row) .stdName,
+  .card:not(.cta):not(.row) .stdLabel,
+  .card:not(.cta):not(.row) .stdPrice {
+    margin-top: 0;
+    text-box: none;
+  }
+
+  .card:not(.cta):not(.row) .stdName {
+    font-size: var(--text-16);
+    line-height: 22px;
+  }
+
+  .card:not(.cta):not(.row) .stdLabel {
+    font-size: var(--text-13);
+    line-height: 20px;
+  }
+
+  .card:not(.cta):not(.row) .stdPrice > span:first-child {
+    font-size: var(--text-16);
+    line-height: 22px;
+    text-box: none;
+  }
+
+  /* list rows become cards: the picture on the left (40%), text on the right, no description */
+  .row {
+    grid-template-columns: 40% minmax(0, 1fr);
+    height: auto;
+  }
+
+  .row .media {
+    height: 100%;
+    min-height: 180px;
+    aspect-ratio: auto;
+  }
+
+  .row .body {
+    padding: 14px 12px;
+  }
+
+  .rowText {
+    display: none;
+  }
+
+  .rowFoot {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 0;
+  }
+
+  .rowFoot .stdPrice {
+    margin-top: 0;
+  }
+
+  .shopNow {
+    width: 100%;
+    height: var(--tap);
+  }
+
+  .row .actions li:nth-child(4) {
+    display: none;
+  }
+
+  .row .stdName,
+  .row .stdLabel {
+    margin-top: 6px;
+    text-box: none;
+  }
+
+  .row .stdName {
+    font-size: var(--text-16);
+    line-height: 22px;
+  }
+
+  .row .stdLabel {
+    font-size: var(--text-13);
+    line-height: 20px;
+  }
+
+  .rowFoot {
+    flex-direction: column;
+    align-items: stretch;
+    align-self: stretch;
+    margin-top: 12px;
+  }
+
+  .rowFoot .stdPrice {
+    order: -1;
+  }
+
+  .rowFoot .stdPrice > span:first-child {
+    text-box: none;
+  }
+}

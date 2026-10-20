@@ -9,7 +9,7 @@ import { toSearchParams, type CatalogQuery } from "@/server/catalog/query";
 import type { CatalogResult, Facets } from "@/server/catalog/service";
 import { ActiveFilters } from "./ActiveFilters";
 import styles from "./CatalogView.module.css";
-import { FilterButton, FilterUiProvider } from "./FilterUi";
+import { FilterButton, FilterUiProvider, SheetFilterButton } from "./FilterUi";
 import { FilterSidebar } from "./FilterSidebar";
 import { Pagination } from "./Pagination";
 import { SortSelect } from "./SortSelect";
@@ -53,7 +53,8 @@ export function CatalogView({ title, crumbs, basePath, query, result, facets }: 
   );
 
   const hasSidebar = traits.filters === "sidebar-left" || traits.filters === "sidebar-right";
-  const wantsUi = traits.filters === "panel" || traits.filters === "drawer";
+  /** Layouts that show their filters in the page above 1100 px; up to there they use the sheet. */
+  const inlineFilters = traits.filters !== "drawer";
   const nextSize = Math.min(query.pageSize + LOAD_MORE_STEP, MAX_PAGE_SIZE);
   const canLoadMore = result.to < result.total && query.pageSize < MAX_PAGE_SIZE;
   const loadMoreQuery = toSearchParams({ ...query, pageSize: nextSize, page: 1 }).toString();
@@ -67,17 +68,26 @@ export function CatalogView({ title, crumbs, basePath, query, result, facets }: 
         </div>
         <div className={styles.right}>
           <SortSelect value={query.sort} basePath={basePath} />
-          {wantsUi ? (
-            <FilterButton controls="shop-filters" drawer={traits.filters === "drawer"} />
+          {traits.filters === "drawer" ? (
+            <FilterButton controls="shop-filters" drawer />
+          ) : traits.filters === "panel" ? (
+            <span className={styles.inlineOnly}>
+              <FilterButton controls="shop-filters" />
+            </span>
           ) : null}
+          {inlineFilters ? <SheetFilterButton /> : null}
         </div>
       </div>
 
       {traits.filters === "panel" ? (
-        <FilterSidebar facets={facets} basePath={basePath} variant="panel" />
+        <div className={styles.inlineOnly}>
+          <FilterSidebar facets={facets} basePath={basePath} variant="panel" />
+        </div>
       ) : null}
       {traits.filters === "dropdowns" ? (
-        <FilterSidebar facets={facets} basePath={basePath} variant="dropdowns" />
+        <div className={styles.inlineOnly}>
+          <FilterSidebar facets={facets} basePath={basePath} variant="dropdowns" />
+        </div>
       ) : null}
 
       <ActiveFilters query={query} facets={facets} basePath={basePath} />
@@ -137,7 +147,11 @@ export function CatalogView({ title, crumbs, basePath, query, result, facets }: 
     </section>
   );
 
-  const sidebar = hasSidebar ? <FilterSidebar facets={facets} basePath={basePath} /> : null;
+  const sidebar = hasSidebar ? (
+    <div className={styles.inlineOnly}>
+      <FilterSidebar facets={facets} basePath={basePath} />
+    </div>
+  ) : null;
   const page = (
     <>
       <PageHero title={title} crumbs={crumbs} />
@@ -151,16 +165,14 @@ export function CatalogView({ title, crumbs, basePath, query, result, facets }: 
         {content}
         {traits.filters === "sidebar-right" ? sidebar : null}
       </div>
-      {traits.filters === "drawer" ? (
-        <FilterSidebar facets={facets} basePath={basePath} variant="drawer" />
-      ) : null}
+      <FilterSidebar
+        facets={facets}
+        basePath={basePath}
+        variant={traits.filters === "drawer" ? "drawer" : "sheet"}
+      />
       <BenefitStrip />
     </>
   );
 
-  return wantsUi ? (
-    <FilterUiProvider defaultOpen={traits.filters === "panel"}>{page}</FilterUiProvider>
-  ) : (
-    page
-  );
+  return <FilterUiProvider defaultOpen={traits.filters === "panel"}>{page}</FilterUiProvider>;
 }

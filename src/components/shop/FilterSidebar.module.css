@@ -410,6 +410,20 @@
   color: var(--color-primary);
 }
 
+/* Laptop (1101-1439): the five fixed columns of the 1320px design become equal shares */
+@media (max-width: 1439px) {
+  .panel,
+  .bar {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .popover,
+  .dropdown:first-child .popover {
+    width: 100%;
+    min-width: 220px;
+  }
+}
+
 @media (max-width: 1100px) {
   .panel,
   .bar {
@@ -430,5 +444,52 @@
   .popover,
   .dropdown:first-child .popover {
     width: 100%;
+  }
+}
+
+/* The sheet only exists up to 1100 px; above it the inline filters are shown */
+.sheetOnly {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .sheetOnly {
+    display: block;
+  }
+}
+
+.done {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .drawer {
+    width: min(368px, 88vw);
+  }
+
+  .drawerHead button {
+    width: var(--tap);
+    height: var(--tap);
+    margin-bottom: -13px;
+  }
+
+  .done {
+    position: sticky;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    min-height: var(--tap);
+    margin-top: 24px;
+    box-shadow: 0 -12px 0 var(--color-bg-body);
+    background: var(--color-bg-dark);
+    color: var(--color-light-01);
+    font-size: var(--text-14);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.14px;
+    text-transform: uppercase;
+  }
+
+  .drawer .done:hover {
+    background: var(--color-primary);
   }
 }

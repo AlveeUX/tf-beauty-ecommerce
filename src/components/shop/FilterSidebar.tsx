@@ -13,7 +13,7 @@ type FilterSidebarProps = {
   /** Route the filters apply to, e.g. "/shop". */
   basePath: string;
   /** Where the filters are shown: the sidebar (default), the top panel, a dropdown bar or the drawer. */
-  variant?: "sidebar" | "panel" | "dropdowns" | "drawer";
+  variant?: "sidebar" | "panel" | "dropdowns" | "drawer" | "sheet";
 };
 
 const PRICE_PRESETS = [
@@ -219,6 +219,12 @@ export function FilterSidebar({ facets, basePath, variant = "sidebar" }: FilterS
     </div>
   );
   if (variant === "drawer") return <DrawerFilters busy={pending}>{stack}</DrawerFilters>;
+  if (variant === "sheet")
+    return (
+      <DrawerFilters busy={pending} sheet>
+        {stack}
+      </DrawerFilters>
+    );
   return (
     <aside aria-label="Product filters" aria-busy={pending}>
       {stack}
@@ -307,8 +313,19 @@ function DropdownFilters({ groups, busy }: { groups: Group[]; busy: boolean }) {
 }
 
 /** "Filter drawer" (Figma 3:12394): a 368 wide panel sliding in from the left over a dimmed page. */
-function DrawerFilters({ children, busy }: { children: ReactNode; busy: boolean }) {
-  const { open, close } = useFilterUi();
+function DrawerFilters({
+  children,
+  busy,
+  sheet,
+}: {
+  children: ReactNode;
+  busy: boolean;
+  /** The tablet/phone sheet of the inline layouts: own state, own id, a "Done" button, hidden above 1100 px. */
+  sheet?: boolean;
+}) {
+  const ui = useFilterUi();
+  const open = sheet ? ui.sheetOpen : ui.open;
+  const close = sheet ? ui.closeSheet : ui.close;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -326,9 +343,12 @@ function DrawerFilters({ children, busy }: { children: ReactNode; busy: boolean 
 
   if (!open) return null;
   return (
-    <div className={styles.overlay} onMouseDown={(e) => e.target === e.currentTarget && close()}>
+    <div
+      className={`${styles.overlay} ${sheet ? styles.sheetOnly : ""}`}
+      onMouseDown={(e) => e.target === e.currentTarget && close()}
+    >
       <div
-        id="shop-filters"
+        id={sheet ? "shop-filters-sheet" : "shop-filters"}
         ref={ref}
         className={styles.drawer}
         role="dialog"
@@ -343,6 +363,9 @@ function DrawerFilters({ children, busy }: { children: ReactNode; busy: boolean 
           </button>
         </header>
         {children}
+        <button type="button" className={styles.done} onClick={close}>
+          Show results
+        </button>
       </div>
     </div>
   );

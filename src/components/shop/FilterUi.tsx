@@ -4,7 +4,15 @@ import { createContext, useCallback, useContext, useMemo, useState, type ReactNo
 import { Icon } from "@/components/ui/Icon";
 import styles from "./FilterUi.module.css";
 
-type FilterUi = { open: boolean; toggle: () => void; close: () => void };
+type FilterUi = {
+  open: boolean;
+  toggle: () => void;
+  close: () => void;
+  /** The sheet that replaces the sidebar, panel and dropdown bar up to 1100 px. */
+  sheetOpen: boolean;
+  toggleSheet: () => void;
+  closeSheet: () => void;
+};
 const Context = createContext<FilterUi | null>(null);
 
 /**
@@ -21,7 +29,13 @@ export function FilterUiProvider({
   const [open, setOpen] = useState(defaultOpen);
   const toggle = useCallback(() => setOpen((v) => !v), []);
   const close = useCallback(() => setOpen(false), []);
-  const value = useMemo(() => ({ open, toggle, close }), [open, toggle, close]);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const toggleSheet = useCallback(() => setSheetOpen((v) => !v), []);
+  const closeSheet = useCallback(() => setSheetOpen(false), []);
+  const value = useMemo(
+    () => ({ open, toggle, close, sheetOpen, toggleSheet, closeSheet }),
+    [open, toggle, close, sheetOpen, toggleSheet, closeSheet],
+  );
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }
 
@@ -43,6 +57,25 @@ export function FilterButton({ controls, drawer }: { controls: string; drawer?: 
       aria-haspopup={drawer ? "dialog" : undefined}
       onClick={toggle}
       data-testid="filter-button"
+    >
+      <Icon name="sliders" size={16} />
+      <span>Filter</span>
+    </button>
+  );
+}
+
+/** Filter button of the layouts that show their filters inline above 1100 px; below that it opens the sheet. */
+export function SheetFilterButton() {
+  const { sheetOpen, toggleSheet } = useFilterUi();
+  return (
+    <button
+      type="button"
+      className={`${styles.button} ${styles.sheetButton}`}
+      aria-expanded={sheetOpen}
+      aria-controls="shop-filters-sheet"
+      aria-haspopup="dialog"
+      onClick={toggleSheet}
+      data-testid="filter-sheet-button"
     >
       <Icon name="sliders" size={16} />
       <span>Filter</span>

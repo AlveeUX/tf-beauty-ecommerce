@@ -26,3 +26,21 @@
   text-transform: uppercase;
   text-box: trim-both cap alphabetic;
 }
+
+/* shown only where the inline filters are replaced by the sheet */
+.sheetButton {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .sheetButton {
+    display: inline-flex;
+    width: auto;
+    min-width: var(--tap);
+    padding-inline: 20px;
+  }
+
+  .button {
+    min-height: var(--tap);
+  }
+}
