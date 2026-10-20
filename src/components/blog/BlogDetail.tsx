@@ -10,6 +10,7 @@ import {
 } from "@/lib/blog";
 import { BlogComments } from "./BlogComments";
 import styles from "./BlogDetail.module.css";
+import { SocialsStrip } from "@/components/ui/SocialsStrip";
 
 function Block({ block }: { block: BlogBlock }) {
   switch (block.type) {
@@ -142,13 +143,7 @@ export function BlogDetail({ post, comments, neighbours }: Props) {
         </div>
         <div className={styles.share}>
           <span>Share:</span>
-          <span className={styles.socials}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/ui/socials.svg" alt="" width={130} height={28} />
-            {(["facebook", "instagram", "twitter", "linkedin"] as const).map((s) => (
-              <a key={s} href="#" aria-label={`Share on ${s}`} />
-            ))}
-          </span>
+          <SocialsStrip mode="share" />
         </div>
       </div>
 

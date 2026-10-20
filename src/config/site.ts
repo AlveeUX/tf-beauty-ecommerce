@@ -15,6 +15,8 @@ export const site = {
   foundedYear: 2014,
 
   contact: {
+    /** City shown in the "Est" line of the announcement bar and Home footer (keep it in step with the address). */
+    city: "Portland",
     address: "2571 Oakridge Street, Suite 4B, Portland, OR 97205",
     phone: { display: "+1 (009) 544-7828", href: "tel:+10095447828" },
     emails: {
@@ -41,6 +43,8 @@ export const site = {
     currency: "USD",
     /** Orders at or above this subtotal ship free (integer cents). Also drives every free-shipping message. */
     freeShippingThresholdCents: 10_000,
+    /** Days a customer may return an eligible, unopened product (benefit strip, FAQs and returns policy). */
+    returnWindowDays: 15,
     /** Flat shipping rate below the threshold (integer cents). */
     shippingFlatRateCents: 800,
     /** A cart line may not exceed this even when more is in stock. */

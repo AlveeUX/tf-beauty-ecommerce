@@ -1,0 +1,36 @@
+/* Loading screen (proposed): placeholder bars in the card colour with a slow shimmer. */
+.page {
+  display: grid;
+  gap: 20px;
+  padding-block: 120px;
+  min-height: 60vh;
+  align-content: start;
+}
+
+.bar {
+  display: block;
+  height: 24px;
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-light-01) 0%,
+    var(--color-bg-light-02) 50%,
+    var(--color-bg-light-01) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    animation: none;
+  }
+}

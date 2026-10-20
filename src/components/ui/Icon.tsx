@@ -279,6 +279,9 @@ const PATHS = {
 
 export type IconName = keyof typeof PATHS;
 
+/** Every icon the template draws, for the UI kit page. */
+export const ICON_NAMES = Object.keys(PATHS) as IconName[];
+
 type IconProps = Omit<SVGProps<SVGSVGElement>, "name"> & {
   name: IconName;
   size?: number;

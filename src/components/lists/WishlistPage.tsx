@@ -8,10 +8,13 @@ import { useList } from "@/lib/lists";
 import { formatMoney } from "@/lib/money";
 import { useLookup } from "./useLookup";
 import styles from "./ListPages.module.css";
+import { SOCIAL_LABEL, shareHref } from "@/lib/share";
+import { usePageUrl } from "@/lib/use-page-url";
 
 /** Wishlist page (WSH-001): table with stock status and Add to cart. Figma 3:20784, empty 3:21193. */
 export function WishlistPage() {
   const { slugs, remove } = useList("wishlist");
+  const pageUrl = usePageUrl();
   const { add, busy } = useCart();
   const { status, items } = useLookup(slugs);
 
@@ -108,7 +111,13 @@ export function WishlistPage() {
       <p className={styles.share}>
         <span>Share on:</span>
         {(["facebook", "instagram", "twitter", "linkedin"] as const).map((s) => (
-          <a key={s} href="#" aria-label={`Share on ${s}`}>
+          <a
+            key={s}
+            href={shareHref(s, pageUrl)}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Share on ${SOCIAL_LABEL[s]}`}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={`/images/home/footer/soc-${s}.svg`} alt="" width={28} height={28} />
           </a>

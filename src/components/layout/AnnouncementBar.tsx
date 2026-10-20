@@ -4,12 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import styles from "./AnnouncementBar.module.css";
+import { site } from "@/config/site";
 
 type AnnouncementBarProps = {
   /** Rotating promo messages (managed from the admin in P9). */
   messages: string[];
   est?: string;
-  /** Replaces the "Est · 2019 · Copenhagen" line (the Home header shows a release note instead). */
+  /** Replaces the "Est · year · city" line (the Home header shows a release note instead). */
   left?: React.ReactNode;
   /** "dark" is the Home variant: translucent dark red over the hero. */
   tone?: "default" | "dark";
@@ -18,7 +19,7 @@ type AnnouncementBarProps = {
 /** Top bar: est. line, rotating promo message, store locator and language/currency. Figma 3:5794. */
 export function AnnouncementBar({
   messages,
-  est = "Est·2019·Copenhagen",
+  est = `Est·${site.foundedYear}·${site.contact.city}`,
   left,
   tone = "default",
 }: AnnouncementBarProps) {

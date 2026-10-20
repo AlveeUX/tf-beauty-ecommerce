@@ -11,6 +11,7 @@ import { NavLink } from "./NavLink";
 import { SearchOverlay } from "./SearchOverlay";
 import styles from "./Header.module.css";
 import { site } from "@/config/site";
+import { freeShippingAnnouncement } from "@/lib/shipping-copy";
 
 export type NavLink = { label: string; href: string };
 type NavItem = NavLink & { children?: MenuLink[]; mega?: boolean };
@@ -22,7 +23,7 @@ type HeaderProps = {
   trending?: ProductSummary[];
 };
 
-const DEFAULT_ANNOUNCEMENTS = ["Complimentary shipping on orders over $100"];
+const DEFAULT_ANNOUNCEMENTS = [freeShippingAnnouncement()];
 
 /** Primary header. Figma 3:5777 (main row) + 3:5794 (announcement bar). */
 export function Header({

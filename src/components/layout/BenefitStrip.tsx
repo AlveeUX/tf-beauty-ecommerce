@@ -1,5 +1,7 @@
 import Image from "next/image";
 import styles from "./BenefitStrip.module.css";
+import { site } from "@/config/site";
+import { freeShippingFrom } from "@/lib/shipping-copy";
 
 export type Benefit = { icon: string; title: string; text: string };
 
@@ -8,22 +10,22 @@ const DEFAULT_BENEFITS: Benefit[] = [
   {
     icon: "/images/ui/benefit-free-shipping.svg",
     title: "Free Shipping",
-    text: "Enjoy free shippings on orders over $50, carefully packed and delivered straight.",
+    text: `Enjoy free shipping on orders over ${freeShippingFrom()}, carefully packed and delivered to you.`,
   },
   {
     icon: "/images/ui/benefit-easy-returns.svg",
     title: "Easy Returns",
-    text: "Not the right fit? Enjoy over easy returns within 15 days on eligible, unopened products.",
+    text: `Not the right fit? Enjoy easy returns within ${site.commerce.returnWindowDays} days on eligible, unopened products.`,
   },
   {
     icon: "/images/ui/benefit-secure-checkout.svg",
     title: "Secure Checkout",
-    text: "Shop with confidence through our safe and secure checkout, designed to keep.",
+    text: "Shop with confidence through our safe and secure checkout, designed to protect.",
   },
   {
     icon: "/images/ui/benefit-support.svg",
     title: "Beauty Support",
-    text: "Need help choosing a product? Our beauty support team is here to answer & questions.",
+    text: "Need help choosing a product? Our support team is here to answer your questions.",
   },
 ];
 

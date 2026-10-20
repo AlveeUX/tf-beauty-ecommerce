@@ -45,10 +45,10 @@ const COLUMNS: Column[] = [
 ];
 
 const SOCIALS = [
-  { label: "Facebook", icon: "soc-facebook", active: true },
-  { label: "Instagram", icon: "soc-instagram" },
-  { label: "Twitter", icon: "soc-twitter" },
-  { label: "Linked-in", icon: "soc-linkedin" },
+  { label: "Facebook", icon: "soc-facebook", network: "facebook", active: true },
+  { label: "Instagram", icon: "soc-instagram", network: "instagram" },
+  { label: "Twitter", icon: "soc-twitter", network: "twitter" },
+  { label: "Linked-in", icon: "soc-linkedin", network: "linkedin" },
 ] as const;
 
 /** Card logos, placed as in the design: [file, left in the 36px box, top in the 24px box]. */
@@ -111,7 +111,12 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
             <ul className={styles.socials}>
               {SOCIALS.map((s) => (
                 <li key={s.label}>
-                  <a href="#" className={"active" in s ? styles.footActive : undefined}>
+                  <a
+                    href={site.socials[s.network]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={"active" in s ? styles.footActive : undefined}
+                  >
                     <Image
                       src={`${ASSET}/${s.icon}.svg`}
                       alt=""
@@ -148,8 +153,8 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
 
         <p className={styles.est}>
           <span>Est</span>
-          <span>2019</span>
-          <span>Copenhagen</span>
+          <span>{site.foundedYear}</span>
+          <span>{site.contact.city}</span>
           <Image src={`${ASSET}/dot.svg`} alt="" width={3} height={3} unoptimized />
           <Image src={`${ASSET}/dot.svg`} alt="" width={3} height={3} unoptimized />
         </p>

@@ -1,0 +1,41 @@
+/* The design's social icons are one 130 x 28 picture; each link sits over its round icon. */
+.strip {
+  position: relative;
+  display: block;
+  width: 130px;
+  height: 28px;
+}
+
+.strip img {
+  display: block;
+}
+
+.strip a {
+  position: absolute;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.strip a:nth-of-type(1) {
+  left: 0;
+}
+
+.strip a:nth-of-type(2) {
+  left: 34px;
+}
+
+.strip a:nth-of-type(3) {
+  left: 68px;
+}
+
+.strip a:nth-of-type(4) {
+  left: 102px;
+}
+
+.strip a:hover,
+.strip a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

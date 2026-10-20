@@ -4,6 +4,7 @@ import { Icon } from "@/components/ui/Icon";
 import { NewsletterForm } from "./NewsletterForm";
 import styles from "./Footer.module.css";
 import { site } from "@/config/site";
+import { SocialsStrip } from "@/components/ui/SocialsStrip";
 
 type FooterLink = { label: string; href: string; active?: boolean };
 
@@ -75,14 +76,7 @@ export function Footer() {
             <span className={styles.wordmark}>{site.name}</span>{" "}
             <span className={styles.tagline}>{site.tagline}</span>
           </Link>
-          <Image
-            className={styles.socials}
-            src="/images/ui/socials.svg"
-            alt="Social media: Facebook, Instagram, X, LinkedIn"
-            width={130}
-            height={28}
-            unoptimized
-          />
+          <SocialsStrip mode="profile" className={styles.socials} />
         </div>
         <a href="#top" className={styles.toTop} aria-label="Back to top">
           <Icon name="arrow-up" size={20} />

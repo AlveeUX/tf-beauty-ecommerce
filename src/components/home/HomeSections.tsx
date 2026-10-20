@@ -505,7 +505,12 @@ export function InstagramStrip({ items }: { items: Banner[] }) {
         <ul className={styles.instaGrid}>
           {items.slice(0, 6).map((item) => (
             <li key={item.id}>
-              <a href="#" aria-label={item.title}>
+              <a
+                href={site.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.title}
+              >
                 {item.image ? <Image src={item.image} alt={item.title} fill sizes="203px" /> : null}
                 <span className={styles.instaHover} aria-hidden="true" />
               </a>

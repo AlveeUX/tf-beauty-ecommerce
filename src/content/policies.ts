@@ -218,7 +218,7 @@ const RETURNS: Policy = {
       blocks: [
         {
           type: "p",
-          text: "You can return eligible, unopened products within 15 days of delivery.",
+          text: `You can return eligible, unopened products within ${site.commerce.returnWindowDays} days of delivery.`,
         },
       ],
     },

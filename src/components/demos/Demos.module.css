@@ -1,0 +1,92 @@
+/* Demo hub (proposed page, not a Figma frame): cards on the page background, tokens only. */
+.page {
+  padding-block: 80px;
+  display: grid;
+  gap: 64px;
+}
+
+.intro {
+  max-width: 760px;
+  font-size: var(--text-16);
+  line-height: 1.6;
+  color: var(--color-body-dark);
+}
+
+.intro code,
+.path code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.group {
+  display: grid;
+  gap: 24px;
+  padding-top: 32px;
+  border-top: 1px dashed var(--color-border-light);
+}
+
+.group h2 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-24);
+  color: var(--color-dark-01);
+}
+
+.group header p {
+  margin-top: 8px;
+  max-width: 760px;
+  font-size: var(--text-14);
+  line-height: 1.6;
+  color: var(--color-body-dark);
+}
+
+.count {
+  color: var(--color-dark-03);
+  font-family: var(--font-sans);
+  font-size: var(--text-16);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  height: 100%;
+  padding: 20px;
+  background: var(--color-bg-light-01);
+  border: 1px solid transparent;
+  color: var(--color-dark-01);
+  text-decoration: none;
+}
+
+.card:hover,
+.card:focus-visible {
+  border-color: var(--color-primary);
+}
+
+.title {
+  font-size: var(--text-16);
+  font-weight: var(--weight-medium);
+}
+
+.text {
+  font-size: var(--text-14);
+  line-height: 1.5;
+  color: var(--color-body-dark);
+}
+
+.path {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: var(--text-12);
+  color: var(--color-secondary);
+  overflow-wrap: anywhere;
+}

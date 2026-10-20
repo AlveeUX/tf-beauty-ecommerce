@@ -21,6 +21,9 @@ npm run dev                       # http://localhost:3000
 
 No `.env` file is needed. `.env.example` lists the optional settings.
 
+To rebrand the template, edit `src/config/site.ts` (name, tagline, contact details, social links, currency,
+shipping rules). A unit test fails if the brand name or demo contact details appear anywhere else in `src`.
+
 ## Scripts
 
 | Command                                       | Purpose                                                                                       |
@@ -34,6 +37,7 @@ No `.env` file is needed. `.env.example` lists the optional settings.
 
 | Page                             | URL                                                               |
 | -------------------------------- | ----------------------------------------------------------------- |
+| **Demo hub (every layout, one click)** | `/demos`                                                  |
 | Home                             | `/`                                                               |
 | Shop (filters, sort, pagination) | `/shop` (layouts: `?layout=`)                                     |
 | Product details                  | `/product/the-renewal-serum` (layouts: `?layout=`)                |
@@ -41,7 +45,7 @@ No `.env` file is needed. `.env.example` lists the optional settings.
 | Account (demo)                   | `/register`, `/login`, `/account`                                 |
 | Track order (demo)               | `/track-order` - try order `CSM-DEMO2026` with `demo@example.com` |
 | Blog, content pages              | `/blog`, `/about`, `/contact`, `/faqs`, `/store-locator`          |
-| Component catalog (dev only)     | `/dev/components`                                                 |
+| UI kit (components and tokens)   | `/ui-kit`                                                         |
 
 ## Demo mode
 

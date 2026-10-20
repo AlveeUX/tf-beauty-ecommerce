@@ -1,5 +1,6 @@
 import { SHIPPING_COUNTRIES } from "@/config/store";
 import type { IconName } from "@/components/ui/Icon";
+import { site } from "@/config/site";
 
 /**
  * FAQs (CNT-004, Figma "FAQs" 3:27601 and the Contact page list). The questions and the first shipping
@@ -26,7 +27,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       {
         id: "shipping-time",
         q: "How long does shipping take?",
-        a: "Orders ship within 1–2 business days and typically arrive within 3–5 business days across the continental US. Once your order is on its way, you’ll receive a tracking link by email so you can easily follow.",
+        a: "Orders ship within 1–2 business days and typically arrive within 3–5 business days in the US and a little longer for other countries. Once your order is on its way, you’ll receive a tracking link by email so you can easily follow.",
       },
       {
         id: "change-cancel",
@@ -54,7 +55,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       {
         id: "return-policy",
         q: "What's your return policy?",
-        a: "You can return eligible, unopened products within 15 days of delivery.",
+        a: `You can return eligible, unopened products within ${site.commerce.returnWindowDays} days of delivery.`,
       },
       {
         id: "start-return",

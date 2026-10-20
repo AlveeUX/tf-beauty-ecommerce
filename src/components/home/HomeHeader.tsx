@@ -12,6 +12,7 @@ import type { NavLink as HeaderLink } from "@/components/layout/Header";
 import type { ProductSummary } from "@/lib/catalog-types";
 import styles from "./HomeChrome.module.css";
 import { site } from "@/config/site";
+import { freeShippingAnnouncement } from "@/lib/shipping-copy";
 
 type HomeHeaderProps = {
   categories: HeaderLink[];
@@ -23,7 +24,7 @@ type HomeHeaderProps = {
 export function HomeHeader({
   categories,
   trending,
-  announcements = ["Complimentary shipping on orders over $100"],
+  announcements = [freeShippingAnnouncement()],
 }: HomeHeaderProps) {
   const nav: {
     label: string;
