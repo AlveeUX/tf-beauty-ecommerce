@@ -226,8 +226,9 @@ test.describe("Shop mega menu", () => {
     await page.keyboard.press("Escape");
     await page.evaluate(() => window.scrollTo(0, 0));
     await expect(bar).toBeHidden();
-    // without ?sticky there is no bar at all
+    // without ?sticky the bar is for phones only: it never shows on a desktop window
     await page.goto("/product/the-renewal-serum");
-    await expect(page.getByTestId("sticky-bar")).toHaveCount(0);
+    await page.evaluate(() => window.scrollTo(0, 1600));
+    await expect(page.getByTestId("sticky-bar")).toBeHidden();
   });
 });

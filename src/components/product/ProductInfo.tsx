@@ -47,7 +47,7 @@ type ProductInfoProps = {
   /** End of the running sale in epoch ms, and the server clock when the page was built. */
   saleEndsAt?: number | null;
   serverNow: number;
-  /** Adds the sticky add-to-cart bar (menu entry "Sticky add to card"). */
+  /** Shows the sticky add-to-cart bar on every screen (menu entry "Sticky add to card"); otherwise on phones only. */
   sticky?: boolean;
   /** First product picture, shown in the sticky bar. */
   image?: string;
@@ -318,17 +318,16 @@ export function ProductInfo(props: ProductInfoProps) {
           unoptimized
         />
       </div>
-      {props.sticky ? (
-        <StickyAddToCart
-          name={name}
-          image={props.image}
-          priceCents={variant.priceCents}
-          sizeLabel={variant.sizeLabel}
-          disabled={!canBuy}
-          watch="buy-row"
-          onAdd={() => void add({ variantId: variant.id, name }, qty)}
-        />
-      ) : null}
+      <StickyAddToCart
+        phoneOnly={!props.sticky}
+        name={name}
+        image={props.image}
+        priceCents={variant.priceCents}
+        sizeLabel={variant.sizeLabel}
+        disabled={!canBuy}
+        watch="buy-row"
+        onAdd={() => void add({ variantId: variant.id, name }, qty)}
+      />
       {modal === "size-guide" ? <SizeGuideModal onClose={() => setModal(null)} /> : null}
       {modal === "share" ? (
         <ShareModal slug={props.slug} name={name} onClose={() => setModal(null)} />

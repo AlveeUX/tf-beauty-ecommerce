@@ -13,6 +13,8 @@ type Props = {
   sizeLabel: string;
   disabled: boolean;
   onAdd: () => void;
+  /** Phones only (docs/responsive-spec.md 6.3); above 767 px the bar is part of the "Sticky add to card" demo only. */
+  phoneOnly?: boolean;
   /** id of the purchase row; the bar shows once that row has scrolled out of view. */
   watch: string;
 };
@@ -30,27 +32,45 @@ export function StickyAddToCart({
   disabled,
   onAdd,
   watch,
+  phoneOnly,
 }: Props) {
   const [visible, setVisible] = useState(false);
+  const [footerInView, setFooterInView] = useState(false);
+
+  // the bar never covers the footer
+  useEffect(() => {
+    // the page footer, not the footers of the cart drawer and the wishlist dialog
+    const footer = [...document.querySelectorAll("footer")].find(
+      (el) => !el.closest("[role=dialog], [data-testid=cart-drawer]"),
+    );
+    if (!footer) return;
+    const observer = new IntersectionObserver(([entry]) => setFooterInView(entry!.isIntersecting));
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const row = document.getElementById(watch);
     if (!row) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      // shown only when the row is gone upwards (scrolled past), not while it is still below the window
-      setVisible(!entry!.isIntersecting && entry!.boundingClientRect.bottom < 0);
-    });
-    observer.observe(row);
-    return () => observer.disconnect();
+    // shown only when the row is gone upwards (scrolled past), not while it is still below the window
+    const update = () => setVisible(row.getBoundingClientRect().bottom < 0);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, [watch]);
 
+  const shown = visible && !footerInView;
   return (
     <div
-      className={styles.bar}
-      data-visible={visible || undefined}
+      className={`${styles.bar} ${phoneOnly ? styles.phoneOnly : ""}`}
+      data-visible={shown || undefined}
       data-testid="sticky-bar"
-      aria-hidden={!visible}
-      inert={!visible}
+      aria-hidden={!shown}
+      inert={!shown}
     >
       <div className={`container ${styles.inner}`}>
         {image ? (

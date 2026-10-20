@@ -174,6 +174,17 @@ export function ProductGallery({ images, name, mode = "below", zoom = "none" }: 
             onPointerMove={track}
             onPointerEnter={track}
             onPointerLeave={() => setHover(null)}
+            onClick={(event) => {
+              // touch screens have no hover zoom: tapping the picture opens the full-screen viewer instead
+              const onButton = (event.target as HTMLElement).closest("button");
+              if (
+                zoom !== "none" &&
+                !onButton &&
+                window.matchMedia("(max-width: 1100px)").matches
+              ) {
+                openViewer(index);
+              }
+            }}
           >
             {picture(
               beside ? "(min-width: 1100px) 550px, 100vw" : "(min-width: 1100px) 645px, 100vw",

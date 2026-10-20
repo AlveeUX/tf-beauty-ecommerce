@@ -7,34 +7,36 @@ const [base = "http://localhost:3100", widthsArg = "1920,1440,1024,768,390"] =
   process.argv.slice(2);
 const widths = widthsArg.split(",").map(Number);
 
-const ROUTES = [
-  "/",
-  "/shop",
-  "/shop?layout=list-left",
-  "/shop?layout=top-filter",
-  "/shop?layout=filter-drawer",
-  "/product/the-renewal-serum",
-  "/product/the-renewal-serum?layout=gallery-2-column",
-  "/cart",
-  "/checkout",
-  "/wishlist",
-  "/compare",
-  "/categories",
-  "/search?q=serum",
-  "/blog",
-  "/blog/inside-the-formula-behind-beautiful-skin",
-  "/about",
-  "/contact",
-  "/faqs",
-  "/store-locator",
-  "/policy/privacy",
-  "/login",
-  "/register",
-  "/track-order",
-  "/demos",
-  "/ui-kit",
-  "/this-page-does-not-exist",
-];
+const ROUTES = process.env.ROUTES
+  ? process.env.ROUTES.split(",")
+  : [
+      "/",
+      "/shop",
+      "/shop?layout=list-left",
+      "/shop?layout=top-filter",
+      "/shop?layout=filter-drawer",
+      "/product/the-renewal-serum",
+      "/product/the-renewal-serum?layout=gallery-2-column",
+      "/cart",
+      "/checkout",
+      "/wishlist",
+      "/compare",
+      "/categories",
+      "/search?q=serum",
+      "/blog",
+      "/blog/inside-the-formula-behind-beautiful-skin",
+      "/about",
+      "/contact",
+      "/faqs",
+      "/store-locator",
+      "/policy/privacy",
+      "/login",
+      "/register",
+      "/track-order",
+      "/demos",
+      "/ui-kit",
+      "/this-page-does-not-exist",
+    ];
 
 const browser = await chromium.launch();
 const rows = [];

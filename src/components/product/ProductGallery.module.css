@@ -299,3 +299,56 @@
     display: none;
   }
 }
+
+/* Tablet and phone: 44px controls, swipeable thumbnail strip */
+@media (max-width: 1100px) {
+  .expand,
+  .arrow,
+  .lightboxNav button {
+    width: var(--tap);
+    height: var(--tap);
+  }
+
+  .prev {
+    left: 12px;
+  }
+
+  .thumbs {
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .thumb {
+    flex: none;
+    scroll-snap-align: start;
+  }
+}
+
+/* Phone: the side thumbnail column of the two thumbnail layouts becomes the strip under the picture */
+@media (max-width: 767px) {
+  .thumbs-start .stage,
+  .thumbs-end .stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .thumbs-start .main {
+    order: 0;
+  }
+
+  .thumbs-start .thumbs,
+  .thumbs-end .thumbs {
+    order: 1;
+    flex-direction: row;
+    margin: 15px 0 0;
+    overflow-x: auto;
+  }
+
+  .grid-2 .grid {
+    gap: 8px;
+  }
+
+  .grid {
+    gap: 8px;
+  }
+}

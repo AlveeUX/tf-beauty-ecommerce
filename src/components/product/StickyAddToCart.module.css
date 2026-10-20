@@ -96,3 +96,30 @@
     justify-content: space-between;
   }
 }
+
+.phoneOnly {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .phoneOnly {
+    display: block;
+  }
+
+  .inner {
+    height: 72px;
+    gap: 12px;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .price {
+    white-space: nowrap;
+  }
+
+  .add {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    height: var(--tap);
+  }
+}
