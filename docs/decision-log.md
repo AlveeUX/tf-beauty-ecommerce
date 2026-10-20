@@ -84,6 +84,7 @@ Purpose: record **why** development decisions were made, so that when something 
 | D-052 | 2026-10-20 | TF1 | TF1 task contract approved; baseline via copied node_modules (no Node 22 switch) | APPROVED |
 | D-053 | 2026-10-20 | TF1 | TF1 outcome: JSON data layer, browser-side demo store, database removed; evidence and deviations | DECIDED |
 | D-054 | 2026-10-20 | TF2 | TF2 outcome: site settings file, demo hub, UI kit, error screens, consistent copy; deviations | DECIDED |
+| D-055 | 2026-10-20 | TF2 | Branch `themeforest` pushed to the public repo | APPROVED |
 | D-045 | 2026-10-20 | P4c | The ten Shop listing layouts (sidebar, list, load more, top filter, horizontal, drawer) | APPROVED |
 
 ---
@@ -630,3 +631,8 @@ Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P1
 - **Not verified:** Firefox and WebKit; viewports below 1920; any deploy.
 - **Operational note:** twice during this phase the machine ran low on memory and Claude Code stopped background jobs (the dev server and one full Playwright run). The interrupted run was repeated in full and passed; nothing was concluded from the partial run.
 - **Decided by:** User (contract approval); Claude (implementation, deviations above).
+
+### D-055 · 2026-10-20 · TF2 · APPROVED — branch `themeforest` pushed to the public repo
+- **Approval:** the user said "Now push and commit" after TF2 passed. Pushed `themeforest` (13 commits ahead of `main`, up to `8f64f4d`) to `origin` = `https://github.com/AlveeUX/tf-beauty-ecommerce.git`, as a new branch; no force, no history rewrite, `main` untouched.
+- **Reminder (D-051):** the repo is public and its history still holds the Figma-sourced photos; this push added no new images. The branch also contains `docs/animation-plan.md`, the user's own file. Later commits to this branch are local until the user approves each push.
+- **Decided by:** User.
