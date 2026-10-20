@@ -1,0 +1,45 @@
+/* Footer link group: the design's plain column above 767 px, an accordion on phones. */
+.phone {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .desktop {
+    display: none;
+  }
+
+  .phone {
+    display: block;
+    margin: 0;
+  }
+
+  .phone button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 52px;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    text-align: left;
+  }
+
+  .phone svg {
+    transition: transform var(--duration-fast) var(--ease);
+  }
+
+  .phone button[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+
+  .panel {
+    display: none;
+  }
+
+  nav[data-open] .panel {
+    display: block;
+    padding-bottom: 12px;
+  }
+}

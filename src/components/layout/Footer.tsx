@@ -5,6 +5,7 @@ import { NewsletterForm } from "./NewsletterForm";
 import styles from "./Footer.module.css";
 import { site } from "@/config/site";
 import { SocialsStrip } from "@/components/ui/SocialsStrip";
+import { FooterGroup } from "./FooterGroup";
 
 type FooterLink = { label: string; href: string; active?: boolean };
 
@@ -88,8 +89,7 @@ export function Footer() {
 
 function FooterColumn({ title, links }: { title: string; links: FooterLink[] }) {
   return (
-    <nav aria-label={title} className={styles.column}>
-      <h2 className={styles.heading}>{title}</h2>
+    <FooterGroup title={title} className={styles.column} headingClassName={styles.heading}>
       <ul>
         {links.map((link) => (
           <li key={link.label}>
@@ -99,6 +99,6 @@ function FooterColumn({ title, links }: { title: string; links: FooterLink[] }) 
           </li>
         ))}
       </ul>
-    </nav>
+    </FooterGroup>
   );
 }

@@ -45,6 +45,13 @@ The breakpoint consolidation in T03 changed none of these numbers.
 
 **Root cause of the laptop-band scroll (found in T04):** it is not the header. The standard footer's B Corp badge is placed at a fixed offset from the 1920 design and widens every page to 1341 px; the Home footer's column block is a fixed 1320 px; the About page has fixed-width columns (right edge 1314 px). These are fixed in T05 (footers), T06 (Home) and T10 (About), and R-01 at 1280 and 1180 tracks them.
 
+### Progress of R-01 (routes that scroll sideways, of 54)
+
+| After | 1440 | 1280 | 1180 | 1024 | 768 | 390 | 320 | What is left |
+|---|---|---|---|---|---|---|---|---|
+| Baseline | 0 | 54 | 54 | 1 | 1 | 17 | 21 | |
+| T05 footers | 0 | 17 | 19 | 0 | 0 | 17 | 21 | Product pages (13 variants), Home, About, Contact, Store locator at 1280/1180; shop list layouts, product pages, Home, blog post, About, Contact, Demos, UI kit at 390 and 320 |
+
 ## 2. Principles
 
 1. **Desktop is untouched.** Every change sits inside a `max-width` query; at 1440 and above the existing CSS applies exactly as built.

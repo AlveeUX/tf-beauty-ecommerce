@@ -129,6 +129,23 @@
   background: var(--color-secondary);
 }
 
+/* Laptop (1101-1439): the 1920 design's fixed column widths become shares of the available width */
+@media (max-width: 1439px) {
+  .top {
+    grid-template-columns: minmax(0, 2.2fr) repeat(3, minmax(0, 1fr)) 72px;
+    column-gap: 24px;
+  }
+
+  .pitch {
+    width: auto;
+  }
+
+  .payments {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
 @media (max-width: 1100px) {
   .top {
     grid-template-columns: 1fr 1fr;
@@ -157,5 +174,63 @@
 
   .toTop {
     right: var(--gutter);
+  }
+}
+
+/* Tablet and phone: link rows are 44px targets */
+@media (max-width: 1100px) {
+  .column li a {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap);
+    line-height: 1.3;
+  }
+}
+
+/* Phone: one column, the link groups are accordions, the bottom row is centred */
+@media (max-width: 767px) {
+  .top {
+    /* minmax(0, ...): a plain 1fr would grow to the 420px form and push the page wider than the phone */
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-top: 56px;
+    padding-bottom: 72px;
+  }
+
+  .newsletter {
+    min-width: 0;
+    padding-bottom: 32px;
+  }
+
+  .payments {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .pitch {
+    font-size: var(--text-20);
+    line-height: 28px;
+  }
+
+  .column {
+    border-top: 1px dashed var(--color-border-light);
+  }
+
+  .heading {
+    margin-bottom: 0;
+  }
+
+  .bcorp {
+    margin-top: 32px;
+  }
+
+  .bottomInner {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .socials,
+  .logo {
+    justify-self: center;
   }
 }

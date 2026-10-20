@@ -4,6 +4,7 @@ import { Icon } from "@/components/ui/Icon";
 import { HomeNewsletter } from "./HomeNewsletter";
 import styles from "./HomeChrome.module.css";
 import { site } from "@/config/site";
+import { FooterGroup } from "@/components/layout/FooterGroup";
 
 type Column = { title: string; links: { label: string; href: string; active?: boolean }[] };
 
@@ -93,8 +94,7 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
 
         <div className={styles.columns}>
           {COLUMNS.map((col) => (
-            <nav key={col.title} aria-label={col.title}>
-              <h2>{col.title}</h2>
+            <FooterGroup key={col.title} title={col.title}>
               <ul>
                 {col.links.map((l) => (
                   <li key={l.label}>
@@ -104,10 +104,9 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
                   </li>
                 ))}
               </ul>
-            </nav>
+            </FooterGroup>
           ))}
-          <nav aria-label="Socials">
-            <h2>Socials</h2>
+          <FooterGroup title="Socials">
             <ul className={styles.socials}>
               {SOCIALS.map((s) => (
                 <li key={s.label}>
@@ -129,7 +128,7 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
                 </li>
               ))}
             </ul>
-          </nav>
+          </FooterGroup>
         </div>
 
         <p className={styles.copy}>
