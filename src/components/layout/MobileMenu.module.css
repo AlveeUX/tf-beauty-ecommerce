@@ -1,0 +1,250 @@
+/* Mobile menu (proposed, docs/responsive-spec.md 5.2): left drawer, accordions, 44px touch rows. */
+.root {
+  display: none;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+  margin-left: -10px; /* the icon sits on the page gutter, the 44px target reaches past it */
+  color: inherit;
+}
+
+.button:hover {
+  color: var(--color-primary);
+}
+
+@media (max-width: 1100px) {
+  .root {
+    display: flex;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(36, 28, 27, 0.55);
+  animation: fade 220ms var(--ease);
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(88vw, 380px);
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  background: var(--color-bg-body);
+  color: var(--color-dark-01);
+  animation: slide 220ms var(--ease);
+}
+
+/* the panel scrolls; its parts keep their height instead of shrinking into each other */
+.panel > * {
+  flex-shrink: 0;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrim,
+  .panel {
+    animation: none;
+  }
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 8px 8px 24px;
+  border-bottom: 1px dashed var(--color-border-light);
+}
+
+.head h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-24);
+  font-weight: var(--weight-regular);
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 24px;
+  padding: 0 14px;
+  height: 48px;
+  border: 1px solid var(--color-border-light);
+  background: var(--color-white);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: var(--text-16);
+  color: var(--color-dark-01);
+}
+
+.search input:focus-visible {
+  outline: none;
+}
+
+.search:focus-within {
+  border-color: var(--color-dark-01);
+}
+
+.nav {
+  padding-inline: 24px;
+}
+
+.top > li {
+  border-bottom: 1px dashed var(--color-border-light);
+}
+
+.topLink,
+.group > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  font-size: var(--text-15);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.15px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.group > summary svg {
+  transition: transform var(--duration-fast) var(--ease);
+}
+
+.group[open] > summary svg {
+  transform: rotate(180deg);
+}
+
+.group[open] > summary {
+  color: var(--color-secondary);
+}
+
+.body {
+  display: grid;
+  gap: 12px;
+  padding-bottom: 16px;
+}
+
+.body h3 {
+  margin: 8px 0 0;
+  font-size: var(--text-13);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.26px;
+  color: var(--color-dark-03);
+}
+
+.links a,
+.all {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--tap);
+  font-size: var(--text-15);
+  text-transform: uppercase;
+}
+
+.all {
+  font-weight: var(--weight-medium);
+  color: var(--color-secondary);
+}
+
+.promos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.promos a {
+  display: grid;
+  gap: 6px;
+  font-size: var(--text-14);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+}
+
+.promos img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.account {
+  margin: 8px 24px 0;
+  padding-top: 8px;
+}
+
+.account a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--tap);
+  font-size: var(--text-15);
+}
+
+.account a:hover,
+.links a:hover,
+.topLink:hover {
+  color: var(--color-primary);
+}
+
+.est {
+  margin: auto 24px 0;
+  padding-top: 24px;
+  font-size: var(--text-13);
+  color: var(--color-dark-03);
+}

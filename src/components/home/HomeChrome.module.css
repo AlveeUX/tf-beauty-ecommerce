@@ -204,9 +204,59 @@
     display: none;
   }
 
+  /* [menu] [logo] [search and icons]; the menu drawer holds every desktop menu entry */
   .main {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr auto;
+    column-gap: 8px;
     padding-inline: var(--gutter);
+  }
+
+  .menuSlot {
+    align-self: center;
+  }
+
+  .logo {
+    align-self: center;
+    margin-top: 0;
+  }
+
+  .icons {
+    gap: 0;
+    margin-right: 0;
+  }
+
+  .icons a {
+    align-items: center;
+    justify-content: center;
+    width: var(--tap);
+    height: var(--tap);
+  }
+
+  .badge {
+    top: 4px;
+    left: auto;
+    right: 0;
+  }
+}
+
+/* Phone: the search box becomes an icon, account and wishlist move into the menu drawer */
+@media (max-width: 767px) {
+  .phoneHide {
+    display: none;
+  }
+
+  .main {
+    padding-inline: 16px;
+  }
+
+  .wordmark {
+    font-size: 22px;
+    letter-spacing: 5.5px;
+  }
+
+  .tagline {
+    top: 26px;
+    font-size: 8px;
   }
 }
 

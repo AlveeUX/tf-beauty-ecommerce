@@ -13,6 +13,7 @@ import type { ProductSummary } from "@/lib/catalog-types";
 import styles from "./HomeChrome.module.css";
 import { site } from "@/config/site";
 import { freeShippingAnnouncement } from "@/lib/shipping-copy";
+import { MobileMenu } from "@/components/layout/MobileMenu";
 
 type HomeHeaderProps = {
   categories: HeaderLink[];
@@ -53,6 +54,7 @@ export function HomeHeader({
         }
       />
       <div className={styles.main}>
+        <MobileMenu categories={categories} className={styles.menuSlot} />
         <Link href="/" className={styles.logo} aria-label={`${site.name} ${site.tagline}, home`}>
           <span className={styles.wordmark}>{site.name}</span>{" "}
           <span className={styles.tagline}>{site.tagline}</span>
@@ -96,10 +98,10 @@ export function HomeHeader({
         <div className={styles.tools}>
           <SearchOverlay trending={trending} trigger="field" />
           <ul className={styles.icons}>
-            <li>
+            <li className={styles.phoneHide}>
               <AccountLink />
             </li>
-            <li>
+            <li className={styles.phoneHide}>
               <CounterLink kind="wishlist" badgeClassName={styles.badge}>
                 <Icon name="heart" size={18} />
               </CounterLink>

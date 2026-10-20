@@ -43,6 +43,8 @@ Run with `npm run e2e:responsive`. R-01 = no sideways scroll over 54 routes (26 
 
 The breakpoint consolidation in T03 changed none of these numbers.
 
+**Root cause of the laptop-band scroll (found in T04):** it is not the header. The standard footer's B Corp badge is placed at a fixed offset from the 1920 design and widens every page to 1341 px; the Home footer's column block is a fixed 1320 px; the About page has fixed-width columns (right edge 1314 px). These are fixed in T05 (footers), T06 (Home) and T10 (About), and R-01 at 1280 and 1180 tracks them.
+
 ## 2. Principles
 
 1. **Desktop is untouched.** Every change sits inside a `max-width` query; at 1440 and above the existing CSS applies exactly as built.
@@ -96,6 +98,8 @@ Laptop and above: as built (the Est line and language/currency items may hide be
 - Every entry the desktop menus have is in the drawer (tested against the same link list as the crawl).
 - Behaviour: opens with the button, closes with Escape, the scrim, the close button, or following a link; focus moves into the drawer, is trapped, and returns to the button; body scroll is locked while open; the open/close is 220 ms (instant with reduced motion).
 - **Home header** (dark and translucent over the hero) gets the same buttons; the search box becomes an icon below 768; the hero starts below the header as now.
+
+**Amendment A2 (T04, as built):** on phones (up to 767) the header row is `[menu] [logo] [search] [cart]`; the account and wishlist icons live only in the drawer (they were already listed there), because four 44 px icons plus the logo do not fit 320 px. Tablets keep all four icons. The drawer does not repeat the language and currency items (they are placeholders without behaviour); it shows the founding line instead. The Home header's search box becomes the 44 px icon on phones and keeps its width, at 44 px high, on tablets.
 
 ### 5.3 Footer, benefit strip, newsletter
 - Footer link columns: 4 across at laptop, 2 across at tablet, **accordions at phone** (heading is a 44 px button, one open at a time, first closed). Socials, copyright and logo stack centred; "Back to top" stays at the right.

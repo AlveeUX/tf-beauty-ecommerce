@@ -77,6 +77,7 @@ const PATHS = {
       <path d="M5 12l7-7 7 7" />
     </>
   ),
+  menu: <path d="M4 7h16M4 12h16M4 17h16" />,
   x: (
     <>
       <path d="M18 6L6 18" />

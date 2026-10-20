@@ -12,6 +12,7 @@ import { SearchOverlay } from "./SearchOverlay";
 import styles from "./Header.module.css";
 import { site } from "@/config/site";
 import { freeShippingAnnouncement } from "@/lib/shipping-copy";
+import { MobileMenu } from "./MobileMenu";
 
 export type NavLink = { label: string; href: string };
 type NavItem = NavLink & { children?: MenuLink[]; mega?: boolean };
@@ -46,6 +47,7 @@ export function Header({
     <header className={styles.header}>
       <AnnouncementBar messages={announcements} />
       <div className={styles.main}>
+        <MobileMenu categories={categories} className={styles.menuSlot} />
         <nav aria-label="Primary" className={styles.navLeft}>
           <NavList items={left} />
         </nav>
@@ -62,10 +64,10 @@ export function Header({
             <li>
               <SearchOverlay trending={trending} />
             </li>
-            <li>
+            <li className={styles.phoneHide}>
               <AccountLink />
             </li>
-            <li>
+            <li className={styles.phoneHide}>
               <CounterLink kind="wishlist" badgeClassName={styles.badge}>
                 <Icon name="heart" size={18} />
               </CounterLink>

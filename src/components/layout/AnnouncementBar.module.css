@@ -150,3 +150,46 @@
 .dark .select {
   text-box: trim-both cap alphabetic;
 }
+
+/* Tablet and phone: the full message, up to two lines, the bar grows to fit (docs/responsive-spec.md 5.1) */
+@media (max-width: 1100px) {
+  .bar {
+    height: auto;
+    min-height: var(--topbar-height);
+    padding-block: 6px;
+  }
+
+  .inner,
+  .dark .inner {
+    height: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .promo,
+  .dark .promo {
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .dark .promo p {
+    position: static;
+  }
+
+  .dark .promo button {
+    position: static;
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 767px) {
+  .bar {
+    font-size: var(--text-13);
+    line-height: 20px;
+  }
+
+  .promo button,
+  .dark .promo button {
+    display: none;
+  }
+}
