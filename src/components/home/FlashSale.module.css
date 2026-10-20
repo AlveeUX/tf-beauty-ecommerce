@@ -173,4 +173,50 @@
   .cta {
     display: inline-flex;
   }
+
+  /* the banner photo is positioned and blended; unpositioned text would be painted under it and darkened */
+  .text,
+  .side {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+  }
+}
+
+/* Phone: the title wraps and the countdown shrinks to the banner width */
+@media (max-width: 767px) {
+  .banner {
+    padding: 32px 20px;
+  }
+
+  .text h2 {
+    white-space: normal;
+    font-size: 2rem;
+  }
+
+  .copy {
+    width: auto;
+  }
+
+  .timer {
+    gap: 8px;
+  }
+
+  .timer li {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: 84px;
+  }
+
+  .timer strong {
+    top: 12px;
+    font-size: 2rem;
+  }
+
+  .timer span {
+    top: 56px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.3px;
+  }
 }

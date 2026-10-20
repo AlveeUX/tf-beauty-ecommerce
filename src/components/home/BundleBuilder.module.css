@@ -261,3 +261,36 @@
     margin-top: 16px;
   }
 }
+
+/* Phone: the product name may shrink to the card, the price row wraps, the button is full width */
+@media (max-width: 767px) {
+  .items > li,
+  .item {
+    min-width: 0;
+  }
+
+  .name,
+  .label {
+    right: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sum {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .sum strong {
+    font-size: 2.5rem;
+  }
+
+  .sum s {
+    font-size: 1.5rem;
+  }
+
+  .add {
+    width: 100%;
+    padding-inline: 16px;
+  }
+}

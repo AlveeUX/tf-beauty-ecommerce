@@ -77,13 +77,8 @@
     flex: 0 0 calc((100% - 29px) / 2);
   }
 
-  .prev,
-  .bleed .prev {
-    left: 8px;
-  }
-
-  .next,
-  .bleed .next {
-    right: 8px;
+  /* touch screens swipe the row; the arrows would sit on top of the cards */
+  .arrow {
+    display: none;
   }
 }

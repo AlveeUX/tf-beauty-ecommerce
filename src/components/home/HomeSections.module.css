@@ -1115,6 +1115,29 @@
   color: var(--color-dark-01);
 }
 
+/* Laptop (1101-1439): the design's 294 + 870px journal row shares the available width */
+@media (max-width: 1439px) {
+  .journalGrid {
+    grid-template-columns: 294px minmax(0, 1fr);
+    column-gap: 24px;
+  }
+
+  .postTitle {
+    width: auto;
+    right: 30px;
+  }
+
+  .post::after {
+    width: auto;
+    right: 30px;
+  }
+
+  .postGo {
+    left: auto;
+    right: 30px;
+  }
+}
+
 @media (max-width: 1100px) {
   .journalGrid {
     grid-template-columns: 1fr;
@@ -1230,6 +1253,76 @@
   opacity: 0.5;
 }
 
+/* Laptop (1101-1439): fixed 308 / 330 / 870 + 420 / 202px columns become shares of the available width */
+@media (max-width: 1439px) {
+  .cards,
+  .lovedGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .lovedGrid > li:nth-child(2),
+  .lovedGrid > li:nth-child(3) {
+    transform: none;
+  }
+
+  .dropsGrid {
+    grid-template-columns: minmax(0, 2.07fr) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .dropEyebrow,
+  .dropName,
+  .dropLabel {
+    max-width: calc(100% - 181px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .freeBadge {
+    left: auto;
+    right: 30px;
+  }
+
+  .features {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    background-size:
+      100% 1px,
+      100% 1px;
+  }
+
+  .features p {
+    width: auto;
+    max-width: 265px;
+    padding-inline: 12px;
+  }
+
+  .instaGrid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .instaGrid a {
+    height: auto;
+    aspect-ratio: 202 / 248.5;
+  }
+
+  .insta {
+    height: auto;
+    padding-bottom: 96px;
+  }
+
+  .instaTitle {
+    width: auto;
+    max-width: 476px;
+  }
+
+  .intro {
+    width: auto;
+    max-width: 404px;
+  }
+}
+
 @media (max-width: 1100px) {
   .cards,
   .lovedGrid {
@@ -1266,5 +1359,93 @@
   .title {
     font-size: 2.5rem;
     line-height: 1.15;
+  }
+}
+
+/* Phone: tighter sections, one-column feature list, fluid captions and buttons (docs/responsive-spec.md 6.1) */
+@media (max-width: 767px) {
+  .favorites,
+  .drops,
+  .loved,
+  .journal,
+  .personal {
+    padding-block: 56px;
+  }
+
+  .title,
+  .journalTitle,
+  .instaTitle {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .cards,
+  .lovedGrid {
+    gap: 12px;
+  }
+
+  .category {
+    height: 260px;
+  }
+
+  .features {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+    padding-block: 24px;
+  }
+
+  .features > li {
+    padding-block: 20px;
+  }
+
+  /* section header: title, then the button underneath instead of beside it */
+  .header {
+    height: auto;
+    display: grid;
+    gap: 16px;
+    justify-items: start;
+  }
+
+  .outlineButton {
+    position: static;
+  }
+
+  /* Fresh drops banner: the text block sits at the bottom, inside the banner's width */
+  .featureText {
+    top: auto;
+    bottom: 28px;
+    left: 24px;
+    right: 24px;
+  }
+
+  .featureText h3 {
+    width: auto;
+    margin-top: 16px;
+    font-size: 1.9rem;
+    line-height: 1.15;
+  }
+
+  .featureCta {
+    position: static;
+    margin-top: 20px;
+  }
+
+  .freeBadge {
+    top: 16px;
+    right: 16px;
+    transform: scale(0.8);
+    transform-origin: top right;
+  }
+
+  .insta {
+    margin-top: 56px;
+  }
+
+  .instaTitle {
+    padding-top: 56px;
+  }
+
+  .instaGrid {
+    gap: 6px;
   }
 }

@@ -127,7 +127,7 @@ Laptop and above: as built (the Est line and language/currency items may hide be
 | Bundle builder | Tabs scroll horizontally; items 3 across | Tabs scroll; items stack |
 | Instagram strip | 3 x 2 | 3 x 2 smaller tiles |
 
-The cause of Home's sideways scroll (+164 at 768 and 1024) is found and fixed in T06.
+The cause of Home's sideways scroll (+164 at 768 and 1024) was found and fixed in T06 (Home now fits at every test width).
 
 ### 6.2 Shop, categories, search
 - **Filters:** up to 1100 every layout (left, right, top, horizontal, list variants) uses the **filter drawer** (Figma frame `3:11424` is the model, slide-in from the left on phone and tablet). A toolbar above the products shows `[Filter (n)] [Sort] [grid/list]`; applying filters closes the drawer; "n results" and the active-filter chips stay on the page.

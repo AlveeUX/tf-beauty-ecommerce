@@ -195,8 +195,32 @@ li:nth-child(even) .rating > span {
   right: calc(max(var(--gutter), (100vw - var(--container)) / 2) - 21px);
 }
 
+/* touch screens swipe the row; the arrows would sit on top of the cards */
+@media (max-width: 1100px) {
+  .arrow {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
   .track > li {
     flex-basis: 80vw;
+  }
+
+  /* the card is narrower than the design's 420px: photo, fade and quote follow its width */
+  .photo,
+  .shade {
+    width: 100%;
+  }
+
+  /* the quote can take three lines at this width: it starts higher and the link moves down */
+  .card blockquote {
+    top: 432px;
+    width: auto;
+    right: 24px;
+  }
+
+  .shop {
+    top: 522px;
   }
 }
