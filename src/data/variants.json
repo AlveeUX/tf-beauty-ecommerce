@@ -9,8 +9,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 2,
@@ -22,8 +22,8 @@
     "compareAtCents": null,
     "isDefault": false,
     "sortOrder": 0,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 3,
@@ -35,8 +35,8 @@
     "compareAtCents": null,
     "isDefault": false,
     "sortOrder": 3,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 4,
@@ -48,8 +48,8 @@
     "compareAtCents": 4800,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 5,
@@ -61,8 +61,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 6,
@@ -74,8 +74,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 7,
@@ -87,8 +87,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 8,
@@ -100,8 +100,8 @@
     "compareAtCents": 3200,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 9,
@@ -113,8 +113,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 10,
@@ -126,8 +126,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 11,
@@ -139,8 +139,8 @@
     "compareAtCents": 4600,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 12,
@@ -152,8 +152,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 13,
@@ -165,8 +165,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 14,
@@ -178,8 +178,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 15,
@@ -191,8 +191,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 16,
@@ -204,8 +204,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 17,
@@ -217,8 +217,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 18,
@@ -230,8 +230,8 @@
     "compareAtCents": 2800,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 19,
@@ -243,8 +243,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 20,
@@ -256,8 +256,8 @@
     "compareAtCents": 2600,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 21,
@@ -269,8 +269,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 22,
@@ -282,8 +282,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 23,
@@ -295,8 +295,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 24,
@@ -308,8 +308,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 25,
@@ -321,8 +321,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 26,
@@ -334,8 +334,8 @@
     "compareAtCents": 1600,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 27,
@@ -347,8 +347,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 28,
@@ -360,8 +360,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 29,
@@ -373,8 +373,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 30,
@@ -386,8 +386,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 31,
@@ -399,8 +399,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 32,
@@ -412,8 +412,8 @@
     "compareAtCents": 5000,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 33,
@@ -425,8 +425,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 34,
@@ -438,8 +438,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 35,
@@ -451,8 +451,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 36,
@@ -464,8 +464,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 37,
@@ -477,8 +477,8 @@
     "compareAtCents": null,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 38,
@@ -490,7 +490,7 @@
     "compareAtCents": 6800,
     "isDefault": true,
     "sortOrder": 1,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   }
 ]

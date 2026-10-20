@@ -12,8 +12,8 @@
     "status": "approved",
     "brandReply": "Thank you for sharing your experience. We're delighted it works so well for you.",
     "brandReplyAuthor": "Cosmia Skin Team",
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 2,
@@ -28,8 +28,8 @@
     "status": "approved",
     "brandReply": null,
     "brandReplyAuthor": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 3,
@@ -44,8 +44,8 @@
     "status": "approved",
     "brandReply": null,
     "brandReplyAuthor": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 4,
@@ -60,7 +60,7 @@
     "status": "pending",
     "brandReply": null,
     "brandReplyAuthor": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   }
 ]

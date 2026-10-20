@@ -13,8 +13,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 2,
@@ -30,8 +31,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 3,
@@ -47,8 +49,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 4,
@@ -64,8 +67,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 5,
@@ -81,8 +85,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 6,
@@ -98,8 +103,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 7,
@@ -115,8 +121,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 8,
@@ -132,8 +139,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 9,
@@ -149,8 +157,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 10,
@@ -166,8 +175,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 11,
@@ -183,8 +193,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 12,
@@ -200,8 +211,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 13,
@@ -217,8 +229,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 14,
@@ -234,8 +247,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 15,
@@ -251,8 +265,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 16,
@@ -268,8 +283,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 17,
@@ -285,8 +301,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 18,
@@ -302,8 +319,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 19,
@@ -319,8 +337,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 20,
@@ -336,8 +355,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 21,
@@ -353,8 +373,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 22,
@@ -370,8 +391,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 23,
@@ -387,8 +409,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 24,
@@ -404,8 +427,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 25,
@@ -421,8 +445,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 26,
@@ -438,8 +463,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 27,
@@ -455,8 +481,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 28,
@@ -472,8 +499,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 29,
@@ -489,8 +517,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 30,
@@ -505,9 +534,10 @@
     "sortOrder": 29,
     "isActive": true,
     "startsAt": null,
-    "endsAt": "2026-10-22T15:56:34.701Z",
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "endsAt": null,
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": 203416000
   },
   {
     "id": 31,
@@ -523,8 +553,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 32,
@@ -540,8 +571,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 33,
@@ -557,8 +589,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 34,
@@ -574,8 +607,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 35,
@@ -591,8 +625,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 36,
@@ -608,8 +643,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 37,
@@ -625,8 +661,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 38,
@@ -642,8 +679,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 39,
@@ -659,8 +697,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 40,
@@ -676,8 +715,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 41,
@@ -693,8 +733,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 42,
@@ -710,8 +751,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 43,
@@ -727,8 +769,9 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   },
   {
     "id": 44,
@@ -744,7 +787,8 @@
     "isActive": true,
     "startsAt": null,
     "endsAt": null,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "endsInMs": null
   }
 ]

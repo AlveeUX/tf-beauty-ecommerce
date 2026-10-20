@@ -8,8 +8,8 @@
     "parentId": null,
     "sortOrder": 0,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 2,
@@ -20,8 +20,8 @@
     "parentId": 1,
     "sortOrder": 1,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 3,
@@ -32,8 +32,8 @@
     "parentId": 1,
     "sortOrder": 2,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 4,
@@ -44,8 +44,8 @@
     "parentId": 1,
     "sortOrder": 3,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 5,
@@ -56,8 +56,8 @@
     "parentId": 1,
     "sortOrder": 4,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 6,
@@ -68,8 +68,8 @@
     "parentId": 1,
     "sortOrder": 5,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 7,
@@ -80,8 +80,8 @@
     "parentId": null,
     "sortOrder": 6,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 8,
@@ -92,8 +92,8 @@
     "parentId": 7,
     "sortOrder": 7,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 9,
@@ -104,8 +104,8 @@
     "parentId": 7,
     "sortOrder": 8,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 10,
@@ -116,8 +116,8 @@
     "parentId": 7,
     "sortOrder": 9,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 11,
@@ -128,8 +128,8 @@
     "parentId": 7,
     "sortOrder": 10,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 12,
@@ -140,8 +140,8 @@
     "parentId": null,
     "sortOrder": 11,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 13,
@@ -152,8 +152,8 @@
     "parentId": null,
     "sortOrder": 12,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 14,
@@ -164,7 +164,7 @@
     "parentId": null,
     "sortOrder": 13,
     "isActive": true,
-    "createdAt": "2026-10-20T07:26:18.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z",
+    "updatedAt": "2026-10-20T07:31:44.000Z"
   }
 ]

@@ -35,7 +35,10 @@ export const productRow = z.object({
   ratingBreakdown: z.string(),
   soldCount: z.number().int().min(0),
   pdpLayout: nullableStr,
+  /** Fixed deadline (ISO), or null. */
   saleEndsAt: nullableStr,
+  /** Rolling deadline: this many ms after the page is read. Used when `saleEndsAt` is null. */
+  saleEndsInMs: z.number().int().positive().nullable(),
   publishedAt: iso,
   createdAt: iso,
   updatedAt: iso,
@@ -129,7 +132,10 @@ export const bannerRow = z.object({
   sortOrder: z.number().int(),
   isActive: z.boolean(),
   startsAt: nullableStr,
+  /** Fixed end (ISO), or null. */
   endsAt: nullableStr,
+  /** Rolling end: this many ms after the page is read. Used when `endsAt` is null. */
+  endsInMs: z.number().int().positive().nullable(),
   createdAt: iso,
   updatedAt: iso,
 });

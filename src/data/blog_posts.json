@@ -13,7 +13,7 @@
     "tags": "[\"Barrier\",\"Hydration\",\"Routine\"]",
     "status": "published",
     "publishedAt": "2026-10-08T09:00:00.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 2,
@@ -29,7 +29,7 @@
     "tags": "[\"Routine\",\"SPF\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:59.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 3,
@@ -45,7 +45,7 @@
     "tags": "[\"Evening\",\"Glow\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:58.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 4,
@@ -61,7 +61,7 @@
     "tags": "[\"Hydration\",\"Routine\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:57.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 5,
@@ -77,7 +77,7 @@
     "tags": "[\"Cleansing\",\"Glow\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:56.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 6,
@@ -93,7 +93,7 @@
     "tags": "[\"Ingredients\",\"Serum\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:55.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 7,
@@ -109,7 +109,7 @@
     "tags": "[\"Routine\",\"SPF\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:54.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 8,
@@ -125,7 +125,7 @@
     "tags": "[\"Glow\",\"Barrier\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:53.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 9,
@@ -141,7 +141,7 @@
     "tags": "[\"Routine\",\"Cleansing\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:52.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 10,
@@ -157,7 +157,7 @@
     "tags": "[\"Evening\",\"Hydration\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:51.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 11,
@@ -173,7 +173,7 @@
     "tags": "[\"Glow\",\"SPF\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:50.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   },
   {
     "id": 12,
@@ -189,6 +189,6 @@
     "tags": "[\"Serum\",\"Routine\"]",
     "status": "published",
     "publishedAt": "2026-10-08T08:59:49.000Z",
-    "createdAt": "2026-10-20T07:26:18.000Z"
+    "createdAt": "2026-10-20T07:31:44.000Z"
   }
 ]

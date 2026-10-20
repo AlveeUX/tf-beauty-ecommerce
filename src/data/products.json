@@ -18,7 +18,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-15T09:00:00.000Z",
     "createdAt": "2026-01-15T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 2,
@@ -36,10 +37,11 @@
     "ratingBreakdown": "{\"1\":3,\"2\":2,\"3\":5,\"4\":14,\"5\":103}",
     "soldCount": 797,
     "pdpLayout": null,
-    "saleEndsAt": "2026-11-09T07:26:18.603Z",
+    "saleEndsAt": null,
     "publishedAt": "2026-01-14T09:00:00.000Z",
     "createdAt": "2026-01-14T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": 1728000000
   },
   {
     "id": 3,
@@ -60,7 +62,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-13T09:00:00.000Z",
     "createdAt": "2026-01-13T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 4,
@@ -81,7 +84,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-12T09:00:00.000Z",
     "createdAt": "2026-01-12T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 5,
@@ -102,7 +106,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-11T09:00:00.000Z",
     "createdAt": "2026-01-11T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 6,
@@ -120,10 +125,11 @@
     "ratingBreakdown": "{\"1\":3,\"2\":4,\"3\":9,\"4\":25,\"5\":175}",
     "soldCount": 2623,
     "pdpLayout": null,
-    "saleEndsAt": "2026-11-09T07:26:18.613Z",
+    "saleEndsAt": null,
     "publishedAt": "2026-01-10T09:00:00.000Z",
     "createdAt": "2026-01-10T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": 1728000000
   },
   {
     "id": 7,
@@ -144,7 +150,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-09T09:00:00.000Z",
     "createdAt": "2026-01-09T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 8,
@@ -165,7 +172,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-08T09:00:00.000Z",
     "createdAt": "2026-01-08T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 9,
@@ -183,10 +191,11 @@
     "ratingBreakdown": "{\"1\":7,\"2\":7,\"3\":17,\"4\":45,\"5\":42}",
     "soldCount": 736,
     "pdpLayout": null,
-    "saleEndsAt": "2026-11-09T07:26:18.619Z",
+    "saleEndsAt": null,
     "publishedAt": "2026-01-07T09:00:00.000Z",
     "createdAt": "2026-01-07T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": 1728000000
   },
   {
     "id": 10,
@@ -207,7 +216,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-06T09:00:00.000Z",
     "createdAt": "2026-01-06T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 11,
@@ -228,7 +238,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-05T09:00:00.000Z",
     "createdAt": "2026-01-05T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 12,
@@ -249,7 +260,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-04T09:00:00.000Z",
     "createdAt": "2026-01-04T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 13,
@@ -270,7 +282,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-03T09:00:00.000Z",
     "createdAt": "2026-01-03T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 14,
@@ -291,7 +304,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-02T09:00:00.000Z",
     "createdAt": "2026-01-02T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 15,
@@ -312,7 +326,8 @@
     "saleEndsAt": null,
     "publishedAt": "2026-01-01T09:00:00.000Z",
     "createdAt": "2026-01-01T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 16,
@@ -330,10 +345,11 @@
     "ratingBreakdown": "{\"1\":3,\"2\":4,\"3\":9,\"4\":24,\"5\":46}",
     "soldCount": 537,
     "pdpLayout": null,
-    "saleEndsAt": "2026-11-09T07:26:18.634Z",
+    "saleEndsAt": null,
     "publishedAt": "2025-12-31T09:00:00.000Z",
     "createdAt": "2025-12-31T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": 1728000000
   },
   {
     "id": 17,
@@ -354,7 +370,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-30T09:00:00.000Z",
     "createdAt": "2025-12-30T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 18,
@@ -372,10 +389,11 @@
     "ratingBreakdown": "{\"1\":5,\"2\":6,\"3\":14,\"4\":37,\"5\":35}",
     "soldCount": 601,
     "pdpLayout": null,
-    "saleEndsAt": "2026-11-09T07:26:18.640Z",
+    "saleEndsAt": null,
     "publishedAt": "2025-12-29T09:00:00.000Z",
     "createdAt": "2025-12-29T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": 1728000000
   },
   {
     "id": 19,
@@ -396,7 +414,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-28T09:00:00.000Z",
     "createdAt": "2025-12-28T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 20,
@@ -417,7 +436,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-27T09:00:00.000Z",
     "createdAt": "2025-12-27T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 21,
@@ -438,7 +458,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-26T09:00:00.000Z",
     "createdAt": "2025-12-26T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 22,
@@ -459,7 +480,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-25T09:00:00.000Z",
     "createdAt": "2025-12-25T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 23,
@@ -480,7 +502,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-24T09:00:00.000Z",
     "createdAt": "2025-12-24T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 24,
@@ -498,10 +521,11 @@
     "ratingBreakdown": "{\"1\":2,\"2\":1,\"3\":3,\"4\":8,\"5\":59}",
     "soldCount": 451,
     "pdpLayout": null,
-    "saleEndsAt": "2026-11-09T07:26:18.650Z",
+    "saleEndsAt": null,
     "publishedAt": "2025-12-23T09:00:00.000Z",
     "createdAt": "2025-12-23T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": 1728000000
   },
   {
     "id": 25,
@@ -522,7 +546,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-22T09:00:00.000Z",
     "createdAt": "2025-12-22T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 26,
@@ -543,7 +568,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-21T09:00:00.000Z",
     "createdAt": "2025-12-21T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 27,
@@ -564,7 +590,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-20T09:00:00.000Z",
     "createdAt": "2025-12-20T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 28,
@@ -585,7 +612,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-19T09:00:00.000Z",
     "createdAt": "2025-12-19T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 29,
@@ -606,7 +634,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-18T09:00:00.000Z",
     "createdAt": "2025-12-18T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 30,
@@ -624,10 +653,11 @@
     "ratingBreakdown": "{\"1\":2,\"2\":1,\"3\":3,\"4\":9,\"5\":49}",
     "soldCount": 391,
     "pdpLayout": null,
-    "saleEndsAt": "2026-11-09T07:26:18.660Z",
+    "saleEndsAt": null,
     "publishedAt": "2025-12-17T09:00:00.000Z",
     "createdAt": "2025-12-17T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": 1728000000
   },
   {
     "id": 31,
@@ -648,7 +678,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-16T09:00:00.000Z",
     "createdAt": "2025-12-16T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 32,
@@ -669,7 +700,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-15T09:00:00.000Z",
     "createdAt": "2025-12-15T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 33,
@@ -690,7 +722,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-14T09:00:00.000Z",
     "createdAt": "2025-12-14T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 34,
@@ -711,7 +744,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-13T09:00:00.000Z",
     "createdAt": "2025-12-13T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 35,
@@ -732,7 +766,8 @@
     "saleEndsAt": null,
     "publishedAt": "2025-12-12T09:00:00.000Z",
     "createdAt": "2025-12-12T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": null
   },
   {
     "id": 36,
@@ -750,9 +785,10 @@
     "ratingBreakdown": "{\"1\":5,\"2\":6,\"3\":15,\"4\":40,\"5\":37}",
     "soldCount": 1237,
     "pdpLayout": null,
-    "saleEndsAt": "2026-11-09T07:26:18.688Z",
+    "saleEndsAt": null,
     "publishedAt": "2025-12-11T09:00:00.000Z",
     "createdAt": "2025-12-11T09:00:00.000Z",
-    "updatedAt": "2026-10-20T07:26:18.000Z"
+    "updatedAt": "2026-10-20T07:31:44.000Z",
+    "saleEndsInMs": 1728000000
   }
 ]
