@@ -141,7 +141,7 @@ Status:             PASSED 2026-10-20 (evidence and deviations: decision-log D-0
 | Completion criteria | `/demos` lists every variant with a working link; no placeholder links anywhere in menus or footer. |
 | Exit gate | A link-crawl E2E test (all internal links return 200) passes. |
 
-#### TF2 task contract — **status: AWAITING APPROVAL** (written 2026-10-20)
+#### TF2 task contract — **status: PASSED 2026-10-20** (approved by the user the same day; outcome and deviations in D-054; B6 amended, see below)
 
 Measured on the branch before writing this: 10 shop layouts (`SHOP_LAYOUTS`), 10 product layouts (`PDP_LAYOUTS`; "out of stock" is a state, and the mega menu also has a sticky add-to-cart bar), **5** blog list layouts (`BLOG_LAYOUTS`, plus the post page; the plan's "6" was wrong); **4** `href="#"` placeholders (Home footer socials, Home Instagram strip, blog share buttons, wishlist share buttons); no `loading.tsx` / `error.tsx` anywhere; "Cosmia" and the contact details are hard-coded in 14 files; the free-shipping copy says **$100** (announcement bar, cart logic) and **$50** (benefit strip).
 
@@ -187,8 +187,10 @@ E2E scenarios:      E2E-DEMO-01 hub lists and opens every variant; E2E-DEMO-02 c
 Visual verification: compare-main.mjs on the 11 routes of TF1 plus /demos and /ui-kit (new, no main equivalent: screenshot reviewed by eye).
 Regression risks:   header/footer markup (mega menu highlight tests E2E-MEG-*), content pages (E2E-CNT-*), policy text, checkout copy (E2E-CHK-*).
 Evidence required:  typecheck, lint, Vitest and Playwright counts per sub-task; crawl output (links checked, failures); compare-main table.
-Status:             NOT_STARTED
+Status:             PASSED 2026-10-20 (D-054)
 ```
+
+> **B6 as built:** loading UI exists for Home only. A `loading.tsx` under `(site)` turned missing pages into HTTP 200 (soft 404) and rendered pages twice on query-only navigation (D-054), so it was removed and a test now forbids it.
 
 **Sub-tasks, in order:** T01 `site.ts` + move hard-coded brand/contact/shipping values to it + brand-guard test (do first, everything else reads it).
 T02 consistent copy (free shipping, one address/phone/email set across Contact, footers, policies, checkout). T03 the 4 placeholder links.
@@ -336,11 +338,11 @@ Stop at the TF1 exit gate and report evidence.
 - [x] Clean-clone build with no `.env`; all tests green (Playwright 150 + 3 re-run, Vitest 111; D-053)
 
 **TF2 Demos & polish**
-- [ ] `/demos` hub
-- [ ] Menus have no placeholder links
-- [ ] UI Kit page (or `/dev` removed)
-- [ ] Consistent demo copy; one `site.ts` for branding
-- [ ] Loading/error states
+- [x] `/demos` hub
+- [x] Menus have no placeholder links (crawl: 138 internal links, none dead, no `href="#"`)
+- [x] UI Kit page (`/ui-kit`; `/dev/components` removed)
+- [x] Consistent demo copy; one `site.ts` for branding (brand guard test)
+- [x] Loading/error states (error screens site-wide; loading screen for Home only, see B6 note)
 
 **TF3 Responsive & a11y**
 - [ ] Mobile frames/spec approved

@@ -111,9 +111,9 @@ If a decision changes: update this file plus the owning document(s) (stack → P
 
 ## 20. Immediate next actions
 **ThemeForest track (D-050):**
-1. Status: **TF1 PASSED 2026-10-20 (D-053).** The app has no database, no native module and no server state; `npm ci` works on Node 24 with no compiler. Branch `themeforest` has local commits only (not pushed); `main` is on the public `tf-beauty-ecommerce` repo (D-051). TF-D1..D7 are logged (D-050).
+1. Status: **TF1 PASSED (D-053) and TF2 PASSED (D-054), 2026-10-20.** The app has no database, no native module and no server state; `npm ci` works on Node 24 with no compiler. Branch `themeforest` has local commits only (not pushed); `main` is on the public `tf-beauty-ecommerce` repo (D-051). TF-D1..D7 are logged (D-050).
 2. **TF0 gates** (in parallel with TF1): Envato upload-rights reply (ticket open), Figma ownership, author profile, product name.
-3. **Next: TF2** (demo hub `/demos`, UI-kit page, consistent demo copy, one `src/config/site.ts`, loading/error states) once the user approves its task contract. TF0 gates are still open and in parallel: Envato upload-rights reply, Figma ownership, author profile, product name, and the public-repo risk (D-051). TF1-T10 housekeeping (README, `.env.example`, `CLAUDE.md`) is done.
+3. **Next: TF3** (responsive and accessibility, the biggest risk) needs a task contract and the user's decision on mobile designs (Figma frames or a written spec) before any code. Gates still open in parallel: Envato upload-rights reply, Figma ownership, author profile, product name, and the public-repo risk (D-051). Brand, contact and shop rules are edited in `src/config/site.ts`; the demo hub is `/demos`, the UI kit `/ui-kit`.
 4. Do not start P7 (admin).
 
 **Older list (full-stack, kept for history):**
