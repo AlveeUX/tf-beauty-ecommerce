@@ -3,6 +3,7 @@ import { CONTACT_FAQS } from "@/content/faqs";
 import { Accordion } from "./Accordion";
 import { ContactForm } from "./ContactForm";
 import styles from "./ContactPage.module.css";
+import { site } from "@/config/site";
 
 const CARDS = [
   {
@@ -10,7 +11,7 @@ const CARDS = [
     icon: "/images/contact/icon-location.svg",
     title: "Our location",
     dark: true,
-    lines: ["2571 Oakridge Street, Suite 4B, Portland, OR 97205"],
+    lines: [site.contact.address],
   },
   {
     id: "email",
@@ -18,8 +19,8 @@ const CARDS = [
     title: "Email us",
     dark: false,
     links: [
-      { text: "support@cosmia.com", href: "mailto:support@cosmia.com" },
-      { text: "info@cosmia.com", href: "mailto:info@cosmia.com" },
+      { text: site.contact.emails.support, href: `mailto:${site.contact.emails.support}` },
+      { text: site.contact.emails.info, href: `mailto:${site.contact.emails.info}` },
     ],
   },
   {
@@ -27,17 +28,14 @@ const CARDS = [
     icon: "/images/contact/icon-phone.svg",
     title: "Call us",
     dark: true,
-    links: [
-      { text: "+1 (009) 544-7828", href: "tel:+10095447828" },
-      { text: "+1 (009) 544-7828", href: "tel:+10095447828" },
-    ],
+    links: [{ text: site.contact.phone.display, href: site.contact.phone.href }],
   },
   {
     id: "chat",
     icon: "/images/contact/icon-chat.svg",
     title: "Live chat",
     dark: true,
-    lines: ["livechat@cosmia.com"],
+    lines: [site.contact.emails.livechat],
     help: "Need Help?",
   },
 ] as const;
@@ -75,7 +73,7 @@ export function ContactPage() {
                   ))
                 : null}
               {"help" in card ? (
-                <a className={styles.help} href="mailto:livechat@cosmia.com">
+                <a className={styles.help} href={`mailto:${site.contact.emails.livechat}`}>
                   {card.help}
                 </a>
               ) : null}

@@ -4,6 +4,7 @@ import {
   SHIPPING_FLAT_RATE_CENTS,
 } from "@/config/store";
 import { formatMoney } from "@/lib/money";
+import { site } from "@/config/site";
 
 /**
  * Policy pages (CNT-006, Figma "Policy and privacy" 3:24059). Content is kept as data so the page template
@@ -42,8 +43,7 @@ const PRIVACY: Policy = {
   slug: "privacy",
   title: "Policy and privacy",
   updated: "2026-09-27",
-  intro:
-    "At Cosmia, we respect your privacy and are committed to protecting the personal information you share with us. This policy explains what we collect, how we use it, and the choices you have.",
+  intro: `At ${site.name}, we respect your privacy and are committed to protecting the personal information you share with us. This policy explains what we collect, how we use it, and the choices you have.`,
   sections: [
     {
       id: "information-we-collect",
@@ -156,7 +156,7 @@ const PRIVACY: Policy = {
   contact: {
     heading: "Questions about this policy?",
     lead: "Email us at",
-    email: "privacy@cosmia.com",
+    email: site.contact.emails.privacy,
   },
 };
 
@@ -201,7 +201,7 @@ const SHIPPING: Policy = {
   contact: {
     heading: "Need help with a delivery?",
     lead: "Email us at",
-    email: "support@cosmia.com",
+    email: site.contact.emails.support,
   },
 };
 
@@ -237,7 +237,7 @@ const RETURNS: Policy = {
   contact: {
     heading: "Questions about a return?",
     lead: "Email us at",
-    email: "support@cosmia.com",
+    email: site.contact.emails.support,
   },
 };
 
@@ -282,7 +282,7 @@ const TERMS: Policy = {
   contact: {
     heading: "Questions about these terms?",
     lead: "Email us at",
-    email: "support@cosmia.com",
+    email: site.contact.emails.support,
   },
 };
 

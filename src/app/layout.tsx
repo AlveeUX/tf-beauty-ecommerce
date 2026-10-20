@@ -4,10 +4,11 @@ import "@fontsource/prata/latin-400.css";
 import "@fontsource/allura/latin-400.css";
 import { StoreProviders } from "@/components/cart/StoreProviders";
 import "./globals.css";
+import { site } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: { default: "Cosmia | Skincare & Cosmetics", template: "%s | Cosmia" },
-  description: "Skincare and cosmetics, thoughtfully formulated.",
+  title: { default: `${site.name} | ${site.tagline}`, template: `%s | ${site.name}` },
+  description: site.description,
 };
 
 /**

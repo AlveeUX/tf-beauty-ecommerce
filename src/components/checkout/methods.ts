@@ -1,4 +1,5 @@
 import type { PaymentMethodId } from "@/config/store";
+import { site } from "@/config/site";
 
 /** Checkout labels (Figma 3:22452..3:22459) and the text shown under the chosen method. */
 export const METHOD_COPY: Record<PaymentMethodId, { label: string; description: string }> = {
@@ -13,8 +14,7 @@ export const METHOD_COPY: Record<PaymentMethodId, { label: string; description: 
   },
   check: {
     label: "Check payments",
-    description:
-      "Please send a check made out to Cosmia. Your order will not be shipped until the check has cleared.",
+    description: `Please send a check made out to ${site.name}. Your order will not be shipped until the check has cleared.`,
   },
   card_test: {
     label: "Test card",

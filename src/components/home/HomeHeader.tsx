@@ -11,6 +11,7 @@ import { Icon } from "@/components/ui/Icon";
 import type { NavLink as HeaderLink } from "@/components/layout/Header";
 import type { ProductSummary } from "@/lib/catalog-types";
 import styles from "./HomeChrome.module.css";
+import { site } from "@/config/site";
 
 type HomeHeaderProps = {
   categories: HeaderLink[];
@@ -51,9 +52,9 @@ export function HomeHeader({
         }
       />
       <div className={styles.main}>
-        <Link href="/" className={styles.logo} aria-label="Cosmia Skincare &amp; Cosmetics, home">
-          <span className={styles.wordmark}>Cosmia</span>{" "}
-          <span className={styles.tagline}>Skincare &amp; Cosmetics</span>
+        <Link href="/" className={styles.logo} aria-label={`${site.name} ${site.tagline}, home`}>
+          <span className={styles.wordmark}>{site.name}</span>{" "}
+          <span className={styles.tagline}>{site.tagline}</span>
         </Link>
 
         <nav aria-label="Primary" className={styles.nav}>

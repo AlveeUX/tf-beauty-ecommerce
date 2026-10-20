@@ -10,6 +10,7 @@ import { MenuBadge } from "./MenuBadge";
 import { NavLink } from "./NavLink";
 import { SearchOverlay } from "./SearchOverlay";
 import styles from "./Header.module.css";
+import { site } from "@/config/site";
 
 export type NavLink = { label: string; href: string };
 type NavItem = NavLink & { children?: MenuLink[]; mega?: boolean };
@@ -48,9 +49,9 @@ export function Header({
           <NavList items={left} />
         </nav>
 
-        <Link href="/" className={styles.logo} aria-label="Cosmia Skincare &amp; Cosmetics, home">
-          <span className={styles.wordmark}>Cosmia</span>{" "}
-          <span className={styles.tagline}>Skincare &amp; Cosmetics</span>
+        <Link href="/" className={styles.logo} aria-label={`${site.name} ${site.tagline}, home`}>
+          <span className={styles.wordmark}>{site.name}</span>{" "}
+          <span className={styles.tagline}>{site.tagline}</span>
         </Link>
 
         <nav aria-label="Secondary" className={styles.navRight}>

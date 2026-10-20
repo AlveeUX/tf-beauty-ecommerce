@@ -21,8 +21,9 @@ import {
 import type { ProductBadge } from "@/lib/catalog-types";
 import { getBanners } from "@/server/content/banners";
 import { getBundles } from "@/server/content/bundles";
+import { site } from "@/config/site";
 
-export const metadata: Metadata = { title: { absolute: "Cosmia | Skincare & Cosmetics" } };
+export const metadata: Metadata = { title: { absolute: `${site.name} | ${site.tagline}` } };
 export const dynamic = "force-dynamic";
 
 export default function Home() {

@@ -3,6 +3,7 @@
 import { Icon } from "@/components/ui/Icon";
 import { Modal } from "@/components/ui/Modal";
 import styles from "./SizeGuideModal.module.css";
+import { site } from "@/config/site";
 
 /** Rows of the size guide table (Figma 3:14326). The figures are the design's own. */
 const ROWS = [
@@ -13,13 +14,13 @@ const ROWS = [
   ["Jumbo", "150–200 ml", "Long-term value"],
 ] as const;
 
-/** "Cosmia size guide" popup (Figma 3:14326, 744 x 445). Opened from the product page's "Size guide" link. */
+/** "<brand> size guide" popup (Figma 3:14326, 744 x 445). Opened from the product page's "Size guide" link. */
 export function SizeGuideModal({ onClose }: { onClose: () => void }) {
   return (
     <Modal titleId="size-guide-title" width={744} onClose={onClose} testId="size-guide">
       <div className={styles.box}>
         <header className={styles.head}>
-          <h2 id="size-guide-title">Cosmia size guide</h2>
+          <h2 id="size-guide-title">{site.name} size guide</h2>
           <button
             type="button"
             className={styles.close}

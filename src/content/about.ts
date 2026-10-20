@@ -1,12 +1,13 @@
+import { site } from "@/config/site";
 /**
  * About us copy (CNT-002, Figma 3:28603). The words are the design's own, including its rough edges
  * ("Reasons to choose us", "effectives"), so the client can correct them in the admin pages screen (P9).
  */
 export const ABOUT = {
   hero: {
-    label: "About cosmia",
+    label: `About ${site.name}`,
     title: "Thoughtful skincare and colour for your everyday ritual.",
-    text: "Cosmia started in a small studio in 2014 with one rule: if we wouldn't put on our own faces every day, we don't sell it. Today we make simple, well-tested formulas for every skin tone and type.",
+    text: `${site.name} started in a small studio in ${site.foundedYear} with one rule: if we wouldn't put on our own faces every day, we don't sell it. Today we make simple, well-tested formulas for every skin tone and type.`,
     cta: { label: "Shop bestseller", href: "/shop?badge=best-seller" },
     stats: [
       { value: "120+", label: "Tested on real skin" },

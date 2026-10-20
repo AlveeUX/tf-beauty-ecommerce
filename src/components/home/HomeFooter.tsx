@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import { HomeNewsletter } from "./HomeNewsletter";
 import styles from "./HomeChrome.module.css";
+import { site } from "@/config/site";
 
 type Column = { title: string; links: { label: string; href: string; active?: boolean }[] };
 
@@ -127,7 +128,7 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
         </div>
 
         <p className={styles.copy}>
-          © {year} <strong>Cosmia.</strong> All rights reserved.
+          © {year} <strong>{site.name}.</strong> All rights reserved.
         </p>
 
         <ul className={styles.payments} aria-label="Accepted payment methods">

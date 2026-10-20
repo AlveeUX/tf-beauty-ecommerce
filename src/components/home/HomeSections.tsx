@@ -10,6 +10,7 @@ import { BundleBuilder, type Bundle } from "./BundleBuilder";
 import { Testimonials } from "./Testimonials";
 import type { Banner } from "@/server/content/banners";
 import styles from "./HomeSections.module.css";
+import { site } from "@/config/site";
 
 function SectionHeader({
   eyebrow,
@@ -319,7 +320,7 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
 export function FeatureStrip({ items }: { items: Banner[] }) {
   if (items.length === 0) return null;
   return (
-    <section className={styles.featureSection} aria-label="Why Cosmia">
+    <section className={styles.featureSection} aria-label={`Why ${site.name}`}>
       <div className="container">
         <ul className={styles.features}>
           {items.map((f) => {

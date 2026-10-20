@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import { NewsletterForm } from "./NewsletterForm";
 import styles from "./Footer.module.css";
+import { site } from "@/config/site";
 
 type FooterLink = { label: string; href: string; active?: boolean };
 
@@ -68,11 +69,11 @@ export function Footer() {
       <div className={styles.bottom}>
         <div className={`container ${styles.bottomInner}`}>
           <p className={styles.copy}>
-            © {year} <strong>Cosmia.</strong> All rights reserved.
+            © {year} <strong>{site.name}.</strong> All rights reserved.
           </p>
-          <Link href="/" className={styles.logo} aria-label="Cosmia Skincare &amp; Cosmetics, home">
-            <span className={styles.wordmark}>Cosmia</span>{" "}
-            <span className={styles.tagline}>Skincare &amp; Cosmetics</span>
+          <Link href="/" className={styles.logo} aria-label={`${site.name} ${site.tagline}, home`}>
+            <span className={styles.wordmark}>{site.name}</span>{" "}
+            <span className={styles.tagline}>{site.tagline}</span>
           </Link>
           <Image
             className={styles.socials}

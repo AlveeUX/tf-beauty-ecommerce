@@ -1,3 +1,4 @@
+import { site } from "@/config/site";
 /**
  * Header menus (Figma 3:1452 "Mega menu", 3:1749 "Menu dropdown").
  *
@@ -119,13 +120,13 @@ export const SHOP_MEGA: { columns: MegaColumn[]; promos: MegaPromo[] } = {
       label: "Best seller",
       href: "/shop?badge=best-seller",
       image: "/images/menu/best-seller.jpg",
-      alt: "Cosmia cream, lotion and jar on a stone",
+      alt: `${site.name} cream, lotion and jar on a stone`,
     },
     {
       label: "New arrival",
       href: "/shop?badge=new",
       image: "/images/menu/new-arrival.jpg",
-      alt: "Model applying Cosmia face cream",
+      alt: `Model applying ${site.name} face cream`,
     },
   ],
 };

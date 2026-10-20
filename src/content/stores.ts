@@ -1,4 +1,5 @@
 import type { Hours } from "@/lib/store-status";
+import { site } from "@/config/site";
 
 /**
  * Store locations (CNT-005, Figma 3:24455). Names, addresses and phone numbers are the design's sample data;
@@ -21,7 +22,7 @@ export type StoreLocation = {
 export const STORES: StoreLocation[] = [
   {
     id: "copenhagen-flagship",
-    name: "Cosmia — Copenhagen Flagship",
+    name: `${site.name} — Copenhagen Flagship`,
     address: "Østergade 12, 1100 Copenhagen, Denmark",
     phone: "+45 33 11 22 33",
     hours: { open: "10:00", close: "20:00" },
@@ -29,7 +30,7 @@ export const STORES: StoreLocation[] = [
   },
   {
     id: "norrebro",
-    name: "Cosmia — Nørrebro",
+    name: `${site.name} — Nørrebro`,
     address: "Jægersborggade 34, 2200 Copenhagen, Denmark",
     phone: "+45 33 44 55 66",
     hours: { open: "10:00", close: "19:00" },
@@ -37,7 +38,7 @@ export const STORES: StoreLocation[] = [
   },
   {
     id: "aarhus",
-    name: "Cosmia — Aarhus",
+    name: `${site.name} — Aarhus`,
     address: "Strøget 8, 8000 Aarhus, Denmark",
     phone: "+45 86 77 88 99",
     hours: { open: "10:00", close: "18:00" },
