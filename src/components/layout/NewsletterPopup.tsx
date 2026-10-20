@@ -4,7 +4,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { sendJson } from "@/lib/api";
+import { submitNewsletter } from "@/lib/demo-store/forms";
 import styles from "./NewsletterPopup.module.css";
 
 const KEY = "cosmia.newsletter-popup";
@@ -117,7 +117,7 @@ export function NewsletterPopup() {
     }
     setError("");
     setBusy(true);
-    const result = await sendJson("/api/newsletter", "POST", {
+    const result = submitNewsletter({
       email: email.trim(),
       source: "popup",
       consent: true,

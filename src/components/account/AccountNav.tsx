@@ -2,11 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
-import { useCart } from "@/components/cart/CartProvider";
-import { sendJson } from "@/lib/api";
-import { replaceList } from "@/lib/lists";
-import { useAuth } from "./AuthProvider";
+import { signOut } from "@/lib/demo-store/account";
 import styles from "./Account.module.css";
 
 const LINKS = [
@@ -19,19 +15,10 @@ const LINKS = [
 export function AccountNav() {
   const pathname = usePathname();
   const router = useRouter();
-  const { setUser } = useAuth();
-  const cart = useCart();
-  const [busy, setBusy] = useState(false);
 
-  async function logout() {
-    setBusy(true);
-    await sendJson("/api/auth/logout", "POST");
-    setUser(null);
-    // the next person on a shared computer must not inherit this account's wishlist or cart
-    replaceList("wishlist", []);
-    await cart.refresh();
+  function logout() {
+    signOut();
     router.push("/login");
-    router.refresh();
   }
 
   return (
@@ -49,7 +36,7 @@ export function AccountNav() {
           );
         })}
         <li>
-          <button type="button" onClick={logout} disabled={busy} data-testid="logout">
+          <button type="button" onClick={logout} data-testid="logout">
             Log out
           </button>
         </li>

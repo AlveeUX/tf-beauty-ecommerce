@@ -19,4 +19,5 @@ export type QuickViewData = {
 };
 
 //** A published product's default variant for the popup, or null for an unknown or unpublished slug. */
-export const getQuickView = (slug: string): QuickViewData | null => getProvider().getQuickView(slug);
+export const getQuickView = (slug: string): QuickViewData | null =>
+  getProvider().getQuickView(slug);

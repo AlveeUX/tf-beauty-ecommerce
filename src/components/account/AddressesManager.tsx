@@ -3,9 +3,16 @@
 import { useState, type FormEvent } from "react";
 import { Field } from "@/components/form/Field";
 import { SHIPPING_COUNTRIES } from "@/config/store";
-import { sendJson } from "@/lib/api";
+import {
+  addAddress,
+  deleteAddress,
+  setDefaultAddress,
+  updateAddress,
+  useAddresses,
+  useCurrentUser,
+  type AddressView,
+} from "@/lib/demo-store/account";
 import { addressSchema, fieldErrors, type FieldErrors } from "@/lib/validation/checkout";
-import type { AddressView } from "@/server/account/addresses";
 import styles from "./Account.module.css";
 
 const BLANK = {
@@ -23,13 +30,13 @@ const BLANK = {
 type Draft = typeof BLANK;
 
 /** Saved addresses (USR-004): add, edit, delete, choose the default that checkout pre-fills. */
-export function AddressesManager({ initial }: { initial: AddressView[] }) {
-  const [items, setItems] = useState(initial);
+export function AddressesManager() {
+  const { user } = useCurrentUser();
+  const items = useAddresses(user?.id ?? null);
   const [editing, setEditing] = useState<number | "new" | null>(null);
   const [draft, setDraft] = useState<Draft>(BLANK);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [message, setMessage] = useState("");
-  const [busy, setBusy] = useState(false);
 
   const set = (name: keyof Draft) => (value: string) => setDraft((d) => ({ ...d, [name]: value }));
 
@@ -54,40 +61,29 @@ export function AddressesManager({ initial }: { initial: AddressView[] }) {
     setEditing(address ? address.id : "new");
   }
 
-  async function reload() {
-    const response = await fetch("/api/account/addresses", { cache: "no-store" });
-    if (response.ok) setItems(((await response.json()) as { addresses: AddressView[] }).addresses);
-  }
-
-  async function save(event: FormEvent) {
+  function save(event: FormEvent) {
     event.preventDefault();
+    if (!user) return;
     const parsed = addressSchema.safeParse(draft);
     if (!parsed.success) return setErrors(fieldErrors(parsed.error));
     setErrors({});
-    setBusy(true);
     const result =
       editing === "new"
-        ? await sendJson("/api/account/addresses", "POST", parsed.data)
-        : await sendJson(`/api/account/addresses/${editing}`, "PUT", parsed.data);
-    setBusy(false);
-    if (!result.ok) {
-      setErrors(result.data.errors ?? {});
-      return setMessage(result.data.message ?? "Something went wrong.");
-    }
+        ? addAddress(user.id, parsed.data)
+        : updateAddress(user.id, Number(editing), parsed.data);
+    if (!result.ok) return setMessage(result.message);
     setEditing(null);
     setMessage("Address saved.");
-    await reload();
   }
 
-  async function makeDefault(id: number) {
-    await sendJson(`/api/account/addresses/${id}`, "PATCH", { default: true });
-    await reload();
+  function makeDefault(id: number) {
+    if (user) setDefaultAddress(user.id, id);
   }
 
-  async function remove(id: number) {
-    await sendJson(`/api/account/addresses/${id}`, "DELETE");
+  function remove(id: number) {
+    if (!user) return;
+    deleteAddress(user.id, id);
     setMessage("Address deleted.");
-    await reload();
   }
 
   return (
@@ -122,11 +118,11 @@ export function AddressesManager({ initial }: { initial: AddressView[] }) {
                   Edit
                 </button>
                 {!a.isDefault ? (
-                  <button type="button" onClick={() => void makeDefault(a.id)}>
+                  <button type="button" onClick={() => makeDefault(a.id)}>
                     Make default
                   </button>
                 ) : null}
-                <button type="button" onClick={() => void remove(a.id)}>
+                <button type="button" onClick={() => remove(a.id)}>
                   Delete
                 </button>
               </div>
@@ -234,12 +230,7 @@ export function AddressesManager({ initial }: { initial: AddressView[] }) {
             />
           </div>
           <div className={styles.formActions}>
-            <button
-              type="submit"
-              className={styles.small}
-              disabled={busy}
-              data-testid="save-address"
-            >
+            <button type="submit" className={styles.small} data-testid="save-address">
               Save address
             </button>
             <button type="button" className={styles.ghost} onClick={() => setEditing(null)}>

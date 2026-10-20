@@ -1,5 +1,6 @@
 import { expect, test, type Locator } from "@playwright/test";
-import { contactMessagesFor, run, uniqueEmail } from "../fixtures/db";
+import { uniqueEmail } from "../fixtures/unique";
+import { stored } from "../fixtures/flows";
 
 // E2E-CNT-06..11 (PRD CNT-002..004): About us, Contact us, FAQs and the 404 page. Coordinates are page
 // coordinates at 1920 wide, taken from the Figma frames (3:28603, 3:27227, 3:27601, 3:28374).
@@ -99,7 +100,7 @@ test.describe("Contact us", () => {
     await expect(items.nth(1)).toContainText("15 days");
   });
 
-  test("E2E-CNT-08 the form validates, stores a valid message for staff, and slows down repeated sending", async ({
+  test("E2E-CNT-08 the form validates and keeps a valid message in the browser (demo mode)", async ({
     page,
   }) => {
     await page.goto("/contact");
@@ -116,38 +117,20 @@ test.describe("Contact us", () => {
     await page.getByTestId("check-consent").check();
     await page.getByTestId("send-message").click();
     await expect(page.getByTestId("error-message")).toContainText("at least 10");
-    expect(contactMessagesFor(email)).toHaveLength(0);
+    expect(await stored(page, "contact-messages")).toBeNull();
 
     await page.getByTestId("field-message").fill("Which serum is best for dry skin in winter?");
     await page.getByTestId("send-message").click();
     await expect(page.getByTestId("contact-sent")).toContainText("Thank you");
     await expect(page.getByTestId("field-message")).toHaveValue(""); // the form resets
-    expect(contactMessagesFor(email)).toMatchObject([
+    expect(await stored(page, "contact-messages")).toMatchObject([
       {
         name: "Ana Lopez",
+        email,
         topic: "Product advice",
-        status: "new",
         message: "Which serum is best for dry skin in winter?",
       },
     ]);
-
-    // limit per address: a sixth message in the window is refused with Retry-After
-    run("delete from rate_limits where key like 'contact:%'");
-    const body = {
-      name: "Bot",
-      email: uniqueEmail("flood"),
-      topic: "Press",
-      message: "Hello there, testing limits.",
-      consent: true,
-    };
-    const codes: number[] = [];
-    for (let i = 0; i < 6; i++) {
-      const response = await page.request.post("/api/contact", { data: body });
-      codes.push(response.status());
-      if (response.status() === 429) expect(response.headers()["retry-after"]).toBeTruthy();
-    }
-    expect(codes).toEqual([201, 201, 201, 201, 201, 429]);
-    run("delete from rate_limits where key like 'contact:%'");
   });
 });
 

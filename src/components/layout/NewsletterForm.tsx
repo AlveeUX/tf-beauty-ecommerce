@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { sendJson } from "@/lib/api";
+import { submitNewsletter } from "@/lib/demo-store/forms";
 import styles from "./NewsletterForm.module.css";
 
 type Status = { kind: "idle" } | { kind: "error"; message: string } | { kind: "success" };
@@ -25,7 +25,7 @@ export function NewsletterForm({ tone = "default" }: { tone?: "default" | "dark"
     } else if (!agreed) {
       setStatus({ kind: "error", message: "Please accept the terms to subscribe." });
     } else {
-      const result = await sendJson("/api/newsletter", "POST", {
+      const result = submitNewsletter({
         email: email.trim(),
         source: "footer",
         consent: true,

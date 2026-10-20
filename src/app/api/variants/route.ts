@@ -13,7 +13,8 @@ export async function GET(request: Request) {
     ...params.getAll("variant").map((v) => ({ variantId: Number(v) })),
     ...params.getAll("slug").map((slug) => ({ slug })),
   ];
-  if (refs.length === 0 || refs.length > MAX_REFS) return jsonError(400, "bad_request", "Ask for 1 to 60 items.");
+  if (refs.length === 0 || refs.length > MAX_REFS)
+    return jsonError(400, "bad_request", "Ask for 1 to 60 items.");
   if (refs.some((r) => "variantId" in r && !Number.isInteger(r.variantId))) {
     return jsonError(400, "bad_request", "Invalid variant id.");
   }

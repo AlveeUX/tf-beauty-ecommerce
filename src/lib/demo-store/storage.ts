@@ -24,15 +24,14 @@ function rawGet(key: string): string | null {
 export function readStore<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   const raw = rawGet(key);
+  if (raw === null) return fallback; // nothing stored: the caller's own fallback, never a cached one
   const hit = parsed.get(key);
   if (hit && hit.raw === raw) return hit.value as T;
   let value: unknown = fallback;
-  if (raw !== null) {
-    try {
-      value = JSON.parse(raw);
-    } catch {
-      value = fallback;
-    }
+  try {
+    value = JSON.parse(raw);
+  } catch {
+    value = fallback;
   }
   parsed.set(key, { raw, value });
   return value as T;

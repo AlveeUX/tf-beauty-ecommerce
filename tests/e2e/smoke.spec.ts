@@ -8,10 +8,10 @@ test.describe("E2E-SMOKE-01 foundation smoke", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Glam Defined Perfectly");
   });
 
-  test("health endpoint reports database ok", async ({ request }) => {
+  test("health endpoint reports ok", async ({ request }) => {
     const res = await request.get("/api/health");
     expect(res.status()).toBe(200);
-    expect(await res.json()).toEqual({ status: "ok", db: "ok" });
+    expect(await res.json()).toEqual({ status: "ok" });
   });
 
   test("home page has no critical/serious accessibility violations", async ({ page }) => {

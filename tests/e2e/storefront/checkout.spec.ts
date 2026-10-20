@@ -1,6 +1,14 @@
 import { expect, test } from "@playwright/test";
-import { uniqueEmail } from "../fixtures/db";
-import { addToCart, fillBilling, setStored, stored, storedOrders } from "../fixtures/flows";
+import { uniqueEmail } from "../fixtures/unique";
+import {
+  addToCart,
+  fillBilling,
+  PASSWORD,
+  register,
+  setStored,
+  stored,
+  storedOrders,
+} from "../fixtures/flows";
 
 // E2E-CHK-01..07 (PRD CHK-001..009, ORD-001/002, BR-03/07). Demo mode: the order is stored in the browser's
 // localStorage and nothing is charged. Each test uses its own email so orders never mix.
@@ -175,9 +183,77 @@ test.describe("Checkout", () => {
     await expect(page.getByText("This coupon code is not valid.")).toBeVisible();
   });
 
-  // E2E-CHK-08 (signed-in checkout pre-fills the saved address, order appears in the account) and
-  // E2E-CHK-09 (another account cannot open the order, Buy now goes to checkout) move to the demo
-  // account in TF1-T06; they are restored there.
-  test.skip("E2E-CHK-08 signed-in checkout pre-fills the saved address (TF1-T06)", () => {});
-  test.skip("E2E-CHK-09 another account cannot open someone else's order (TF1-T06)", () => {});
+  test("E2E-CHK-08 signed-in checkout pre-fills the saved address and the order appears in the account", async ({
+    page,
+  }) => {
+    const email = uniqueEmail("member");
+    await register(page, "member" + Math.random().toString(36).slice(2, 8), email, PASSWORD);
+
+    await page.goto("/account/addresses");
+    await expect(page.getByTestId("addresses-empty")).toBeVisible();
+    await page.getByTestId("add-address").click();
+    await page.getByTestId("save-address").click();
+    await expect(page.getByTestId("error-firstName")).toBeVisible();
+    await page.getByTestId("field-firstName").fill("Maya");
+    await page.getByTestId("field-lastName").fill("Stone");
+    await page.getByTestId("field-address1").fill("22 Baker Street");
+    await page.getByTestId("field-city").fill("London");
+    await page.getByTestId("field-postcode").fill("NW1 6XE");
+    await page.getByTestId("field-phone").fill("+44 20 7946 0001");
+    await page.getByTestId("save-address").click();
+    await expect(page.getByTestId("address-card")).toHaveCount(1);
+    await expect(page.getByTestId("address-card")).toContainText("Default");
+
+    await addToCart(page, "lip-repair-balm", 1);
+    await page.goto("/checkout");
+    await expect(page.getByTestId("field-firstName")).toHaveValue("Maya");
+    await expect(page.getByTestId("field-address1")).toHaveValue("22 Baker Street");
+    await expect(page.getByTestId("field-email")).toHaveValue(email);
+    await page.getByTestId("check-acceptTerms").check();
+    await place(page);
+    await expect(page).toHaveURL(/\/checkout\/confirmation\//);
+    const number = (await page.getByTestId("order-number").innerText()).trim();
+
+    await page.goto("/account/orders");
+    await expect(page.getByTestId("orders-list")).toContainText(number);
+    await page.getByRole("link", { name: number }).click();
+    await expect(page.getByTestId("order-heading")).toContainText(number);
+    await expect(page.getByTestId("order-items")).toContainText("Lip Repair Balm");
+  });
+
+  test("E2E-CHK-09 another account cannot open someone else's order; a new browser is sent to tracking", async ({
+    page,
+    browser,
+  }) => {
+    const email = uniqueEmail("owner");
+    await register(page, "owner" + Math.random().toString(36).slice(2, 8), email, PASSWORD);
+    await addToCart(page, "lip-repair-balm", 1);
+    await page.goto("/checkout");
+    await page.getByTestId("check-acceptTerms").check();
+    await fillBilling(page, email);
+    await place(page);
+    await expect(page).toHaveURL(/\/checkout\/confirmation\//);
+    const number = (await page.getByTestId("order-number").innerText()).trim();
+
+    // a second account in the same browser sees an empty order list and a 404 for the first one's order
+    await page.goto("/account");
+    await page.getByTestId("logout").click();
+    await register(
+      page,
+      "intruder" + Math.random().toString(36).slice(2, 8),
+      uniqueEmail("intruder"),
+      PASSWORD,
+    );
+    await page.goto("/account/orders");
+    await expect(page.getByTestId("orders-empty")).toBeVisible();
+    await page.goto(`/account/orders/${number}`);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Oooop! Page not found");
+
+    // another browser does not have the order at all: the confirmation page sends it to the tracking form
+    const other = await browser.newContext();
+    const op = await other.newPage();
+    await op.goto(`/checkout/confirmation/${number}`);
+    await expect(op).toHaveURL(/\/track-order$/);
+    await other.close();
+  });
 });

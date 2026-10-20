@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
-import { sendJson } from "@/lib/api";
+import { submitNewsletter } from "@/lib/demo-store/forms";
 import styles from "./HomeChrome.module.css";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -27,7 +27,7 @@ export function HomeNewsletter() {
       setStatus("consent");
       return;
     }
-    const result = await sendJson("/api/newsletter", "POST", {
+    const result = submitNewsletter({
       email: email.trim(),
       source: "home-footer",
       consent: true,

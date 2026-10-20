@@ -1,16 +1,11 @@
-import { eq } from "drizzle-orm";
-import { afterEach, beforeAll, describe, expect, it } from "vitest";
-import { createDb, type Db } from "../../src/db/client";
-import { runMigrations } from "../../src/db/migrate";
-import { reviews, products } from "../../src/db/schema";
+import { afterEach, describe, expect, it } from "vitest";
 import type { Tables } from "../../src/data/tables";
-import { seedCatalog } from "../../src/db/seed";
 import { formatMoney } from "../../src/lib/money";
 import { parseProductContent } from "../../src/lib/product-content";
 import { priceRangeLabel } from "../../src/lib/price-format";
 import { getBanners } from "../../src/server/content/banners";
 import { getBundles } from "../../src/server/content/bundles";
-import { reviewInputSchema, submitReview } from "../../src/server/catalog/reviews";
+import { reviewInputSchema } from "../../src/lib/validation/review";
 import {
   getCategoryCards,
   getProductBySlug,
@@ -18,13 +13,7 @@ import {
 } from "../../src/server/catalog/service";
 import { resetTables, withTables } from "../helpers/tables";
 
-let db: Db; // still used by submitReview (moves to the client in TF1-T08)
 afterEach(resetTables);
-beforeAll(() => {
-  db = createDb(":memory:").db;
-  runMigrations(db);
-  seedCatalog(db);
-});
 
 describe("money and price labels", () => {
   it("formats compact and full amounts and rejects non-integer cents", () => {
@@ -148,7 +137,7 @@ describe("getProductsBySlugs and category cards (CAT-008)", () => {
   });
 });
 
-describe("review submission (PRD-006, BR-11)", () => {
+describe("review input (PRD-006)", () => {
   const valid = {
     headline: "Worth every penny",
     rating: 5,
@@ -179,44 +168,5 @@ describe("review submission (PRD-006, BR-11)", () => {
       ]);
     expect(reviewInputSchema.safeParse({ ...valid, rating: 6 }).success).toBe(false);
     expect(reviewInputSchema.safeParse({ ...valid, rating: 4.5 }).success).toBe(false);
-  });
-
-  it("stores a pending, unverified review that is not shown publicly", () => {
-    const input = reviewInputSchema.parse(valid);
-    const result = submitReview(db, "the-renewal-serum", input);
-    expect(result.ok).toBe(true);
-    const row = db.select().from(reviews).where(eq(reviews.authorName, "Test Shopper")).get()!;
-    expect(row).toMatchObject({
-      status: "pending",
-      isVerified: false,
-      authorEmail: "shopper@example.com",
-    });
-    const detail = getProductBySlug("the-renewal-serum")!;
-    expect(
-      db.select().from(reviews).where(eq(reviews.productId, detail.id)).all().length,
-    ).toBeGreaterThan(3);
-  });
-
-  it("rejects a second review from the same email on the same product, but not on another product", () => {
-    const input = reviewInputSchema.parse(valid);
-    expect(submitReview(db, "the-renewal-serum", input)).toEqual({ ok: false, code: "duplicate" });
-    expect(
-      submitReview(
-        db,
-        "the-renewal-serum",
-        reviewInputSchema.parse({ ...valid, email: "SHOPPER@example.com" }),
-      ),
-    ).toEqual({
-      ok: false,
-      code: "duplicate",
-    });
-    expect(submitReview(db, "facial-roller", input).ok).toBe(true);
-  });
-
-  it("answers not_found for unknown or unpublished products", () => {
-    const input = reviewInputSchema.parse({ ...valid, email: "other@example.com" });
-    expect(submitReview(db, "nope", input)).toEqual({ ok: false, code: "not_found" });
-    db.update(products).set({ status: "draft" }).where(eq(products.slug, "hydra-mist-toner")).run();
-    expect(submitReview(db, "hydra-mist-toner", input)).toEqual({ ok: false, code: "not_found" });
   });
 });

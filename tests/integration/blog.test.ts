@@ -1,10 +1,6 @@
-import { beforeAll, describe, expect, it } from "vitest";
-import { createDb, type Db } from "../../src/db/client";
-import { runMigrations } from "../../src/db/migrate";
-import { seedCatalog } from "../../src/db/seed";
+import { describe, expect, it } from "vitest";
 import { BLOG_PAGE_SIZE, parseBlogLayout } from "../../src/lib/blog";
 import { commentSchema } from "../../src/lib/validation/blog";
-import { addComment } from "../../src/server/blog/comments";
 import {
   approvedComments,
   getPost,
@@ -13,16 +9,6 @@ import {
   postIdFor,
   sidebarData,
 } from "../../src/server/blog/queries";
-
-let db: Db;
-beforeAll(() => {
-  db = createDb(":memory:").db;
-  runMigrations(db);
-  seedCatalog(db);
-});
-
-const input = (over: Partial<Parameters<typeof addComment>[2]> = {}) =>
-  commentSchema.parse({ name: "Ana", email: "ana@example.com", body: "Lovely article!", ...over });
 
 describe("blog queries (BLG-001..003)", () => {
   it("seeds the 12 design posts in list order and pages them", () => {
@@ -78,30 +64,18 @@ describe("blog comments (BLG-004)", () => {
     expect(comments.filter((c) => c.parentId === null)).toHaveLength(2);
   });
 
-  it("stores new comments as pending, so they do not show until approved", () => {
-    const result = addComment(db, slug, input(), "ip-a");
-    expect(result.ok).toBe(true);
-    expect(approvedComments(postIdFor(slug)!)).toHaveLength(3);
-  });
-
-  it("rejects unknown posts and replies to comments that are not visible", () => {
-    expect(addComment(db, "nope", input(), "ip-b")).toEqual({ ok: false, reason: "not_found" });
-    expect(addComment(db, slug, input({ parentId: 99999 }), "ip-b")).toEqual({
-      ok: false,
-      reason: "bad_parent",
-    });
-  });
-
-  it("validates fields and limits sending per client", () => {
+  it("validates the comment fields", () => {
+    const input = (over: Record<string, unknown> = {}) =>
+      commentSchema.parse({
+        name: "Ana",
+        email: "ana@example.com",
+        body: "Lovely article!",
+        ...over,
+      });
     expect(commentSchema.safeParse({ name: "", email: "x", body: "hi" }).success).toBe(false);
     expect(input({ website: "" }).website).toBe("");
     expect(commentSchema.safeParse({ ...input(), website: "javascript:alert(1)" }).success).toBe(
       false,
     );
-    const results = Array.from({ length: 6 }, (_, i) =>
-      addComment(db, slug, input({ email: `u${i}@example.com` }), "ip-flood", 1_000),
-    );
-    expect(results.slice(0, 5).every((r) => r.ok)).toBe(true);
-    expect(results[5]).toMatchObject({ ok: false, reason: "rate_limited" });
   });
 });

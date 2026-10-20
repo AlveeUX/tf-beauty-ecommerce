@@ -1,62 +1,71 @@
 # Cosmia - Beauty eCommerce (ThemeForest edition, in preparation)
 
-Next.js eCommerce storefront built from the Figma design, being prepared for sale on ThemeForest as a front-end template with JSON mock data (see `docs/themeforest-plan.md`).
-**Work in progress on branch `themeforest`:** until TF1 is finished the app still uses SQLite (`better-sqlite3`); the database, server auth and admin are being removed from this edition. Nothing here is deployed.
+A Next.js eCommerce storefront built from a Figma design, being prepared for sale on ThemeForest as a
+**front-end template with JSON mock data**. See `docs/themeforest-plan.md` for the plan.
+
+There is no database, no server-side accounts and no admin. The catalog and blog are JSON files in
+`src/data`; the cart, checkout, accounts and forms work in the browser (localStorage) in demo mode, and
+one interface, `DataProvider`, is the place to plug in a real backend.
 
 ## Requirements
 
-- Node.js >= 22 (developed on v24.18.0) and npm
+- Node.js >= 22 and npm
 
 ## Setup
 
 ```bash
 npm install
 npx playwright install chromium   # once, for E2E tests
-cp .env.example .env              # optional; defaults work without it
-npm run db:migrate                # creates ./data/dev.db
-npm run db:seed                   # demo catalog + Home content (36 products)
-npm run dev                       # http://localhost:3000  (health: /api/health)
+npm run dev                       # http://localhost:3000
 ```
+
+No `.env` file is needed. `.env.example` lists the optional settings.
 
 ## Scripts
 
-| Command                                       | Purpose                                                                      |
-| --------------------------------------------- | ---------------------------------------------------------------------------- |
-| `npm run dev` / `build` / `start`             | Next.js                                                                      |
-| `npm run typecheck` / `lint` / `format:check` | Static checks                                                                |
-| `npm test`                                    | Vitest unit + integration tests                                              |
-| `npm run e2e`                                 | Playwright: resets and seeds `./data/test.db`, builds, serves on :3100, runs `tests/e2e` (`E2E_REUSE=1` reuses a running server) |
-| `npm run test:reset`                          | Recreate the **test** database (refuses non-test paths)                      |
-| `npm run db:generate`                         | Generate a migration after editing `src/db/schema.ts`                        |
-| `npm run db:migrate` / `db:seed`              | Apply migrations / seed the dev DB                                           |
+| Command                                       | Purpose                                                                                       |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `npm run dev` / `build` / `start`             | Next.js                                                                                       |
+| `npm run typecheck` / `lint` / `format:check` | Static checks                                                                                 |
+| `npm test`                                    | Vitest unit + integration tests                                                               |
+| `npm run e2e`                                 | Playwright: builds, serves on :3100, runs `tests/e2e` (`E2E_REUSE=1` reuses a running server) |
 
 ## What you can open locally (`npm run dev`, http://localhost:3000)
 
-| Page | URL |
-| ---- | --- |
-| Home | `/` |
-| Shop (filters, sort, pagination) | `/shop` |
-| Categories | `/categories` |
-| Product details | `/product/the-renewal-serum` (also try `/product/glass-glow-primer`, which is out of stock) |
-| Search | header search icon, or `/search?q=serum` |
-| Component catalog (dev only) | `/dev/components` |
+| Page                             | URL                                                               |
+| -------------------------------- | ----------------------------------------------------------------- |
+| Home                             | `/`                                                               |
+| Shop (filters, sort, pagination) | `/shop` (layouts: `?layout=`)                                     |
+| Product details                  | `/product/the-renewal-serum` (layouts: `?layout=`)                |
+| Cart, checkout                   | `/cart`, `/checkout`                                              |
+| Account (demo)                   | `/register`, `/login`, `/account`                                 |
+| Track order (demo)               | `/track-order` - try order `CSM-DEMO2026` with `demo@example.com` |
+| Blog, content pages              | `/blog`, `/about`, `/contact`, `/faqs`, `/store-locator`          |
+| Component catalog (dev only)     | `/dev/components`                                                 |
 
-The storefront pages (cart, wishlist, compare, checkout, accounts, blog, content pages and all layout variants) are built. The admin dashboard is **not** part of the ThemeForest edition.
+## Demo mode
+
+Everything a server would normally do is done in the browser and stored under the `cosmia.demo.` prefix in
+localStorage: the cart (ids and quantities), orders, accounts (passwords as a salted digest, **not real
+security**), saved addresses, reset links, and the newsletter, contact, comment and review entries.
+Nothing is sent anywhere and nothing is charged. A dismissible note on the login, account and checkout
+pages says so. To test the payment-failure message, set `localStorage["cosmia.demo.simulate"]` to
+`"decline"` and pay with the test card (`NEXT_PUBLIC_PAYMENT_METHODS` must include `card_test`).
 
 ## Layout
 
 ```
-src/app        routes (storefront; admin later under /admin) and API route handlers
-src/db         schema, connection, migrations runner
-src/server     domain services (business rules) - added from P3
-src/components shared UI components - added from P2
-src/lib        small shared utilities
-src/styles     design tokens - added from P2
-drizzle/       generated SQL migrations (commit these)
-scripts/       db-migrate, db-seed, test-reset
-tests/         unit, integration, api, e2e, visual, reports
+src/app        routes and the few read-only API route handlers (catalog, search, variants, health)
+src/data       JSON content, Zod schemas, the DataProvider interface and its JSON implementation
+src/server     read services that delegate to the DataProvider
+src/lib        shared logic: cart rules, order types, validation, demo-store (browser storage)
+src/components UI components
+src/styles     design tokens
+tests          unit, integration, api, e2e, visual
 ```
 
 ## Project documents (in `docs/`)
 
-`docs/themeforest-plan.md` (the plan: phases, task contracts, checklist) - `docs/PRD.md` (requirements and Figma inventory; database/auth/admin parts apply to `main` only) - `docs/e2e-testing-strategy.md` (verification) - `docs/context.md` (current state) - `docs/decision-log.md` (why).
+`docs/themeforest-plan.md` (the plan: phases, task contracts, checklist) - `docs/PRD.md` (requirements and
+Figma inventory; database/auth/admin parts apply to `main` only) - `docs/e2e-testing-strategy.md`
+(verification) - `docs/context.md` (current state) - `docs/decision-log.md` (why).

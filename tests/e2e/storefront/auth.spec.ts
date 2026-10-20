@@ -1,8 +1,9 @@
 import { expect, test } from "@playwright/test";
-import { latestResetLink, uniqueEmail } from "../fixtures/db";
-import { addToCart, PASSWORD, register } from "../fixtures/flows";
+import { uniqueEmail } from "../fixtures/unique";
+import { addToCart, PASSWORD, register, stored } from "../fixtures/flows";
 
-// E2E-USR-01..06 (PRD USR-001..005, SEC-001/002/004). Every test uses its own account.
+// E2E-USR-01..07 (PRD USR-001..005). Demo mode: accounts, the session and reset links live in this browser's
+// localStorage, so nothing is shared between browsers. Every test uses its own account.
 const name = (label: string) => `${label}${Math.random().toString(36).slice(2, 8)}`;
 
 test.describe("Accounts and authentication", () => {
@@ -71,7 +72,7 @@ test.describe("Accounts and authentication", () => {
     await expect(page).toHaveURL(/\/account$/);
   });
 
-  test("E2E-USR-03 login locks after repeated failures (SEC-004)", async ({ page }) => {
+  test("E2E-USR-03 login locks after repeated failures", async ({ page }) => {
     const username = name("lock");
     await register(page, username, uniqueEmail("lock"), PASSWORD);
     await page.getByTestId("logout").click();
@@ -89,7 +90,7 @@ test.describe("Accounts and authentication", () => {
     await expect(page).toHaveURL(/\/login$/);
   });
 
-  test("E2E-USR-04 forgot password answers the same for any account and the emailed link sets a new password", async ({
+  test("E2E-USR-04 forgot password answers the same for any account and the reset link sets a new password", async ({
     page,
   }) => {
     const username = name("forgot");
@@ -104,14 +105,14 @@ test.describe("Accounts and authentication", () => {
     await page.getByTestId("field-identifier").fill("nobody-" + email);
     await page.getByTestId("auth-submit").click();
     const unknown = await page.getByTestId("forgot-sent").innerText();
+    await expect(page.getByTestId("demo-reset-link")).toHaveCount(0); // no link for a non-existent account
     await page.getByTestId("field-identifier").fill(email);
     await page.getByTestId("auth-submit").click();
     await expect(page.getByTestId("forgot-sent")).toHaveText(unknown);
 
-    // the link only exists in the local outbox, and only for the real account
-    expect(latestResetLink("nobody-" + email)).toBeNull();
-    const link = latestResetLink(email);
-    expect(link).not.toBeNull();
+    // demo mode sends no email: the page offers the link, and only for the real account
+    const link = await page.getByTestId("demo-reset-link").getByRole("link").getAttribute("href");
+    expect(link).toMatch(/^\/reset-password\?token=[0-9a-f]{64}$/);
     await page.goto(link!);
     await page.getByTestId("field-password").fill("12345678");
     await page.getByTestId("auth-submit").click();
@@ -133,95 +134,75 @@ test.describe("Accounts and authentication", () => {
     await expect(page.getByTestId("reset-invalid")).toBeVisible();
   });
 
-  test("E2E-USR-05 logout ends the session on the server and protected pages need a login (USR-005, SEC-002)", async ({
+  test("E2E-USR-05 logout ends the session and account pages need a login (USR-005)", async ({
     page,
-    context,
-    request,
   }) => {
-    // signed out: account pages and APIs refuse
+    // signed out: account pages send the visitor to the login page and keep the target
     await page.goto("/account/orders");
-    await expect(page).toHaveURL(/\/login\?next=/);
-    for (const url of ["/api/account/addresses", "/api/account/wishlist"]) {
-      expect((await request.get(url)).status(), url).toBe(401);
-    }
-    expect((await request.get("/api/auth/me")).status()).toBe(200);
+    await expect(page).toHaveURL(
+      /\/login\?next=%2Faccount%2Forders|\/login\?next=\/account\/orders/,
+    );
 
     await register(page, name("out"), uniqueEmail("out"), PASSWORD);
-    const cookies = await context.cookies();
-    const session = cookies.find((c) => c.name === "session");
-    expect(session?.httpOnly).toBe(true);
-    expect(session?.sameSite).toBe("Lax");
+    expect(await stored(page, "session")).not.toBeNull();
+    await page.getByTestId("logout").click();
+    await expect(page).toHaveURL(/\/login$/);
+    expect(await stored(page, "session")).toBeNull();
+
+    await page.goto("/account");
+    await expect(page).toHaveURL(/\/login\?next=/);
+    // the passwords are stored as a digest, never in the clear
+    const users = (await stored<Record<string, unknown>[]>(page, "users")) ?? [];
+    expect(JSON.stringify(users)).not.toContain(PASSWORD);
+    expect(users[0]).toHaveProperty("hash");
+  });
+
+  test("E2E-USR-06 the cart and wishlist stay as they are through login and logout", async ({
+    page,
+  }) => {
+    const username = name("keep");
+    await register(page, username, uniqueEmail("keep"), PASSWORD);
+    await page.getByTestId("logout").click();
+
+    await addToCart(page, "the-renewal-serum", 2);
+    await page.goto("/product/gentle-cleansing-milk");
+    await page.getByTestId("wishlist").click();
+    await page.keyboard.press("Escape");
+    await page.goto("/login");
+    await page.getByTestId("field-identifier").fill(username);
+    await page.getByTestId("field-password").fill(PASSWORD);
+    await page.getByTestId("auth-submit").click();
+    await expect(page).toHaveURL(/\/account$/);
+    await expect(page.getByTestId("cart-count")).toHaveText("2");
+    await expect(page.getByTestId("wishlist-count")).toHaveText("1");
 
     await page.getByTestId("logout").click();
     await expect(page).toHaveURL(/\/login$/);
-
-    // a copy of the old cookie is dead: the server deleted the session
-    await context.addCookies([session!]);
-    await page.goto("/account");
-    await expect(page).toHaveURL(/\/login\?next=/);
-    expect(
-      ((await (await page.request.get("/api/auth/me")).json()) as { user: unknown }).user,
-    ).toBeNull();
+    await expect(page.getByTestId("cart-count")).toHaveText("2");
   });
 
-  // restored with the demo account in TF1-T06 (the guest cart now lives in the browser)
-  test.skip("E2E-USR-06 login merges the guest cart and wishlist into the account (OQ-20, WSH-003)", async ({
+  test("E2E-USR-07 change password asks for the current one and applies the password rules", async ({
     page,
-    browser,
   }) => {
-    const username = name("merge");
-    const email = uniqueEmail("merge");
+    const username = name("chg");
+    await register(page, username, uniqueEmail("chg"), PASSWORD);
+    const form = page.getByTestId("password-form");
+    await form.getByTestId("auth-submit").click();
+    await expect(form.getByTestId("error-current")).toBeVisible();
+    await expect(form.getByTestId("error-next")).toBeVisible();
 
-    // first browser: the account already holds 2 serums and one wishlist item
-    await register(page, username, email, PASSWORD);
-    await addToCart(page, "the-renewal-serum", 2);
-    await page.goto("/product/lip-repair-balm");
-    const synced = page.waitForResponse(
-      (r) => r.url().includes("/api/account/wishlist") && r.request().method() === "PUT",
-    );
-    await page.getByTestId("wishlist").click();
-    await synced; // the heart is pushed to the account list while signed in
-    await page.request.post("/api/auth/logout");
+    await form.getByTestId("field-current").fill("not my password");
+    await form.getByTestId("field-next").fill("a brand new long phrase 9");
+    await form.getByTestId("auth-submit").click();
+    await expect(form.getByTestId("error-current")).toContainText("not correct");
 
-    // second browser: a guest builds a different basket, then logs in
-    const guest = await browser.newContext();
-    const gp = await guest.newPage();
-    await addToCart(gp, "the-renewal-serum", 1);
-    await addToCart(gp, "barrier-repair-cream", 1);
-    await gp.goto("/product/gentle-cleansing-milk");
-    await gp.getByTestId("wishlist").click();
-    await expect(gp.getByTestId("wishlist-modal")).toBeVisible();
-    await gp.keyboard.press("Escape");
-    await expect(gp.getByTestId("wishlist-modal")).toBeHidden();
-    await gp.goto("/login");
-    await gp.getByTestId("field-identifier").fill(username);
-    await gp.getByTestId("field-password").fill(PASSWORD);
-    await gp.getByTestId("auth-submit").click();
-    await expect(gp).toHaveURL(/\/account$/);
+    await form.getByTestId("field-current").fill(PASSWORD);
+    await form.getByTestId("field-next").fill("password123"); // too common
+    await form.getByTestId("auth-submit").click();
+    await expect(form.getByTestId("error-next")).toContainText("too common");
 
-    // 2 + 1 serums (summed) and the cream; both wishlist items
-    await expect(gp.getByTestId("cart-count")).toHaveText("4");
-    await gp.goto("/cart");
-    await expect(gp.getByTestId("cart-row")).toHaveCount(2);
-    await expect(
-      gp.getByTestId("cart-row").first().getByTestId("qty").locator("output"),
-    ).toHaveText("03");
-    await expect(gp.getByTestId("wishlist-count")).toHaveText("2");
-
-    // logging out clears what the next person on this computer would see
-    await gp.goto("/account");
-    await gp.getByTestId("logout").click();
-    await expect(gp).toHaveURL(/\/login$/);
-    await expect(gp.getByTestId("cart-count")).toHaveCount(0);
-    await expect(gp.getByTestId("wishlist-count")).toHaveCount(0);
-    await guest.close();
-  });
-
-  test("E2E-USR-07 cross-site writes are rejected (SEC-004)", async ({ request }) => {
-    const response = await request.post("/api/auth/login", {
-      headers: { Origin: "https://evil.example" },
-      data: { identifier: "a", password: "b" },
-    });
-    expect(response.status()).toBe(403);
+    await form.getByTestId("field-next").fill("a brand new long phrase 9");
+    await form.getByTestId("auth-submit").click();
+    await expect(page.getByTestId("password-changed")).toBeVisible();
   });
 });

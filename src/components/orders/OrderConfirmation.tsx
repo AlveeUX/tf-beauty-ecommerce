@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { METHOD_COPY } from "@/components/checkout/methods";
+import { DemoNotice } from "@/components/feedback/DemoNotice";
 import { ORDERS_KEY } from "@/lib/demo-store/orders";
 import { useHydrated, useStore } from "@/lib/demo-store/storage";
 import type { OrderView } from "@/lib/orders";
@@ -69,6 +70,7 @@ export function OrderConfirmation({ number }: { number: string }) {
           Continue shopping
         </Link>
       </div>
+      <DemoNotice />
     </div>
   );
 }

@@ -1,1 +1,0 @@
-ALTER TABLE `banners` ADD `data` text;

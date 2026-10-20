@@ -1,5 +1,6 @@
 import { expect, test, type Locator } from "@playwright/test";
-import { blogCommentsFor, run, uniqueEmail } from "../fixtures/db";
+import { uniqueEmail } from "../fixtures/unique";
+import { stored } from "../fixtures/flows";
 
 // E2E-BLG-01..05 (PRD BLG-001..004): journal list in five layouts, filters, details and comments.
 // Coordinates are page coordinates at 1920 wide from the Figma frames 3:25805, 3:25320, 3:28943, 3:24811, 3:26684.
@@ -144,10 +145,9 @@ test.describe("Blog details", () => {
     expect(missing?.status()).toBe(404);
   });
 
-  test("E2E-BLG-05 a comment is validated, stored as pending and limited per client", async ({
+  test("E2E-BLG-05 a comment is validated and kept as pending in the browser (demo mode)", async ({
     page,
   }) => {
-    run("delete from rate_limits where key like 'comment:%'");
     await page.goto(`/blog/${SLUG}`);
     await page.getByTestId("submit-comment").click();
     await expect(page.getByText("Write at least 5 characters.")).toBeVisible();
@@ -161,8 +161,8 @@ test.describe("Blog details", () => {
     await page.getByTestId("submit-comment").click();
     await expect(page.getByTestId("comment-sent")).toContainText("approved");
     await expect(page.getByTestId("field-body")).toHaveValue("");
-    expect(blogCommentsFor(email)).toMatchObject([
-      { name: "Ana Lopez", status: "pending", parent_id: null },
+    expect(await stored(page, "blog-comments")).toMatchObject([
+      { slug: SLUG, name: "Ana Lopez", email, status: "pending", parentId: null },
     ]);
     // pending comments stay hidden
     await page.reload();
@@ -176,21 +176,7 @@ test.describe("Blog details", () => {
     await page.getByTestId("field-email").fill(email);
     await page.getByTestId("submit-comment").click();
     await expect(page.getByTestId("comment-sent")).toBeVisible();
-    expect(blogCommentsFor(email).map((c) => c.parent_id !== null)).toEqual([false, true]);
-
-    run("delete from rate_limits where key like 'comment:%'");
-    const body = {
-      name: "Bot",
-      email: uniqueEmail("flood"),
-      body: "Spam spam spam",
-      parentId: null,
-    };
-    const codes: number[] = [];
-    for (let i = 0; i < 6; i++) {
-      const response = await page.request.post(`/api/blog/${SLUG}/comments`, { data: body });
-      codes.push(response.status());
-    }
-    expect(codes).toEqual([201, 201, 201, 201, 201, 429]);
-    run("delete from rate_limits where key like 'comment:%'");
+    const comments = (await stored<{ parentId: number | null }[]>(page, "blog-comments")) ?? [];
+    expect(comments.map((c) => c.parentId !== null)).toEqual([false, true]);
   });
 });

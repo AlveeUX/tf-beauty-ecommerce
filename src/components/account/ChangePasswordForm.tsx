@@ -2,11 +2,12 @@
 
 import { useState, type FormEvent } from "react";
 import { Field } from "@/components/form/Field";
-import { sendJson } from "@/lib/api";
+import { changePassword, useCurrentUser } from "@/lib/demo-store/account";
 import type { FieldErrors } from "@/lib/validation/checkout";
 import formStyles from "./AuthForms.module.css";
 
 export function ChangePasswordForm() {
+  const { user } = useCurrentUser();
   const [current, setCurrent] = useState("");
   const [next, setNext] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -20,16 +21,17 @@ export function ChangePasswordForm() {
     if (!current) found.current = "Enter your current password.";
     if (!next) found.next = "Choose a new password.";
     if (Object.keys(found).length > 0) return setErrors(found);
+    if (!user) return;
     setErrors({});
     setBusy(true);
-    const result = await sendJson("/api/account/password", "POST", { current, next });
+    const result = await changePassword(user.id, current, next);
     setBusy(false);
     if (result.ok) {
       setDone(true);
       setCurrent("");
       setNext("");
     } else {
-      setErrors(result.data.errors ?? { current: result.data.message ?? "Something went wrong." });
+      setErrors(result.errors ?? { current: result.message });
     }
   }
 

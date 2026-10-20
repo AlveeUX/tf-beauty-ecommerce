@@ -1,4 +1,4 @@
-import { uniqueEmail } from "../fixtures/db";
+import { uniqueEmail } from "../fixtures/unique";
 import { expect, test } from "@playwright/test";
 
 // E2E-HOM-01..03 and E2E-STO-01..03 (PRD HOM-001..007, STO-001..003, NWS-001 UI)

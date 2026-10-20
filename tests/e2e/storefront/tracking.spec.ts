@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { uniqueEmail } from "../fixtures/db";
+import { uniqueEmail } from "../fixtures/unique";
 import {
   placeOrderFor,
   setStored,

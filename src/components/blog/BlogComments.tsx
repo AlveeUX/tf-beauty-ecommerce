@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef, useState, type FormEvent } from "react";
 import { Field } from "@/components/form/Field";
 import { Icon } from "@/components/ui/Icon";
-import { sendJson } from "@/lib/api";
+import { submitComment } from "@/lib/demo-store/forms";
 import { commentDate, type BlogComment } from "@/lib/blog";
 import { fieldErrors, type FieldErrors } from "@/lib/validation/checkout";
 import { commentSchema } from "@/lib/validation/blog";
@@ -70,11 +70,7 @@ export function BlogComments({ slug, comments }: { slug: string; comments: BlogC
     if (!parsed.success) return setErrors(fieldErrors(parsed.error));
     setErrors({});
     setBusy(true);
-    const result = await sendJson<{ message: string }>(
-      `/api/blog/${encodeURIComponent(slug)}/comments`,
-      "POST",
-      parsed.data,
-    );
+    const result = submitComment(slug, parsed.data);
     setBusy(false);
     if (result.ok) {
       setSent(result.data.message);

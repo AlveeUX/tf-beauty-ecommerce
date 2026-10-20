@@ -39,11 +39,12 @@ export const PASSWORD_RESET_TTL_MS = 1000 * 60 * 60;
 
 /**
  * Payment methods offered at checkout. The design shows the three offline methods; the test card is
- * hidden unless `PAYMENT_METHODS` lists it (the admin payment toggles arrive in P9, AST-003).
+ * hidden unless `NEXT_PUBLIC_PAYMENT_METHODS` (a comma-separated list, read at build time) includes it.
+ * Demo mode: no method charges anything.
  */
 export type PaymentMethodId = "bank_transfer" | "cod" | "check" | "card_test";
 export function enabledPaymentMethods(): PaymentMethodId[] {
-  const configured = (process.env.PAYMENT_METHODS ?? "bank_transfer,cod,check")
+  const configured = (process.env.NEXT_PUBLIC_PAYMENT_METHODS ?? "bank_transfer,cod,check")
     .split(",")
     .map((m) => m.trim())
     .filter((m): m is PaymentMethodId =>

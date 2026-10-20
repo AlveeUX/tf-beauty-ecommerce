@@ -34,11 +34,7 @@ export default async function BlogPostRoute({ params }: Props) {
         crumbs={[{ label: "Blog", href: "/blog" }, { label: "Blog details" }]}
       />
       <div className={`container ${styles.wrap}`}>
-        <BlogDetail
-          post={post}
-          comments={approvedComments(postId)}
-          neighbours={neighbours(slug)}
-        />
+        <BlogDetail post={post} comments={approvedComments(postId)} neighbours={neighbours(slug)} />
         <BlogSidebar data={sidebarData(slug)} />
       </div>
     </>

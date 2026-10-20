@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/form/Checkbox";
 import { Field } from "@/components/form/Field";
 import { Icon } from "@/components/ui/Icon";
 import { SHIPPING_COUNTRIES, type PaymentMethodId } from "@/config/store";
+import { useAddresses, useCurrentUser } from "@/lib/demo-store/account";
 import { placeDemoOrder } from "@/lib/demo-store/orders";
 import { formatMoney } from "@/lib/money";
 import { checkoutSchema, fieldErrors, type FieldErrors } from "@/lib/validation/checkout";
@@ -30,7 +31,7 @@ export type CheckoutPrefill = {
   phone: string;
 };
 
-type Props = { methods: PaymentMethodId[]; prefill: CheckoutPrefill };
+type Props = { methods: PaymentMethodId[] };
 
 const PAYMENTS = "/images/ui/payments.svg";
 
@@ -42,13 +43,26 @@ const newKey = () => `chk_${crypto.randomUUID().replaceAll("-", "")}`;
  * left, order summary with payment methods on the right. Demo mode: the order is stored in the browser
  * and nothing is charged (see `placeDemoOrder` in `src/lib/demo-store/orders.ts`).
  */
-export function CheckoutPage({ methods, prefill }: Props) {
+export function CheckoutPage({ methods }: Props) {
   const router = useRouter();
   const { cart, ready, clear, refresh } = useCart();
-  const [values, setValues] = useState<CheckoutPrefill & { notes: string }>({
-    ...prefill,
-    notes: "",
-  });
+  const { user } = useCurrentUser();
+  const saved = useAddresses(user?.id ?? null)[0];
+  // a signed-in customer's email and default address pre-fill the form; what the shopper types wins
+  const prefill: CheckoutPrefill = {
+    email: user?.email ?? "",
+    firstName: saved?.firstName ?? "",
+    lastName: saved?.lastName ?? "",
+    company: saved?.company ?? "",
+    country: saved?.country ?? SHIPPING_COUNTRIES[0],
+    address1: saved?.address1 ?? "",
+    address2: saved?.address2 ?? "",
+    city: saved?.city ?? "",
+    postcode: saved?.postcode ?? "",
+    phone: saved?.phone ?? "",
+  };
+  const [edited, setEdited] = useState<Partial<CheckoutPrefill & { notes: string }>>({});
+  const values: CheckoutPrefill & { notes: string } = { ...prefill, notes: "", ...edited };
   const [method, setMethod] = useState<PaymentMethodId>(methods[0] ?? "bank_transfer");
   const [accepted, setAccepted] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -64,7 +78,7 @@ export function CheckoutPage({ methods, prefill }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
 
   const set = (name: keyof typeof values) => (value: string) =>
-    setValues((v) => ({ ...v, [name]: value }));
+    setEdited((v) => ({ ...v, [name]: value }));
 
   if (!ready && cart.lines.length === 0) {
     return <div className={`container ${styles.page}`} aria-busy="true" />;

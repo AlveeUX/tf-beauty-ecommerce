@@ -16,4 +16,5 @@ export type ListProduct = {
 };
 
 /** Published products by slug, in the order asked; unknown or unpublished slugs are skipped. */
-export const lookupProducts = (slugs: string[]): ListProduct[] => getProvider().lookupProducts(slugs);
+export const lookupProducts = (slugs: string[]): ListProduct[] =>
+  getProvider().lookupProducts(slugs);

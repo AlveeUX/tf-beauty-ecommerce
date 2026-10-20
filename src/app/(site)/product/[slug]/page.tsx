@@ -45,9 +45,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
 
   const reviews = getApprovedReviews(product.id);
   const moreFromCollection = getRelatedProducts(product.id, 8);
-  const trending = getCollectionProducts("trending-now", 9).filter(
-    (p) => p.slug !== product.slug,
-  );
+  const trending = getCollectionProducts("trending-now", 9).filter((p) => p.slug !== product.slug);
 
   return (
     <>

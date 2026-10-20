@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { run, subscribersFor, uniqueEmail } from "../fixtures/db";
+import { uniqueEmail } from "../fixtures/unique";
+import { stored } from "../fixtures/flows";
 
 // E2E-NWS-01..03 (PRD NWS-001, NWS-002): newsletter sign-up from the footer and the welcome popup.
 // Every other test starts with the popup already dismissed (playwright.config.ts); these start fresh.
@@ -9,7 +10,6 @@ test.describe("Newsletter popup", () => {
   test("E2E-NWS-01 the welcome popup appears, follows the frame, validates and stores a sign-up", async ({
     page,
   }) => {
-    run("delete from rate_limits where key like 'newsletter:%'");
     await page.goto("/shop");
     const popup = page.getByTestId("newsletter-popup");
     await expect(popup).toBeVisible({ timeout: 15_000 });
@@ -27,7 +27,7 @@ test.describe("Newsletter popup", () => {
     await page.getByTestId("popup-email").fill(email);
     await page.getByTestId("popup-submit").click();
     await expect(page.getByTestId("popup-thanks")).toContainText("Thank you for subscribing");
-    expect(subscribersFor(email)).toMatchObject([{ source: "popup", unsubscribed_at: null }]);
+    expect(await stored(page, "subscribers")).toMatchObject([{ email, source: "popup" }]);
 
     // a sign-up is remembered: the popup does not come back
     await page.getByRole("button", { name: "Close" }).click();
@@ -59,46 +59,25 @@ test.describe("Newsletter popup", () => {
 });
 
 test.describe("Newsletter sign-up forms", () => {
-  test("E2E-NWS-03 the footer form needs consent, stores the address once and re-activates nothing twice", async ({
-    page,
-  }) => {
-    run("delete from rate_limits where key like 'newsletter:%'");
+  test("E2E-NWS-03 the footer form needs consent and keeps each address once", async ({ page }) => {
     await page.goto("/faqs");
     const form = page.locator("footer form");
     const email = uniqueEmail("footer");
     await form.getByPlaceholder("Enter your email").fill(email);
     await form.getByRole("button", { name: "Subscribe" }).click();
     await expect(form.getByRole("alert")).toHaveText("Please accept the terms to subscribe.");
-    expect(subscribersFor(email)).toHaveLength(0);
+    expect(await stored(page, "subscribers")).toBeNull();
 
     await form.getByRole("checkbox").check({ force: true });
     await form.getByRole("button", { name: "Subscribe" }).click();
     await expect(form.getByRole("status")).toHaveText("Thanks for subscribing.");
-    expect(subscribersFor(email)).toMatchObject([{ source: "footer" }]);
+    expect(await stored(page, "subscribers")).toMatchObject([{ email, source: "footer" }]);
 
-    // the same address again is answered the same way and stays a single row
-    const upper = email.toUpperCase();
-    const response = await page.request.post("/api/newsletter", {
-      data: { email: upper, source: "popup", consent: true },
-    });
-    expect(response.status()).toBe(201);
-    expect(subscribersFor(email)).toHaveLength(1);
-
-    // consent is required by the API as well, and sending is limited per client
-    const refused = await page.request.post("/api/newsletter", {
-      data: { email: uniqueEmail("x"), source: "footer", consent: false },
-    });
-    expect(refused.status()).toBe(422);
-    run("delete from rate_limits where key like 'newsletter:%'");
-    const codes: number[] = [];
-    for (let i = 0; i < 11; i++) {
-      const r = await page.request.post("/api/newsletter", {
-        data: { email: uniqueEmail("rl"), source: "footer", consent: true },
-      });
-      codes.push(r.status());
-    }
-    expect(codes.slice(0, 10).every((c) => c === 201)).toBe(true);
-    expect(codes[10]).toBe(429);
-    run("delete from rate_limits where key like 'newsletter:%'");
+    // the same address again (any capitalisation) is answered the same way and stays a single entry
+    await form.getByPlaceholder("Enter your email").fill(email.toUpperCase());
+    await form.getByRole("checkbox").check({ force: true });
+    await form.getByRole("button", { name: "Subscribe" }).click();
+    await expect(form.getByRole("status")).toHaveText("Thanks for subscribing.");
+    expect(await stored<unknown[]>(page, "subscribers")).toHaveLength(1);
   });
 });

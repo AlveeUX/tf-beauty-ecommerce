@@ -2,6 +2,7 @@
 
 import { useState, useSyncExternalStore, type FormEvent } from "react";
 import { Icon } from "@/components/ui/Icon";
+import { submitReview } from "@/lib/demo-store/forms";
 import styles from "./ReviewForm.module.css";
 
 type FieldErrors = Partial<Record<"headline" | "rating" | "comment" | "name" | "email", string>>;
@@ -72,52 +73,35 @@ export function ReviewForm({ slug }: { slug: string }) {
     if (Object.keys(found).length > 0) return;
 
     setStatus({ kind: "submitting" });
-    try {
-      const res = await fetch(`/api/catalog/products/${encodeURIComponent(slug)}/reviews`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ headline, rating, comment, recommend, name, email }),
-      });
-      const body = (await res.json()) as { message?: string; fields?: string[] };
-      if (res.status === 201) {
-        try {
-          if (remember) localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, email }));
-          else localStorage.removeItem(STORAGE_KEY);
-        } catch {
-          // ignore storage failures
-        }
-        setStatus({
-          kind: "success",
-          message: body.message ?? "Thanks! Your review is pending approval.",
-        });
-        setHeadline("");
-        setRating(0);
-        setComment("");
-      } else {
-        if (res.status === 400 && body.fields) {
-          const mapped: FieldErrors = {};
-          for (const f of body.fields) {
-            const [key, ...rest] = f.split(": ");
-            const field =
-              key === "headline" ||
-              key === "rating" ||
-              key === "comment" ||
-              key === "name" ||
-              key === "email"
-                ? key
-                : null;
-            if (field) mapped[field] = rest.join(": ");
-          }
-          setErrors(mapped);
-        }
-        setStatus({
-          kind: "error",
-          message: body.message ?? "Something went wrong. Please try again.",
-        });
+    const res = submitReview(slug, { headline, rating, comment, recommend, name, email });
+    if (res.ok) {
+      try {
+        if (remember) localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, email }));
+        else localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        // ignore storage failures
       }
-    } catch {
-      setStatus({ kind: "error", message: "Network error. Please try again." });
+      setStatus({
+        kind: "success",
+        message: res.data.message ?? "Thanks! Your review is pending approval.",
+      });
+      setHeadline("");
+      setRating(0);
+      setComment("");
+      return;
     }
+    if (res.data.errors) {
+      const mapped: FieldErrors = {};
+      for (const key of ["headline", "rating", "comment", "name", "email"] as const) {
+        const message = res.data.errors[key];
+        if (message) mapped[key] = message;
+      }
+      setErrors(mapped);
+    }
+    setStatus({
+      kind: "error",
+      message: res.data.message ?? "Something went wrong. Please try again.",
+    });
   }
 
   function cancel() {

@@ -26,7 +26,6 @@ export const metadata: Metadata = { title: { absolute: "Cosmia | Skincare & Cosm
 export const dynamic = "force-dynamic";
 
 export default function Home() {
-
   // Product counts for the category cards (shown on hover).
   const counts: Record<string, number> = {};
   const walk = (nodes: ReturnType<typeof getCategoryTree>) =>

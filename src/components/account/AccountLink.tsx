@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
-import { useAuth } from "./AuthProvider";
+import { useCurrentUser } from "@/lib/demo-store/account";
 
 /** Header user icon: "My account" when signed in, the login page otherwise. */
 export function AccountLink() {
-  const { user } = useAuth();
+  const { user } = useCurrentUser();
   return (
     <Link
       href={user ? "/account" : "/login"}

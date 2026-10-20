@@ -70,11 +70,7 @@ export function TrackForm() {
             autoComplete="email"
             required
           />
-          <button
-            type="submit"
-            className={formStyles.submit}
-            data-testid="auth-submit"
-          >
+          <button type="submit" className={formStyles.submit} data-testid="auth-submit">
             <span>Track order</span>
             <Icon name="arrow-up-right" size={18} />
           </button>

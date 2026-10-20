@@ -2,17 +2,21 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent } from "react";
-import { useCart } from "@/components/cart/CartProvider";
+import { useEffect, useState, type FormEvent } from "react";
 import { Checkbox } from "@/components/form/Checkbox";
 import { Field } from "@/components/form/Field";
 import { Icon } from "@/components/ui/Icon";
-import { sendJson } from "@/lib/api";
-import { replaceList, useList } from "@/lib/lists";
+import {
+  registerUser,
+  requestPasswordReset,
+  resetPassword,
+  signIn,
+  useCurrentUser,
+  useResetTokenValid,
+} from "@/lib/demo-store/account";
 import { notify } from "@/lib/notify";
 import { forgotSchema, loginSchema, registerSchema, resetSchema } from "@/lib/validation/auth";
 import { fieldErrors, type FieldErrors } from "@/lib/validation/checkout";
-import { useAuth, type SessionUser } from "./AuthProvider";
 import styles from "./AuthForms.module.css";
 
 /** Only same-site paths are followed after login (no open redirect). */
@@ -54,18 +58,13 @@ function SubmitButton({ busy, children }: { busy: boolean; children: string }) {
   );
 }
 
-/** Shared sign-in follow-up: adopt the server's merged wishlist, refresh the cart, go on. */
-function useAfterSignIn(next: string) {
+/** Signed-in visitors have nothing to do on the login and register pages: send them on. */
+function useLeaveWhenSignedIn(next: string) {
   const router = useRouter();
-  const { setUser } = useAuth();
-  const cart = useCart();
-  return async (user: SessionUser, wishlist: string[]) => {
-    setUser(user);
-    replaceList("wishlist", wishlist);
-    await cart.refresh();
-    router.push(next);
-    router.refresh();
-  };
+  const { user } = useCurrentUser();
+  useEffect(() => {
+    if (user) router.replace(next);
+  }, [user, next, router]);
 }
 
 export function LoginForm({ next }: { next?: string }) {
@@ -75,8 +74,9 @@ export function LoginForm({ next }: { next?: string }) {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState("");
   const [busy, setBusy] = useState(false);
-  const wishlist = useList("wishlist");
-  const afterSignIn = useAfterSignIn(safeNext(next));
+  const target = safeNext(next);
+  useLeaveWhenSignedIn(target);
+  const router = useRouter();
 
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -85,16 +85,11 @@ export function LoginForm({ next }: { next?: string }) {
     if (!parsed.success) return setErrors(fieldErrors(parsed.error));
     setErrors({});
     setBusy(true);
-    const result = await sendJson<{ user: SessionUser; wishlist: string[] }>(
-      "/api/auth/login",
-      "POST",
-      { ...parsed.data, wishlist: [...wishlist.slugs] },
-    );
+    const result = await signIn(parsed.data.identifier, parsed.data.password);
     if (result.ok) {
-      await afterSignIn(result.data.user, result.data.wishlist);
+      router.push(target);
     } else {
-      setErrors(result.data.errors ?? {});
-      setFormError(result.data.message ?? "Something went wrong. Please try again.");
+      setFormError(result.message);
       setBusy(false);
     }
   }
@@ -143,8 +138,9 @@ export function RegisterForm({ next }: { next?: string }) {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState("");
   const [busy, setBusy] = useState(false);
-  const wishlist = useList("wishlist");
-  const afterSignIn = useAfterSignIn(safeNext(next));
+  const target = safeNext(next);
+  useLeaveWhenSignedIn(target);
+  const router = useRouter();
   const set = (key: keyof typeof values) => (value: string) =>
     setValues((v) => ({ ...v, [key]: value }));
 
@@ -155,21 +151,13 @@ export function RegisterForm({ next }: { next?: string }) {
     if (!parsed.success) return setErrors(fieldErrors(parsed.error));
     setErrors({});
     setBusy(true);
-    const result = await sendJson<{ user: SessionUser; wishlist: string[] }>(
-      "/api/auth/register",
-      "POST",
-      { ...parsed.data, wishlist: [...wishlist.slugs] },
-    );
+    const result = await registerUser(parsed.data);
     if (result.ok) {
       notify("Your account has been created.");
-      await afterSignIn(result.data.user, result.data.wishlist);
+      router.push(target);
     } else {
-      setErrors(result.data.errors ?? {});
-      setFormError(
-        result.data.errors && Object.keys(result.data.errors).length > 0
-          ? ""
-          : (result.data.message ?? "Something went wrong. Please try again."),
-      );
+      setErrors(result.errors ?? {});
+      setFormError(result.errors ? "" : result.message);
       setBusy(false);
     }
   }
@@ -227,19 +215,18 @@ export function ForgotForm() {
   const [identifier, setIdentifier] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [sent, setSent] = useState("");
-  const [busy, setBusy] = useState(false);
+  const [link, setLink] = useState<string | null>(null);
 
-  async function submit(event: FormEvent) {
+  function submit(event: FormEvent) {
     event.preventDefault();
     setSent("");
+    setLink(null);
     const parsed = forgotSchema.safeParse({ identifier });
     if (!parsed.success) return setErrors(fieldErrors(parsed.error));
     setErrors({});
-    setBusy(true);
-    const result = await sendJson<{ message: string }>("/api/auth/forgot", "POST", parsed.data);
-    setBusy(false);
-    if (result.ok) setSent(result.data.message);
-    else setErrors({ identifier: result.data.message ?? "Something went wrong." });
+    const result = requestPasswordReset(parsed.data.identifier);
+    setSent(result.message);
+    setLink(result.link);
   }
 
   return (
@@ -253,6 +240,11 @@ export function ForgotForm() {
           {sent}
         </p>
       ) : null}
+      {link ? (
+        <p className={styles.note} data-testid="demo-reset-link">
+          Demo mode sends no email. <Link href={link}>Open your reset link</Link>.
+        </p>
+      ) : null}
       <Field
         label="User name/email"
         name="identifier"
@@ -262,12 +254,30 @@ export function ForgotForm() {
         autoComplete="username"
         required
       />
-      <SubmitButton busy={busy}>Reset password</SubmitButton>
+      <SubmitButton busy={false}>Reset password</SubmitButton>
     </form>
   );
 }
 
-export function ResetForm({ token }: { token: string }) {
+/** The reset page: the form when the link is valid, otherwise the "invalid or expired" notice. */
+export function ResetPanel({ token }: { token: string | undefined }) {
+  const valid = useResetTokenValid(token ?? "");
+  const { hydrated } = useCurrentUser();
+  if (!hydrated) return <div className={styles.form} aria-busy="true" />;
+  if (valid && token) return <ResetForm token={token} />;
+  return (
+    <div className={styles.form}>
+      <p role="alert" className={styles.alert} data-testid="reset-invalid">
+        This reset link is invalid or has expired.
+      </p>
+      <Link href="/forgot-password" className={styles.textLink}>
+        Request a new link
+      </Link>
+    </div>
+  );
+}
+
+function ResetForm({ token }: { token: string }) {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -281,14 +291,14 @@ export function ResetForm({ token }: { token: string }) {
     if (!parsed.success) return setErrors(fieldErrors(parsed.error));
     setErrors({});
     setBusy(true);
-    const result = await sendJson("/api/auth/reset", "POST", parsed.data);
+    const result = await resetPassword(parsed.data.token, parsed.data.password);
     if (result.ok) {
       notify("Your password has been changed. Please log in.");
       router.push("/login");
       return;
     }
-    setErrors(result.data.errors ?? {});
-    if (!result.data.errors?.password) setFormError(result.data.message ?? "Something went wrong.");
+    setErrors(result.errors ?? {});
+    if (!result.errors?.password) setFormError(result.message);
     setBusy(false);
   }
 

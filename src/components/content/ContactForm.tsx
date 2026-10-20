@@ -5,7 +5,7 @@ import { useState, type FormEvent } from "react";
 import { Checkbox } from "@/components/form/Checkbox";
 import { Field } from "@/components/form/Field";
 import { Icon } from "@/components/ui/Icon";
-import { sendJson } from "@/lib/api";
+import { submitContact } from "@/lib/demo-store/forms";
 import { fieldErrors, type FieldErrors } from "@/lib/validation/checkout";
 import { CONTACT_TOPICS, contactSchema } from "@/lib/validation/contact";
 import styles from "./ContactPage.module.css";
@@ -36,7 +36,7 @@ export function ContactForm() {
     if (!parsed.success) return setErrors(fieldErrors(parsed.error));
     setErrors({});
     setBusy(true);
-    const result = await sendJson<{ message: string }>("/api/contact", "POST", parsed.data);
+    const result = submitContact(parsed.data);
     setBusy(false);
     if (result.ok) {
       setSent(result.data.message);
