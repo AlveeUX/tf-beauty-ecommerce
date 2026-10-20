@@ -217,6 +217,88 @@ T05 `/demos` hub + catalogue tests. T06 `loading.tsx`, `error.tsx`, `global-erro
 | Completion criteria | No horizontal scroll at any viewport on any route; all journeys pass at all viewports; axe 0 critical/serious including contrast. |
 | Exit gate | Responsive + a11y report recorded in the decision log. |
 
+#### TF3 task contract — **status: AWAITING APPROVAL** (written 2026-10-20)
+
+**Baseline measured before writing this** (production build, `tests/visual/overflow-audit.mjs`, 26 routes x 5 widths, plus screenshots at 390 px):
+
+| What | Finding |
+|---|---|
+| Code | 76 stylesheets, 14,392 lines, **579** absolute pixel positions (from the 1920 design). Breakpoints are ad hoc: 34 rules at 1100 px, 10 at 700 px, and one-offs at 1400, 960, 900, 760, 720, 600, 560. No breakpoint tokens. |
+| Sideways scroll | **8 of 26 routes at 390** (Home +184, Shop list layout +307, Product +90, Blog post +154, About +167, Contact +167, Demos +11, UI kit +11), **Home also at 768 and 1024** (+164). Everything else fits. |
+| Functional gaps seen at 390 | **No way to reach the main navigation**: the header shows the logo and four icons only (same on Home). The announcement bar clips its text ("...OVER $100" is cut). Shop filters are a tall always-open panel above the products. |
+| Already fine | Cart, checkout, wishlist, compare, categories, search, FAQs, store locator, policies, account pages do not scroll sideways at any width (their look at 390 is not yet reviewed). |
+
+```
+Task ID:            TF3 (T01-T12 below, one at a time, local commit after each passing task, user review gates marked G1-G3)
+Objective:          Every page works and looks deliberate at 1440, 1024, 768 and 390 px (and reflows at 320), without changing the 1920 design.
+Exact scope:        INCLUDED  responsive spec; breakpoint rules; mobile navigation; filter drawer on small screens; product, cart, checkout, account,
+                              content, Home, footer and popups at small widths; touch targets; contrast fix; keyboard walk-through; responsive tests.
+                    EXCLUDED  any change at 1920 beyond the contrast tokens; new photos or image sizing (TF4/TF5); Firefox/WebKit (TF4); landscape-phone
+                              special cases; animation work (track AN waits for T04); admin (never).
+Figma node IDs:     none. Figma has no mobile or tablet frames (PRD 12.2). Everything below the 1920 desktop is a PROPOSED design, written down in
+                    docs/responsive-spec.md and flagged as such; existing Figma frames are the source of truth at 1920 only.
+Requirement IDs:    PRD section 12 (responsive and accessibility), NFR accessibility; TF-D3 (P11 becomes TF3).
+Files/modules:      new  docs/responsive-spec.md, src/components/layout/MobileMenu.tsx (+css), tests/e2e/responsive/*.spec.ts, tests/unit/breakpoints.test.ts
+                    change  most of the 49 stylesheets that hold @media rules, Header/HomeHeader/Footer/AnnouncementBar, FilterSidebar and CatalogView,
+                            ProductInfo/ProductGallery/StickyAddToCart, CartPage/CartDrawer/Checkout, Modal and the popups, src/styles/tokens.css,
+                            playwright.config.ts (viewport projects)
+Prerequisites:      TF1, TF2 passed. The decision in "Decisions" 1 below.
+Acceptance criteria:
+  C1  docs/responsive-spec.md exists and the user approved it (gate G1) before any layout code: breakpoints, one rule set per template group, the mobile menu
+      and filter drawer behaviour, minimum touch size, and what each popup does on a phone.
+  C2  No page scrolls sideways at 1440, 1024, 768, 390 or 320: all 26 audited routes and all 28 layout variants listed on /demos (10 shop, 12 product
+      incl. sticky and sold-out, 6 blog).
+  C3  Below 1024 the header has a menu button that opens a drawer reaching every item of the desktop menus (shop mega menu pages, categories, pages, journal)
+      plus search, account, wishlist and cart; Escape closes it, focus is trapped and returns to the button; the announcement bar shows its full message.
+  C4  Below 1024 every shop layout uses the filter drawer; applying filters works and counts match; the product grid is 2 columns at 390.
+  C5  Product page, all 10 layouts, below 1024: gallery above the details; at 390 a sticky add-to-cart bar appears after the buy buttons scroll away and adds to
+      the cart; zoom layouts fall back to a plain tap-to-open image.
+  C6  Cart and checkout are one column below 1024; at 390 the checkout summary is collapsible with the total always visible, and an order can be placed.
+  C7  Tables (cart, compare, order lists) become stacked cards at 390 with no clipped text.
+  C8  Quick view, size guide, share, wishlist popup, newsletter popup and the cart drawer fit 390 x 844 with every control reachable, scroll when taller, and keep
+      focus trapping.
+  C9  axe reports 0 critical/serious violations INCLUDING colour contrast at 1440, 1024, 768 and 390 on at least 20 routes (this replaces the D-033 exception).
+  C10 Primary controls are at least 44 x 44 px at 390: header icons, menu button, quantity steppers, filter chips and checkboxes, popup close buttons.
+  C11 Keyboard: Tab order and Escape work through the menu drawer, filter drawer, cart drawer and every popup (E2E).
+  C12 Only the three agreed breakpoints (see Decisions 2) appear in @media rules; a unit test fails otherwise.
+  C13 Desktop is unchanged: the full 1920 suite stays green, and a screenshot comparison with the TF2 build (commit 8f64f4d) shows identical page heights and only
+      the contrast-token differences.
+  C14 Motion in new drawers respects prefers-reduced-motion.
+Responsive:         this task IS the responsive work. Test widths 1440, 1024, 768, 390, plus 320 for reflow. Design widths stay 1920.
+Functional tests:   Vitest: breakpoints allowed-list (C12); touch-size token used by the shared controls.
+E2E scenarios:      new tests/e2e/responsive: R-01 no sideways scroll, every route and variant, five widths (replaces tests/visual/overflow-audit.mjs as the gate);
+                    R-02 mobile journeys at 390 (menu drawer to a category, filter drawer, add to cart from a product page and from the sticky bar, checkout and
+                    place order, account register); R-03 touch sizes; R-04 axe with contrast at four widths; R-05 keyboard and focus in the overlays.
+                    The 156 existing specs stay at 1920 (many measure 1920 pixel positions and are not meaningful at other widths).
+Visual verification: tests/visual capture at 1440/1024/768/390 for Home, Shop (grid, list, filter drawer), Product (default, gallery, sticky), Cart, Checkout,
+                    Blog post, Contact, Account; screenshots reviewed by the user at the gates; compare-main style check at 1920 against commit 8f64f4d (C13).
+Regression risks:   mega menu and dropdown specs (E2E-MEG-*), shop layout and filter specs (E2E-SHP-*, E2E-CAT-*), product layouts, cart drawer and checkout
+                    specs, the home header and hero, popups (E2E-OVL-*), and the 404 specs (no loading.tsx under (site), see D-054).
+Evidence required:  R-01 table (route x width), axe counts per width, the screenshot set, the C13 comparison, typecheck/lint/Vitest/Playwright counts per sub-task.
+Status:             NOT_STARTED
+```
+
+**Sub-tasks and review gates**
+- **T01** `docs/responsive-spec.md`: breakpoints, per-template rules, nav and filter patterns, touch size, popup behaviour, with the baseline screenshots. **Gate G1: you approve the spec before T03 onward.**
+- **T02** test harness: R-01 overflow test, viewport helpers, capture script at four widths, axe-with-contrast helper (run first, so the baseline failures are recorded).
+- **T03** breakpoint consolidation: replace the ad hoc @media widths with the three agreed ones, add the touch-size token, add the C12 unit test.
+- **T04** header, announcement bar and the mobile menu drawer (Home header too). Unblocks track AN (mobile drawer).
+- **T05** footer, benefit strip, newsletter blocks. **T06** Home sections.
+- **T07** shop, search and the filter drawer on all layouts. **Gate G2: you review phone and tablet screenshots of Header, Home and Shop before the rest.**
+- **T08** product page, 10 layouts, sticky bar. **T09** cart, checkout, account, orders, wishlist, compare, tracking.
+- **T10** content pages (blog, about, contact, FAQs, stores, policies), 404 and error screens, demos and UI kit, and every popup.
+- **T11** accessibility: contrast token fix, focus and keyboard walk-through, reduced motion, 320 px reflow.
+- **T12** evidence, docs, log. **Gate G3: final screenshot review and your sign-off.**
+
+**Decisions I made in this contract (change any you disagree with)**
+1. **How to define mobile and tablet: a written responsive spec, not Figma frames.** My recommendation. The site already has a partial responsive layer and the missing patterns (menu drawer, filter drawer, sticky buy bar, stacked cards) are standard ones, so a spec with annotated baseline screenshots is precise enough, costs you review time instead of days of drawing, and cannot drift from the code. You still decide: after each gate you see real screenshots at 390 and 768 and can ask for changes. Draw Figma frames only for screens where you want to art-direct (most likely the Home hero and the header menu); I will build those exactly. Either way the result is documented as "proposed, not Figma-defined".
+2. **Three breakpoints, written as max-width queries:** 1439 (below the 1440 desktop), 1023 (below tablet-landscape) and 767 (phone). Tested at 1440, 1024, 768, 390 and 320. The 34 rules at 1100 px move to the nearest agreed one, decided per component in the spec.
+3. **Responsive tests are a focused suite, not the whole suite at every width.** Running 156 specs five times is about 40 minutes and most specs assert 1920 pixel positions. The existing suite stays at 1920; the new R-01..R-05 specs run at the four widths.
+4. **Contrast fix replaces D-033.** The muted greys and a few red-on-dark pairs get slightly darker or lighter (hue unchanged) until axe passes; this changes some Figma colours at all widths, including 1920. T01 lists the failing pairs and the proposed values for your approval first.
+5. **Touch target 44 x 44 px** on controls below 1024 (WCAG's minimum is 24; 44 is the common mobile standard).
+6. **Phones only in portrait**, no special landscape layouts; 320 px must not scroll sideways but may look compact; screens wider than 1920 keep the centred container.
+7. **Order of work: navigation first** (T04), because it is the one functional gap and unlocks the animation track.
+
 ### TF4 — Quality bar
 
 | Field | Content |
