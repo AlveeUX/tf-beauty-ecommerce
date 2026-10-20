@@ -79,7 +79,7 @@ Log TF-D1…TF-D7 in `decision-log.md` as the next D-numbers when TF1 starts.
 | Completion criteria | `npm ci && npm run build && npm start` works on a clean clone with **no** `.env` and no DB. All pages render. `npm ls better-sqlite3` returns nothing. |
 | Exit gate | typecheck, lint, Vitest, Playwright (Chromium) all pass; side-by-side screenshots of Home, Shop, PDP, Cart, Checkout unchanged vs `main`. |
 
-#### TF1 task contract — **status: AWAITING APPROVAL** (written 2026-10-20)
+#### TF1 task contract — **status: APPROVED by the user 2026-10-20** (defaults listed at the end accepted)
 
 Measured on the branch: 85 files under `src/` import `@/db` or `@/server`; 26 API route handlers; 17 server modules in 13 folders; 18 Playwright storefront specs, 10 Vitest integration files (`db.test.ts`, `auth`, `orders` etc. are DB-specific).
 
@@ -117,7 +117,7 @@ Visual verification: tests/visual capture of Home, Shop, PDP, Cart, Checkout on 
 Regression risks:   pages that are server components reading the cart/session (cart, checkout, account, header badge); the 10 shop / 10 PDP / 6 blog
                     layout URLs; search overlay and quick-view endpoints; sticky bar; wishlist popup (already localStorage).
 Evidence required:  typecheck, lint, Vitest, Playwright results per sub-task (counts), clean-clone build log, `npm ls` output, visual diff report.
-Status:             NOT_STARTED
+Status:             IN_PROGRESS (T00, T01 done)
 ```
 
 **Sub-task order and design choices I propose (please confirm or change):**
@@ -265,6 +265,7 @@ Stop at the TF1 exit gate and report evidence.
 
 **TF1 Data-layer swap**
 - [x] `themeforest` branch (created 2026-10-20)
+- [x] TF1 task contract approved; TF1-T00 baseline (node_modules copied from the original)
 - [ ] Seed → JSON + Zod schemas
 - [ ] `DataProvider` + `JsonProvider`; services read JSON
 - [ ] Cart, checkout, auth, account, tracking, reviews, contact, newsletter → client demo mode

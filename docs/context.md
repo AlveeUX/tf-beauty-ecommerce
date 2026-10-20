@@ -111,9 +111,9 @@ If a decision changes: update this file plus the owning document(s) (stack → P
 
 ## 20. Immediate next actions
 **ThemeForest track (D-050):**
-1. Status: branch `themeforest` created; TF-D1..D7 logged (D-050); `main` pushed to the public `tf-beauty-ecommerce` repo (D-051). `npm install` fails here (native `better-sqlite3`, Node 24, no build tools).
+1. Status: branch `themeforest` created; TF-D1..D7 logged (D-050); `main` pushed to the public `tf-beauty-ecommerce` repo (D-051). **TF1 contract approved (D-052); TF1 IN_PROGRESS, T00 (baseline) and T01 (branch) done.** `npm install` still fails here (native `better-sqlite3`, Node 24, no build tools); `node_modules` was copied from the original instead.
 2. **TF0 gates** (in parallel with TF1): Envato upload-rights reply (ticket open), Figma ownership, author profile, product name.
-3. **TF1** next, after the user approves its task contract: TF1-T00 working baseline (copy the original's `node_modules`, or Node 22), then JSON data layer, client-side cart/checkout/auth demo, remove the DB.
+3. **TF1 now:** T02 export seed to JSON + Zod, T03 `DataProvider`/`JsonProvider`, T04 cart, T05 checkout, T06 auth/account, T07 tracking, T08 reviews/contact/newsletter, T09 remove the DB, T10 docs/env. One task at a time, local commit after each passing task.
 4. Do not start P7 (admin).
 
 **Older list (full-stack, kept for history):**

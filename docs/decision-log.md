@@ -81,6 +81,7 @@ Purpose: record **why** development decisions were made, so that when something 
 | D-046 | 2026-10-20 | P0 | Git repository created locally and first push to the user's GitHub repo | APPROVED |
 | D-050 | 2026-10-20 | TF0 | ThemeForest product decisions TF-D1..TF-D7; `themeforest-plan.md` becomes the plan; `development-plan.md` retired | APPROVED |
 | D-051 | 2026-10-20 | TF0 | ThemeForest copy pushed to a new PUBLIC repo `tf-beauty-ecommerce` (risk accepted) | APPROVED |
+| D-052 | 2026-10-20 | TF1 | TF1 task contract approved; baseline via copied node_modules (no Node 22 switch) | APPROVED |
 | D-045 | 2026-10-20 | P4c | The ten Shop listing layouts (sidebar, list, load more, top filter, horizontal, drawer) | APPROVED |
 
 ---
@@ -585,4 +586,12 @@ Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P1
 - **Warning given:** the repo is **public** (an unauthenticated API call returned 200). The history contains Figma-sourced photos and product images whose rights are unconfirmed (PRD OQ-02, plan TF0-T02). The plan had asked to make it private first. **The user declined to make it private for now and asked to push anyway.** Pushed material cannot be un-published, only stopped from further spreading.
 - **Mitigation if the photos prove not to be the user's:** delete the GitHub repo, remove the photos from the working tree (TF5-T01), create a fresh history from a clean snapshot, push again.
 - **Also found:** `npm install` fails on this machine (`better-sqlite3` has no prebuilt binary for Node 24.18 and Visual Studio Build Tools are not installed). Handled by TF1-T00, then removed for good by TF1-T09.
+- **Decided by:** User.
+
+### D-052 · 2026-10-20 · TF1 · APPROVED — TF1 task contract approved; working baseline without compiling native code
+- **Approval:** the user approved the TF1 task contract (`themeforest-plan.md`, above TF2) with its defaults: keep `/api/health`; keep the read-only catalog, search, quick-view and lookup API routes backed by JSON; no `NEXT_PUBLIC_*` in TF1; Playwright stays Chromium-only until TF4; database removal (T09) comes last.
+- **Install problem (TF1-T00):** `npm install` fails on this machine because `better-sqlite3` 13.0.3 has no prebuilt binary for Node 24.18 and Visual Studio Build Tools are missing. The user asked both to copy `node_modules` and to switch to Node 22; those conflict (the copied binary is built for Node 24 and would not load under Node 22). **Chosen: option (a), copy `node_modules`** from `C:\Projects\beauty-ecommerce` (identical `package-lock.json`, checked with `diff`). No system change. Node 22 stays an option if a fresh install is ever needed before T09; after T09 the native module is gone and the issue disappears.
+- **How the copy was made:** `robocopy` of `node_modules` (exit code 1 = files copied). `node_modules` is git-ignored.
+- **Baseline on the copy (2026-10-20):** typecheck pass, lint pass, Vitest 126/126, `npm run build` pass. Playwright baseline result is recorded below when the run ends.
+- **Branch:** `themeforest` (from `ea92b0d`), local; not pushed.
 - **Decided by:** User.
