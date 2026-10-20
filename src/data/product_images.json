@@ -1,0 +1,282 @@
+[
+  {
+    "id": 1,
+    "productId": 1,
+    "url": "/images/products/the-renewal-serum/gallery-1.jpg",
+    "alt": "The renewal serum dropper bottle on a blush backdrop",
+    "sortOrder": 0
+  },
+  {
+    "id": 2,
+    "productId": 1,
+    "url": "/images/products/the-renewal-serum/gallery-2.jpg",
+    "alt": "The renewal serum on a dark stone surface with botanicals",
+    "sortOrder": 1
+  },
+  {
+    "id": 3,
+    "productId": 1,
+    "url": "/images/products/the-renewal-serum/gallery-3.jpg",
+    "alt": "A hand holding a drop of serum against a crimson backdrop",
+    "sortOrder": 2
+  },
+  {
+    "id": 4,
+    "productId": 1,
+    "url": "/images/products/the-renewal-serum/gallery-4.jpg",
+    "alt": "A model applying the serum with a dropper",
+    "sortOrder": 3
+  },
+  {
+    "id": 5,
+    "productId": 1,
+    "url": "/images/products/the-renewal-serum/gallery-5.jpg",
+    "alt": "The renewal serum product card with key benefits",
+    "sortOrder": 4
+  },
+  {
+    "id": 6,
+    "productId": 2,
+    "url": "/images/products/barrier-repair-cream.png",
+    "alt": "Barrier repair cream",
+    "sortOrder": 0
+  },
+  {
+    "id": 7,
+    "productId": 3,
+    "url": "/images/products/gentle-cleansing-milk.png",
+    "alt": "Gentle cleansing milk",
+    "sortOrder": 0
+  },
+  {
+    "id": 8,
+    "productId": 4,
+    "url": "/images/products/lip-repair-balm.png",
+    "alt": "Lip Repair Balm",
+    "sortOrder": 0
+  },
+  {
+    "id": 9,
+    "productId": 5,
+    "url": "/images/products/firming-neck-cream.png",
+    "alt": "Firming neck cream",
+    "sortOrder": 0
+  },
+  {
+    "id": 10,
+    "productId": 6,
+    "url": "/images/products/daily-defense-spf-50.png",
+    "alt": "Daily defense SPF 50",
+    "sortOrder": 0
+  },
+  {
+    "id": 11,
+    "productId": 7,
+    "url": "/images/products/cooling-facial-stick.png",
+    "alt": "Cooling facial stick",
+    "sortOrder": 0
+  },
+  {
+    "id": 12,
+    "productId": 8,
+    "url": "/images/products/overnight-renewal-mask.png",
+    "alt": "Overnight renewal mask",
+    "sortOrder": 0
+  },
+  {
+    "id": 13,
+    "productId": 9,
+    "url": "/images/products/nourishing-face-oil.png",
+    "alt": "Nourishing face oil",
+    "sortOrder": 0
+  },
+  {
+    "id": 14,
+    "productId": 10,
+    "url": "/images/products/glow-cleansing-bar.png",
+    "alt": "Glow cleansing bar",
+    "sortOrder": 0
+  },
+  {
+    "id": 15,
+    "productId": 11,
+    "url": "/images/products/hydra-mist-toner.png",
+    "alt": "Hydra mist toner",
+    "sortOrder": 0
+  },
+  {
+    "id": 16,
+    "productId": 12,
+    "url": "/images/products/hydrating-body-lotion.png",
+    "alt": "Hydrating body lotion",
+    "sortOrder": 0
+  },
+  {
+    "id": 17,
+    "productId": 13,
+    "url": "/images/products/skin-rescue-ampoule.png",
+    "alt": "Skin rescue ampoule",
+    "sortOrder": 0
+  },
+  {
+    "id": 18,
+    "productId": 14,
+    "url": "/images/products/gentle-exfoliating-polish.png",
+    "alt": "Gentle exfoliating polish",
+    "sortOrder": 0
+  },
+  {
+    "id": 19,
+    "productId": 15,
+    "url": "/images/products/brightening-eye-gel.png",
+    "alt": "Brightening eye gel",
+    "sortOrder": 0
+  },
+  {
+    "id": 20,
+    "productId": 16,
+    "url": "/images/products/glow-veil-highlighter.png",
+    "alt": "Glow veil highlighter",
+    "sortOrder": 0
+  },
+  {
+    "id": 21,
+    "productId": 17,
+    "url": "/images/products/velvet-skin-foundation.png",
+    "alt": "Velvet skin foundation",
+    "sortOrder": 0
+  },
+  {
+    "id": 22,
+    "productId": 18,
+    "url": "/images/products/luxe-matte-lipstick.png",
+    "alt": "Luxe matte lipstick",
+    "sortOrder": 0
+  },
+  {
+    "id": 23,
+    "productId": 19,
+    "url": "/images/products/glam-edit-eyeshadow.png",
+    "alt": "Glam edit eyeshadow",
+    "sortOrder": 0
+  },
+  {
+    "id": 24,
+    "productId": 20,
+    "url": "/images/products/soft-focus-concealer.png",
+    "alt": "Soft focus concealer",
+    "sortOrder": 0
+  },
+  {
+    "id": 25,
+    "productId": 21,
+    "url": "/images/products/glass-glow-primer.png",
+    "alt": "Glass glow primer",
+    "sortOrder": 0
+  },
+  {
+    "id": 26,
+    "productId": 22,
+    "url": "/images/products/soft-sculpt-bronzer.png",
+    "alt": "Soft sculpt bronzer",
+    "sortOrder": 0
+  },
+  {
+    "id": 27,
+    "productId": 23,
+    "url": "/images/products/precision-brow-pencil.png",
+    "alt": "Precision brow pencil",
+    "sortOrder": 0
+  },
+  {
+    "id": 28,
+    "productId": 24,
+    "url": "/images/products/lift-and-define-brow-gel.png",
+    "alt": "Lift & define brow gel",
+    "sortOrder": 0
+  },
+  {
+    "id": 29,
+    "productId": 25,
+    "url": "/images/products/dew-drop-spray.png",
+    "alt": "Dew drop spray",
+    "sortOrder": 0
+  },
+  {
+    "id": 30,
+    "productId": 26,
+    "url": "/images/products/flush-cream-blush.png",
+    "alt": "Flush cream blush",
+    "sortOrder": 0
+  },
+  {
+    "id": 31,
+    "productId": 27,
+    "url": "/images/products/silk-shine-lip-oil.png",
+    "alt": "Silk shine lip oil",
+    "sortOrder": 0
+  },
+  {
+    "id": 32,
+    "productId": 28,
+    "url": "/images/products/silk-repair-shampoo.png",
+    "alt": "Silk repair shampoo",
+    "sortOrder": 0
+  },
+  {
+    "id": 33,
+    "productId": 29,
+    "url": "/images/products/facial-roller.png",
+    "alt": "Facial roller",
+    "sortOrder": 0
+  },
+  {
+    "id": 34,
+    "productId": 30,
+    "url": "/images/products/facial-cleansing-brush.png",
+    "alt": "Facial cleansing brush",
+    "sortOrder": 0
+  },
+  {
+    "id": 35,
+    "productId": 31,
+    "url": "/images/products/cooling-eye-wand.png",
+    "alt": "Cooling eye wand",
+    "sortOrder": 0
+  },
+  {
+    "id": 36,
+    "productId": 32,
+    "url": "/images/products/led-face-mask.png",
+    "alt": "LED face mask",
+    "sortOrder": 0
+  },
+  {
+    "id": 37,
+    "productId": 33,
+    "url": "/images/products/scalp-renewal-scrub.png",
+    "alt": "Scalp renewal scrub",
+    "sortOrder": 0
+  },
+  {
+    "id": 38,
+    "productId": 34,
+    "url": "/images/products/sculpting-facial-massager.png",
+    "alt": "Sculpting facial massager",
+    "sortOrder": 0
+  },
+  {
+    "id": 39,
+    "productId": 35,
+    "url": "/images/products/skin-rescue-shampoo.png",
+    "alt": "Skin rescue shampoo",
+    "sortOrder": 0
+  },
+  {
+    "id": 40,
+    "productId": 36,
+    "url": "/images/products/velvet-bloom-perfume.png",
+    "alt": "Velvet bloom perfume",
+    "sortOrder": 0
+  }
+]

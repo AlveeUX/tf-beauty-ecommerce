@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "slug": "peach",
+    "name": "Peach",
+    "hex": "#f5d7c5",
+    "sortOrder": 0
+  },
+  {
+    "id": 2,
+    "slug": "blush",
+    "name": "Blush",
+    "hex": "#e9bfa5",
+    "sortOrder": 1
+  },
+  {
+    "id": 3,
+    "slug": "sand",
+    "name": "Sand",
+    "hex": "#d7a77e",
+    "sortOrder": 2
+  },
+  {
+    "id": 4,
+    "slug": "cocoa",
+    "name": "Cocoa",
+    "hex": "#965d3d",
+    "sortOrder": 3
+  },
+  {
+    "id": 5,
+    "slug": "mocha",
+    "name": "Mocha",
+    "hex": "#806653",
+    "sortOrder": 4
+  },
+  {
+    "id": 6,
+    "slug": "crimson",
+    "name": "Crimson",
+    "hex": "#ba0034",
+    "sortOrder": 5
+  },
+  {
+    "id": 7,
+    "slug": "rose",
+    "name": "Rose",
+    "hex": "#d45367",
+    "sortOrder": 6
+  }
+]

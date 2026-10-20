@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "postId": 1,
+    "parentId": null,
+    "name": "Eleanor Pena",
+    "email": "eleanor@example.com",
+    "website": null,
+    "avatar": "/images/blog/avatar-eleanor.jpg",
+    "body": "“Such a thoughtful read. I especially loved the reminder that a simple, consistent routine can be more effective than constantly trying new products.”",
+    "status": "approved",
+    "createdAt": "2024-06-18T18:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "postId": 1,
+    "parentId": 1,
+    "name": "Michel Man",
+    "email": "michel@example.com",
+    "website": null,
+    "avatar": "/images/blog/avatar-michel.jpg",
+    "body": "Thank you, Sarah! We completely agree—consistency and thoughtful choices can make skincare feel much simpler.",
+    "status": "approved",
+    "createdAt": "2024-06-18T18:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "postId": 1,
+    "parentId": null,
+    "name": "Darrell Steward",
+    "email": "darrell@example.com",
+    "website": null,
+    "avatar": "/images/blog/avatar-darrell.jpg",
+    "body": "“Beautifully written and genuinely helpful. The focus on understanding your skin before choosing products is something more people should talk about.”",
+    "status": "approved",
+    "createdAt": "2024-06-18T18:00:00.000Z"
+  }
+]

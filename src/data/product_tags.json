@@ -1,0 +1,290 @@
+[
+  {
+    "productId": 1,
+    "tag": "Serum"
+  },
+  {
+    "productId": 1,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 2,
+    "tag": "Moisturizer"
+  },
+  {
+    "productId": 2,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 3,
+    "tag": "Cleanser"
+  },
+  {
+    "productId": 3,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 4,
+    "tag": "Lip Balm"
+  },
+  {
+    "productId": 4,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 5,
+    "tag": "Dispenser"
+  },
+  {
+    "productId": 5,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 6,
+    "tag": "Sunscreen"
+  },
+  {
+    "productId": 6,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 7,
+    "tag": "Twist-Up"
+  },
+  {
+    "productId": 7,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 8,
+    "tag": "Mask"
+  },
+  {
+    "productId": 8,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 9,
+    "tag": "Moisturizer"
+  },
+  {
+    "productId": 9,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 10,
+    "tag": "Soap Bar"
+  },
+  {
+    "productId": 10,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 11,
+    "tag": "Spray"
+  },
+  {
+    "productId": 11,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 12,
+    "tag": "Lotion"
+  },
+  {
+    "productId": 12,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 13,
+    "tag": "Ampoule Vial"
+  },
+  {
+    "productId": 13,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 14,
+    "tag": "Squeeze Tube"
+  },
+  {
+    "productId": 14,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 15,
+    "tag": "Eye Gel Tube"
+  },
+  {
+    "productId": 15,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 16,
+    "tag": "Highlighter"
+  },
+  {
+    "productId": 16,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 17,
+    "tag": "Foundation"
+  },
+  {
+    "productId": 17,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 18,
+    "tag": "Lipstick"
+  },
+  {
+    "productId": 18,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 19,
+    "tag": "Eyeshadow"
+  },
+  {
+    "productId": 19,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 20,
+    "tag": "Concealer"
+  },
+  {
+    "productId": 20,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 21,
+    "tag": "Primer"
+  },
+  {
+    "productId": 21,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 22,
+    "tag": "Bronzer"
+  },
+  {
+    "productId": 22,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 23,
+    "tag": "Brow Pencil"
+  },
+  {
+    "productId": 23,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 24,
+    "tag": "Brow Gel"
+  },
+  {
+    "productId": 24,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 25,
+    "tag": "Spray"
+  },
+  {
+    "productId": 25,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 26,
+    "tag": "Cream Blush"
+  },
+  {
+    "productId": 26,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 27,
+    "tag": "Lip Oil"
+  },
+  {
+    "productId": 27,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 28,
+    "tag": "Shampoo"
+  },
+  {
+    "productId": 28,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 29,
+    "tag": "Beauty Tool"
+  },
+  {
+    "productId": 29,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 30,
+    "tag": "Beauty Tool"
+  },
+  {
+    "productId": 30,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 31,
+    "tag": "Beauty Tool"
+  },
+  {
+    "productId": 31,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 32,
+    "tag": "Beauty Tool"
+  },
+  {
+    "productId": 32,
+    "tag": "Skincare"
+  },
+  {
+    "productId": 33,
+    "tag": "Scrub"
+  },
+  {
+    "productId": 33,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 34,
+    "tag": "Beauty Tool"
+  },
+  {
+    "productId": 34,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 35,
+    "tag": "Shampoo"
+  },
+  {
+    "productId": 35,
+    "tag": "Cosmetic"
+  },
+  {
+    "productId": 36,
+    "tag": "Perfume"
+  },
+  {
+    "productId": 36,
+    "tag": "Cosmetic"
+  }
+]

@@ -1,0 +1,268 @@
+[
+  {
+    "variantId": 1,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 2,
+    "onHand": 40,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 3,
+    "onHand": 40,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 4,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 5,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 6,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 7,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 8,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 9,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 10,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 11,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 12,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 13,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 14,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 15,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 16,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 17,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 18,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 19,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 20,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 21,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 22,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 23,
+    "onHand": 0,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 24,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 25,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 26,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 27,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 28,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 29,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 30,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 31,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 32,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 33,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 34,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 35,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 36,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 37,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "variantId": 38,
+    "onHand": 60,
+    "reserved": 0,
+    "lowStockThreshold": 5,
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  }
+]

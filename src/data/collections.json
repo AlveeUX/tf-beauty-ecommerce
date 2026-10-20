@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "slug": "trending-now",
+    "name": "Trending now",
+    "createdAt": "2026-10-20T07:26:18.000Z",
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "id": 2,
+    "slug": "fresh-drops",
+    "name": "Fresh drops",
+    "createdAt": "2026-10-20T07:26:18.000Z",
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  },
+  {
+    "id": 3,
+    "slug": "most-loved",
+    "name": "Most loved product",
+    "createdAt": "2026-10-20T07:26:18.000Z",
+    "updatedAt": "2026-10-20T07:26:18.000Z"
+  }
+]
