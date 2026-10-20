@@ -63,7 +63,7 @@
   line-height: 66px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .hero {
     height: 320px;
   }

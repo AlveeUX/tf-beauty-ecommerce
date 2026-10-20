@@ -2,6 +2,17 @@ import { defineConfig, devices } from "@playwright/test";
 
 const port = Number(process.env.E2E_PORT ?? 3100);
 
+/** Widths of the responsive spec (docs/responsive-spec.md section 3), plus 320 for the reflow check. */
+const RESPONSIVE_WIDTHS: { width: number; height: number; only?: RegExp }[] = [
+  { width: 1440, height: 900 },
+  { width: 1280, height: 800, only: /R-01/ }, // laptop band: overflow check only
+  { width: 1180, height: 820, only: /R-01/ },
+  { width: 1024, height: 768 },
+  { width: 768, height: 1024 },
+  { width: 390, height: 844 },
+  { width: 320, height: 640 },
+];
+
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: false, // the production server is shared; specs keep their own browser state
@@ -32,8 +43,21 @@ export default defineConfig({
   projects: [
     {
       name: "chromium-desktop",
+      testIgnore: "**/responsive/**",
       use: { ...devices["Desktop Chrome"], viewport: { width: 1920, height: 1080 } },
     },
+    // TF3: the responsive specs run once per width (npm run e2e:responsive). Phones and tablets are touch devices.
+    ...RESPONSIVE_WIDTHS.map(({ width, height, only }) => ({
+      name: `r${width}`,
+      testMatch: "**/responsive/**/*.spec.ts",
+      ...(only ? { grep: only } : {}),
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width, height },
+        isMobile: width <= 768,
+        hasTouch: width <= 768,
+      },
+    })),
   ],
   // Real production build; state lives in each test's own browser context (localStorage).
   webServer: {

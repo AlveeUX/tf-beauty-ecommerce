@@ -61,6 +61,7 @@
   /* Layout */
   --container: 1320px; /* content column measured at 1920 wide (x=300..1620) */
   --gutter: 24px;
+  --tap: 44px; /* minimum touch target up to 1100px wide (docs/responsive-spec.md) */
   --header-gutter: 32px;
   --topbar-height: 38px;
   --header-main-height: 72px;

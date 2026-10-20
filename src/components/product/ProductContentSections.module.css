@@ -177,7 +177,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .benefits,
   .usage,
   .stats {

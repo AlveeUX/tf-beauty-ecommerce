@@ -366,7 +366,7 @@
   text-box: trim-both cap alphabetic;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .row {
     grid-template-columns: 1fr;
     height: auto;

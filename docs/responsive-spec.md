@@ -2,7 +2,7 @@
 
 | Item | Value |
 |---|---|
-| Status | **PROPOSED, awaiting the user's approval (gate G1).** No layout code is written until this is approved. |
+| Status | **APPROVED at gate G1, 2026-10-20**, with the decisions in section 9 answered as proposed (contrast table as written, left drawer menu, 2 phone columns, sticky bar on every layout); announcement bar wraps to two lines and no Figma frames, by default. Everything is still a proposed design, not Figma-defined. **Amendment A1 (2026-10-20, section 3): the tablet boundary is 1100 px, not 1023.** |
 | Written | 2026-10-20, against commit `8f82284` (branch `themeforest`) |
 | Authority | Figma defines **only the 1920 px desktop** (PRD 12.2). Everything below is a proposed design, not Figma-defined. At 1920 nothing changes except the contrast colours in section 8. |
 | Owner doc | `docs/themeforest-plan.md`, section "TF3 task contract" |
@@ -27,13 +27,29 @@ Tools: `tests/visual/overflow-audit.mjs`, `tests/visual/mobile-audit.mjs`, `test
 
 Already acceptable (no sideways scroll at any width; look at 390 to be reviewed in T09/T10): Cart, Checkout, Wishlist, Compare, Categories, Search, FAQs, Store locator, Policies, Login, Register, Track order, 404.
 
+### Baseline of the responsive tests (T02/T03, 2026-10-20, before any layout fix)
+
+Run with `npm run e2e:responsive`. R-01 = no sideways scroll over 54 routes (26 key pages plus every layout variant on `/demos`); R-03 = controls at least 44 px (23 template routes, up to 1100 px only); R-04 = axe with contrast (23 template routes).
+
+| Width | R-01 routes that scroll sideways | R-03 routes with small controls | R-04 routes with serious violations |
+|---|---|---|---|
+| 1440 | 0 | not applicable | 23 (all contrast, section 8) |
+| 1280 | **54** (the header, +61 px) | n/a | not run |
+| 1180 | **54** (+161 px) | n/a | not run |
+| 1024 | 1 (Home +164) | 23 | 23 |
+| 768 | 1 (Home +164) | 23 | 23 |
+| 390 | 17 | 23 | 23 |
+| 320 | 21 | 23 | 23 |
+
+The breakpoint consolidation in T03 changed none of these numbers.
+
 ## 2. Principles
 
 1. **Desktop is untouched.** Every change sits inside a `max-width` query; at 1440 and above the existing CSS applies exactly as built.
 2. **Same look, rearranged.** Fonts (Prata, Instrument Sans, Allura), colours, borders (dashed rules), buttons and the uppercase button style stay. Layouts stack, collapse or slide; nothing is redrawn.
-3. **No page scrolls sideways** at 1440, 1024, 768, 390 and 320. Only designated scrollers may (carousels, the compare table, tab strips) and they show where they continue.
+3. **No page scrolls sideways** at 1440, 1280, 1180, 1024, 768, 390 and 320. Only designated scrollers may (carousels, the compare table, tab strips) and they show where they continue.
 4. **Content order on a phone follows reading order:** heading, picture, price and buy, details, related.
-5. **Touch first below 1024.** Nothing depends on hover. Every control is at least 44 x 44 px (inline text links in paragraphs are exempt). Spacing between adjacent controls is at least 8 px.
+5. **Touch first up to 1100.** Nothing depends on hover. Every control is at least 44 x 44 px (inline text links in paragraphs are exempt). Spacing between adjacent controls is at least 8 px.
 6. **Readable text:** body text 14 px or larger below 768; 12 px only for badges, legal lines and uppercase micro-labels.
 7. **Motion:** new drawers and sheets slide or fade in 200-250 ms and are instant under `prefers-reduced-motion`.
 8. **No new photos.** Only existing images are rearranged; image sizing is TF4.
@@ -42,14 +58,19 @@ Already acceptable (no sideways scroll at any width; look at 390 to be reviewed 
 
 Three queries, written as `max-width`, plus the design width. A unit test (C12) fails if any other width appears in an `@media` rule.
 
-| Name | Range | Query | Test width | What it is |
+| Name | Range | Query | Test widths | What it is |
 |---|---|---|---|---|
 | Desktop | 1440 and above | none (default CSS) | 1440, 1920 | The Figma design as built. Container 1320 px, centred. |
-| Laptop | 1024 to 1439 | `@media (max-width: 1439px)` | 1024 (and 1280) | Same structure as desktop; the container becomes fluid with 32 px gutters; grids may lose a column; the full header stays. |
-| Tablet | 768 to 1023 | `@media (max-width: 1023px)` | 768 | Mobile menu replaces the header menus; sidebars become drawers; two-column grids; single-column forms and summaries. |
+| Laptop | 1101 to 1439 | `@media (max-width: 1439px)` | 1280, 1180 | Same structure as desktop; the container becomes fluid with 32 px gutters; the header shrinks to fit (it needs about 1341 px today); grids may lose a column. |
+| Tablet | 768 to 1100 | `@media (max-width: 1100px)` | 1024, 768 | Mobile menu replaces the header menus; sidebars become drawers; two-column grids; single-column forms and summaries. Includes tablets held sideways (1024). |
 | Phone | up to 767 | `@media (max-width: 767px)` | 390 (and 320 reflow check) | One column; 2-up product grids; sticky buy bar; popups become sheets. |
 
-Mapping of the existing ad hoc rules (decided per component in T03, default shown): 1100 px rules (34) move to **1023**; 700, 720, 760, 600, 560 rules move to **767**; 900 and 960 move to **1023**; the 1400 rule moves to **1439**.
+**Amendment A1 (found while starting T03).** The approved text put the tablet boundary at 1023 and the laptop band at 1024-1439, and tested 1440 and 1024 only. Two measurements changed that:
+1. The 34 existing rules at 1100 px already collapse every template into its tablet form, and the pages are correct at 1024; moving them to 1023 would force 34 desktop layouts to become fluid between 1024 and 1100 for no benefit, because devices that wide are touch tablets (an iPad held sideways is 1024) and should get the touch layout and the menu drawer.
+2. The laptop band was never tested, and it is broken: **every page scrolls sideways between 1101 and about 1340 px** (+61 px at 1280, +161 at 1180, +240 at 1101) because the shared header needs about 1341 px. 1280 px laptops are common.
+So: the three breakpoints are **1439, 1100 and 767**; 1280 and 1180 are added as test widths (overflow check only); every "below 1024" in this document and in the contract now reads "up to 1100". Fixing the laptop header is part of T04.
+
+Mapping of the existing ad hoc rules: the 1100 px rules (34) stay; 700, 720, 760, 600, 560 rules move to **767**; 900 and 960 move to **1100**; the 1400 rule moves to **1439**. T03 applies this mechanically and checks it with the overflow test.
 
 ## 4. Global rules
 
@@ -57,8 +78,8 @@ Mapping of the existing ad hoc rules (decided per component in T03, default show
 |---|---|
 | Container | Desktop 1320 px (as built). Laptop: fluid, 32 px gutters. Tablet: 24 px. Phone: 16 px. `--gutter` keeps its name and changes per breakpoint. |
 | Type scale on phone | Page title (Prata) 3rem to 2.25rem; section headings 3.5rem/3rem to 2rem; hero headline 3.5rem to 2.5rem; body 15-16 px; captions never below 12 px. Line heights keep the design's ratios. |
-| Spacing | Vertical section spacing shrinks to about 60% below 1024 and to about 45% below 768 (design values stay on desktop). |
-| Touch size token | `--tap: 44px` in `tokens.css`; shared controls (icon buttons, steppers, chips, checkboxes, close buttons) use it below 1024. |
+| Spacing | Vertical section spacing shrinks to about 60% up to 1100 and to about 45% below 768 (design values stay on desktop). |
+| Touch size token | `--tap: 44px` in `tokens.css`; shared controls (icon buttons, steppers, chips, checkboxes, close buttons) use it up to 1100. |
 | Focus | The existing visible focus ring stays; drawers trap focus and return it to the opener. |
 | Images | Pictures keep their aspect ratio; hero and card images use `object-fit: cover`; no fixed pixel heights on phone. |
 | Overflow rule | `html` is never given `overflow-x: hidden` to hide a problem; the cause is fixed. Designated scrollers use `overflow-x: auto` with scroll snapping. |
@@ -66,11 +87,11 @@ Mapping of the existing ad hoc rules (decided per component in T03, default show
 ## 5. Navigation and chrome
 
 ### 5.1 Announcement bar
-Laptop and above: as built. Tablet and phone: single centred message, up to two lines, 12-13 px, the bar grows to fit (no clipping); previous/next arrows hide below 768; the Est line and language/currency items hide below 1024 (they are repeated in the menu drawer).
+Laptop and above: as built (the Est line and language/currency items may hide between 1101 and 1339 if the bar does not fit). Tablet and phone: single centred message, up to two lines, 12-13 px, the bar grows to fit (no clipping); previous/next arrows hide below 768; the Est line and language/currency items hide up to 1100 (they are repeated in the menu drawer).
 
 ### 5.2 Header and mobile menu (the one functional gap)
-- **Above 1023:** as built.
-- **Below 1024 (tablet and phone):** the header row becomes `[menu button] [logo] [search] [account] [wishlist] [cart]`, with the logo centred on phones and the icons in a 44 px grid. On phones the search icon opens the existing search overlay full width; the wishlist and compare counters keep their badges.
+- **Above 1100:** as built (shrunk to fit between 1101 and 1439).
+- **Up to 1100 (tablet and phone):** the header row becomes `[menu button] [logo] [search] [account] [wishlist] [cart]`, with the logo centred on phones and the icons in a 44 px grid. On phones the search icon opens the existing search overlay full width; the wishlist and compare counters keep their badges.
 - **Menu button** opens a **left drawer**, 88% of the screen width, at most 380 px, over a dark scrim. Contents, top to bottom: search field; **Shop** (accordion: the three mega-menu columns become three sub-accordions with their entries, badges HOT/NEW kept, plus the two promo cards at the bottom); Categories (accordion); Pages (accordion); Journal (accordion); account, wishlist, compare and track order links; the Est line, store locator and language/currency.
 - Every entry the desktop menus have is in the drawer (tested against the same link list as the crawl).
 - Behaviour: opens with the button, closes with Escape, the scrim, the close button, or following a link; focus moves into the drawer, is trapped, and returns to the button; body scroll is locked while open; the open/close is 220 ms (instant with reduced motion).
@@ -84,7 +105,7 @@ Laptop and above: as built. Tablet and phone: single centred message, up to two 
 ## 6. Page templates
 
 ### 6.1 Home
-| Section | Tablet (768-1023) | Phone (up to 767) |
+| Section | Tablet (768-1100) | Phone (up to 767) |
 |---|---|---|
 | Hero | Image behind, text card full width under the headline; arrows below the card | Headline 2.5rem; card full width; buttons 44 px high; slide arrows stay at the bottom |
 | Category cards | 2 across | 2 across with smaller captions; "More categories" under the heading |
@@ -98,30 +119,30 @@ Laptop and above: as built. Tablet and phone: single centred message, up to two 
 The cause of Home's sideways scroll (+164 at 768 and 1024) is found and fixed in T06.
 
 ### 6.2 Shop, categories, search
-- **Filters:** below 1024 every layout (left, right, top, horizontal, list variants) uses the **filter drawer** (Figma frame `3:11424` is the model, slide-in from the left on phone and tablet). A toolbar above the products shows `[Filter (n)] [Sort] [grid/list]`; applying filters closes the drawer; "n results" and the active-filter chips stay on the page.
-- **Grid columns:** Laptop 3; Tablet 3 (4 when the layout is the 4-up top-filter); Phone **2**, with compact cards (name, price, rating; the hover action stack becomes a single 44 px round "add to cart" button that is always visible).
+- **Filters:** up to 1100 every layout (left, right, top, horizontal, list variants) uses the **filter drawer** (Figma frame `3:11424` is the model, slide-in from the left on phone and tablet). A toolbar above the products shows `[Filter (n)] [Sort] [grid/list]`; applying filters closes the drawer; "n results" and the active-filter chips stay on the page.
+- **Grid columns:** Laptop 3 (the sidebar layouts keep their sidebar); Tablet 3 (4 when the layout is the 4-up top-filter); Phone **2**, with compact cards (name, price, rating; the hover action stack becomes a single 44 px round "add to cart" button that is always visible).
 - **List layouts:** below 768 each row becomes a card with the picture on the left (40%) and text on the right; the description is hidden; the buttons wrap under the price.
 - Pagination and "Load more" are 44 px high; the page-number strip scrolls if it does not fit.
 - Categories page: cards 2 across at tablet, 1 across at phone. Search results use the Shop rules.
 
 ### 6.3 Product page (all 10 layouts)
 - Gallery above the details at tablet and phone for every layout. Thumbnail layouts: thumbnails become a swipeable strip below the picture; the two gallery layouts (1 and 2 column) become a single swipeable pager.
-- **Zoom layouts:** inner zoom and external zoom are hover features; below 1024 the picture opens a full-screen viewer on tap (pinch to zoom), no side pane.
+- **Zoom layouts:** inner zoom and external zoom are hover features; up to 1100 the picture opens a full-screen viewer on tap (pinch to zoom), no side pane.
 - Details: title, badge, rating, price, size chips (wrap), colour chips, quantity (44 px stepper), then **Add to cart** and **Buy now** full width, one under the other (phone). Compare and wishlist become icon+label links in a row.
 - **Sticky add-to-cart bar:** shown on phone for every layout once the buy buttons scroll out of view (today it is opt-in with `?sticky=1`); picture, name, price, one button; it never covers the footer.
 - Tabs and content sections (description, ingredients, how to use) become accordions on phone. Reviews: rating summary above the list, the form full width. Related products: scroll-snap carousel. Countdown (sale layout): digits scale to fit. Subscribe-and-save: the two choices stack.
 
 ### 6.4 Cart, checkout, account
-- **Cart page:** one column below 1024: lines (cards, not a table, on phone), then the totals box; the free-shipping bar stays above the lines; the quantity stepper is 44 px; "Remove" is a labelled button.
+- **Cart page:** one column up to 1100: lines (cards, not a table, on phone), then the totals box; the free-shipping bar stays above the lines; the quantity stepper is 44 px; "Remove" is a labelled button.
 - **Cart drawer:** full screen width on phone (still a right-side drawer on tablet, 420 px), buttons at the bottom, safe-area padding.
-- **Checkout:** single column below 1024: billing form, then payment methods, then the summary. On phone the summary is a **collapsible bar at the top** ("Order summary - $56.00", tap to expand the lines) and the total is repeated next to the Place order button, which is full width and sticky at the bottom of the form.
+- **Checkout:** single column up to 1100: billing form, then payment methods, then the summary. On phone the summary is a **collapsible bar at the top** ("Order summary - $56.00", tap to expand the lines) and the total is repeated next to the Place order button, which is full width and sticky at the bottom of the form.
 - Account pages: the account menu becomes a horizontal scroller of 44 px tabs above the content; order lists become cards; the address grid is one column; forms are one column.
 - Login, register, forgot, reset, track order: the card is full width with 16 px margins; the tabs stay.
 - Order confirmation: facts stack, buttons full width.
 
 ### 6.5 Wishlist, compare
 - Wishlist table becomes cards on phone (picture left, name/price/stock, buttons under).
-- **Compare:** keeps its table; below 1024 it scrolls horizontally inside its own container with the first column (labels) sticky and a visible fade on the right edge; the add-product tile is the last column.
+- **Compare:** keeps its table; up to 1100 it scrolls horizontally inside its own container with the first column (labels) sticky and a visible fade on the right edge; the add-product tile is the last column.
 
 ### 6.6 Content pages
 - **Blog index:** all five layouts become one column below 768 (grid becomes 2 columns at tablet); the sidebar layouts put the sidebar **after** the posts; the sidebar's tag cloud and categories stay.
@@ -150,7 +171,7 @@ Sheets slide up in 220 ms (instant with reduced motion), have a visible drag han
 
 | Contract item | Test |
 |---|---|
-| C2 no sideways scroll (26 routes and 28 variants, 1440/1024/768/390/320) | R-01 |
+| C2 no sideways scroll (26 routes and 28 variants, 1440/1280/1180/1024/768/390/320) | R-01 |
 | C3 menu drawer reaches every desktop menu entry | R-02, R-05 |
 | C4 filter drawer on every shop layout | R-02 |
 | C5, C6 product sticky bar, checkout summary and placing an order at 390 | R-02 |

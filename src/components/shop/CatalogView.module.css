@@ -170,7 +170,7 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 767px) {
   .toolbar,
   .footer {
     flex-direction: column;

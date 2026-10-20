@@ -195,7 +195,7 @@ li:nth-child(even) .rating > span {
   right: calc(max(var(--gutter), (100vw - var(--container)) / 2) - 21px);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .track > li {
     flex-basis: 80vw;
   }

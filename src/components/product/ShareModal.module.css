@@ -197,7 +197,7 @@
   text-box: trim-both cap alphabetic;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .box {
     height: auto;
     padding-bottom: 30px;

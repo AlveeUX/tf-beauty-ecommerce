@@ -12,7 +12,9 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "e2e": "playwright test"
+    "e2e": "playwright test --project=chromium-desktop",
+    "e2e:responsive": "playwright test --project=r1440 --project=r1280 --project=r1180 --project=r1024 --project=r768 --project=r390 --project=r320",
+    "e2e:all": "playwright test"
   },
   "dependencies": {
     "@fontsource-variable/instrument-sans": "^5.3.0",

@@ -219,6 +219,8 @@ T05 `/demos` hub + catalogue tests. T06 `loading.tsx`, `error.tsx`, `global-erro
 
 #### TF3 task contract — **status: APPROVED by the user 2026-10-20 (spec-first approach); T01 spec awaiting gate G1**
 
+> **Amendment A1 (2026-10-20, T03):** the tablet boundary is **1100 px** (not 1023) and the laptop band 1101-1439 is added, tested at 1280 and 1180; read every "below 1024" in this contract as "up to 1100". Reason and evidence: `docs/responsive-spec.md` section 3. Found: every page scrolls sideways between 1101 and about 1340 px because of the header (fixed in T04).
+
 **Baseline measured before writing this** (production build, `tests/visual/overflow-audit.mjs`, 26 routes x 5 widths, plus screenshots at 390 px):
 
 | What | Finding |
@@ -275,7 +277,7 @@ Visual verification: tests/visual capture at 1440/1024/768/390 for Home, Shop (g
 Regression risks:   mega menu and dropdown specs (E2E-MEG-*), shop layout and filter specs (E2E-SHP-*, E2E-CAT-*), product layouts, cart drawer and checkout
                     specs, the home header and hero, popups (E2E-OVL-*), and the 404 specs (no loading.tsx under (site), see D-054).
 Evidence required:  R-01 table (route x width), axe counts per width, the screenshot set, the C13 comparison, typecheck/lint/Vitest/Playwright counts per sub-task.
-Status:             IN_PROGRESS (T01 written: docs/responsive-spec.md awaits gate G1; no layout code yet)
+Status:             IN_PROGRESS (T01 spec approved at G1; T02 harness and T03 breakpoints done; next T04 header and menu)
 ```
 
 **Sub-tasks and review gates**

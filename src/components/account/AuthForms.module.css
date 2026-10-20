@@ -145,7 +145,7 @@
   color: var(--color-dark-01);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 767px) {
   .card {
     padding: 30px 20px;
   }
