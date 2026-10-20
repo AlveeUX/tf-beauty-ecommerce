@@ -141,6 +141,69 @@ Status:             PASSED 2026-10-20 (evidence and deviations: decision-log D-0
 | Completion criteria | `/demos` lists every variant with a working link; no placeholder links anywhere in menus or footer. |
 | Exit gate | A link-crawl E2E test (all internal links return 200) passes. |
 
+#### TF2 task contract — **status: AWAITING APPROVAL** (written 2026-10-20)
+
+Measured on the branch before writing this: 10 shop layouts (`SHOP_LAYOUTS`), 10 product layouts (`PDP_LAYOUTS`; "out of stock" is a state, and the mega menu also has a sticky add-to-cart bar), **5** blog list layouts (`BLOG_LAYOUTS`, plus the post page; the plan's "6" was wrong); **4** `href="#"` placeholders (Home footer socials, Home Instagram strip, blog share buttons, wishlist share buttons); no `loading.tsx` / `error.tsx` anywhere; "Cosmia" and the contact details are hard-coded in 14 files; the free-shipping copy says **$100** (announcement bar, cart logic) and **$50** (benefit strip).
+
+```
+Task ID:            TF2 (T01-T07 below, one at a time, local commit after each passing task)
+Objective:          A reviewer or buyer reaches every layout and page from one hub, nothing looks like a dev artifact, and the brand is changed in one file.
+Exact scope:        INCLUDED  /demos hub; /ui-kit page (replaces the dev-only /dev/components); the 4 placeholder links made real;
+                              src/config/site.ts as the single place for brand, contact, social, currency and shipping settings;
+                              consistent free-shipping copy; loading and error states; link-crawl and brand-guard tests.
+                    EXCLUDED  responsive work (TF3); real photos or thumbnails (TF5, TF8); header/footer/menu redesign; sitemap and SEO (TF4);
+                              new Figma frames (the hub, UI kit and error/loading screens are proposed designs, flagged as such).
+Figma node IDs:     none new. Built frames change only in text/link targets: BenefitStrip copy, footer/Home social links, share buttons.
+Requirement IDs:    CNT (content pages), NAV (menus), plus TF-D4 (all variants ship as demos).
+Files/modules:      new  src/config/site.ts, src/app/(site)/demos/page.tsx, src/components/demos/*, src/app/(site)/ui-kit/page.tsx,
+                         src/app/(site)/loading.tsx, src/app/(site)/error.tsx, src/app/(home)/loading.tsx, src/app/(home)/error.tsx, src/app/global-error.tsx,
+                         src/components/feedback/ErrorPanel.tsx, tests/e2e/storefront/demos.spec.ts, tests/unit/brand-guard.test.ts
+                    change  Header/HomeHeader (announcement), BenefitStrip, Footer/HomeFooter, ContactPage, content/policies.ts, layout metadata,
+                            checkout methods copy, BlogDetail and WishlistPage share links, config/store.ts (shipping values move to site.ts)
+                    delete  src/app/(site)/dev/components (moved to /ui-kit)
+Prerequisites:      TF1 passed (D-053). Decisions below confirmed.
+Acceptance criteria:
+  B1  Given /demos, then it lists all 10 shop layouts, all 10 product layouts (plus sticky bar and out-of-stock), the 5 blog list layouts and a blog post,
+      and the key pages (cart, checkout, wishlist, compare, search, categories, login, register, account, track order, about, contact, FAQs,
+      store locator, the four policies, 404, UI kit), each as a link that opens the right variant.
+  B2  A link crawl starting at /demos, the header menus (shop mega menu and every dropdown), both footers and the Home page follows every internal link
+      and each answers 200 (the 404 example excepted); no rendered page in the crawl contains `href="#"`.
+  B3  Given src/config/site.ts, when its name, tagline, contact details, social URLs or free-shipping threshold are edited, then the document title,
+      both headers and footers, copyright line, contact page, policy contact emails, announcement bar, benefit strip, cart bar and checkout copy follow.
+      A unit test fails if "Cosmia" or the demo contact details appear hard-coded in src outside site.ts, src/data and tests.
+  B4  The free-shipping threshold reads the same everywhere (default $100) and the checkout total logic uses the same value.
+  B5  /ui-kit shows buttons, form fields, checkbox, quantity stepper, badges, product cards, free-shipping bar, modal, toast, icons, colour and type
+      tokens; it has no axe violations (serious/critical); /dev/components no longer exists and /ui-kit works in the production build.
+  B6  Loading and error states: a route that throws shows the error panel with "Try again" and "Go home" (and recovers); loading UI exists for the
+      (site) and (home) groups; the 404 page is unchanged.
+  B7  Social links open in a new tab with rel="noopener noreferrer"; share buttons use real share URLs for the current page (as the product share popup does).
+  B8  Visual: against main (tests/visual/compare-main.mjs), only the benefit-strip text and the new link targets differ; no layout shift.
+Responsive:         not in scope (1920 desktop). The hub and UI kit use the existing container and tokens.
+Functional tests:   Vitest: brand guard (B3), site config schema (shipping/contact values are well-formed), demos catalogue lists every layout id exported by
+                    SHOP_LAYOUTS / PDP_LAYOUTS / BLOG_LAYOUTS (so a new layout cannot be forgotten).
+E2E scenarios:      E2E-DEMO-01 hub lists and opens every variant; E2E-DEMO-02 crawl (B2); E2E-DEMO-03 /ui-kit axe and sections;
+                    E2E-DEMO-04 error panel via a UI-kit button that throws inside the (site) boundary, then recovers;
+                    E2E-DEMO-05 free-shipping copy equal on Home, cart and checkout; existing 150 specs stay green.
+Visual verification: compare-main.mjs on the 11 routes of TF1 plus /demos and /ui-kit (new, no main equivalent: screenshot reviewed by eye).
+Regression risks:   header/footer markup (mega menu highlight tests E2E-MEG-*), content pages (E2E-CNT-*), policy text, checkout copy (E2E-CHK-*).
+Evidence required:  typecheck, lint, Vitest and Playwright counts per sub-task; crawl output (links checked, failures); compare-main table.
+Status:             NOT_STARTED
+```
+
+**Sub-tasks, in order:** T01 `site.ts` + move hard-coded brand/contact/shipping values to it + brand-guard test (do first, everything else reads it).
+T02 consistent copy (free shipping, one address/phone/email set across Contact, footers, policies, checkout). T03 the 4 placeholder links.
+T04 `/ui-kit` (moved and extended from `/dev/components`; its "show the error page" button is also the test for T06).
+T05 `/demos` hub + catalogue tests. T06 `loading.tsx`, `error.tsx`, `global-error.tsx`, `ErrorPanel`. T07 link-crawl E2E, compare-main run, docs.
+
+**Decisions I made in this contract (change any you disagree with):**
+1. **One settings file, not two.** The plan listed both `src/data/site.json` (demo copy) and `src/config/site.ts` (brand). I use only `src/config/site.ts`; page copy such as About and FAQs stays in its components and data files. Two sources for the same brand name would be worse for buyers.
+2. **Free-shipping threshold is $100** everywhere (the value the cart and checkout already enforce; D-004). The Figma benefit card says $50, so that one sentence changes from the design. I will log it as a deviation.
+3. **Social links** point to each network's home page (`https://www.instagram.com/` etc.), not to any account, so nothing implies a real profile; buyers set their own in `site.ts`.
+4. **/demos is not added to the header or footer** (Figma stays as drawn). It is the entry point for the live preview (TF7-T04) and is linked from the README; say so and I add a footer link.
+5. **/ui-kit is public but `noindex`**, because buyers value it and it is harmless.
+6. **No thumbnails on the hub yet.** Cards show the layout name and its traits as text (from `SHOP_LAYOUT_TRAITS` etc.); preview images come with TF8 when real photos exist.
+7. **Route-level error and loading screens are proposed designs** (not in Figma) and use existing tokens only.
+
 ### TF3 — Responsive and accessibility (biggest risk)
 
 | Field | Content |
