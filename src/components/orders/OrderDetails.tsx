@@ -2,9 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatDateTime } from "@/lib/dates";
 import { formatMoney } from "@/lib/money";
-import { METHOD_LABEL } from "@/server/payments/gateway";
-import type { OrderView } from "@/server/orders/service";
-import { STATUS_LABEL, TRACKING_STEPS } from "@/server/orders/state";
+import { METHOD_LABEL, STATUS_LABEL, TRACKING_STEPS, type OrderView } from "@/lib/orders";
 import styles from "./OrderDetails.module.css";
 
 /** Where the shopper is in the lifecycle (TRK-002). Cancelled/refunded/failed orders show one closing state. */

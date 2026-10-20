@@ -22,12 +22,7 @@ export interface PaymentGateway {
   charge(request: ChargeRequest): Promise<ChargeResult>;
 }
 
-export const METHOD_LABEL: Record<PaymentMethod, string> = {
-  bank_transfer: "Direct bank transfer",
-  cod: "Cash on delivery",
-  check: "Check payments",
-  card_test: "Test card (no real charge)",
-};
+export { METHOD_LABEL } from "@/lib/orders";
 
 /**
  * Local gateway (decision-log D-037). Bank transfer, cash on delivery and check payments are settled

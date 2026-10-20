@@ -1,38 +1,21 @@
-import { expect, test, type Page } from "@playwright/test";
-import { ordersFor, run, uniqueEmail } from "../fixtures/db";
-import { addToCart } from "../fixtures/flows";
+import { expect, test } from "@playwright/test";
+import { uniqueEmail } from "../fixtures/db";
+import {
+  placeOrderFor,
+  setStored,
+  stored,
+  storedOrders,
+  type StoredOrder,
+} from "../fixtures/flows";
 
-// E2E-TRK-01..04 (PRD TRK-001/002, BR-12, SEC-004, ORD-001).
-async function orderFor(page: Page, email: string): Promise<string> {
-  await addToCart(page, "lip-repair-balm", 1);
-  const response = await page.request.post("/api/checkout", {
-    data: {
-      firstName: "Ana",
-      lastName: "Lopez",
-      country: "United Kingdom (UK)",
-      address1: "1 High Street",
-      city: "London",
-      postcode: "N1 1AA",
-      phone: "+44 20 7946 0000",
-      email,
-      paymentMethod: "bank_transfer",
-      acceptTerms: true,
-      idempotencyKey: `trk_${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`,
-    },
-  });
-  expect(response.status()).toBe(201);
-  return ((await response.json()) as { order: { number: string } }).order.number;
-}
-
+// E2E-TRK-01..04 (PRD TRK-001/002, BR-12, ORD-001). Demo mode: orders live in this browser's localStorage,
+// plus one sample order (CSM-DEMO2026 / demo@example.com) that every visitor can look up.
 test.describe("Order tracking", () => {
-  // lookups are throttled per client address, and every test here shares one; start each with a clean slate
-  test.beforeEach(() => run("delete from rate_limits where key like 'track:%'"));
-
   test("E2E-TRK-01 order ID and billing email show the status timeline and the order", async ({
     page,
   }) => {
     const email = uniqueEmail("track");
-    const number = await orderFor(page, email);
+    const number = await placeOrderFor(page, email);
 
     await page.goto("/track-order");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Order tracking");
@@ -53,7 +36,7 @@ test.describe("Order tracking", () => {
 
   test("E2E-TRK-02 a wrong email or a wrong ID gives the same generic answer", async ({ page }) => {
     const email = uniqueEmail("generic");
-    const number = await orderFor(page, email);
+    const number = await placeOrderFor(page, email);
     await page.goto("/track-order");
 
     const submit = async (id: string, mail: string) => {
@@ -72,37 +55,27 @@ test.describe("Order tracking", () => {
     await expect(page.getByTestId("track-result")).toHaveCount(0);
   });
 
-  test("E2E-TRK-03 repeated guesses are throttled (SEC-004)", async ({ page }) => {
+  test("E2E-TRK-03 the documented sample order can be tracked from any browser", async ({
+    page,
+  }) => {
     await page.goto("/track-order");
-    const number = "CSM-QQQQQQQQ";
-    let blocked = 0;
-    for (let i = 0; i < 12; i++) {
-      const response = await page.request.post("/api/orders/track", {
-        data: { orderId: number, email: `guess${i}@example.com` },
-      });
-      if (response.status() === 429) {
-        blocked++;
-        expect(response.headers()["retry-after"]).toBeTruthy();
-      } else {
-        expect(response.status()).toBe(404);
-      }
-    }
-    expect(blocked).toBeGreaterThanOrEqual(2);
-    // and the form tells the shopper to wait
-    await page.getByTestId("field-orderId").fill(number);
-    await page.getByTestId("field-email").fill("again@example.com");
+    await page.getByTestId("field-orderId").fill("CSM-DEMO2026");
+    await page.getByTestId("field-email").fill("demo@example.com");
     await page.getByTestId("auth-submit").click();
-    await expect(page.getByTestId("form-error")).toContainText("Too many lookups");
-    // the throttle keys on the real order ID and this address; clear them so later tests are unaffected
-    run("delete from rate_limits where key like 'track:%'");
+    const result = page.getByTestId("track-result");
+    await expect(result).toContainText("CSM-DEMO2026");
+    await expect(result.getByTestId("step-shipped")).toHaveAttribute("aria-current", "step");
+    await expect(result).toContainText("DEMO-TRACK-0001");
+    // and it is not mixed into this browser's own orders
+    expect(await stored(page, "orders")).toBeNull();
   });
 
   test("E2E-TRK-04 the timeline follows the order through its states, including cancellation", async ({
     page,
   }) => {
     const email = uniqueEmail("states");
-    const number = await orderFor(page, email);
-    expect(ordersFor(email)).toHaveLength(1);
+    const number = await placeOrderFor(page, email);
+    expect(await storedOrders(page)).toHaveLength(1);
 
     const track = async () => {
       await page.goto("/track-order");
@@ -111,26 +84,26 @@ test.describe("Order tracking", () => {
       await page.getByTestId("auth-submit").click();
       return page.getByTestId("track-result");
     };
+    // there is no staff screen in the template, so the state change is applied to the stored order directly
+    const change = async (
+      status: string,
+      extra: Partial<StoredOrder> & Record<string, unknown>,
+      note: string,
+    ) => {
+      const orders = await storedOrders(page);
+      const order = orders.find((o) => o.number === number)!;
+      Object.assign(order, { status }, extra);
+      order.events.push({ status, at: new Date().toISOString(), note });
+      await setStored(page, "orders", orders);
+    };
 
-    // staff actions arrive in P8; until then the state change is applied directly to the test database
-    run(
-      "update orders set status = 'shipped', carrier = 'DHL', tracking_number = 'JD0146000' where number = ?",
-      number,
-    );
-    run(
-      "insert into order_events (order_id, from_status, to_status, actor, note) select id, 'processing', 'shipped', 'staff:1', 'Handed to carrier' from orders where number = ?",
-      number,
-    );
+    await change("shipped", { carrier: "DHL", trackingNumber: "JD0146000" }, "Handed to carrier");
     let result = await track();
     await expect(result.getByTestId("step-shipped")).toHaveAttribute("aria-current", "step");
     await expect(result).toContainText("JD0146000");
     await expect(result).toContainText("Handed to carrier");
 
-    run("update orders set status = 'cancelled' where number = ?", number);
-    run(
-      "insert into order_events (order_id, from_status, to_status, actor) select id, 'shipped', 'cancelled', 'staff:1' from orders where number = ?",
-      number,
-    );
+    await change("cancelled", {}, "Cancelled");
     result = await track();
     await expect(result.getByTestId("step-cancelled")).toHaveAttribute("aria-current", "step");
     await expect(result.getByTestId("step-delivered")).not.toHaveAttribute("data-done", "");

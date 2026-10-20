@@ -415,6 +415,31 @@ export function createJsonProvider(t: Tables): DataProvider {
       ];
     });
 
+  const getVariantLines: DataProvider["getVariantLines"] = (refs) =>
+    refs.flatMap((ref) => {
+      const variant =
+        ref.variantId !== undefined
+          ? t.variants.find((v) => v.id === ref.variantId)
+          : ref.slug
+            ? published.flatMap((p) => (p.slug === ref.slug ? (defaultVariant(p) ?? []) : []))[0]
+            : undefined;
+      const p = variant && published.find((x) => x.id === variant.productId);
+      if (!variant || !p) return [];
+      return [
+        {
+          variantId: variant.id,
+          slug: p.slug,
+          name: p.name,
+          label: `${p.productType} · ${variant.sizeLabel}`,
+          sku: variant.sku,
+          image: imagesOf.get(p.id)?.[0]?.url ?? null,
+          unitCents: variant.priceCents,
+          compareAtCents: variant.compareAtCents,
+          available: Math.max(0, available(variant.id)),
+        },
+      ];
+    });
+
   const getQuickView: DataProvider["getQuickView"] = (slug) => {
     const p = getProductBySlug(slug);
     if (!p) return null;
@@ -565,6 +590,7 @@ export function createJsonProvider(t: Tables): DataProvider {
     getCollectionProducts,
     searchSuggestions,
     lookupProducts,
+    getVariantLines,
     getQuickView,
     getBanners,
     listPosts,

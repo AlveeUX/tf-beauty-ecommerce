@@ -10,14 +10,21 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import {
+  buildCartView,
+  checkQuantity,
+  type CartView,
+  type StoredCartItem,
+  type VariantLine,
+} from "@/lib/cart";
 import { notify } from "@/lib/notify";
-import type { CartView } from "@/server/cart/service";
-
-type Api = { cart?: CartView; code?: string; message?: string };
+import { readStore, useHydrated, useStore, writeStore } from "@/lib/demo-store/storage";
 
 type CartContextValue = {
   cart: CartView;
-  /** True while a request is in flight (buttons show a busy state). */
+  /** False until the stored cart has been matched with catalog data (avoids a flash of "empty"). */
+  ready: boolean;
+  /** True while catalog data is being fetched (buttons show a busy state). */
   busy: boolean;
   drawerOpen: boolean;
   openDrawer: () => void;
@@ -33,8 +40,8 @@ type CartContextValue = {
   setQuantity: (variantId: number, quantity: number) => Promise<boolean>;
   remove: (variantId: number) => Promise<void>;
   clear: () => Promise<void>;
-  /** Re-read the cart from the server (after login merges it, or checkout empties it). */
-  refresh: () => Promise<void>;
+  /** Re-read prices and stock; resolves with the up-to-date cart. */
+  refresh: () => Promise<CartView>;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -45,65 +52,87 @@ export function useCart(): CartContextValue {
   return value;
 }
 
+export const CART_KEY = "cart";
+const NO_ITEMS: StoredCartItem[] = [];
+/** The stored cart right now (handlers read it fresh, so two quick adds never overwrite each other). */
+const readItems = () => readStore<StoredCartItem[]>(CART_KEY, NO_ITEMS);
+
+async function fetchLines(query: string): Promise<VariantLine[] | null> {
+  try {
+    const response = await fetch(`/api/variants?${query}`, { cache: "no-store" });
+    if (!response.ok) return [];
+    return ((await response.json()) as { lines: VariantLine[] }).lines;
+  } catch {
+    return null; // offline: keep what we know
+  }
+}
+
 /**
- * Cart state for the whole storefront. The server is the source of truth (stock and prices are
- * checked there, CRT-005); this keeps the last response, opens the drawer on add (CRT-001) and
- * reports rejections such as "Only 3 left in stock" as toasts.
+ * Cart state for the whole storefront (demo mode). The cart is just ids and quantities in the browser;
+ * prices and stock are read from the data provider through `/api/variants`, and stock limits are enforced
+ * here (CRT-005). Replace this provider with calls to your own cart API to go live.
  */
-export function CartProvider({
-  initialCart,
-  children,
-}: {
-  initialCart: CartView;
-  children: ReactNode;
-}) {
-  const [cart, setCart] = useState(initialCart);
+export function CartProvider({ children }: { children: ReactNode }) {
+  const items = useStore<StoredCartItem[]>(CART_KEY, NO_ITEMS);
+  const [known, setKnown] = useState<Map<number, VariantLine>>(() => new Map());
+  const [attempted, setAttempted] = useState<Set<number>>(() => new Set());
+  const hydrated = useHydrated();
   const [busy, setBusy] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const inflight = useRef(0);
+  const knownRef = useRef(known);
+  useEffect(() => {
+    knownRef.current = known;
+  }, [known]);
 
-  const refresh = useCallback(async () => {
+  const remember = useCallback((lines: VariantLine[], asked: number[] = []) => {
+    setKnown((previous) => {
+      const next = new Map(previous);
+      for (const line of lines) next.set(line.variantId, line);
+      return next;
+    });
+    setAttempted((previous) => new Set([...previous, ...asked, ...lines.map((l) => l.variantId)]));
+  }, []);
+
+  const track = useCallback(async <T,>(work: () => Promise<T>): Promise<T> => {
+    inflight.current += 1;
+    setBusy(true);
     try {
-      const response = await fetch("/api/cart", { cache: "no-store" });
-      if (response.ok) {
-        const body = (await response.json()) as Api;
-        if (body.cart) setCart(body.cart);
-      }
-    } catch {
-      // offline: keep what we have
+      return await work();
+    } finally {
+      inflight.current -= 1;
+      if (inflight.current === 0) setBusy(false);
     }
   }, []);
 
-  const request = useCallback(
-    async (input: string, init?: RequestInit): Promise<boolean> => {
-      inflight.current += 1;
-      setBusy(true);
-      try {
-        const response = await fetch(input, {
-          ...init,
-          headers: { "content-type": "application/json" },
-        });
-        const body = (await response.json().catch(() => ({}))) as Api;
-        if (!response.ok) {
-          notify(body.message ?? "Something went wrong. Please try again.", "error");
-          // stock changed under us: show the truth
-          if (response.status === 409) void refresh();
-          return false;
-        }
-        if (body.cart) setCart(body.cart);
-        return true;
-      } catch {
-        notify("Could not reach the shop. Check your connection and try again.", "error");
-        return false;
-      } finally {
-        inflight.current -= 1;
-        if (inflight.current === 0) setBusy(false);
-      }
+  const load = useCallback(
+    async (ids: number[]): Promise<VariantLine[]> => {
+      if (ids.length === 0) return [];
+      const lines = await fetchLines(ids.map((id) => `variant=${id}`).join("&"));
+      if (lines) remember(lines, ids);
+      return lines ?? [];
     },
-    [refresh],
+    [remember],
   );
 
-  // Back/forward cache and other tabs: re-read the cart when the page becomes visible again.
+  // Fetch catalog data for any stored item we have not seen yet.
+  const idsKey = items.map((i) => i.variantId).join(",");
+  useEffect(() => {
+    if (!hydrated) return;
+    const missing = readItems()
+      .map((i) => i.variantId)
+      .filter((id) => !knownRef.current.has(id) && !attempted.has(id));
+    void load(missing);
+  }, [hydrated, idsKey, attempted, load]);
+
+  const refresh = useCallback(async () => {
+    const lines = await load(readItems().map((i) => i.variantId));
+    // a product that vanished is no longer in `lines`, so it must not stay in the view
+    const fresh = new Map(lines.map((l) => [l.variantId, l]));
+    return buildCartView(readItems(), fresh.size > 0 ? fresh : knownRef.current);
+  }, [load]);
+
+  // Back/forward cache and other tabs: re-read prices and stock when the page becomes visible again.
   useEffect(() => {
     const onShow = (event: PageTransitionEvent) => {
       if (event.persisted) void refresh();
@@ -119,23 +148,53 @@ export function CartProvider({
     };
   }, [refresh]);
 
+  const save = (next: StoredCartItem[]) => writeStore(CART_KEY, next);
+
   const add = useCallback<CartContextValue["add"]>(
-    async (target, quantity = 1, options) => {
-      const ok = await request("/api/cart/items", {
-        method: "POST",
-        body: JSON.stringify({ slug: target.slug, variantId: target.variantId, quantity }),
-      });
-      if (ok && options?.openDrawer !== false) setDrawerOpen(true);
-      return ok;
-    },
-    [request],
+    (target, quantity = 1, options) =>
+      track(async () => {
+        const query =
+          target.variantId !== undefined
+            ? `variant=${target.variantId}`
+            : `slug=${encodeURIComponent(target.slug ?? "")}`;
+        const fetched = await fetchLines(query);
+        if (fetched === null) {
+          notify("Could not reach the shop. Check your connection and try again.", "error");
+          return false;
+        }
+        const line = fetched[0];
+        if (!line) {
+          notify("Product not found.", "error");
+          return false;
+        }
+        remember([line]);
+        const current = readItems().find((i) => i.variantId === line.variantId)?.quantity ?? 0;
+        const error = checkQuantity(current + quantity, line.available);
+        if (error) {
+          notify(error.message, "error");
+          return false;
+        }
+        const rest = readItems().filter((i) => i.variantId !== line.variantId);
+        const existing = readItems().find((i) => i.variantId === line.variantId);
+        // a line keeps its place in the cart when its quantity changes
+        save(
+          existing
+            ? readItems().map((i) =>
+                i.variantId === line.variantId ? { ...i, quantity: current + quantity } : i,
+              )
+            : [...rest, { variantId: line.variantId, quantity }],
+        );
+        if (options?.openDrawer !== false) setDrawerOpen(true);
+        return true;
+      }),
+    [remember, track],
   );
 
   const addMany = useCallback<CartContextValue["addMany"]>(
     async (slugs) => {
       let allOk = true;
       for (const slug of slugs) {
-        // one request per product keeps each stock check independent
+        // one lookup per product keeps each stock check independent
         allOk = (await add({ slug }, 1, { openDrawer: false })) && allOk;
       }
       setDrawerOpen(true);
@@ -146,27 +205,43 @@ export function CartProvider({
 
   const setQuantity = useCallback<CartContextValue["setQuantity"]>(
     (variantId, quantity) =>
-      request(`/api/cart/items/${variantId}`, {
-        method: "PATCH",
-        body: JSON.stringify({ quantity }),
+      track(async () => {
+        if (!readItems().some((i) => i.variantId === variantId)) {
+          notify("That item is not in your cart.", "error");
+          return false;
+        }
+        let line = knownRef.current.get(variantId);
+        if (!line) {
+          line = (await fetchLines(`variant=${variantId}`))?.[0];
+          if (line) remember([line]);
+        }
+        const error = checkQuantity(quantity, line?.available ?? 0);
+        if (error) {
+          notify(error.message, "error");
+          return false;
+        }
+        save(readItems().map((i) => (i.variantId === variantId ? { ...i, quantity } : i)));
+        return true;
       }),
-    [request],
+    [remember, track],
   );
 
-  const remove = useCallback<CartContextValue["remove"]>(
-    async (variantId) => {
-      await request(`/api/cart/items/${variantId}`, { method: "DELETE" });
-    },
-    [request],
-  );
+  const remove = useCallback<CartContextValue["remove"]>(async (variantId) => {
+    save(readItems().filter((i) => i.variantId !== variantId));
+  }, []);
 
   const clear = useCallback(async () => {
-    await request("/api/cart", { method: "DELETE" });
-  }, [request]);
+    save([]);
+  }, []);
+
+  const cart = useMemo(() => buildCartView(items, known), [items, known]);
+  const ready =
+    hydrated && items.every((i) => known.has(i.variantId) || attempted.has(i.variantId));
 
   const value = useMemo<CartContextValue>(
     () => ({
       cart,
+      ready,
       busy,
       drawerOpen,
       openDrawer: () => setDrawerOpen(true),
@@ -178,7 +253,7 @@ export function CartProvider({
       clear,
       refresh,
     }),
-    [cart, busy, drawerOpen, add, addMany, setQuantity, remove, clear, refresh],
+    [cart, ready, busy, drawerOpen, add, addMany, setQuantity, remove, clear, refresh],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

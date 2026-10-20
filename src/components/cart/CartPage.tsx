@@ -20,7 +20,7 @@ const PAYMENTS = "/images/ui/payments.svg";
  * server; shipping and tax are decided at checkout (P6), so the total equals the subtotal here.
  */
 export function CartPage() {
-  const { cart, busy, setQuantity, remove, clear, add } = useCart();
+  const { cart, ready, busy, setQuantity, remove, clear, add } = useCart();
   const [undo, setUndo] = useState<Undo | null>(null);
   const [coupon, setCoupon] = useState("");
   const [couponMessage, setCouponMessage] = useState<string | null>(null);
@@ -48,6 +48,10 @@ export function CartPage() {
     setCouponMessage(
       coupon.trim() ? "This coupon code is not valid." : "Enter a coupon code to apply it.",
     );
+  }
+
+  if (!ready && cart.lines.length === 0) {
+    return <div className={`container ${styles.page}`} aria-busy="true" />;
   }
 
   return (

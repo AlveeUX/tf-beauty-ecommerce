@@ -1,6 +1,6 @@
-import type { ORDER_STATUSES } from "@/config/order-constants";
+import type { OrderStatus } from "@/lib/orders";
 
-export type OrderStatus = (typeof ORDER_STATUSES)[number];
+export { STATUS_LABEL, TRACKING_STEPS, type OrderStatus } from "@/lib/orders";
 
 /**
  * Order lifecycle (PRD ORD-001, BR-06). `failed` is only reached when a payment is declined at
@@ -21,16 +21,3 @@ export const canTransition = (from: OrderStatus, to: OrderStatus): boolean =>
 
 /** Statuses after which reserved stock goes back on the shelf. */
 export const RELEASES_STOCK: readonly OrderStatus[] = ["cancelled", "failed"];
-
-/** Timeline shown to the shopper (TRK-002). */
-export const TRACKING_STEPS = ["pending", "processing", "shipped", "delivered"] as const;
-
-export const STATUS_LABEL: Record<OrderStatus, string> = {
-  pending: "Order placed",
-  processing: "Processing",
-  shipped: "Shipped",
-  delivered: "Delivered",
-  cancelled: "Cancelled",
-  refunded: "Refunded",
-  failed: "Payment failed",
-};

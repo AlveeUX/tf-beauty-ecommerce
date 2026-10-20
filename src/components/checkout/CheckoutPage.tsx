@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/form/Checkbox";
 import { Field } from "@/components/form/Field";
 import { Icon } from "@/components/ui/Icon";
 import { SHIPPING_COUNTRIES, type PaymentMethodId } from "@/config/store";
-import { sendJson } from "@/lib/api";
+import { placeDemoOrder } from "@/lib/demo-store/orders";
 import { formatMoney } from "@/lib/money";
 import { checkoutSchema, fieldErrors, type FieldErrors } from "@/lib/validation/checkout";
 import { shippingFor } from "@/lib/totals";
@@ -39,12 +39,12 @@ const newKey = () => `chk_${crypto.randomUUID().replaceAll("-", "")}`;
 
 /**
  * Checkout (CHK-001..006, 008). Figma 3:22268: coupon notice, free-shipping bar, billing form on the
- * left, order summary with payment methods on the right. Prices and stock are checked again on the
- * server when the order is placed; nothing here is trusted.
+ * left, order summary with payment methods on the right. Demo mode: the order is stored in the browser
+ * and nothing is charged (see `placeDemoOrder` in `src/lib/demo-store/orders.ts`).
  */
 export function CheckoutPage({ methods, prefill }: Props) {
   const router = useRouter();
-  const { cart, refresh } = useCart();
+  const { cart, ready, clear, refresh } = useCart();
   const [values, setValues] = useState<CheckoutPrefill & { notes: string }>({
     ...prefill,
     notes: "",
@@ -59,10 +59,16 @@ export function CheckoutPage({ methods, prefill }: Props) {
   const [couponMessage, setCouponMessage] = useState("");
   const key = useRef<string>("");
   key.current ||= newKey();
+  const placing = useRef(false);
+
   const formRef = useRef<HTMLFormElement>(null);
 
   const set = (name: keyof typeof values) => (value: string) =>
     setValues((v) => ({ ...v, [name]: value }));
+
+  if (!ready && cart.lines.length === 0) {
+    return <div className={`container ${styles.page}`} aria-busy="true" />;
+  }
 
   if (cart.lines.length === 0) {
     return (
@@ -104,27 +110,20 @@ export function CheckoutPage({ methods, prefill }: Props) {
       return;
     }
     setErrors({});
+    if (placing.current) return; // a double click must not create two orders (CHK-006)
+    placing.current = true;
     setBusy(true);
-    const result = await sendJson<{ order: { number: string } }>(
-      "/api/checkout",
-      "POST",
-      parsed.data,
-    );
+    // stock may have changed since the cart was loaded: re-read it, then place the order from the fresh cart
+    const result = placeDemoOrder(parsed.data, await refresh());
     if (result.ok) {
-      await refresh();
-      router.push(`/checkout/confirmation/${result.data.order.number}`);
+      await clear();
+      router.push(`/checkout/confirmation/${result.order.number}`);
       return;
     }
-    if (result.data.errors) setErrors(result.data.errors);
-    else {
-      setProblem({
-        message: result.data.message ?? "We could not place your order. Please try again.",
-        items: result.data.items,
-      });
-    }
-    // a declined payment used up this key; a changed cart needs a fresh look
-    if (result.data.code === "payment_failed") key.current = newKey();
-    if (result.data.code === "stock_changed" || result.data.code === "empty_cart") await refresh();
+    setProblem({ message: result.error.message, items: result.error.items });
+    // a declined payment used up this key
+    if (result.error.code === "payment_failed") key.current = newKey();
+    placing.current = false;
     setBusy(false);
   }
 

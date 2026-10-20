@@ -1,4 +1,5 @@
 import type { ProductSummary } from "@/lib/catalog-types";
+import type { VariantLine } from "@/lib/cart";
 import type { BlogCard, BlogComment, BlogPostDetail, BlogSidebarData } from "@/lib/blog";
 import type { Banner } from "@/server/content/banners";
 import type { BlogFilter } from "@/server/blog/queries";
@@ -32,6 +33,11 @@ export interface DataProvider {
   getCollectionProducts(collectionSlug: string, limit?: number): ProductSummary[];
   searchSuggestions(term: string, limit?: number): SearchSuggestions;
   lookupProducts(slugs: string[]): ListProduct[];
+  /**
+   * Cart data for variants, by id or by product slug (its default variant). Unknown or unpublished
+   * products are left out. Prices are integer cents; `available` is the units that can still be bought.
+   */
+  getVariantLines(refs: { variantId?: number; slug?: string }[]): VariantLine[];
   getQuickView(slug: string): QuickViewData | null;
   getBanners(slot: string, now?: Date): Banner[];
   listPosts(

@@ -6,15 +6,15 @@ import formStyles from "@/components/account/AuthForms.module.css";
 import { OrderDetails, OrderTimeline } from "@/components/orders/OrderDetails";
 import pageStyles from "@/components/orders/OrderPages.module.css";
 import { Icon } from "@/components/ui/Icon";
-import { sendJson } from "@/lib/api";
+import { findOrder } from "@/lib/demo-store/orders";
+import { STATUS_LABEL, type OrderView } from "@/lib/orders";
 import { trackSchema } from "@/lib/validation/auth";
 import { fieldErrors, type FieldErrors } from "@/lib/validation/checkout";
-import type { OrderView } from "@/server/orders/service";
-import { STATUS_LABEL } from "@/server/orders/state";
 
 /**
  * Order tracking (TRK-001, TRK-002). Figma 3:23740 is the form; the result below it is a proposed design.
- * A wrong ID or email always shows the same message, so IDs cannot be probed.
+ * Demo mode: looks in the orders stored in this browser plus one sample order
+ * (`CSM-DEMO2026` / `demo@example.com`). A wrong ID or email always shows the same message.
  */
 export function TrackForm() {
   const [orderId, setOrderId] = useState("");
@@ -22,22 +22,19 @@ export function TrackForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState("");
   const [order, setOrder] = useState<OrderView | null>(null);
-  const [busy, setBusy] = useState(false);
 
-  async function submit(event: FormEvent) {
+  function submit(event: FormEvent) {
     event.preventDefault();
     setFormError("");
     setOrder(null);
     const parsed = trackSchema.safeParse({ orderId, email });
     if (!parsed.success) return setErrors(fieldErrors(parsed.error));
     setErrors({});
-    setBusy(true);
-    const result = await sendJson<{ order: OrderView }>("/api/orders/track", "POST", parsed.data);
-    setBusy(false);
-    if (result.ok) setOrder(result.data.order);
+    const found = findOrder(parsed.data.orderId, parsed.data.email);
+    if (found) setOrder(found);
     else {
-      setErrors(result.data.errors ?? {});
-      if (!result.data.errors) setFormError(result.data.message ?? "Something went wrong.");
+      // the same message for a wrong ID and a wrong email, so IDs cannot be probed
+      setFormError("We could not find an order with that ID and email address.");
     }
   }
 
@@ -76,10 +73,9 @@ export function TrackForm() {
           <button
             type="submit"
             className={formStyles.submit}
-            disabled={busy}
             data-testid="auth-submit"
           >
-            <span>{busy ? "Looking…" : "Track order"}</span>
+            <span>Track order</span>
             <Icon name="arrow-up-right" size={18} />
           </button>
         </form>

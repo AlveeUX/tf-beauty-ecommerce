@@ -22,7 +22,7 @@ test.describe("Cart", () => {
     await expect(drawer(page).getByTestId("drawer-subtotal")).toHaveText("$48");
     await expect(page.getByTestId("cart-count")).toHaveText("1");
 
-    // quantity inside the drawer recalculates the subtotal on the server
+    // quantity inside the drawer recalculates the subtotal
     await drawer(page)
       .getByRole("button", { name: /Increase quantity/ })
       .click();
@@ -91,30 +91,41 @@ test.describe("Cart", () => {
     await expect(page.getByTestId("cart-row")).toHaveCount(1);
   });
 
-  test("E2E-CRT-05 stock is enforced on the server (CRT-005)", async ({ page }) => {
+  test("E2E-CRT-05 stock is enforced (CRT-005)", async ({ page }) => {
     await page.goto("/");
-    // sold out
-    const oos = await page.request.post("/api/cart/items", {
-      data: { slug: "glass-glow-primer", quantity: 1 },
-    });
-    expect(oos.status()).toBe(409);
-    expect((await oos.json()).code).toBe("out_of_stock");
-    // bad quantities and unknown products
-    const tooMany = await page.request.post("/api/cart/items", {
-      data: { slug: "the-renewal-serum", quantity: 500 },
-    });
-    expect(tooMany.status()).toBe(422);
-    const missing = await page.request.post("/api/cart/items", {
-      data: { slug: "no-such-product", quantity: 1 },
-    });
-    expect(missing.status()).toBe(404);
-    // nothing was added
-    const cart = await (await page.request.get("/api/cart")).json();
-    expect(cart.cart.count).toBe(0);
+    // the catalog the cart reads from: sold out is reported as 0 available, unknown products are left out
+    const sold = await page.request.get("/api/variants?slug=glass-glow-primer");
+    expect((await sold.json()).lines[0]).toMatchObject({ slug: "glass-glow-primer", available: 0 });
+    const missing = await page.request.get("/api/variants?slug=no-such-product");
+    expect((await missing.json()).lines).toEqual([]);
+    expect((await page.request.get("/api/variants?variant=abc")).status()).toBe(400);
+    expect((await page.request.get("/api/variants")).status()).toBe(400);
 
-    // the product page does not offer a sold-out variant for purchase
+    // the product page does not offer a sold-out variant for purchase, and nothing was added
     await page.goto("/product/glass-glow-primer");
     await expect(page.getByTestId("add-to-cart")).toBeDisabled();
+    await expect(page.getByTestId("cart-count")).toHaveCount(0);
+  });
+
+  test("E2E-CRT-05b quantity above the stock limit is refused (stepper stops, Add shows a message)", async ({
+    page,
+  }) => {
+    // stock for one product is lowered to 2 in the catalog responses
+    await page.route("**/api/variants?*", async (route) => {
+      const response = await route.fetch();
+      const body = (await response.json()) as { lines: { slug: string; available: number }[] };
+      for (const line of body.lines) if (line.slug === "the-renewal-serum") line.available = 2;
+      await route.fulfill({ response, json: body });
+    });
+    await addSerum(page); // 1 of 2
+    await page.keyboard.press("Escape");
+    await page.getByTestId("add-to-cart").click(); // 2 of 2
+    await expect(page.getByTestId("cart-count")).toHaveText("2");
+    await expect(drawer(page).getByRole("button", { name: /Increase quantity/ })).toBeDisabled();
+    await page.keyboard.press("Escape");
+    await page.getByTestId("add-to-cart").click(); // over the limit
+    await expect(page.getByText("Only 2 left in stock.")).toBeVisible();
+    await expect(page.getByTestId("cart-count")).toHaveText("2");
   });
 
   test("E2E-CRT-06 quick add on a product card and the Home Add to cart button", async ({
@@ -137,6 +148,13 @@ test.describe("Cart", () => {
       .first()
       .click();
     await expect(page.getByTestId("cart-count")).toHaveText("2");
+  });
+
+  test("E2E-CRT-08 Buy now puts the product in the cart and opens checkout", async ({ page }) => {
+    await page.goto("/product/the-renewal-serum");
+    await page.getByTestId("buy-now").click();
+    await expect(page).toHaveURL(/\/checkout$/);
+    await expect(page.getByTestId("checkout-lines").getByRole("listitem")).toHaveCount(1);
   });
 
   test("E2E-CRT-07 an empty cart drawer shows the empty state and Continue shopping", async ({
