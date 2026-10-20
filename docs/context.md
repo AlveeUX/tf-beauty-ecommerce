@@ -111,9 +111,9 @@ If a decision changes: update this file plus the owning document(s) (stack → P
 
 ## 20. Immediate next actions
 **ThemeForest track (D-050):**
-1. Status: branch `themeforest` created; TF-D1..D7 logged (D-050); `main` pushed to the public `tf-beauty-ecommerce` repo (D-051). **TF1 contract approved (D-052); TF1 IN_PROGRESS, T00 (baseline) and T01 (branch) done.** `npm install` still fails here (native `better-sqlite3`, Node 24, no build tools); `node_modules` was copied from the original instead.
+1. Status: **TF1 PASSED 2026-10-20 (D-053).** The app has no database, no native module and no server state; `npm ci` works on Node 24 with no compiler. Branch `themeforest` has local commits only (not pushed); `main` is on the public `tf-beauty-ecommerce` repo (D-051). TF-D1..D7 are logged (D-050).
 2. **TF0 gates** (in parallel with TF1): Envato upload-rights reply (ticket open), Figma ownership, author profile, product name.
-3. **TF1 now:** T02 export seed to JSON + Zod, T03 `DataProvider`/`JsonProvider`, T04 cart, T05 checkout, T06 auth/account, T07 tracking, T08 reviews/contact/newsletter, T09 remove the DB, T10 docs/env. One task at a time, local commit after each passing task.
+3. **Next: TF2** (demo hub `/demos`, UI-kit page, consistent demo copy, one `src/config/site.ts`, loading/error states) once the user approves its task contract. TF0 gates are still open and in parallel: Envato upload-rights reply, Figma ownership, author profile, product name, and the public-repo risk (D-051). TF1-T10 housekeeping (README, `.env.example`, `CLAUDE.md`) is done.
 4. Do not start P7 (admin).
 
 **Older list (full-stack, kept for history):**

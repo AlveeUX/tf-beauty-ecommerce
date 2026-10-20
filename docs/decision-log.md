@@ -82,6 +82,7 @@ Purpose: record **why** development decisions were made, so that when something 
 | D-050 | 2026-10-20 | TF0 | ThemeForest product decisions TF-D1..TF-D7; `themeforest-plan.md` becomes the plan; `development-plan.md` retired | APPROVED |
 | D-051 | 2026-10-20 | TF0 | ThemeForest copy pushed to a new PUBLIC repo `tf-beauty-ecommerce` (risk accepted) | APPROVED |
 | D-052 | 2026-10-20 | TF1 | TF1 task contract approved; baseline via copied node_modules (no Node 22 switch) | APPROVED |
+| D-053 | 2026-10-20 | TF1 | TF1 outcome: JSON data layer, browser-side demo store, database removed; evidence and deviations | DECIDED |
 | D-045 | 2026-10-20 | P4c | The ten Shop listing layouts (sidebar, list, load more, top filter, horizontal, drawer) | APPROVED |
 
 ---
@@ -595,3 +596,22 @@ Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P1
 - **Baseline on the copy (2026-10-20):** typecheck pass, lint pass, Vitest 126/126, `npm run build` pass. Playwright baseline result is recorded below when the run ends.
 - **Branch:** `themeforest` (from `ea92b0d`), local; not pushed.
 - **Decided by:** User.
+
+### D-053 · 2026-10-20 · TF1 · DECIDED — TF1 outcome: no database, no native module, no server state
+- **Result:** the storefront reads JSON through the `DataProvider` interface and runs the cart, checkout, orders, tracking, accounts, addresses, password reset, newsletter, contact, comments and reviews in the browser (localStorage, prefix `cosmia.demo.`). `src/db`, `drizzle/`, `better-sqlite3`, `drizzle-orm`, `drizzle-kit`, `tsx`, the server auth/orders/cart/payments/email/security/account code and 19 API routes are deleted. Remaining API routes are read-only (`/api/catalog/*`, `/api/search`, `/api/products/*`, `/api/variants`, `/api/health`).
+- **Evidence (all run on this machine, Node 24.18):**
+  - `npm ci` + `npm run build` + `npm start` from a **fresh clone** of branch `themeforest`, no `.env`, no `data/` folder, no copied `node_modules`: build passes, 25 routes answer 200 (and `/nope` 404). `npm ls better-sqlite3 drizzle-orm drizzle-kit` is empty. `grep @/db src` finds nothing. (A1, A2)
+  - `npm run typecheck`, `npm run lint`: clean. Vitest: **111 passed** (12 files). Playwright, full run on the final code: **150 passed, 1 failed**; the failure was a stale health-endpoint expectation (`db: "ok"`), corrected, and `smoke.spec.ts` re-run **3/3**. No test is skipped.
+  - **SQL vs JSON parity (T03a):** 71 comparisons (32 queries x list and facets, every product detail, quick view, lookup, reviews, related, categories, collections, suggestions, banners, blog) passed before the SQL implementations were removed. The test was deleted with the SQL code (commit `2cd4044` holds it).
+  - **Visual check vs `main`** (`tests/visual/compare-main.mjs`, 1920 px full page, main built from `ea92b0d` with its database): page heights identical on all 11 routes. Differing pixels: shop, shop list layout, blog, track order, cart empty and filled 0; Home 0.008% and product pages 0.011% (countdown digits); Login 0.72% and Checkout 0.49%, both exactly the new bottom-left demo note. (A first run showed a "Test card" row on checkout; that was the E2E build, which enables the test card on purpose.)
+- **Deviations from the contract, and why:**
+  1. T04, T05 and T07 (cart, checkout, tracking) were done and committed as one unit, because checkout reads the cart. T06 and T08 followed; T09 removed the database last as planned.
+  2. The contract said Playwright specs would change "only fixtures/setup". In fact specs for cart, checkout, tracking, auth, contact, newsletter and blog comments were rewritten, because they asserted server cookies, database rows or API throttling. Dropped on purpose (they tested server behaviour that no longer exists): rate limits (429) for login, tracking, contact, comments and newsletter; DB-row state edits in E2E-LAY-02/10 (stored layout is covered in Vitest by swapping the provider); reset links read from the email outbox (the page now shows the link, see below).
+  3. **Rolling countdowns:** the seed computed the flash-sale end (+2 d 8 h 30 m 16 s) and the product-sale end (+20 d) from "now". Frozen dates would expire, so the JSON stores `endsInMs` / `saleEndsInMs` and the provider derives the deadline at read time. The Home countdown therefore always shows the Figma value, and a bundled countdown never ends; a fixed `endsAt` / `saleEndsAt` still works and expires.
+  4. **One build-time variable:** payment methods now come from `NEXT_PUBLIC_PAYMENT_METHODS` (default `bank_transfer,cod,check`; the E2E build adds `card_test`). This is the only `NEXT_PUBLIC_*` in the project; it replaces a server-side env read.
+  5. **Demo account notes:** passwords are stored as a salted SHA-256 digest (not real security, said so in the README and the notice). Because no email can be sent, the forgot-password page shows the reset link, and only for an account that exists, so in demo mode it reveals whether an account exists (everything is local to the browser). The payment-failure test hook is `localStorage["cosmia.demo.simulate"] = "decline"`.
+  6. Orders do not change stock (the JSON is static); stock is checked against the data at checkout.
+  7. A `NavLink` needed its own Suspense boundary once pages stopped forcing per-request rendering (the build failed on `/_not-found` otherwise). Most pages are still server-rendered on demand because they read `searchParams`.
+- **Found along the way:** `readStore` cached the first fallback for a missing key and returned it to later callers with a different fallback (caught by a unit test, fixed). `docs/animation-plan.md` (added by the user, track AN) was swept into commit `c0f3a93` by `git add -A`; it is the user's file and stays; later commits stage explicit paths.
+- **Not verified:** Firefox and WebKit; viewports below 1920; a deploy to any host; behaviour on a real second device. `docs/PRD.md` and `docs/e2e-testing-strategy.md` still describe the database and admin (marked as `main` only).
+- **Decided by:** Claude (implementation), within the user-approved TF1 contract (D-052).

@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This is the **ThemeForest copy** of the Cosmia storefront, branch `themeforest`. The goal is a sellable Next.js eCommerce front-end template (JSON mock data, no database, no admin). The original full-stack app lives at `C:\Projects\beauty-ecommerce` and on `main`; never modify the original folder.
+This is the **ThemeForest copy** of the Cosmia storefront, branch `themeforest`. The goal is a sellable Next.js eCommerce front-end template (JSON mock data, no database, no admin; TF1 done, D-053). The original full-stack app lives at `C:\Projects\beauty-ecommerce` and on `main`; never modify the original folder.
 
 Read first, in this order: `docs/themeforest-plan.md` (the plan we execute and its task-contract template), `docs/context.md` (current state), `docs/decision-log.md` (why things are the way they are), then the document that owns your task (`docs/PRD.md` for requirements and the Figma inventory, `docs/e2e-testing-strategy.md` for tests). PRD sections about the database, auth, orders and the admin describe the full-stack `main` branch and do not apply here (D-050).
 
@@ -18,4 +18,4 @@ Read first, in this order: `docs/themeforest-plan.md` (the plan we execute and i
 
 ## Commands
 
-`npm run dev` - `npm run typecheck` - `npm run lint` - `npm test` - `npm run e2e` (see README). Until TF1 removes the database, `npm install` needs Node 22 or a copy of the original's `node_modules` (plan TF1-T00).
+`npm run dev` - `npm run typecheck` - `npm run lint` - `npm test` - `npm run e2e` (see README). The template has no database or native module, so `npm ci` works on any Node >= 22 without a compiler.
