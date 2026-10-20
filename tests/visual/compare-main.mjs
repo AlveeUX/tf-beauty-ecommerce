@@ -1,4 +1,4 @@
-// Side-by-side check of two running copies of the storefront (TF1 exit gate: the template looks like main).
+﻿// Side-by-side check of two running copies of the storefront (TF1 exit gate: the template looks like main).
 // Usage: node tests/visual/compare-main.mjs <mainBase> <branchBase> <outDir>
 //   e.g. node tests/visual/compare-main.mjs http://localhost:3400 http://localhost:3300 out
 // Prints, per route, the page heights and how many pixels differ noticeably (any channel off by > 24).
@@ -87,7 +87,7 @@ console.log(
   "differing px".padStart(14),
 );
 for (const [name, route, withCart] of ROUTES) {
-  const a = await shoot(browser, mainBase, true, route, withCart);
+  const a = await shoot(browser, mainBase, !process.env.BOTH_BRANCH, route, withCart);
   const b = await shoot(browser, branchBase, false, route, withCart);
   fs.writeFileSync(path.join(outDir, `${name}-main.png`), a);
   fs.writeFileSync(path.join(outDir, `${name}-branch.png`), b);
