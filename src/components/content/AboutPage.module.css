@@ -82,6 +82,11 @@
   padding-top: 100px;
 }
 
+.heroText .label,
+.originsInner .label {
+  color: #e1584f; /* Secondary on the dark hero was 1.9:1 (TF3) */
+}
+
 .hero h1 {
   width: 533px;
   max-width: 100%;

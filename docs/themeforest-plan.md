@@ -277,7 +277,7 @@ Visual verification: tests/visual capture at 1440/1024/768/390 for Home, Shop (g
 Regression risks:   mega menu and dropdown specs (E2E-MEG-*), shop layout and filter specs (E2E-SHP-*, E2E-CAT-*), product layouts, cart drawer and checkout
                     specs, the home header and hero, popups (E2E-OVL-*), and the 404 specs (no loading.tsx under (site), see D-054).
 Evidence required:  R-01 table (route x width), axe counts per width, the screenshot set, the C13 comparison, typecheck/lint/Vitest/Playwright counts per sub-task.
-Status:             IN_PROGRESS (T01 spec approved at G1; T02 harness, T03 breakpoints and T04 header and mobile menu and T05 footers and T06 Home sections T07 shop, T08 product page T09 cart, checkout, wishlist, account and orders and T10 content pages and popups done, G2 passed; next T11 accessibility)
+Status:             IN_PROGRESS (T01 spec approved at G1; T02 harness, T03 breakpoints and T04 header and mobile menu and T05 footers and T06 Home sections T07 shop, T08 product page T09 cart, checkout, wishlist, account and orders T10 content pages and popups and T11 accessibility done, G2 passed; next T12 evidence, docs and gate G3)
 ```
 
 **Sub-tasks and review gates**

@@ -230,7 +230,7 @@
 
 @media (max-width: 1100px) {
   .row {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     height: auto;
   }
 
@@ -246,5 +246,13 @@
   .large .image {
     height: auto;
     aspect-ratio: 870 / 549;
+  }
+}
+
+/* Tablet and phone: 44px touch target (TF3 T11) */
+@media (max-width: 1100px) {
+  .more,
+  .moreBox {
+    min-height: var(--tap);
   }
 }

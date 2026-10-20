@@ -218,6 +218,9 @@
   .logo {
     align-self: center;
     margin-top: 0;
+    display: flex;
+    align-items: center;
+    min-height: var(--tap);
   }
 
   .icons {
@@ -481,7 +484,7 @@
   line-height: 24px;
   letter-spacing: 0.28px;
   text-transform: uppercase;
-  color: var(--color-dark-03);
+  color: #868280; /* Dark03 on the dark footer was 3.1:1 (TF3) */
 }
 
 .columns ul {
@@ -507,7 +510,7 @@
 }
 
 .columns li a.footActive {
-  color: var(--color-secondary);
+  color: #e0544a; /* Secondary on the dark footer was 1.9:1 (TF3) */
 }
 
 /* socials: 28px glyph + label, 41px pitch */

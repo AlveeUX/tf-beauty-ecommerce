@@ -331,13 +331,32 @@ function DrawerFilters({
   useEffect(() => {
     if (!open) return;
     const previous = document.body.style.overflow;
+    const opener = document.activeElement;
     document.body.style.overflow = "hidden";
     ref.current?.querySelector<HTMLElement>("button")?.focus();
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      if (e.key !== "Tab" || !ref.current) return;
+      // keep keyboard focus inside the drawer
+      const focusable = ref.current.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled]), input:not([disabled]), summary, [tabindex]:not([tabindex='-1'])",
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     document.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = previous;
       document.removeEventListener("keydown", onKey);
+      if (opener instanceof HTMLElement) opener.focus();
     };
   }, [open, close]);
 

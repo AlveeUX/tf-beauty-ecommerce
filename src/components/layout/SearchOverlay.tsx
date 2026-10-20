@@ -108,6 +108,7 @@ export function SearchOverlay({
           type="button"
           className={styles.fieldTrigger}
           aria-haspopup="dialog"
+          aria-label="Search Product..."
           data-testid="search-trigger"
           onClick={open}
         >

@@ -39,3 +39,44 @@
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+
+/* Tablet and phone: 44px touch target (TF3 T11) */
+@media (max-width: 1100px) {
+  .strip {
+    display: inline-flex;
+    width: auto;
+    height: auto;
+  }
+
+  .strip img {
+    display: none;
+  }
+
+  /* each link shows its own icon from the 130 x 28 picture, centred in a 44px box */
+  .strip a {
+    position: static;
+    width: var(--tap);
+    height: var(--tap);
+    padding: 8px;
+    background: url("/images/ui/socials.svg") no-repeat;
+    background-origin: content-box;
+    background-clip: content-box;
+    background-size: 130px 28px;
+  }
+
+  .strip a:nth-of-type(1) {
+    background-position: 0 0;
+  }
+
+  .strip a:nth-of-type(2) {
+    background-position: -34px 0;
+  }
+
+  .strip a:nth-of-type(3) {
+    background-position: -68px 0;
+  }
+
+  .strip a:nth-of-type(4) {
+    background-position: -102px 0;
+  }
+}

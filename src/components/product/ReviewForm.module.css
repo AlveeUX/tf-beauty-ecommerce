@@ -260,3 +260,16 @@
     flex-direction: column;
   }
 }
+
+/* Tablet and phone: 44px touch target (TF3 T11) */
+@media (max-width: 1100px) {
+  .rate button {
+    flex: none;
+    min-width: var(--tap);
+    width: var(--tap);
+    height: var(--tap);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

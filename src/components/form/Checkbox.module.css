@@ -68,3 +68,26 @@
   line-height: 20px;
   color: var(--color-primary);
 }
+
+/* Tablet and phone: the real input is a 44px target centred on the 16px box; the label is 44px high too */
+@media (max-width: 1100px) {
+  .row {
+    align-items: center;
+    min-height: var(--tap);
+  }
+
+  .row input {
+    top: 50%;
+    left: -14px;
+    width: var(--tap);
+    height: var(--tap);
+    margin-top: calc(var(--tap) / -2);
+  }
+
+  .row label {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap);
+    margin-top: 0;
+  }
+}

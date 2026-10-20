@@ -31,3 +31,18 @@ a.box:hover {
 .gap {
   opacity: 0.4;
 }
+
+/* Tablet and phone: 44px touch target (TF3 T11) */
+@media (max-width: 1100px) {
+  .box {
+    width: var(--tap);
+    height: var(--tap);
+  }
+}
+
+@media (max-width: 767px) {
+  .nav ul {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}

@@ -513,8 +513,7 @@
   line-height: 26px;
   letter-spacing: 0.14px;
   text-transform: uppercase;
-  color: var(--color-dark-03);
-  opacity: 0.5;
+  color: var(--color-struck);
 }
 
 .plus {
@@ -692,7 +691,7 @@
   letter-spacing: 1.68px;
   text-transform: uppercase;
   white-space: nowrap;
-  color: var(--color-secondary);
+  color: #e1584f; /* Secondary on the dark band was 1.9:1 (TF3) */
 }
 
 .editorialText h2 {
@@ -1447,5 +1446,14 @@
 
   .instaGrid {
     gap: 6px;
+  }
+}
+
+/* Tablet and phone: 44px touch target (TF3 T11) */
+@media (max-width: 1100px) {
+  .plus {
+    width: var(--tap);
+    height: var(--tap);
+    right: 12px;
   }
 }

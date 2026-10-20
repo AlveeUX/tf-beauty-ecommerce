@@ -10,7 +10,8 @@
   /* Color: text */
   --color-dark-01: #211a18; /* primary text */
   --color-dark-02: #4a403d;
-  --color-dark-03: #736f6d; /* muted text (Figma Dark03, kept exactly: decision-log D-033) */
+  --color-dark-03: #6c6967; /* muted text: Figma Dark03 #736f6d darkened 1.5% to reach WCAG AA 4.5:1 on card beige (TF3, replaces D-033) */
+  --color-struck: #6f6862; /* struck-through old prices; was Dark03 at 50% opacity, 1.9:1 */
   --color-light-01: #fdfbf8; /* text on dark */
   --color-light-02: #c4beb9; /* body text on dark */
   --color-light-03: #9e9c9a; /* muted text on dark */

@@ -186,8 +186,7 @@
   font-size: var(--text-14);
   line-height: 26px;
   letter-spacing: 0.14px;
-  color: var(--color-dark-03);
-  opacity: 0.5;
+  color: var(--color-struck);
   text-box: trim-both cap alphabetic;
 }
 
@@ -554,5 +553,12 @@
 
   .rowFoot .stdPrice > span:first-child {
     text-box: none;
+  }
+}
+
+/* Tablet and phone: 44px touch target (TF3 T11) */
+@media (max-width: 1100px) {
+  .addBar {
+    height: var(--tap);
   }
 }

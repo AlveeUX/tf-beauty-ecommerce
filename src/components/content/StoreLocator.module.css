@@ -114,7 +114,7 @@
 }
 
 .state {
-  color: var(--color-primary);
+  color: #c3322a; /* Primary nudged to reach AA 4.5:1 on beige (TF3) */
 }
 
 .status[data-open] .dot {

@@ -47,6 +47,7 @@
 
 .ratingRow {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   margin-top: 28px;
@@ -81,8 +82,7 @@
 
 .compare {
   font-size: var(--text-18);
-  color: var(--color-dark-03);
-  opacity: 0.6;
+  color: #73706b; /* was Dark03 at 60% opacity, 2.3:1 (TF3) */
 }
 
 .saveBadge {
@@ -372,5 +372,12 @@
   .trust li + li {
     border-left: 0;
     border-top: 1px dashed var(--color-border-light);
+  }
+}
+
+/* Tablet and phone: 44px touch target (TF3 T11) */
+@media (max-width: 1100px) {
+  .sizeGuide {
+    min-height: var(--tap);
   }
 }

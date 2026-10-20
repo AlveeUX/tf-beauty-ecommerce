@@ -140,8 +140,7 @@
 }
 
 .price s {
-  color: var(--color-dark-02);
-  opacity: 0.5;
+  color: var(--color-struck);
 }
 
 .price span {

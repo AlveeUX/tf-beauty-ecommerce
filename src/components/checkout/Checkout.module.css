@@ -540,3 +540,12 @@
     line-height: 22px;
   }
 }
+
+/* Tablet and phone: 44px touch target (TF3 T11) */
+@media (max-width: 1100px) {
+  .inlineLink {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+}

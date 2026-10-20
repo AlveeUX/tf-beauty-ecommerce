@@ -42,7 +42,7 @@
   letter-spacing: 1.68px;
   text-transform: uppercase;
   white-space: nowrap;
-  color: var(--color-secondary);
+  color: #e1584f; /* Secondary on the dark red banner was about 1.3:1 (TF3) */
 }
 
 .text h2 {
