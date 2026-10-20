@@ -79,6 +79,59 @@ Log TF-D1…TF-D7 in `decision-log.md` as the next D-numbers when TF1 starts.
 | Completion criteria | `npm ci && npm run build && npm start` works on a clean clone with **no** `.env` and no DB. All pages render. `npm ls better-sqlite3` returns nothing. |
 | Exit gate | typecheck, lint, Vitest, Playwright (Chromium) all pass; side-by-side screenshots of Home, Shop, PDP, Cart, Checkout unchanged vs `main`. |
 
+#### TF1 task contract — **status: AWAITING APPROVAL** (written 2026-10-20)
+
+Measured on the branch: 85 files under `src/` import `@/db` or `@/server`; 26 API route handlers; 17 server modules in 13 folders; 18 Playwright storefront specs, 10 Vitest integration files (`db.test.ts`, `auth`, `orders` etc. are DB-specific).
+
+```
+Task ID:            TF1 (sub-tasks T00-T10 below, one at a time, local commit after each passing task)
+Objective:          The app builds and runs with no database, no native modules and no server state, every page rendering as today.
+Exact scope:        INCLUDED  JSON data + Zod schemas; DataProvider/JsonProvider; read services on JSON; cart, checkout,
+                              auth/account, tracking, reviews, comments, contact, newsletter as client-side demo flows; removal
+                              of DB, Drizzle, better-sqlite3, dead API routes; test/doc updates.
+                    EXCLUDED  any visual change; responsive work (TF3); demo hub (TF2); image changes (TF5); admin (never).
+Figma node IDs:     none (no frame changes; baseline screenshots must stay identical).
+Requirement IDs:    storefront requirements in PRD sections 4/6/15 (CAT, SRCH, CART, WISH, CMP, CHK, CNT, BLG); DB/auth/admin IDs do not apply.
+Files/modules:      new  src/data/{*.json,schema.ts,provider.ts,json-provider.ts}, scripts/export-seed.ts (one-off, deleted in T09), src/lib/demo-store/*
+                    change  src/server/{catalog,blog,content,cart,contact,newsletter}, the pages and components that call them, playwright.config.ts, tests/*
+                    delete (T09)  src/db, drizzle/, drizzle.config.ts, scripts/db-*.ts, scripts/test-reset.ts, data/,
+                    src/server/{auth,orders,payments,email,security,account}, unused src/app/api/* routes, three DB deps, serverExternalPackages
+Prerequisites:      TF-D1..D7 (D-050); working baseline (T00, done below).
+Acceptance criteria:
+  A1  Given a clean clone with no .env and no data/ folder, when `npm ci && npm run build && npm start`, then every route returns 200 and renders.
+  A2  `npm ls better-sqlite3 drizzle-orm drizzle-kit` lists nothing; `grep -r "@/db" src` finds nothing.
+  A3  Read services keep their exported names and types; swapping the provider changes no page code (proved by a unit test with a fake provider).
+  A4  Every src/data/*.json file passes its Zod schema (unit test); IDs/slugs are unique; every FK-like reference resolves.
+  A5  Cart add/update/remove/clear, coupon-free totals, and stock limits behave as before, persisted in localStorage, survive reload.
+  A6  Checkout validates (same Zod schemas), "Place order" stores a demo order and opens /checkout/confirmation/[number]; nothing is charged.
+  A7  Login/register/forgot/reset create and clear a demo session; /account pages read demo orders and addresses; signed-out visitors are redirected as today.
+  A8  Track order finds a locally stored order or the one seeded sample order.
+  A9  Reviews, comments, contact, newsletter validate and show their success state (no persistence beyond the browser).
+  A10 Demo-mode notice on login/register/account/checkout is dismissible and does not shift the Figma layout of the form.
+Responsive:         not in scope (1920 desktop as today).
+Functional tests:   Vitest: schema validation of all JSON; JsonProvider queries (filters, sort, paging, search, related); demo-store cart/orders/session;
+                    fake-provider swap test. Delete DB-only tests (db, auth, orders, store-status as applicable) and port the logic tests.
+E2E scenarios:      keep the existing 149 specs; change only fixtures/setup (remove test:reset and SQLite). Specs that assert server cookies/DB rows
+                    are rewritten to assert localStorage state. New: E2E-DEMO-01 clean-clone smoke (no .env), E2E-DEMO-02 demo order end to end.
+Visual verification: tests/visual capture of Home, Shop, PDP, Cart, Checkout on this branch vs the same captures on main (existing diff.mjs); identical.
+Regression risks:   pages that are server components reading the cart/session (cart, checkout, account, header badge); the 10 shop / 10 PDP / 6 blog
+                    layout URLs; search overlay and quick-view endpoints; sticky bar; wishlist popup (already localStorage).
+Evidence required:  typecheck, lint, Vitest, Playwright results per sub-task (counts), clean-clone build log, `npm ls` output, visual diff report.
+Status:             NOT_STARTED
+```
+
+**Sub-task order and design choices I propose (please confirm or change):**
+
+1. **T00 baseline — done.** `node_modules` copied from the original (same lockfile). Typecheck, lint, 126/126 Vitest and build pass; Playwright not yet re-run on the copy (7 min), I will run it as the T01 baseline.
+2. **T01 branch — done** (`themeforest`). T02 export script writes JSON from `src/db/seed`, then T03 provider, in that order, with the DB still present so old and new can be compared.
+3. **Seam:** the provider interface (`getProducts`, `getProduct`, `getCategories`, `search`, `getPosts`, ...) is the single place buyers replace. I keep the read-only `/api/catalog/*`, `/api/search`, `/api/products/*` routes (quick view, search overlay and lookups call them) backed by JSON, and delete every write route.
+4. **Client demo store:** one small module (`src/lib/demo-store`) holding cart, orders, session, addresses and reviews in `localStorage` under a `cosmia.demo.*` prefix. Server components that read the cart or session today (cart, checkout, account, header badge) become client components or read it through a client wrapper; the markup stays the same.
+5. **Order numbers and the sample order:** generated client-side (`CS-` + date + counter); one seeded sample order is shown on Track order and documented.
+6. **Order of removal (T09) last**, after all flows run on the client and the old tests are ported, so the suite stays green at each commit.
+7. **Risk:** the biggest unknown is how many server components need to become client components for cart/checkout/account without a flash of empty content. I will do cart first (T04) and report before continuing if it needs more than a wrapper.
+
+**Not decided by this contract (need your answer):** none blocking. Defaults I will use unless you say otherwise: keep `/api/health`; keep `NEXT_PUBLIC_*` out entirely in TF1; Playwright stays Chromium-only until TF4.
+
 ### TF2 — Demo hub and template polish
 
 | Field | Content |
