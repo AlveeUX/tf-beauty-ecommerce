@@ -545,3 +545,39 @@
     display: none;
   }
 }
+
+/* Phone: meta, tags and share rows wrap instead of running off the screen */
+@media (max-width: 767px) {
+  .wrap {
+    padding-block: 48px 64px;
+  }
+
+  .meta {
+    flex-wrap: wrap;
+    height: auto;
+    gap: 4px 0;
+    white-space: normal;
+  }
+
+  .foot {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    height: auto;
+    padding-block: 20px;
+  }
+
+  .tags {
+    flex-wrap: wrap;
+    gap: 8px 0;
+  }
+
+  .tags ul {
+    flex-wrap: wrap;
+  }
+
+  .tags a {
+    min-height: var(--tap);
+  }
+}

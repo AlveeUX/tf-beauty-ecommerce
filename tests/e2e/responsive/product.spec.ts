@@ -91,4 +91,23 @@ test.describe("Product page", () => {
       await expect(page.getByRole("dialog", { name: /image$/ }), layout).toBeHidden();
     }
   });
+
+  test("R-02 phone dialogs are bottom sheets that fit the screen and close with Escape", async ({
+    page,
+  }) => {
+    test.skip(widthOf(page) > 767, "phone only");
+    await page.goto("/product/the-renewal-serum", { waitUntil: "networkidle" });
+    await page.getByTestId("size-guide-link").click();
+    const dialog = page.getByRole("dialog").first();
+    await expect(dialog).toBeVisible();
+    const vp = page.viewportSize()!;
+    await expect
+      .poll(async () => {
+        const box = (await dialog.boundingBox())!;
+        return [Math.round(box.x), Math.round(box.width), Math.round(box.y + box.height)];
+      })
+      .toEqual([0, vp.width, vp.height]);
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+  });
 });

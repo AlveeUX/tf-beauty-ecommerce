@@ -35,3 +35,25 @@
     animation: none;
   }
 }
+
+/* Phone: dialogs are bottom sheets (docs/responsive-spec.md 7.5): full width, anchored to the bottom edge */
+@media (max-width: 767px) {
+  .overlay {
+    align-items: flex-end;
+  }
+
+  .box {
+    width: 100% !important; /* the dialog's own width is an inline style */
+    max-width: 100%;
+    max-height: 92dvh;
+    padding-bottom: env(safe-area-inset-bottom);
+    animation-name: sheet-in;
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+}

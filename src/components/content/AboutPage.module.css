@@ -439,6 +439,39 @@
   text-box: trim-both cap alphabetic;
 }
 
+/* Laptop (1101-1439): the 1320px design columns become shares of the available width */
+@media (max-width: 1439px) {
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .cardImage {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
+  }
+
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .textEnd {
+    padding-left: 0;
+  }
+
+  .splitText .narrow,
+  .splitText .body {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 1100px) {
   .hero {
     height: auto;
@@ -462,7 +495,7 @@
   .cards,
   .split,
   .steps {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 40px;
   }
 
@@ -489,5 +522,53 @@
 
   .steps li + li::before {
     display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero h1,
+  .splitText .display,
+  .origins .display,
+  .reasons .display {
+    font-size: 2.25rem;
+    line-height: 1.2;
+  }
+
+  .quoteBand {
+    margin-inline: 16px;
+  }
+
+  .quoteBand blockquote {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .splitImage {
+    height: 300px;
+  }
+
+  .heroImage {
+    height: 300px;
+  }
+}
+
+@media (max-width: 767px) {
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stats > div {
+    min-width: 0;
+    padding: 20px 0 20px 12px;
+  }
+
+  .stats dd {
+    font-size: 2rem;
+  }
+
+  .stats dt {
+    margin-top: 20px;
+    font-size: var(--text-14);
+    line-height: 20px;
   }
 }

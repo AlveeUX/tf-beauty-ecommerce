@@ -293,15 +293,42 @@
   margin: 50px auto 0;
 }
 
-@media (max-width: 1100px) {
-  .head {
-    flex-direction: column;
+/* Laptop (1101-1439): the 308 / 645px design columns become shares of the available width */
+@media (max-width: 1439px) {
+  .cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 24px;
   }
 
-  .cards,
   .talk {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+  }
+
+  .accordion,
+  .head .display {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .head > * {
+    min-width: 0;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+  }
+
+  .talk {
+    grid-template-columns: minmax(0, 1fr);
     gap: 30px;
   }
 
@@ -315,6 +342,22 @@
   }
 
   .fields {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .display {
+    font-size: 2.25rem;
+    line-height: 1.2;
+  }
+
+  .map {
+    height: 300px;
   }
 }
