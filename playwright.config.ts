@@ -23,6 +23,8 @@ export default defineConfig({
     baseURL: `http://localhost:${port}`,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
+    // Specs measure and click things; with reduced motion the site's reveals and hovers shrink to short fades.
+    reducedMotion: "reduce",
     // The welcome popup would cover pages mid-test, so every test starts as a visitor who already closed it.
     // The popup's own test starts from an empty browser (see storefront/newsletter.spec.ts).
     storageState: {
