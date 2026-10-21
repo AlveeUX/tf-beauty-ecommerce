@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { pageMeta, snippet } from "@/lib/seo";
 import { BlogDetail } from "@/components/blog/BlogDetail";
 import { BlogSidebar } from "@/components/blog/BlogSidebar";
 import { PageHero } from "@/components/layout/PageHero";
@@ -18,7 +19,13 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPost((await params).slug);
-  return post ? { title: post.title, description: post.excerpt } : { title: "Post not found" };
+  return post
+    ? pageMeta({
+        title: post.title,
+        description: snippet(post.excerpt),
+        path: `/blog/${post.slug}`,
+      })
+    : { title: "Post not found" };
 }
 
 /** Figma 3:26684. No benefit strip: the footer follows the comment form. */

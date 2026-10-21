@@ -1,11 +1,16 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
 import { PageHero } from "@/components/layout/PageHero";
 import { OrderConfirmation } from "@/components/orders/OrderConfirmation";
 import { isOrderNumber } from "@/lib/orders";
 
-export const metadata: Metadata = { title: "Order received", robots: { index: false } };
+export const metadata = pageMeta({
+  title: "Order received",
+  description: "Your order has been received.",
+  path: "/checkout",
+  noindex: true,
+});
 
 type Props = { params: Promise<{ number: string }> };
 

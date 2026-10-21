@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMeta, snippet } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
 import { IngredientHighlights } from "@/components/product/IngredientHighlights";
@@ -30,7 +31,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) return { title: "Product not found" };
-  return { title: product.name, description: product.shortDescription ?? undefined };
+  return pageMeta({
+    title: product.name,
+    description: snippet(
+      product.shortDescription ??
+        `${product.name}: details, ingredients, reviews and how to use it.`,
+    ),
+    path: `/product/${product.slug}`,
+  });
 }
 
 export default async function ProductPage({ params, searchParams }: Props) {

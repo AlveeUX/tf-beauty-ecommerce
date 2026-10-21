@@ -18,8 +18,6 @@ const STATIC_PAGES = [
   "/faqs",
   "/store-locator",
   "/track-order",
-  "/login",
-  "/register",
   "/demos",
   "/policy/privacy",
   "/policy/shipping",

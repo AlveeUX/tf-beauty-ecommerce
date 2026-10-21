@@ -678,3 +678,12 @@ Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P1
 - **Evidence:** knip exit 0; typecheck, lint, prettier clean; Vitest **130 passed** (17 files); build passes; Playwright Chromium 1920 **162 passed** (7.8 min).
 - **Not done here:** unused files in `public/` (images) belong to TF5, which replaces them.
 - **Decided by:** Claude, within the approved TF4 contract.
+
+### D-061 · 2026-10-21 · TF4-T04 · DECIDED — every page names itself: unique title and description, canonical address, share tags, noindex where needed
+- **Found:** the SEO files from commit `ce943e2` (robots, sitemap, share image, icon) work, but pages only had a title: 24 static pages shared the one site description, **login and register had the same title ("My account")**, and no page had a canonical address or its own share title.
+- **Built:** `src/lib/seo.ts` (`pageMeta`, `snippet`) gives each page title, description (<= 170 characters), canonical address from `site.url`, Open Graph and Twitter tags, and `noindex` for personal or working pages. Applied to all 25 static pages and to the product, blog post, policy and shop pages (the shop and `?category=` pages are separate pages, each with its own title and canonical; filters, sorting and layout previews point back to them, and `?layout=` and `?sticky=` on a product point back to the product). Login and register now have their own titles.
+- **Noindex:** cart, checkout, confirmation, account (all pages), login, register, forgot and reset password, wishlist, compare, search, UI kit. Login and register were removed from the sitemap. `robots.txt` was already correct. Track order, Demos and the content pages stay indexable.
+- **Bug caught by the test:** a page that sets its own `openGraph` replaces the layout one and drops the share image Next adds automatically, so the first version of the change left every page without `og:image`. The helper now names the image (`/opengraph-image`, drawn in code) explicitly.
+- **Evidence:** Vitest **135 passed** (18 files; new `tests/unit/seo.test.ts`); Playwright `seo.spec.ts` (8 specs: E2E-SEO-01 to 08) **24 passed** on Chromium, Firefox and WebKit; Chromium full run **164 passed** (7.5 min); typecheck, lint, prettier clean.
+- **Not verified:** a real search engine or the Facebook/X share debuggers (they need a public URL, so after the live preview exists, TF7); the share image still shows the placeholder brand and base URL `https://example.com` until the buyer edits `site.ts`.
+- **Decided by:** Claude, within the approved TF4 contract.

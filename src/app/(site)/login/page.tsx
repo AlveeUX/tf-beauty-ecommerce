@@ -1,11 +1,16 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { AuthTabs, LoginForm } from "@/components/account/AuthForms";
 import styles from "@/components/account/AuthForms.module.css";
 import { DemoNotice } from "@/components/feedback/DemoNotice";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
 import { PageHero } from "@/components/layout/PageHero";
 
-export const metadata: Metadata = { title: "My account" };
+export const metadata = pageMeta({
+  title: "Login",
+  description: "Sign in to see your orders, addresses and wishlist.",
+  path: "/login",
+  noindex: true,
+});
 
 type Props = { searchParams: Promise<{ next?: string }> };
 

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { FlashSale } from "@/components/home/FlashSale";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import {
@@ -23,7 +23,12 @@ import { getBanners } from "@/server/content/banners";
 import { getBundles } from "@/server/content/bundles";
 import { site } from "@/config/site";
 
-export const metadata: Metadata = { title: { absolute: `${site.name} | ${site.tagline}` } };
+export const metadata = pageMeta({
+  title: `${site.name} | ${site.tagline}`,
+  description: site.description,
+  path: "/",
+  absoluteTitle: true,
+});
 export const dynamic = "force-dynamic";
 
 export default function Home() {

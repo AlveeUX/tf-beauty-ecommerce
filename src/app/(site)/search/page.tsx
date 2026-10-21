@@ -1,9 +1,14 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { CatalogView } from "@/components/shop/CatalogView";
 import { parseCatalogQuery } from "@/server/catalog/query";
 import { getFacets, listProducts } from "@/server/catalog/service";
 
-export const metadata: Metadata = { title: "Search" };
+export const metadata = pageMeta({
+  title: "Search",
+  description: "Search the shop by product name, ingredient or category.",
+  path: "/search",
+  noindex: true,
+});
 export const dynamic = "force-dynamic";
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };

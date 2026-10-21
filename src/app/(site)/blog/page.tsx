@@ -1,10 +1,14 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { BlogIndex } from "@/components/blog/BlogIndex";
 import { PageHero } from "@/components/layout/PageHero";
 import { BLOG_PAGE_SIZE, parseBlogLayout } from "@/lib/blog";
 import { listPosts, sidebarData } from "@/server/blog/queries";
 
-export const metadata: Metadata = { title: "Blog" };
+export const metadata = pageMeta({
+  title: "Blog",
+  description: "Skincare advice, ingredient guides and stories from our studio.",
+  path: "/blog",
+});
 export const dynamic = "force-dynamic"; // the list depends on the query string (layout, page, filters)
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };

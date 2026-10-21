@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { pageMeta, snippet } from "@/lib/seo";
 import { PolicyPage } from "@/components/content/PolicyPage";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
 import { PageHero } from "@/components/layout/PageHero";
@@ -9,7 +10,13 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const policy = getPolicy((await params).slug);
-  return { title: policy?.title ?? "Page not found" };
+  return policy
+    ? pageMeta({
+        title: policy.title,
+        description: snippet(policy.intro),
+        path: `/policy/${(await params).slug}`,
+      })
+    : { title: "Page not found" };
 }
 
 /** Policy pages: /policy/privacy (Figma 3:24059), /policy/shipping, /policy/returns, /policy/terms. */

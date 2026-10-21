@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { FreeShippingBar } from "@/components/cart/FreeShippingBar";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
 import { PageHero } from "@/components/layout/PageHero";
@@ -12,7 +12,12 @@ import { TokenSwatch } from "@/components/ui-kit/TokenSwatch";
 import styles from "@/components/ui-kit/UiKit.module.css";
 import { site } from "@/config/site";
 
-export const metadata: Metadata = { title: "UI kit", robots: { index: false } };
+export const metadata = pageMeta({
+  title: "UI kit",
+  description: "Buttons, form fields, cards, colours and type of the template.",
+  path: "/ui-kit",
+  noindex: true,
+});
 
 const COLORS: [string, string][] = [
   ["--color-dark-01", "Primary text"],

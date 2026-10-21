@@ -1,7 +1,12 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { OrderPage } from "@/components/account/AccountPages";
 
-export const metadata: Metadata = { title: "Order", robots: { index: false } };
+export const metadata = pageMeta({
+  title: "Order",
+  description: "The details and delivery status of one order.",
+  path: "/account/orders",
+  noindex: true,
+});
 
 type Props = { params: Promise<{ number: string }> };
 

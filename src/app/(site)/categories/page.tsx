@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
@@ -7,7 +7,11 @@ import { Icon } from "@/components/ui/Icon";
 import { getCategoryCards } from "@/server/catalog/service";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = { title: "Categories" };
+export const metadata = pageMeta({
+  title: "Categories",
+  description: "Browse every skincare and cosmetics category.",
+  path: "/categories",
+});
 export const dynamic = "force-dynamic";
 
 /** Categories index (CAT-008, Figma 3:28043): every active category that has products and an image. */

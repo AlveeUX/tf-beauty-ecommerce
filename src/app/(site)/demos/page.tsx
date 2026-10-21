@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
 import { PageHero } from "@/components/layout/PageHero";
@@ -7,10 +7,11 @@ import styles from "@/components/demos/Demos.module.css";
 import { DEMO_GROUPS } from "@/content/demos";
 import { site } from "@/config/site";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Demos",
   description: `Every layout and page of the ${site.name} template in one place.`,
-};
+  path: "/demos",
+});
 
 /**
  * Demo hub: one link for every layout variant and key page. Proposed page (not a Figma frame): plain cards
