@@ -112,7 +112,9 @@
   color: var(--color-dark-01);
   transition:
     background-color var(--duration-fast) var(--ease),
-    color var(--duration-fast) var(--ease);
+    color var(--duration-fast) var(--ease),
+    box-shadow var(--duration-base) var(--ease),
+    scale var(--duration-fast) var(--ease);
 }
 
 .actions a:hover,

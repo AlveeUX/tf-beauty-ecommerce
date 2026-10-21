@@ -42,7 +42,7 @@ export function ProductTrack({
         <>
           <button
             type="button"
-            className={`${styles.arrow} ${styles.prev}`}
+            className={`${styles.arrow} ${styles.prev} m-ring`}
             aria-label={`Previous ${label}`}
             onClick={() => scroll(-1)}
           >
@@ -50,7 +50,7 @@ export function ProductTrack({
           </button>
           <button
             type="button"
-            className={`${styles.arrow} ${styles.next}`}
+            className={`${styles.arrow} ${styles.next} m-ring`}
             aria-label={`Next ${label}`}
             onClick={() => scroll(1)}
           >

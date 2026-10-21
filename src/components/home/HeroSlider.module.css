@@ -187,6 +187,7 @@
 }
 
 .controls button {
+  --m-ring-radius: 0; /* square buttons */
   display: inline-flex;
   align-items: center;
   justify-content: center;

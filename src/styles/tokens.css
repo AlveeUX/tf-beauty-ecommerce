@@ -91,6 +91,9 @@
   --btn-hover-scale: 1.03; /* primary button on hover */
   --btn-press-scale: 0.98; /* primary button while pressed */
   --hero-zoom: 1.05; /* start scale of the Home hero background */
+  --ring-scale: 1.08; /* icon buttons on hover */
+  /* the glow ring around an icon button on hover: Primary at low strength */
+  --ring-shadow: 0 0 0 5px rgb(199 51 43 / 0.2), 0 0 18px rgb(199 51 43 / 0.35);
   /* shadows use the Accent-1 tint; hover shadows fade in through a pseudo-element's opacity */
   --shadow-rest: 0 1px 2px rgb(67 19 16 / 0.04), 0 6px 16px rgb(67 19 16 / 0.05);
   --shadow-hover:
@@ -115,6 +118,7 @@
     --img-zoom: 1;
     --btn-hover-scale: 1;
     --btn-press-scale: 1;
+    --ring-scale: 1;
     --hero-zoom: 1;
   }
 }
@@ -130,6 +134,7 @@
   --img-zoom: 1;
   --btn-hover-scale: 1;
   --btn-press-scale: 1;
+  --ring-scale: 1;
   --hero-zoom: 1;
 }
 
@@ -149,5 +154,6 @@
   --img-zoom: 1;
   --btn-hover-scale: 1;
   --btn-press-scale: 1;
+  --ring-scale: 1;
   --hero-zoom: 1;
 }

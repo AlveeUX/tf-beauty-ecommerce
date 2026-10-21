@@ -531,6 +531,19 @@
   flex: none;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .socials a img {
+    transition:
+      filter var(--duration-base) var(--ease),
+      scale var(--duration-fast) var(--ease);
+  }
+
+  .socials a:is(:hover, :focus-visible) img {
+    filter: drop-shadow(0 0 6px rgb(199 51 43 / 0.7));
+    scale: var(--ring-scale);
+  }
+}
+
 .socials a span {
   margin-top: 9px;
   text-box: trim-both cap alphabetic;

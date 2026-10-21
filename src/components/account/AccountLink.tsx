@@ -10,6 +10,7 @@ export function AccountLink() {
   return (
     <Link
       href={user ? "/account" : "/login"}
+      className="m-ring"
       aria-label={user ? `My account (${user.username})` : "Log in or register"}
       data-testid="account-link"
     >

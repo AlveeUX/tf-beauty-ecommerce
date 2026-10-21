@@ -24,6 +24,7 @@ export function CounterLink({ kind, badgeClassName, children }: Props) {
   return (
     <Link
       href={kind === "cart" ? "/cart" : "/wishlist"}
+      className="m-ring"
       aria-label={`${label}, ${count} ${count === 1 ? "item" : "items"}`}
       data-testid={`${kind}-link`}
       onClick={

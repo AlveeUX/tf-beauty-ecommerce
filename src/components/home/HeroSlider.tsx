@@ -98,10 +98,15 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
         </aside>
 
         <div className={styles.controls}>
-          <button type="button" onClick={() => go(-1)} aria-label="Previous slide">
+          <button
+            type="button"
+            className="m-ring"
+            onClick={() => go(-1)}
+            aria-label="Previous slide"
+          >
             <Icon name="arrow-left" size={18} />
           </button>
-          <button type="button" onClick={() => go(1)} aria-label="Next slide">
+          <button type="button" className="m-ring" onClick={() => go(1)} aria-label="Next slide">
             <Icon name="arrow-right" size={18} />
           </button>
         </div>

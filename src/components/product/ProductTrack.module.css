@@ -34,6 +34,7 @@
 }
 
 .arrow {
+  --m-ring-radius: 0; /* square buttons */
   position: absolute;
   top: 235px; /* Figma: arrows at y+235 of the card */
   display: inline-flex;

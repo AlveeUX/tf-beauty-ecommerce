@@ -15,6 +15,7 @@ export function QuickViewLink({ slug, name }: Props) {
     <Link
       href={`/product/${slug}`}
       aria-label={`Quick view ${name}`}
+      className="m-ring"
       data-testid="card-quickview"
       onClick={(event) => {
         // keep "open in new tab" and the like working
@@ -37,6 +38,7 @@ export function WishlistToggle({ slug, name }: Props) {
       type="button"
       aria-label={active ? `Remove ${name} from wishlist` : `Add ${name} to wishlist`}
       aria-pressed={active}
+      className="m-ring"
       data-testid="card-wishlist"
       onClick={toggle}
     >
@@ -53,6 +55,7 @@ export function CompareToggle({ slug, name }: Props) {
       type="button"
       aria-label={active ? `${name} is in your compare list` : `Compare ${name}`}
       aria-pressed={active}
+      className="m-ring"
       data-testid="card-compare"
       onClick={add}
     >
@@ -69,6 +72,7 @@ export function QuickAdd({ slug, name, disabled }: Props & { disabled?: boolean 
       type="button"
       aria-label={`Add ${name} to cart`}
       disabled={disabled || busy}
+      className="m-ring"
       data-testid="card-add"
       onClick={() => void add({ slug, name })}
     >

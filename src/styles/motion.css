@@ -319,3 +319,24 @@ a.m-link:focus-visible {
     background-size: 100% 1px;
   }
 }
+
+/*
+ * Icon ring (M10): on a mouse, an icon button grows a little and a soft Primary glow ring appears around it (the
+ * element's own box-shadow, so no pseudo-element). --m-ring-radius sets the shape (a circle by default; 0 for the
+ * square arrow buttons). A component with its own transition list adds box-shadow and scale to it.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .m-ring:is(a, button) {
+    border-radius: var(--m-ring-radius, 50%);
+    transition:
+      box-shadow var(--duration-base) var(--ease),
+      scale var(--duration-fast) var(--ease),
+      background-color var(--duration-fast) var(--ease),
+      color var(--duration-fast) var(--ease);
+  }
+
+  .m-ring:is(a, button):not(:disabled):is(:hover, :focus-visible) {
+    box-shadow: var(--ring-shadow);
+    scale: var(--ring-scale);
+  }
+}
