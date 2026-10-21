@@ -13,6 +13,9 @@ const EVENT = "cosmia:demo-store";
 /** Parsed values by raw string, so repeated reads return the same object (required by useSyncExternalStore). */
 const parsed = new Map<string, { raw: string | null; value: unknown }>();
 
+/** Values written while the browser refuses storage (a third-party frame in Safari, blocked cookies): kept for this page view. */
+const memory = new Map<string, unknown>();
+
 function rawGet(key: string): string | null {
   try {
     return window.localStorage.getItem(PREFIX + key);
@@ -24,7 +27,10 @@ function rawGet(key: string): string | null {
 export function readStore<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   const raw = rawGet(key);
-  if (raw === null) return fallback; // nothing stored: the caller's own fallback, never a cached one
+  if (raw === null) {
+    // nothing stored: what this page view kept in memory, else the caller's own fallback (never a cached one)
+    return memory.has(key) ? (memory.get(key) as T) : fallback;
+  }
   const hit = parsed.get(key);
   if (hit && hit.raw === raw) return hit.value as T;
   let value: unknown = fallback;
@@ -41,9 +47,10 @@ export function writeStore<T>(key: string, value: T): void {
   const raw = JSON.stringify(value);
   try {
     window.localStorage.setItem(PREFIX + key, raw);
+    memory.delete(key);
   } catch {
-    // storage full or blocked: keep the value in memory so this tab can continue
-    parsed.set(key, { raw, value });
+    // storage full or blocked: keep the value in memory so this page view can continue
+    memory.set(key, value);
   }
   window.dispatchEvent(new Event(EVENT));
 }
@@ -55,6 +62,7 @@ export function removeStore(key: string): void {
     // ignore
   }
   parsed.delete(key);
+  memory.delete(key);
   window.dispatchEvent(new Event(EVENT));
 }
 

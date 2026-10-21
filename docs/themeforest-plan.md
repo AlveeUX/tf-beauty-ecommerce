@@ -491,7 +491,7 @@ Stop at the TF1 exit gate and report evidence.
 - [ ] Lighthouse targets met
 - [ ] HTML validity (T06), code hygiene (done, D-060), `npm audit` (exception, D-059)
 - [x] SEO metadata, sitemap, robots (T04, D-061)
-- [ ] Renders inside an iframe
+- [x] Renders inside an iframe (T05, D-062; real-domain check in TF7-T05)
 
 **TF5 Legal**
 - [ ] Figma photos removed from zip; placeholders generated
