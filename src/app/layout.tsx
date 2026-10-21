@@ -4,8 +4,9 @@ import "@fontsource/prata/latin-400.css";
 import "@fontsource/allura/latin-400.css";
 import { StoreProviders } from "@/components/cart/StoreProviders";
 import { MotionInit } from "@/components/motion/MotionInit";
+import { RevealObserver } from "@/components/motion/RevealObserver";
 import "./globals.css";
-import { motionDataAttributes } from "@/config/motion";
+import { motionConfig, motionDataAttributes } from "@/config/motion";
 import { site } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body id="top">
         <StoreProviders>{children}</StoreProviders>
+        {motionConfig.mode === "off" ? null : <RevealObserver />}
       </body>
     </html>
   );

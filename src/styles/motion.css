@@ -102,6 +102,19 @@ html.motion-ready [data-reveal^="clip-"][data-revealed]:not([data-reveal-done]) 
   --i: 6;
 }
 
+/*
+ * Ambient loops: an element with data-loop animates only while it is on screen and the tab is visible
+ * (RevealObserver sets data-in-view and data-tab-hidden). In "subtle" and "off" mode loops do not run at all.
+ */
+html.motion-ready [data-loop]:not([data-in-view="true"]),
+html[data-tab-hidden] [data-loop] {
+  animation-play-state: paused;
+}
+
+html:is([data-motion="subtle"], [data-motion="off"]) [data-loop] {
+  animation: none;
+}
+
 /* Printing shows everything */
 @media print {
   html.motion-ready [data-reveal] {
