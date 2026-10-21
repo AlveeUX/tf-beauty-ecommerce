@@ -432,9 +432,9 @@ export function MostLoved({ items }: { items: { product: ProductSummary; badgeLa
           title="Most loved product"
           intro="Over 250,000 beauty bags packed globally. Select your shade in real-time checkout."
         />
-        <ul className={styles.lovedGrid}>
+        <ul className={styles.lovedGrid} data-reveal-stagger>
           {items.slice(0, 4).map(({ product, badgeLabel }) => (
-            <li key={product.slug}>
+            <li key={product.slug} data-reveal="fade-up">
               <ProductCard product={product} layout="cta" badgeLabel={badgeLabel} />
             </li>
           ))}
@@ -539,7 +539,7 @@ export function PersonalBand({ stories, bundles }: { stories: Banner[]; bundles:
       {stories.length > 0 ? (
         <>
           <div className="container">
-            <div className={styles.personalHeader}>
+            <div className={styles.personalHeader} data-reveal="fade-up">
               <div>
                 <p className={styles.eyebrow}>In real life</p>
                 <h2 className={styles.title}>Made personal</h2>
@@ -556,7 +556,7 @@ export function PersonalBand({ stories, bundles }: { stories: Banner[]; bundles:
       {bundles.length > 0 ? (
         <div className="container">
           {stories.length > 0 ? <hr className={styles.rule} /> : null}
-          <div className={styles.personalHeader} data-offset>
+          <div className={styles.personalHeader} data-offset data-reveal="fade-up">
             <div>
               <p className={styles.eyebrow}>Bundle by categorie</p>
               <h2 className={styles.title}>Explore bundle</h2>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { Rating } from "@/components/ui/Rating";
+import { prefersReducedMotion } from "@/lib/motion";
 import type { Banner } from "@/server/content/banners";
 import styles from "./Testimonials.module.css";
 
@@ -16,17 +17,20 @@ export function Testimonials({ items }: { items: Banner[] }) {
   if (items.length === 0) return null;
 
   function scroll(direction: 1 | -1) {
-    track.current?.scrollBy({ left: direction * 450, behavior: "smooth" });
+    track.current?.scrollBy({
+      left: direction * 450,
+      behavior: prefersReducedMotion() ? "auto" : "smooth",
+    });
   }
 
   return (
     <div className={styles.frame}>
-      <ul ref={track} className={styles.track} data-testid="testimonials">
+      <ul ref={track} className={styles.track} data-testid="testimonials" data-reveal-stagger>
         {items.map((t) => {
           const rating = Number(t.data.rating ?? 5);
           const crop = t.data.crop as Crop | undefined;
           return (
-            <li key={t.id}>
+            <li key={t.id} data-reveal="fade">
               <article className={styles.card}>
                 <div className={styles.photo}>
                   {t.image && crop ? (

@@ -57,9 +57,9 @@ export function BundleBuilder({ bundles }: { bundles: Bundle[] }) {
       </div>
 
       <div id="bundle-panel" role="tabpanel" aria-labelledby={`bundle-tab-${active}`}>
-        <ul className={styles.items}>
+        <ul className={styles.items} data-reveal-stagger>
           {bundle.products.map((p, i) => (
-            <li key={p.slug + i}>
+            <li key={p.slug + i} data-reveal="fade-up">
               <Link href={`/product/${p.slug}`} className={styles.item}>
                 <span className={styles.thumb}>
                   {p.imageCrop ? (
@@ -87,7 +87,7 @@ export function BundleBuilder({ bundles }: { bundles: Bundle[] }) {
                 <span className={styles.price}>{formatMoney(p.priceCents)}</span>
               </Link>
               {i < bundle.products.length - 1 ? (
-                <span className={styles.plus} aria-hidden="true" />
+                <span className={styles.plus} aria-hidden="true" data-reveal="scale" />
               ) : null}
             </li>
           ))}

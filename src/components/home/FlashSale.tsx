@@ -39,7 +39,7 @@ export function FlashSale({ banner }: { banner: Banner | undefined }) {
 
   return (
     <section className={`container ${styles.wrap}`} aria-labelledby="flash-title">
-      <div className={styles.banner}>
+      <div className={styles.banner} data-reveal="fade-up">
         {banner.image ? <Image src={banner.image} alt="" fill sizes="1320px" /> : null}
         <div className={styles.text}>
           <p className={styles.eyebrow}>{banner.eyebrow}</p>

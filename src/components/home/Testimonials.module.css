@@ -54,6 +54,41 @@
   object-fit: cover;
 }
 
+/*
+ * Card hover (a mouse only): the photo zooms and dims a little, the quote brightens and a Primary line traces the
+ * card's edge. The line is an outline drawn inside the card, because the row clips anything outside it.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .card {
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+    transition: outline-color var(--duration-base) var(--ease);
+  }
+
+  .card:is(:hover, :focus-within) {
+    outline-color: var(--color-primary);
+  }
+
+  .photo img {
+    transition:
+      transform var(--duration-slow) var(--ease),
+      filter var(--duration-slow) var(--ease);
+  }
+
+  .card:is(:hover, :focus-within) .photo img {
+    transform: scale(var(--img-zoom));
+    filter: brightness(0.88);
+  }
+
+  .card blockquote {
+    transition: color var(--duration-base) var(--ease);
+  }
+
+  .card:is(:hover, :focus-within) blockquote {
+    color: var(--color-light-01);
+  }
+}
+
 .shade {
   position: absolute;
   top: 252px;
