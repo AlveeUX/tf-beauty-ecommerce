@@ -355,6 +355,9 @@
 }
 
 .freeBadge {
+  --shine-delay: var(--duration-hero); /* once the photo has finished wiping in */
+  --shine-alpha: 0.4;
+  border-radius: 50%; /* the shine follows the round badge */
   position: absolute;
   top: 30px;
   left: 710px;

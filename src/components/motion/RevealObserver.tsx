@@ -42,7 +42,8 @@ function reveal(el: HTMLElement) {
  * The one client island of the motion system, mounted once in the root layout (animation-plan 2.4, M15, M16).
  *
  * Reveal: every [data-reveal] element is watched by one IntersectionObserver and revealed once, 10% above the
- * bottom edge of the screen; it is never hidden again. Elements already above the screen when first seen
+ * bottom edge of the screen; it is never hidden again. A clip-* reveal starts fully clipped, and a fully clipped
+ * element never counts as intersecting, so it is watched through its parent instead. Elements already above the screen when first seen
  * (an anchor link, a restored scroll position) are revealed without animation. New nodes are picked up by a
  * MutationObserver and the page is scanned again after every route change.
  *
@@ -59,18 +60,40 @@ export function RevealObserver() {
     const root = document.documentElement;
     root.setAttribute("data-reveal-ready", "");
 
+    // clip-* reveals, by the element that is actually watched (their parent)
+    const clipped = new Map<Element, HTMLElement[]>();
+    const watchReveal = (el: Element) => {
+      if (!(el instanceof HTMLElement)) return;
+      const parent = el.parentElement;
+      if (el.dataset.reveal?.startsWith("clip-") && parent) {
+        const list = clipped.get(parent) ?? [];
+        if (!list.includes(el)) list.push(el);
+        clipped.set(parent, list);
+        revealer.observe(parent);
+      } else {
+        revealer.observe(el);
+      }
+    };
+
     const revealer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          const el = entry.target;
-          if (!(el instanceof HTMLElement)) continue;
-          if (entry.isIntersecting) {
-            revealer.unobserve(el);
-            reveal(el);
-          } else if (entry.boundingClientRect.bottom <= 0) {
-            revealer.unobserve(el);
-            el.setAttribute("data-revealed", "");
-            el.setAttribute("data-reveal-done", "");
+          const target = entry.target;
+          const items: HTMLElement[] = [...(clipped.get(target) ?? [])];
+          if (target instanceof HTMLElement && target.matches(REVEAL)) items.push(target);
+          const visible = entry.isIntersecting;
+          const above = !visible && entry.boundingClientRect.bottom <= 0;
+          if (!visible && !above) continue;
+          revealer.unobserve(target);
+          clipped.delete(target);
+          for (const el of items) {
+            if (el.hasAttribute("data-revealed")) continue;
+            if (visible) {
+              reveal(el);
+            } else {
+              el.setAttribute("data-revealed", "");
+              el.setAttribute("data-reveal-done", "");
+            }
           }
         }
       },
@@ -83,7 +106,7 @@ export function RevealObserver() {
     });
 
     const watch = (scope: ParentNode) => {
-      scope.querySelectorAll(REVEAL).forEach((el) => revealer.observe(el));
+      scope.querySelectorAll(REVEAL).forEach(watchReveal);
       scope.querySelectorAll(LOOP).forEach((el) => looper.observe(el));
     };
     rescan.current = () => watch(document);
@@ -93,7 +116,7 @@ export function RevealObserver() {
       for (const record of records) {
         record.addedNodes.forEach((node) => {
           if (!(node instanceof Element)) return;
-          if (node.matches(REVEAL)) revealer.observe(node);
+          if (node.matches(REVEAL)) watchReveal(node);
           if (node.matches(LOOP)) looper.observe(node);
           watch(node);
         });
@@ -114,8 +137,17 @@ export function RevealObserver() {
       });
     }
 
+    // parallax photos: same conditions
+    let stopParallax: (() => void) | undefined;
+    if (flagOn("parallax") && motionOn() && canHover()) {
+      void import("./parallax").then(({ attachParallax }) => {
+        if (!cancelled) stopParallax = attachParallax();
+      });
+    }
+
     return () => {
       cancelled = true;
+      stopParallax?.();
       stopMagnetic?.();
       revealer.disconnect();
       looper.disconnect();

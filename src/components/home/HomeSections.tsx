@@ -190,7 +190,7 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
           titleShift
         />
         <div className={styles.dropsGrid}>
-          <article className={styles.feature}>
+          <article className={`${styles.feature} m-sweep`} data-reveal="clip-left">
             {banner.image ? (
               <Image
                 src={banner.image}
@@ -199,11 +199,13 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
                 height={768}
                 sizes="1021px"
                 className={styles.featureImage}
+                data-parallax="40"
+                data-parallax-axis="x"
               />
             ) : null}
             <div className={styles.featureShade} aria-hidden="true" />
             {badge ? (
-              <div className={styles.freeBadge} aria-hidden="true">
+              <div className={`${styles.freeBadge} m-shine`} aria-hidden="true">
                 <Image
                   src="/images/home/fresh/badge-ring.svg"
                   alt=""
@@ -251,12 +253,12 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
             </span>
           </article>
 
-          <ul className={styles.dropList}>
+          <ul className={styles.dropList} data-reveal-stagger>
             {items.slice(0, 3).map((d) => {
               const crop = d.data.crop as DropCrop | undefined;
               const compare = Number(d.data.compareAtCents ?? 0);
               return (
-                <li key={d.id}>
+                <li key={d.id} data-reveal="fade-up">
                   <Link
                     href={d.ctaHref ?? "/shop"}
                     className={styles.dropImage}
