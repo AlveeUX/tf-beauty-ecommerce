@@ -16,7 +16,7 @@
 | Envato account | `TreeTech_Themes`, author since Aug 2024, but `/upload` redirects to the dashboard and the menu still shows "Become an Author". Support ticket sent 2026-10-20 — **waiting** |
 | Figma design ownership | **Unconfirmed** (TF0-T02) |
 | `npm install` in the copy | **Fails** (checked 2026-10-20, Node 24.18, no VS Build Tools) on `better-sqlite3` (no prebuilt binary for Node 24.18, no C++ build tools). Local-machine issue, not a repo problem. Fix in TF1-T00 below; the problem disappears for good once TF1-T09 removes the native module |
-| Progress (updated 2026-10-21) | TF1 and TF2 passed; TF3 T01-T12 done, awaiting your G3 sign-off; TF0 answers and TF4–TF8 not started. See the master checklist in section 6 |
+| Progress (updated 2026-10-21) | TF1, TF2 and TF3 passed (G3 approved); TF4 contract awaiting your approval; TF0 answers and TF5–TF8 not started. See the master checklist in section 6 |
 
 ---
 
@@ -217,7 +217,7 @@ T05 `/demos` hub + catalogue tests. T06 `loading.tsx`, `error.tsx`, `global-erro
 | Completion criteria | No horizontal scroll at any viewport on any route; all journeys pass at all viewports; axe 0 critical/serious including contrast. |
 | Exit gate | Responsive + a11y report recorded in the decision log. |
 
-#### TF3 task contract — **status: APPROVED by the user 2026-10-20 (spec-first approach); T01 spec awaiting gate G1**
+#### TF3 task contract — **status: PASSED 2026-10-21 (gate G3 approved by the user; evidence in D-056)**
 
 > **Amendment A1 (2026-10-20, T03):** the tablet boundary is **1100 px** (not 1023) and the laptop band 1101-1439 is added, tested at 1280 and 1180; read every "below 1024" in this contract as "up to 1100". Reason and evidence: `docs/responsive-spec.md` section 3. Found: every page scrolls sideways between 1101 and about 1340 px because of the header (fixed in T04).
 
@@ -277,7 +277,7 @@ Visual verification: tests/visual capture at 1440/1024/768/390 for Home, Shop (g
 Regression risks:   mega menu and dropdown specs (E2E-MEG-*), shop layout and filter specs (E2E-SHP-*, E2E-CAT-*), product layouts, cart drawer and checkout
                     specs, the home header and hero, popups (E2E-OVL-*), and the 404 specs (no loading.tsx under (site), see D-054).
 Evidence required:  R-01 table (route x width), axe counts per width, the screenshot set, the C13 comparison, typecheck/lint/Vitest/Playwright counts per sub-task.
-Status:             T01-T12 DONE, awaiting G3 sign-off (evidence and deviations: decision-log D-056)
+Status:             PASSED 2026-10-21 (G3 approved; evidence and deviations: decision-log D-056, D-057)
 ```
 
 **Sub-tasks and review gates**
@@ -308,6 +308,57 @@ Status:             T01-T12 DONE, awaiting G3 sign-off (evidence and deviations:
 | Objective | Pass a reviewer's technical check without comment. |
 | Tasks | **TF4-T01** Playwright on Chromium, Firefox and WebKit (add projects). · **TF4-T02** Upgrade to the **latest public Next.js minor** (and React) at submission time; re-run everything. · **TF4-T03** Lighthouse on Home, Shop, PDP, Checkout (mobile + desktop): target Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95. Fix image sizing (`next/image` sizes), font loading, CLS. · **TF4-T04** HTML validity check on rendered pages (W3C validator or `html-validate`). · **TF4-T05** Code hygiene: no `console.log`, no commented-out blocks, no TODOs, no unused files/exports (`knip` or `ts-prune`), consistent naming, comments where non-obvious. Remove `tests/visual/_dbg.mjs`, `_m2–_m4.mjs`, `_outline.py` style scratch files. · **TF4-T06** `npm audit` 0 high/critical; pin dependency versions. · **TF4-T07** Metadata: per-page `<title>`/description, Open Graph image, favicon set, `robots.txt`, `sitemap.xml`. · **TF4-T08** Make sure the site can render inside an **iframe** (ThemeForest's live preview frames your demo): no `X-Frame-Options: DENY` and no `frame-ancestors 'none'` on the preview deploy. |
 | Exit gate | All suites green on 3 browsers × 5 viewports; Lighthouse report saved; validator clean. |
+
+#### TF4 task contract — **status: APPROVED by the user 2026-10-21, T01 in progress**
+
+Measured on the branch before writing this (2026-10-21): Next.js **16.4.2 is already the latest** published version, React 19.3.1 and Playwright 1.64.1 likewise; `npm audit` (production) **0 vulnerabilities**, full audit **5 high** (one dev-only chain: `braces` → `micromatch` → `fast-glob` → `@next/eslint-plugin-next` → `eslint-config-next`); **0** `console.log`; **0** real TODO/FIXME in source (grep matches were binary files only); no `X-Frame-Options` or `frame-ancestors` anywhere; Playwright already defines `firefox-desktop`, `webkit-desktop`, `firefox-r390`, `webkit-r390` (never run); `robots.ts`, `sitemap.ts`, `opengraph-image.tsx`, `icon.svg` and `seo.spec.ts` exist from commit `ce943e2` (T07 partly built, not yet verified or logged). `package.json` still says `"name": "beauty-ecommerce"`, `"version": "0.1.0"`.
+
+```
+Task ID:            TF4 (T01-T08 below, one at a time, local commit after each passing task, review gate G4 at the end)
+Objective:          A reviewer's technical check (browsers, speed, validity, hygiene, security, SEO, iframe) finds nothing to comment on.
+Exact scope:        INCLUDED  Firefox and WebKit runs; dependency/audit fixes; Lighthouse fixes; HTML validity fixes; dead-code and comment hygiene;
+                              page metadata, robots, sitemap, favicon, OG image; iframe-safe headers; package name/version.
+                    EXCLUDED  Figma-sourced photo removal and placeholder images (TF5; image weight is measured, file replacement waits for TF5);
+                              buyer docs (TF6); zip script (TF7); any deploy (needs approval); new visual design; the 1920 look.
+Figma node IDs:     none.
+Requirement IDs:    PRD NFR (performance, accessibility, SEO, browsers); TF4 in this plan.
+Files/modules:      change  playwright.config.ts, package.json + lockfile, next.config.ts, src/app metadata, image/font usage where Lighthouse points
+                    new     tests/e2e/storefront/iframe.spec.ts, tests/unit/hygiene.test.ts, docs/lighthouse-report.md
+                    delete  unused files/exports found by knip; stale comments about the removed admin/database
+Prerequisites:      TF3 passed (G3, D-057).
+Acceptance criteria:
+  D1  The storefront specs pass on Chromium, Firefox and WebKit at 1920 and 390 (counts per browser; any browser-only failure fixed or logged).
+  D2  Next.js, React and Playwright are on the latest published versions at the end of TF4 (re-checked that day); full suite re-run after any bump.
+  D3  Lighthouse (mobile and desktop, production build) on Home, Shop, a Product page, Checkout: Performance >= 90, Accessibility >= 95,
+      Best Practices >= 95, SEO >= 95. Misses caused only by the unlicensed full-size photos are listed with their TF5 fix, not hidden.
+  D4  Rendered HTML of 20+ routes validates (html-validate): 0 errors.
+  D5  knip reports no unused files, exports or dependencies; no console.log, commented-out code or TODO in src/tests/config; comments mention no removed feature.
+  D6  `npm audit` reports 0 high/critical (dev chain fixed by upgrade or override, else the exception is justified and logged); dependency versions pinned.
+  D7  Every page has a unique title and description, canonical URL, OG/Twitter tags; favicon set; /robots.txt and /sitemap.xml list the real routes using the
+      base URL from site.ts; /ui-kit, checkout and account pages are noindex as intended. Covered by seo.spec.ts.
+  D8  No route sends X-Frame-Options or a restrictive frame-ancestors; an E2E loads Home inside an iframe.
+  D9  package.json name = theme slug, version 1.0.0, private stays true.
+Responsive:         Lighthouse on mobile (390) and desktop (1920); browser runs at 1920 and 390; the TF3 responsive suite stays green on Chromium.
+Functional tests:   Vitest: hygiene guard (no console.log/TODO in src), sitemap lists every demo route and layout.
+E2E scenarios:      existing 156 specs on Chromium + Firefox + WebKit (1920); 390 subset on Firefox/WebKit; E2E-SEO-*, E2E-FRAME-01.
+Visual verification: no visual change expected; compare-main style check at 1920 against the TF3 build for any file touched by Lighthouse fixes.
+Regression risks:   Next/React bump (hydration, routing), image/font changes (layout shift, tests that measure pixel positions), metadata changes
+                    (title tests), WebKit-specific CSS (scroll-snap, sticky, dvh) in the TF3 layouts.
+Evidence required:  per-browser pass/fail counts, Lighthouse table (route x device x category), validator and knip output, npm audit output.
+Status:             IN_PROGRESS (approved by the user 2026-10-21)
+```
+
+**Sub-tasks, in order:** T01 browsers (slowest, so first) · T02 versions, `npm audit`, package name/version (D2, D6, D9) · T03 hygiene and knip (D5) ·
+T04 metadata/robots/sitemap/OG verification (D7) · T05 iframe headers and test (D8) · T06 HTML validity (D4) · T07 Lighthouse and fixes (D3) ·
+T08 evidence, docs, log. **Gate G4:** you review the Lighthouse table and browser results.
+
+**Decisions I made in this contract (change any you disagree with):**
+1. **Next.js is already latest (16.4.2), so D2 is a check, not an upgrade;** it is re-checked at the end because versions move.
+2. **The 5 dev-only audit highs** are fixed by upgrading `eslint-config-next` if a fixed release exists, otherwise by an npm `overrides` entry, so buyers get a clean `npm audit`.
+3. **Lighthouse runs on a local production build**, not a deploy (deploys need your approval). Scores can differ on a real host; the report will say so.
+4. **Image weight:** the full-size Figma photos will hurt Performance. I measure and report, fix sizing (`next/image` `sizes`) where cheap, and leave file replacement to TF5.
+5. **Firefox/WebKit run the 156 specs at 1920 plus the 390 subset,** not every responsive width, to keep the run near 30 minutes; Chromium keeps the full responsive suite.
+6. **One heavy job at a time** (builds, Playwright, Lighthouse never in parallel), because the machine has run low on memory before (D-054).
 
 ### TF5 — Images, fonts, legal, credits
 
@@ -432,7 +483,7 @@ Stop at the TF1 exit gate and report evidence.
 - [x] Mobile frames/spec approved (written spec `docs/responsive-spec.md`, gate G1; Gate G2 on Header, Home and Shop also passed)
 - [x] Breakpoint tokens; header, shop, PDP, cart, checkout, carousels, modals responsive (T01-T10 done and committed locally; breakpoints 1439 / 1100 / 767, `--tap` 44px token)
 - [x] Contrast fixed; keyboard walk-through (T11: contrast audit 0 failing pairs at 1920, 1440, 1180, 768, 390 and 320; R-03 touch sizes and R-04 axe pass at 768, 390, 320 (R-04 also at 1024); R-05 keyboard and reduced-motion specs pass at 1024, 768, 390, 320)
-- [x] 5 viewports × full suite green (1920: 156 passed; responsive suite at 7 widths: 87 passed, 0 failed; C13 desktop comparison: identical page heights; evidence in D-056). **Gate G3 (your final sign-off) still open**
+- [x] 5 viewports × full suite green (1920: 156 passed; responsive suite at 7 widths: 87 passed, 0 failed; C13 desktop comparison: identical page heights; evidence in D-056). **Gate G3 approved 2026-10-21 (D-057)**
 
 **TF4 Quality**
 - [ ] Chromium, Firefox, WebKit

@@ -648,3 +648,8 @@ Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P1
 - **Not verified:** Firefox and WebKit (TF4); real phones and tablets (emulated viewports only); widths between the test widths; landscape phones (out of scope); a deploy.
 - **Operational notes:** three slow specs (E2E-MEG-02, E2E-OVL-06, E2E-LAY-12) time out at the default 30s when the machine is busy and pass when run alone or with a 90s timeout; `playwright.config.ts` was not changed for this.
 - **Decided by:** User (spec approval at G1, screenshots at G2); Claude (implementation, the deviations above, and the extra colour pairs, for the user to veto at G3).
+
+### D-057 · 2026-10-21 · TF3 · APPROVED — gate G3 passed; TF4 started (contract proposed)
+- **Approval:** the user said "G3 approved, start TF4". TF3 is closed on the evidence in D-056, including the extra colour pairs listed there (not vetoed). Branch `themeforest` was committed (`ce943e2`: SEO files, documentation draft, hygiene) and pushed to `origin` at the user's request just before.
+- **Next:** the TF4 task contract is written in `docs/themeforest-plan.md` and shown to the user; no TF4 code is written until it is approved.
+- **Decided by:** User.
