@@ -746,3 +746,10 @@ Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P1
 - **Mobile Lighthouse with placeholders (D-066 follow-up):** Performance **Home 80, Shop 87, Product 85, Checkout 89** (were 72, 73, 73, 90); Accessibility 99-100, Best practices 96-100, SEO 100 (Checkout 69, noindex by design). Report: `docs/lighthouse-report.md`.
 - **Left for the user:** accept these numbers or hydrate less (option B). Real-photo mode is not measured because no licensed photos are chosen yet (T04).
 - **Not verified:** Firefox/WebKit after the picture swap (only file contents changed, sizes identical); `NEXT_PUBLIC_DEMO_IMAGES=real` with actual photos.
+
+## D-069 · 2026-10-21 · TF5 closed: image licensing skipped; mobile Lighthouse accepted
+- **T04 skipped (the user):** "I don't want to decide on anything photo-related or media-file-related; skip the image licensing part totally." No photos are sourced, proposed or downloaded. The preview uses the placeholders. `assets/preview-photos` stays empty; `CREDITS.md` says no photographs are included. Exit-gate wording about licensed preview photos no longer applies.
+- **Mobile Lighthouse accepted (the user):** Home 80, Shop 87, Product 85, Checkout 89 (D-068). No hydration work (option B dropped).
+- **TF5 status:** passed on these decisions. There was no separate G5 screenshot review; the user's answers closed the open items.
+- **Still open elsewhere:** TF0 answers (Envato upload rights, Figma ownership, author profile, product name, public-repo risk D-051) and the Figma-origin of the SVG icons.
+- **Decided by:** the user.

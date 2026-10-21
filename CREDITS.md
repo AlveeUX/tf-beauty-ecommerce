@@ -6,11 +6,7 @@ This file lists every third-party asset in the template and where it comes from.
 
 The download ships **generated placeholder pictures** (`public/images/**` .jpg and .png). They are made by `scripts/images.mjs` from the sizes in `assets/placeholders.json`: flat neutral blocks with the size printed. They carry no copyright. Replace them with your own photos using the same file names and sizes (see the documentation).
 
-The live preview uses licensed photos (`npm run images:real`, build flag `NEXT_PUBLIC_DEMO_IMAGES=real`). They are not part of the download. Each one is listed below.
-
-| File | Photo | Author | Licence | Link | Used on |
-|---|---|---|---|---|---|
-| _none yet (preview photos are chosen in TF5-T04)_ | | | | | |
+No photographs are included. If you add your own, you are responsible for their licences. The `real` mode of `scripts/images.mjs` copies photos from `assets/preview-photos` over the placeholders at build time (`NEXT_PUBLIC_DEMO_IMAGES=real`); that folder is empty.
 
 ## Icons and marks
 

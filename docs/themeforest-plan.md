@@ -16,7 +16,7 @@
 | Envato account | `TreeTech_Themes`, author since Aug 2024, but `/upload` redirects to the dashboard and the menu still shows "Become an Author". Support ticket sent 2026-10-20 — **waiting** |
 | Figma design ownership | **Unconfirmed** (TF0-T02) |
 | `npm install` in the copy | **Fails** (checked 2026-10-20, Node 24.18, no VS Build Tools) on `better-sqlite3` (no prebuilt binary for Node 24.18, no C++ build tools). Local-machine issue, not a repo problem. Fix in TF1-T00 below; the problem disappears for good once TF1-T09 removes the native module |
-| Progress (updated 2026-10-21) | TF1, TF2 and TF3 passed (G3 approved); TF4 passed (G4: option C, D-066); TF5 built except T04 licensed preview photos (D-067, D-068), awaiting G5; TF0 answers and TF6–TF8 not started. See the master checklist in section 6 |
+| Progress (updated 2026-10-21) | TF1, TF2 and TF3 passed (G3 approved); TF4 passed (G4: option C, D-066); TF5 passed, T04 photo licensing skipped by the user (D-067 to D-069); TF0 answers and TF6–TF8 not started. See the master checklist in section 6 |
 
 ---
 
@@ -368,7 +368,7 @@ T08 evidence, docs, log. **Gate G4:** you review the Lighthouse table and browse
 | Tasks | **TF5-T01** Remove every Figma-sourced photo and product PNG from the zip build (`public/images/**` photos — about 150 files). · **TF5-T02** Generate placeholder images in code (neutral blocks in the theme palette with dimensions printed, correct aspect ratios) — a script, not AI image generation. · **TF5-T03** Source **preview** photos from Unsplash or Pexels (cosmetics, skincare, models, flat-lays). Record each: URL, photographer, licence, where used, in `CREDITS.md`. No AI-generated images anywhere in the zip. · **TF5-T04** Build flag: `NEXT_PUBLIC_DEMO_IMAGES=real|placeholder`; the preview deploy uses `real`, the packaged zip defaults to `placeholder`. Keep both image sets out of each other's build. · **TF5-T05** Fonts: Instrument Sans, Prata, Allura via `@fontsource` (SIL OFL 1.1) — include licence texts in `licenses/`. · **TF5-T06** Icons and logos: confirm the source of every SVG icon; payment logos (Visa, Mastercard, Amex, Discover, PayPal, Bitcoin) are acceptable as payment indicators — keep them unmodified; **remove the B Corp badge** (it's a certification mark; implying certification is misleading). Social icons: use official/brand-guideline shapes. · **TF5-T07** Third-party npm licences: generate a list (`license-checker`) into `licenses/THIRD-PARTY.txt`. · **TF5-T08** No author logo, URL, watermark or personal email anywhere in the item. |
 | Exit gate | `CREDITS.md` complete; a grep of the zip build for `.jpg/.png` finds only placeholders + your own SVGs. Mobile Lighthouse re-measured (`npm run` script in `tests/perf/lighthouse.mjs`); results added to `docs/lighthouse-report.md` (G4, D-066). |
 
-#### TF5 task contract — **status: APPROVED by the user 2026-10-21, T01 in progress**
+#### TF5 task contract — **status: PASSED 2026-10-21 (T04 skipped by the user)**
 
 Measured on the branch before writing this: `public/` holds **183 files, 18 MB**. **109 are raster photos** (75 jpg, 41 png incl. UI) = about 17.6 MB: products 36 (+5 in `the-renewal-serum`), blog 19, home 27 (+1), categories 12, about 7, ingredients 3, stores 2, menu 2, newsletter 1, `ui/page-hero.png`. **67 are svg** (326 KB: icons, payment and social marks, benefit icons, `bcorp.svg`). **38 source files** reference `/images/`; the JSON data holds about 140 image paths; 35 components use `next/image`. The `NEXT_PUBLIC_DEMO_IMAGES` flag does not exist yet. The B Corp badge is shown in `Footer.tsx` and `HomeFooter.tsx`. Fonts are already `@fontsource` (Instrument Sans, Prata, Allura). Git history still contains the Figma photos (public repo, D-051).
 
@@ -404,7 +404,7 @@ E2E scenarios:      E2E-IMG-01 no failed image request on Home, Shop, Product, B
 Visual verification: side-by-side screenshots of Home, Shop, Product at 1920 and 390 in both modes shown to you before G5 (the look changes by design: photos become neutral blocks).
 Regression risks:   specs that read image file names; `next/image` width/height/sizes; hero and card aspect ratios; JSON data that points to photo names; build size and Lighthouse numbers.
 Evidence required:  counts of removed files, image-listing script output for both builds, CREDITS.md, licence files, Lighthouse before/after, test counts.
-Status:             IN_PROGRESS (T01-T03, T05-T08 done; T04 waits for the user's photo list)
+Status:             PASSED (T04 skipped by the user; D-069)
 ```
 
 **Sub-tasks, in order:** T01 inventory + `images.ts` helper + flag skeleton (I4) · T02 placeholder generator and set (I1, I2) · T03 switch every photo reference to the helper, remove Figma photos from the zip build (I1) · T04 licensed preview photos and `CREDITS.md` (I3) · T05 fonts and npm licences (I5) · T06 icon audit and B Corp removal (I6) · T07 author-branding scan (I7) · T08 Lighthouse re-measure, evidence, docs (I8, I9). **Gate G5:** you review the screenshots in both modes, `CREDITS.md` and the Lighthouse numbers.
@@ -544,7 +544,7 @@ Stop at the TF1 exit gate and report evidence.
 
 **TF5 Legal**
 - [x] Figma photos removed from zip; placeholders generated (T01-T03, D-067)
-- [ ] Preview photos licensed + `CREDITS.md`
+- [x] Preview photos: **skipped by the user** (no photos, no licensing work; `CREDITS.md` states this, D-069)
 - [x] Image build flag (`NEXT_PUBLIC_DEMO_IMAGES`, D-067)
 - [x] Font, npm licences in `licenses/`; icon sources recorded in `CREDITS.md` (Figma ownership pending TF0) (D-067)
 - [x] B Corp badge removed; no author branding in the shipped tree (D-067)
