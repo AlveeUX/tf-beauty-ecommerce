@@ -546,8 +546,8 @@ Stop at the TF1 exit gate and report evidence.
 - [x] Figma photos removed from zip; placeholders generated (T01-T03, D-067)
 - [ ] Preview photos licensed + `CREDITS.md`
 - [x] Image build flag (`NEXT_PUBLIC_DEMO_IMAGES`, D-067)
-- [ ] Font, icon, npm licences in `licenses/`
-- [ ] B Corp badge removed; no author branding
+- [x] Font, npm licences in `licenses/`; icon sources recorded in `CREDITS.md` (Figma ownership pending TF0) (D-067)
+- [x] B Corp badge removed; no author branding in the shipped tree (D-067)
 
 **TF6 Docs**
 - [ ] HTML documentation, 17 sections
