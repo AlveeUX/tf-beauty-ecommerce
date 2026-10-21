@@ -2,15 +2,26 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useCart } from "@/components/cart/CartProvider";
 import { Icon } from "@/components/ui/Icon";
 import type { ProductSummary } from "@/lib/catalog-types";
 import { formatMoney } from "@/lib/money";
+import { flagOn, prefersReducedMotion } from "@/lib/motion";
 import styles from "./BundleBuilder.module.css";
 
 type BundleItem = ProductSummary & { imageCrop?: { height: number; top: number } };
 export type Bundle = { label: string; products: BundleItem[]; discountPercent: number };
+
+/** Re-reads whether the visitor asked for less motion (the system setting can change while the page is open). */
+function subscribeReducedMotion(notify: () => void) {
+  const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+  query.addEventListener("change", notify);
+  return () => query.removeEventListener("change", notify);
+}
+
+/** After a click on a tab the tabs stay where the visitor put them for this long, then switching by itself resumes. */
+const HOLD_MS = 10_000;
 
 /** "Barely There" -> the unit stays lowercase inside the uppercase label, as in the design. */
 function withUnit(text: string) {
@@ -31,6 +42,55 @@ function withUnit(text: string) {
 export function BundleBuilder({ bundles }: { bundles: Bundle[] }) {
   const [active, setActive] = useState(0);
   const { addMany, busy } = useCart();
+
+  // Switching by itself: the black rule under the active tab fills over 3 s (CSS, BundleBuilder.module.css) and the next tab opens
+  // when it is full. A click on a tab holds it for HOLD_MS. It waits while the tabs are off screen or the page is in a hidden tab,
+  // and does not run for visitors who asked for less motion or when the setting (src/config/motion.ts) is off.
+  // false on the server and during hydration, so the markup matches
+  const enabled = useSyncExternalStore(
+    subscribeReducedMotion,
+    () =>
+      bundles.length > 1 &&
+      flagOn("tabsAutoplay") &&
+      document.documentElement.dataset.motion !== "off" &&
+      !prefersReducedMotion(),
+    () => false,
+  );
+  const [holding, setHolding] = useState(false);
+  const [idle, setIdle] = useState(true);
+  const tabs = useRef<HTMLDivElement>(null);
+  const holdTimer = useRef(0);
+
+  useEffect(() => {
+    const el = tabs.current;
+    if (!enabled || !el) return;
+    let onScreen = false;
+    const update = () => setIdle(!onScreen || document.hidden);
+    const seen = new IntersectionObserver(
+      ([entry]) => {
+        onScreen = Boolean(entry?.isIntersecting);
+        update();
+      },
+      { threshold: 0.5 },
+    );
+    seen.observe(el);
+    document.addEventListener("visibilitychange", update);
+    return () => {
+      seen.disconnect();
+      document.removeEventListener("visibilitychange", update);
+    };
+  }, [enabled]);
+
+  useEffect(() => () => window.clearTimeout(holdTimer.current), []);
+
+  const choose = (index: number) => {
+    setActive(index);
+    if (!enabled) return;
+    setHolding(true);
+    window.clearTimeout(holdTimer.current);
+    holdTimer.current = window.setTimeout(() => setHolding(false), HOLD_MS);
+  };
+
   const bundle = bundles[active];
   if (!bundle) return null;
 
@@ -40,7 +100,25 @@ export function BundleBuilder({ bundles }: { bundles: Bundle[] }) {
 
   return (
     <div className={styles.bundle}>
-      <div role="tablist" aria-label="Bundles" className={styles.tabs}>
+      <div
+        ref={tabs}
+        role="tablist"
+        aria-label="Bundles"
+        className={styles.tabs}
+        data-auto={enabled ? (holding ? "hold" : "run") : undefined}
+        data-idle={idle || undefined}
+        onAnimationEnd={(event) => {
+          // the rule under the active tab has filled: open the next tab
+          if (
+            enabled &&
+            !holding &&
+            event.pseudoElement === "::after" &&
+            event.animationName.includes("tabFill")
+          ) {
+            setActive((current) => (current + 1) % bundles.length);
+          }
+        }}
+      >
         {bundles.map((b, i) => (
           <button
             key={b.label}
@@ -49,7 +127,7 @@ export function BundleBuilder({ bundles }: { bundles: Bundle[] }) {
             id={`bundle-tab-${i}`}
             aria-selected={i === active}
             aria-controls="bundle-panel"
-            onClick={() => setActive(i)}
+            onClick={() => choose(i)}
           >
             <span>{b.label}</span>
           </button>

@@ -44,6 +44,36 @@
   background: var(--color-dark-01);
 }
 
+/*
+ * Switching by itself (BundleBuilder.tsx): while it runs, the 2px rule under the active tab is a progress bar that fills from the
+ * left in 3 s, and the next tab opens when it is full. The bar is the same line as above, scaled, so a tab that was clicked (the
+ * switching holds for 10 s) or a visitor without the script sees the complete rule as before. It waits while the tabs are off screen.
+ */
+.tabs[data-auto="run"] button[aria-selected="true"]::after {
+  transform-origin: left center;
+  animation: tabFill 3s linear both;
+}
+
+.tabs[data-auto="run"][data-idle] button[aria-selected="true"]::after {
+  animation-play-state: paused;
+}
+
+@keyframes tabFill {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs[data-auto] button[aria-selected="true"]::after {
+    animation: none;
+  }
+}
+
 .items {
   display: grid;
   grid-template-columns: repeat(3, 420px);

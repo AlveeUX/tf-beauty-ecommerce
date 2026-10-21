@@ -7,6 +7,8 @@ export type MotionConfig = {
   magnetic: boolean;
   /** The Home journal stays on screen while its cards rise as you scroll (mouse, wide screens). */
   pinnedCards: boolean;
+  /** The Home bundle tabs switch by themselves: the rule under the active tab is a 3 second progress bar (a click holds it for 10 seconds). */
+  tabsAutoplay: boolean;
   tilt: boolean;
   carouselAutoplay: boolean;
   marquee: boolean;
@@ -30,6 +32,7 @@ export const motionConfig: MotionConfig = {
   parallax: true,
   magnetic: true,
   pinnedCards: true,
+  tabsAutoplay: true,
   tilt: false,
   carouselAutoplay: false,
   marquee: true,
