@@ -66,6 +66,7 @@
 }
 
 .title {
+  --enter-delay: var(--stagger); /* the words start just after the background begins to appear */
   margin-top: 30px; /* eyebrow cap-top 210 -> title cap-top 250 */
   font-family: var(--font-display);
   font-size: 5rem;

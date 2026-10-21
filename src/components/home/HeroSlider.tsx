@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { SplitText } from "@/components/motion/SplitText";
 import { Icon } from "@/components/ui/Icon";
 import type { Banner } from "@/server/content/banners";
 import styles from "./HeroSlider.module.css";
@@ -43,7 +44,9 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>{slide.eyebrow}</p>
-          <h1 className={styles.title}>{slide.title}</h1>
+          <h1 className={styles.title} aria-label={slide.title}>
+            <SplitText text={slide.title} />
+          </h1>
         </div>
 
         <aside className={styles.card}>

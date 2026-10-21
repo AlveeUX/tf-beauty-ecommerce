@@ -103,6 +103,41 @@ html.motion-ready [data-reveal^="clip-"][data-revealed]:not([data-reveal-done]) 
 }
 
 /*
+ * Mask text reveal (M2), see SplitText: each word slides up from behind its own line, one after another.
+ * --enter-delay (set by the caller) holds the start; reduced motion and the "subtle" and "off" modes show the final text.
+ */
+.m-word {
+  display: inline-block;
+  overflow-x: visible;
+  overflow-y: clip;
+  /* room for ascenders and descenders; the negative margin cancels it, so the line keeps its height */
+  padding-block: 0.15em;
+  margin-block: -0.15em;
+}
+
+.m-word > span {
+  display: inline-block;
+  animation: m-word-in var(--duration-hero) var(--ease) backwards;
+  animation-delay: calc(var(--enter-delay, 0ms) + var(--w, 0) * var(--stagger-text));
+}
+
+@keyframes m-word-in {
+  from {
+    transform: translateY(120%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-word > span {
+    animation: none;
+  }
+}
+
+html:is([data-motion="subtle"], [data-motion="off"]) .m-word > span {
+  animation: none;
+}
+
+/*
  * Ambient loops: an element with data-loop animates only while it is on screen and the tab is visible
  * (RevealObserver sets data-in-view and data-tab-hidden). In "subtle" and "off" mode loops do not run at all.
  */
