@@ -286,7 +286,9 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
                   </Link>
                   <p className={styles.dropEyebrow}>{d.eyebrow}</p>
                   <h3 className={styles.dropName}>
-                    <Link href={d.ctaHref ?? "/shop"}>{d.title}</Link>
+                    <Link href={d.ctaHref ?? "/shop"} className="m-link">
+                      {d.title}
+                    </Link>
                   </h3>
                   <p className={styles.dropLabel}>{withUnit(d.subtitle)}</p>
                   <p className={styles.dropPrice}>

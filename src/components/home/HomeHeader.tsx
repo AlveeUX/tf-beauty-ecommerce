@@ -66,7 +66,7 @@ export function HomeHeader({
               <li key={item.label} className={styles.navItem} data-mega={item.mega || undefined}>
                 <Link
                   href={item.href}
-                  className={`${styles.navLink} ${item.active ? styles.active : ""}`}
+                  className={`${styles.navLink} ${item.active ? styles.active : "m-link"}`}
                   aria-current={item.active ? "page" : undefined}
                 >
                   <span>{item.label}</span>

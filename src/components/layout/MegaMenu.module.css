@@ -46,6 +46,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  --m-link-offset: 9px; /* under the label, not at the bottom of the 37px row */
   font-size: var(--text-16);
   line-height: 37px;
   text-transform: uppercase;

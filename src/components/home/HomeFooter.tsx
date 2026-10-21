@@ -89,7 +89,7 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
               <ul>
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    <Link href={l.href} className={l.active ? styles.footActive : undefined}>
+                    <Link href={l.href} className={l.active ? styles.footActive : "m-link"}>
                       {l.label}
                     </Link>
                   </li>

@@ -287,3 +287,35 @@ html:is([data-motion="subtle"], [data-motion="off"]) .m-shine::after {
     background-size: 100% 100%;
   }
 }
+
+/*
+ * Link underline (M8): a thin line grows from the centre under the link on hover and on keyboard focus. It is the
+ * link's own background layer, in the text colour (so it follows a colour change on hover), not a pseudo-element
+ * (see M6). --m-link-offset lifts it from the bottom edge of the link. The current page keeps its own underline.
+ */
+a.m-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 50% calc(100% - var(--m-link-offset, 3px));
+  background-size: 0% 1px;
+}
+
+a.m-link[aria-current="page"] {
+  background-image: none;
+}
+
+a.m-link:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a.m-link {
+    transition:
+      background-size var(--duration-base) var(--ease),
+      color var(--duration-fast) var(--ease);
+  }
+
+  a.m-link:hover {
+    background-size: 100% 1px;
+  }
+}

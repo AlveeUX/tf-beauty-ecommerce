@@ -489,6 +489,8 @@
 
 .columns li a {
   display: block;
+  width: fit-content;
+  --m-link-offset: 9px; /* the underline sits under the label, not at the bottom of the 37px row */
   font-size: var(--text-15);
   line-height: 37px;
   text-transform: uppercase;

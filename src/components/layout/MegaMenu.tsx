@@ -52,7 +52,7 @@ function MegaItem({ link }: { link: MenuLink }) {
       <NavLink
         href={link.href}
         match={link.match}
-        className={styles.link}
+        className={`${styles.link} m-link`}
         activeClassName={styles.current}
       >
         {link.label}

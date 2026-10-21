@@ -97,7 +97,9 @@ export function ProductCard({
           <>
             <Rating value={product.rating} count={product.reviewCount} variant="card" />
             <h3 className={styles.stdName}>
-              <Link href={href}>{product.name}</Link>
+              <Link href={href} className="m-link">
+                {product.name}
+              </Link>
             </h3>
             <p className={styles.stdLabel}>{withUnit(product.label)}</p>
             <p className={styles.rowText}>{product.description}</p>
@@ -120,7 +122,9 @@ export function ProductCard({
         ) : layout === "cta" ? (
           <>
             <h3 className={styles.ctaName}>
-              <Link href={href}>{product.name}</Link>
+              <Link href={href} className="m-link">
+                {product.name}
+              </Link>
             </h3>
             <p className={styles.ctaPrice}>{formatMoney(product.priceCents, "compact")}</p>
             <p className={styles.ctaLabel}>{withUnit(product.label)}</p>
@@ -136,7 +140,9 @@ export function ProductCard({
           <>
             <Rating value={product.rating} count={product.reviewCount} variant="card" />
             <h3 className={styles.stdName}>
-              <Link href={href}>{product.name}</Link>
+              <Link href={href} className="m-link">
+                {product.name}
+              </Link>
             </h3>
             <p className={styles.stdLabel}>{withUnit(product.label)}</p>
             <p className={styles.stdPrice} data-testid="card-price">
