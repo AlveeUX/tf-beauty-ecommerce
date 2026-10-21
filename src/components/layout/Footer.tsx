@@ -71,7 +71,7 @@ export function Footer() {
           </Link>
           <SocialsStrip mode="profile" className={styles.socials} />
         </div>
-        <a href="#top" className={styles.toTop} aria-label="Back to top">
+        <a href="#top" className={`${styles.toTop} m-ring`} aria-label="Back to top">
           <Icon name="arrow-up" size={20} />
         </a>
       </div>
@@ -85,7 +85,7 @@ function FooterColumn({ title, links }: { title: string; links: FooterLink[] }) 
       <ul>
         {links.map((link) => (
           <li key={link.label}>
-            <Link href={link.href} className={link.active ? styles.active : undefined}>
+            <Link href={link.href} className={link.active ? styles.active : "m-link"}>
               {link.label}
             </Link>
           </li>

@@ -54,6 +54,7 @@
 }
 
 .navLink {
+  --m-link-offset: 9px; /* under the label, clear of the chevron's row padding */
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -106,6 +107,8 @@
 }
 
 .dropLink {
+  --m-link-offset: 9px;
+  width: fit-content; /* the underline follows the label, not the whole 37px row */
   display: flex;
   align-items: center;
   gap: 6px;

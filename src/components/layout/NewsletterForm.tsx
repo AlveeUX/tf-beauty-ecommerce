@@ -63,7 +63,7 @@ export function NewsletterForm({ tone = "default" }: { tone?: "default" | "dark"
           aria-invalid={status.kind === "error"}
           aria-describedby="newsletter-status"
         />
-        <button type="submit" className={styles.submit}>
+        <button type="submit" className={`${styles.submit} m-btn`}>
           <span>Subscribe</span>
           <Icon name="bell" size={16} />
         </button>
@@ -82,7 +82,7 @@ export function NewsletterForm({ tone = "default" }: { tone?: "default" | "dark"
       <p
         id="newsletter-status"
         role={status.kind === "error" ? "alert" : "status"}
-        className={status.kind === "error" ? styles.error : styles.success}
+        className={status.kind === "error" ? `${styles.error} m-slide-down` : styles.success}
       >
         {status.kind === "error" ? status.message : null}
         {status.kind === "success" ? "Thanks for subscribing." : null}

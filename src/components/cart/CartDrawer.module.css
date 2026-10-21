@@ -12,6 +12,7 @@
   width: 100%;
   background: rgba(36, 28, 27, 0.6);
   cursor: default;
+  animation: scrim-in var(--duration-base) var(--ease);
 }
 
 .closeOutside {
@@ -31,7 +32,7 @@
   flex-direction: column;
   width: min(430px, 100vw);
   background: var(--color-bg-body);
-  animation: drawer-in 220ms var(--ease);
+  animation: drawer-in var(--duration-base) var(--ease);
 }
 
 .head {
@@ -286,14 +287,21 @@
   margin-top: 0;
 }
 
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+}
+
 @keyframes drawer-in {
   from {
-    transform: translateX(32px);
+    transform: translateX(calc(var(--reveal-distance) * 2));
     opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .scrim,
   .panel {
     animation: none;
   }

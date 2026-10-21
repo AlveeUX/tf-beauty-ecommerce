@@ -9,7 +9,7 @@
  * The hidden state exists only under html.motion-ready, which MotionInit sets before first paint, so
  * without JavaScript everything is visible. RevealObserver sets data-revealed when the element comes
  * into view (once, never removed) and data-reveal-done when the transition has finished. Until then the
- * reveal owns the element's transition and will-change; afterwards the element's own rules apply again
+ * reveal owns the element's transition; afterwards the element's own rules apply again
  * (hover lift, zoom). Put data-reveal on the element itself or on a wrapper, not on both.
  */
 
@@ -55,13 +55,11 @@ html.motion-ready [data-reveal]:not([data-reveal-done]) {
     opacity var(--duration-reveal) var(--ease),
     transform var(--duration-reveal) var(--ease);
   transition-delay: calc(var(--i, 0) * var(--stagger));
-  will-change: opacity, transform;
 }
 
 html.motion-ready [data-reveal^="clip-"]:not([data-reveal-done]) {
   transition: clip-path var(--duration-hero) var(--ease);
   transition-delay: calc(var(--i, 0) * var(--stagger));
-  will-change: clip-path;
 }
 
 /* clip-path cannot animate to "none", so the revealed clip is an explicit full inset until it is done */
@@ -256,12 +254,12 @@ html:is([data-motion="subtle"], [data-motion="off"]) .m-shine::after {
       color var(--duration-fast) var(--ease);
   }
 
-  .m-btn:is(a, button):is(:hover, :focus-visible) {
+  .m-btn:is(a, button):not(:disabled):is(:hover, :focus-visible) {
     transform: scale(var(--btn-hover-scale));
     filter: brightness(1.05) drop-shadow(0 8px 14px rgb(67 19 16 / 0.32));
   }
 
-  .m-btn:is(a, button):active {
+  .m-btn:is(a, button):not(:disabled):active {
     transform: scale(var(--btn-press-scale));
   }
 }
@@ -387,4 +385,87 @@ a.m-link:focus-visible {
 html.motion-ready [data-reveal="fade-left"]:not([data-revealed]) {
   opacity: 0;
   transform: translateX(calc(var(--reveal-distance) * -1.5));
+}
+
+/*
+ * Message slide-down: validation or status text that appears under a field drops in and fades up. Put the class on the
+ * message itself; it plays when the message is added to the page (distance 0 for reduced motion, fade only in "subtle").
+ */
+.m-slide-down {
+  animation: m-slide-down var(--duration-base) var(--ease) backwards;
+}
+
+@keyframes m-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--reveal-distance) * -0.2));
+  }
+}
+
+/*
+ * Entrance (first screen): content that is already on screen when the page loads rises in with a CSS animation from the
+ * first paint, like the Home hero, instead of waiting for the reveal observer (which needs JavaScript and would delay the
+ * largest paint). --i sets the position in a sequence (steps of --stagger); --enter-delay adds a fixed hold.
+ * m-enter-soft starts at 30%, not 0, for the block that holds the page's main photo, so that photo still counts as the
+ * largest contentful paint. Reduced motion: a short fade. "off": nothing.
+ */
+.m-enter,
+.m-enter-soft {
+  animation: m-enter var(--duration-reveal) var(--ease)
+    calc(var(--enter-delay, 0ms) + var(--i, 0) * var(--stagger)) backwards;
+}
+
+.m-enter-soft {
+  animation-name: m-enter-soft;
+}
+
+@keyframes m-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+}
+
+@keyframes m-enter-soft {
+  from {
+    opacity: 0.3;
+    transform: translateY(var(--reveal-distance));
+  }
+}
+
+/* Place in a sequence for m-enter (steps of --stagger) */
+.m-i1 {
+  --i: 1;
+}
+
+.m-i2 {
+  --i: 2;
+}
+
+.m-i3 {
+  --i: 3;
+}
+
+.m-i4 {
+  --i: 4;
+}
+
+.m-i5 {
+  --i: 5;
+}
+
+/* A large photo on the first screen fades in from 30% (see m-enter-soft), without travelling */
+.m-fade-soft {
+  animation: m-fade-soft var(--duration-hero) var(--ease) backwards;
+}
+
+@keyframes m-fade-soft {
+  from {
+    opacity: 0.3;
+  }
+}
+
+/* A count changed (the cart number in the header): the same grow-and-settle as m-pop, without changing the element's display */
+.m-bump {
+  animation: m-pop calc(var(--duration-base) * 0.8) var(--ease);
 }

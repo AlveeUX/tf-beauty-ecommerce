@@ -42,7 +42,33 @@
   color: var(--color-primary);
 }
 
-.item > div {
+/*
+ * The answer grows from nothing: a one-row grid whose row goes from 0fr to 1fr (no height measuring). The closed panel is
+ * visibility:hidden, so its links are out of the tab order and it is not read out, as the hidden attribute did.
+ */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--duration-base) var(--ease),
+    visibility 0s linear var(--duration-base);
+}
+
+.item[data-open] > .panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows var(--duration-base) var(--ease),
+    visibility 0s;
+}
+
+.inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.inner p {
   padding: 0.5px 0 26.5px;
 }
 

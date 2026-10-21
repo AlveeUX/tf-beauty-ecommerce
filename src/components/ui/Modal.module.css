@@ -13,6 +13,7 @@
   width: 100%;
   background: rgba(36, 28, 27, 0.6);
   cursor: default;
+  animation: scrim-in var(--duration-base) var(--ease);
 }
 
 .box {
@@ -20,17 +21,24 @@
   max-height: calc(100vh - 32px);
   overflow-y: auto;
   background: var(--color-bg-body);
-  animation: modal-in 180ms var(--ease);
+  animation: modal-in var(--duration-base) var(--ease);
+}
+
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
 }
 
 @keyframes modal-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(12px) scale(calc(1 - (1 - var(--reveal-scale)) * 2)); /* 0.96 */
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .scrim,
   .box {
     animation: none;
   }

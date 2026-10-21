@@ -18,6 +18,17 @@
   border: 1px dashed var(--color-border-dark);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  /* a soft Primary glow around the artwork (a filter, so the icon is not clipped or changed at rest) */
+  .card img {
+    transition: filter var(--duration-base) var(--ease);
+  }
+
+  .card:hover img {
+    filter: drop-shadow(0 0 8px rgb(199 51 43 / 0.55));
+  }
+}
+
 .card h2 {
   margin-top: 40px;
   font-size: var(--text-20);

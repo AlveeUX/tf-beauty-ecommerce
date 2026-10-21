@@ -53,8 +53,10 @@ export function Accordion({
                 <Icon name={isOpen ? "minus" : "plus"} size={20} />
               </button>
             </h3>
-            <div id={panel} role="region" aria-label={item.q} hidden={!isOpen}>
-              <p>{item.a}</p>
+            <div id={panel} role="region" aria-label={item.q} className={styles.panel}>
+              <div className={styles.inner}>
+                <p>{item.a}</p>
+              </div>
             </div>
           </li>
         );

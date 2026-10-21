@@ -18,7 +18,14 @@ type LinkProps = CommonProps & { href: string };
 /** Uppercase call-to-action as used for Subscribe, Apply coupon, Proceed to checkout. */
 export function Button(props: ButtonProps | LinkProps) {
   const { variant = "primary", icon, children, className, ...rest } = props;
-  const classes = [styles.button, styles[variant], className].filter(Boolean).join(" ");
+  const classes = [
+    styles.button,
+    styles[variant],
+    variant === "outline" ? "m-btn-2" : "m-btn",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
   const content = (
     <>
       <span>{children}</span>

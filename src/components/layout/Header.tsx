@@ -89,7 +89,7 @@ function NavList({ items }: { items: NavItem[] }) {
     <ul className={styles.navList}>
       {items.map((item) => (
         <li key={item.label} className={styles.navItem} data-mega={item.mega || undefined}>
-          <Link href={item.href} className={styles.navLink}>
+          <Link href={item.href} className={`${styles.navLink} m-link`}>
             {item.label}
             {item.children || item.mega ? <Icon name="chevron-down" size={14} /> : null}
           </Link>
@@ -101,7 +101,7 @@ function NavList({ items }: { items: NavItem[] }) {
                   <NavLink
                     href={child.href}
                     match={child.match}
-                    className={styles.dropLink}
+                    className={`${styles.dropLink} m-link`}
                     activeClassName={styles.current}
                   >
                     {child.label}

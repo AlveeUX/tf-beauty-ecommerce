@@ -33,9 +33,9 @@ const DEFAULT_BENEFITS: Benefit[] = [
 export function BenefitStrip({ benefits = DEFAULT_BENEFITS }: { benefits?: Benefit[] }) {
   return (
     <section className={styles.strip} aria-label="Why shop with us">
-      <ul className={`container ${styles.grid}`}>
+      <ul className={`container ${styles.grid}`} data-reveal-stagger>
         {benefits.map((b) => (
-          <li key={b.title} className={styles.card}>
+          <li key={b.title} className={styles.card} data-reveal="fade-up">
             <Image src={b.icon} alt="" width={64} height={64} unoptimized />
             <h2>{b.title}</h2>
             <p>{b.text}</p>

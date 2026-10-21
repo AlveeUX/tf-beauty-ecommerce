@@ -6,8 +6,27 @@
   color: var(--color-light-01);
 }
 
+/*
+ * Motion (the same as the Home hero): CSS animations from the first paint, not after hydration. The photo fades in from 30%
+ * (from nothing the browser may choose another element as the largest paint) while it settles from a slight zoom.
+ */
 .image {
   object-fit: cover;
+  animation: page-hero-bg calc(var(--duration-hero) * 1.5) var(--ease) backwards;
+}
+
+@keyframes page-hero-bg {
+  from {
+    opacity: 0.3;
+    transform: scale(var(--hero-zoom));
+  }
+}
+
+@keyframes page-hero-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
 }
 
 /* Figma 3:4843 (blend: color) and 3:4844 */
@@ -36,6 +55,7 @@
 }
 
 .crumbs {
+  animation: page-hero-up var(--duration-reveal) var(--ease) calc(var(--stagger) * 3) backwards;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -57,6 +77,7 @@
 }
 
 .title {
+  --enter-delay: var(--stagger); /* the words start just after the photo begins to appear */
   font-family: var(--font-display);
   font-size: var(--text-56);
   font-weight: var(--weight-regular);

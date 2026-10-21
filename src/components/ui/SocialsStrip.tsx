@@ -30,6 +30,7 @@ export function SocialsStrip({
       {NETWORKS.map((network) => (
         <a
           key={network}
+          className="m-ring"
           href={mode === "share" ? shareHref(network, pageUrl) : site.socials[network]}
           target="_blank"
           rel="noopener noreferrer"

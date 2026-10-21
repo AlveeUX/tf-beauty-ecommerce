@@ -8,6 +8,7 @@
   place-items: center;
   padding: 24px;
   background: rgb(36 28 27 / 0.7);
+  animation: popup-fade var(--duration-base) var(--ease);
 }
 
 .dialog {
@@ -18,6 +19,27 @@
   max-width: 100%;
   height: 530px;
   background: var(--color-bg-body);
+  animation: popup-in var(--duration-reveal) var(--ease);
+}
+
+@keyframes popup-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes popup-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance)) scale(var(--reveal-scale));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .dialog {
+    animation: none;
+  }
 }
 
 .image {

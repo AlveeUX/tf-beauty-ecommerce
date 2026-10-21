@@ -116,7 +116,12 @@ export function Field(props: InputProps | SelectProps | AreaProps) {
       </label>
       {control}
       {error ? (
-        <p id={errorId} role="alert" className={styles.error} data-testid={`error-${name}`}>
+        <p
+          id={errorId}
+          role="alert"
+          className={`${styles.error} m-slide-down`}
+          data-testid={`error-${name}`}
+        >
           {error}
         </p>
       ) : null}

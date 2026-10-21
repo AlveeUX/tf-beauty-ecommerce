@@ -34,7 +34,7 @@
   position: absolute;
   inset: 0;
   background: rgba(36, 28, 27, 0.55);
-  animation: fade 220ms var(--ease);
+  animation: fade var(--duration-base) var(--ease);
 }
 
 .panel {
@@ -48,7 +48,7 @@
   padding-bottom: max(24px, env(safe-area-inset-bottom));
   background: var(--color-bg-body);
   color: var(--color-dark-01);
-  animation: slide 220ms var(--ease);
+  animation: slide var(--duration-base) var(--ease);
 }
 
 /* the panel scrolls; its parts keep their height instead of shrinking into each other */

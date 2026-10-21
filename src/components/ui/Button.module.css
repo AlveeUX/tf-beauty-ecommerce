@@ -38,9 +38,16 @@
   color: var(--color-dark-01);
 }
 
+/* touch: the dark fill and the light label appear at once; a mouse: the fill grows from the centre instead (.m-btn-2) */
 .outline:hover {
-  background: var(--color-dark-01);
+  background-color: var(--color-dark-01);
   color: var(--color-light-01);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .outline:hover {
+    background-color: transparent;
+  }
 }
 
 .button:disabled {

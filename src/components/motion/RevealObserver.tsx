@@ -9,7 +9,7 @@ const LOOP = "[data-loop]";
 
 /**
  * Marks a [data-reveal] element as revealed and, once its transition has run, as done so the reveal
- * lets go of the element's transition and will-change (src/styles/motion.css). The timer is the
+ * lets go of the element's transition (src/styles/motion.css). The timer is the
  * fallback for a transitionend that never arrives.
  */
 function reveal(el: HTMLElement) {

@@ -31,6 +31,10 @@
 
 .box svg {
   opacity: 0;
+  scale: 0.6;
+  transition:
+    opacity var(--duration-fast) var(--ease),
+    scale var(--duration-base) var(--ease-overshoot);
 }
 
 .row input:checked + .box {
@@ -40,6 +44,7 @@
 
 .row input:checked + .box svg {
   opacity: 1;
+  scale: 1;
 }
 
 .row input:focus-visible + .box {

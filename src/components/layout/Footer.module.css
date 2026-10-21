@@ -41,6 +41,8 @@
 }
 
 .column li a {
+  --m-link-offset: 9px; /* under the label, not at the bottom of the 37px row */
+  width: fit-content;
   display: block;
   font-size: var(--text-15);
   line-height: 37px;
@@ -109,6 +111,7 @@
 }
 
 .toTop {
+  --m-ring-radius: 0; /* a square button: the glow follows its corners */
   position: absolute;
   top: -24px;
   right: 60px;

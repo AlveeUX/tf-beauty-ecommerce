@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SplitText } from "@/components/motion/SplitText";
 import { Icon } from "@/components/ui/Icon";
 import styles from "./PageHero.module.css";
 
@@ -30,7 +31,7 @@ export function PageHero({ title, crumbs = [{ label: title }] }: PageHeroProps) 
         <nav aria-label="Breadcrumb">
           <ol className={styles.crumbs}>
             <li>
-              <Link href="/">
+              <Link href="/" className="m-link">
                 <Icon name="home" size={16} />
                 Home
               </Link>
@@ -39,7 +40,9 @@ export function PageHero({ title, crumbs = [{ label: title }] }: PageHeroProps) 
               <li key={crumb.label}>
                 <Icon name="chevron-right" size={12} />
                 {crumb.href && i < crumbs.length - 1 ? (
-                  <Link href={crumb.href}>{crumb.label}</Link>
+                  <Link href={crumb.href} className="m-link">
+                    {crumb.label}
+                  </Link>
                 ) : (
                   <span aria-current="page">{crumb.label}</span>
                 )}
@@ -47,7 +50,12 @@ export function PageHero({ title, crumbs = [{ label: title }] }: PageHeroProps) 
             ))}
           </ol>
         </nav>
-        <h1 className={styles.title}>{title}</h1>
+        <h1 className={styles.title}>
+          {/* one named unit for assistive technology; the split words are only for the eye */}
+          <span role="img" aria-label={title}>
+            <SplitText text={title} />
+          </span>
+        </h1>
       </div>
     </section>
   );

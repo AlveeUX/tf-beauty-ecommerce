@@ -16,6 +16,35 @@
   background: rgba(33, 26, 24, 0.55);
 }
 
+/* opening: the backdrop fades in and the panel drops in from just above */
+.dialog[open] {
+  animation: search-in var(--duration-base) var(--ease);
+}
+
+.dialog[open]::backdrop {
+  animation: search-fade var(--duration-base) var(--ease);
+}
+
+@keyframes search-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--reveal-distance) * -0.5));
+  }
+}
+
+@keyframes search-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog[open],
+  .dialog[open]::backdrop {
+    animation: none;
+  }
+}
+
 .close {
   position: absolute;
   top: 24px;
