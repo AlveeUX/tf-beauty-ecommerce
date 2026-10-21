@@ -289,6 +289,16 @@ html:is([data-motion="subtle"], [data-motion="off"]) .m-shine::after {
   .m-btn-2:is(a, button):is(:hover, :focus-visible) {
     background-size: 100% 100%;
   }
+
+  /* both together (an outline call to action that leans toward the pointer and gains the shadow as it fills) */
+  .m-btn.m-btn-2:is(a, button) {
+    transition:
+      background-size var(--duration-base) var(--ease),
+      color var(--duration-base) var(--ease),
+      transform var(--duration-fast) var(--ease-overshoot),
+      filter var(--duration-base) var(--ease),
+      translate var(--duration-base) var(--ease);
+  }
 }
 
 /*

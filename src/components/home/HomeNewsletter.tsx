@@ -55,7 +55,7 @@ export function HomeNewsletter() {
         aria-invalid={status === "error"}
         aria-describedby="home-newsletter-status"
       />
-      <button type="submit">
+      <button type="submit" className="m-btn" data-magnet>
         <span>Subscribe</span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/home/footer/bell.svg" alt="" width={16} height={16} />

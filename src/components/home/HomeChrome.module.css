@@ -397,7 +397,6 @@
   padding: 14px 16px;
   background: var(--color-primary);
   color: var(--color-light-01);
-  transition: background-color var(--duration-fast) var(--ease);
 }
 
 .nlForm button:hover {

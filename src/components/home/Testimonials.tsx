@@ -82,7 +82,8 @@ export function Testimonials({ items }: { items: Banner[] }) {
         <>
           <button
             type="button"
-            className={`${styles.arrow} ${styles.prev} m-ring`}
+            className={`${styles.arrow} ${styles.prev} m-btn`}
+            data-magnet
             aria-label="Previous stories"
             onClick={() => scroll(-1)}
           >
@@ -90,7 +91,8 @@ export function Testimonials({ items }: { items: Banner[] }) {
           </button>
           <button
             type="button"
-            className={`${styles.arrow} ${styles.next} m-ring`}
+            className={`${styles.arrow} ${styles.next} m-btn`}
+            data-magnet
             aria-label="Next stories"
             onClick={() => scroll(1)}
           >

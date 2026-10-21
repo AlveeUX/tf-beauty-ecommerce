@@ -97,6 +97,7 @@ export function AddButton({
   disabled,
   ariaLabel,
   tone,
+  magnetic,
 }: {
   slugs: string[];
   className?: string;
@@ -104,6 +105,8 @@ export function AddButton({
   disabled?: boolean;
   ariaLabel?: string;
   tone?: string;
+  /** Leans toward the pointer (a call-to-action button, not a card button). */
+  magnetic?: boolean;
 }) {
   const { add, addMany, busy } = useCart();
   return (
@@ -112,6 +115,7 @@ export function AddButton({
       className={className}
       aria-label={ariaLabel}
       data-tone={tone}
+      data-magnet={magnetic || undefined}
       disabled={disabled || busy || slugs.length === 0}
       onClick={() => void (slugs.length === 1 ? add({ slug: slugs[0] }) : addMany(slugs))}
     >

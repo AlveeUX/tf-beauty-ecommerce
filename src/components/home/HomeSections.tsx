@@ -34,7 +34,7 @@ function SectionHeader({
       <h2 className={`${styles.title} ${titleShift ? styles.titleShift : ""}`}>{title}</h2>
       {intro ? <p className={styles.intro}>{intro}</p> : null}
       {action ? (
-        <Link href={action.href} className={`${styles.outlineButton} m-btn-2`}>
+        <Link href={action.href} className={`${styles.outlineButton} m-btn-2 m-btn`} data-magnet>
           <span>{action.label}</span>
           <Icon name="arrow-up-right" size={18} />
         </Link>
@@ -156,7 +156,7 @@ export function TrendingNow({ products }: { products: ProductSummary[] }) {
           action={{ label: "More products", href: "/shop?badge=trending" }}
         />
       </div>
-      <ProductTrack products={products} label="Trending now" tone="light" bleed reveal />
+      <ProductTrack products={products} label="Trending now" tone="light" bleed reveal magnetic />
     </section>
   );
 }
@@ -241,6 +241,7 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
               <AddButton
                 slugs={[String(banner.data.productSlug ?? "")]}
                 className={`${styles.featureCta} m-btn`}
+                magnetic
               >
                 <span>
                   {banner.ctaLabel}
@@ -461,7 +462,7 @@ export function Journal({ posts }: { posts: Banner[] }) {
           <h2 id="journal-title" className={styles.journalTitle}>
             The journal behind better skin
           </h2>
-          <Link href="/blog" className={`${styles.blogButton} m-btn`}>
+          <Link href="/blog" className={`${styles.blogButton} m-btn`} data-magnet>
             <span>More blog</span>
             <Icon name="arrow-up-right" size={18} />
           </Link>

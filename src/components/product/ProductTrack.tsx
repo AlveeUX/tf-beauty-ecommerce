@@ -14,6 +14,8 @@ type ProductTrackProps = {
   bleed?: boolean;
   /** Cards fade in one after another as the row comes into view (Home). */
   reveal?: boolean;
+  /** Arrows lean toward the pointer and get the call-to-action hover (Home); otherwise they get the glow ring. */
+  magnetic?: boolean;
 };
 
 /** Horizontally scrolling row of product cards with previous/next controls. */
@@ -23,6 +25,7 @@ export function ProductTrack({
   tone = "default",
   bleed = false,
   reveal = false,
+  magnetic = false,
 }: ProductTrackProps) {
   const track = useRef<HTMLUListElement>(null);
 
@@ -50,7 +53,8 @@ export function ProductTrack({
         <>
           <button
             type="button"
-            className={`${styles.arrow} ${styles.prev} m-ring`}
+            className={`${styles.arrow} ${styles.prev} ${magnetic ? "m-btn" : "m-ring"}`}
+            data-magnet={magnetic || undefined}
             aria-label={`Previous ${label}`}
             onClick={() => scroll(-1)}
           >
@@ -58,7 +62,8 @@ export function ProductTrack({
           </button>
           <button
             type="button"
-            className={`${styles.arrow} ${styles.next} m-ring`}
+            className={`${styles.arrow} ${styles.next} ${magnetic ? "m-btn" : "m-ring"}`}
+            data-magnet={magnetic || undefined}
             aria-label={`Next ${label}`}
             onClick={() => scroll(1)}
           >
