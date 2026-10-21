@@ -323,7 +323,7 @@ Status:             SUPERSEDED (D-071)
 9. **Checks beyond the plan's list**, because the root layout touches every page: `validate:html`, the SEO and iframe specs, knip, and the responsive suite once at the gate. The motion project runs on Chromium only for now; Firefox and WebKit join at AN10.
 10. **CLS is measured with a Playwright probe** (unthrottled, before and after), not Lighthouse; Lighthouse is re-run at AN10 against the D-068 numbers.
 
-#### Home preview contract — **status: AWAITING APPROVAL** (written 2026-10-21 against `e38f931`; D-071)
+#### Home preview contract — **status: BUILT as a preview, awaiting the user's review; tests deferred** (written 2026-10-21 against `e38f931`; D-071; result and evidence in D-072)
 
 Preview mode (the user): the motion for the **whole Home page** is built first, **without new tests**, so it can be judged by eye before the rest of the plan. Every effect is a pattern of 2.5 using the tokens of 2.2. The AN1 contract above is superseded for now; its decisions 2-7 carry over.
 
@@ -375,7 +375,7 @@ Regression risks:   shared components also animate on other pages (ProductCard, 
                     overflow it (badges); transforms causing sideways scroll; ProductTrack and Testimonials scroll containers; FlashSale re-rendering every second.
 Evidence required:  per task: typecheck/lint/format result and what I saw; at the end: H1 pixel table, H8 Lighthouse table, H7 overflow table, the 176-spec counts,
                     JS-off and reduced-motion screenshots, the list of anything not run.
-Status:             AWAITING APPROVAL
+Status:             BUILT (preview, D-072); not passed, no checklist ticked
 ```
 
 **Tasks, order and estimates** (my estimates; coding, a look in the browser and the per-task checks included)
