@@ -82,11 +82,13 @@
   --duration-reveal: 700ms;
   --duration-hero: 1100ms;
   --stagger: 90ms;
+  --stagger-text: 70ms; /* word-by-word text reveals */
   --reveal-distance: 28px;
   --reveal-scale: 0.98; /* start size of the default reveal */
   --reveal-scale-pop: 0.9; /* start size of the "scale" reveal (icons, small tiles) */
   --hover-lift: -6px;
   --img-zoom: 1.06;
+  --hero-zoom: 1.05; /* start scale of the Home hero background */
   /* shadows use the Accent-1 tint; hover shadows fade in through a pseudo-element's opacity */
   --shadow-rest: 0 1px 2px rgb(67 19 16 / 0.04), 0 6px 16px rgb(67 19 16 / 0.05);
   --shadow-hover:
@@ -103,22 +105,26 @@
     --duration-reveal: 160ms;
     --duration-hero: 160ms;
     --stagger: 0ms;
+    --stagger-text: 0ms;
     --reveal-distance: 0px;
     --reveal-scale: 1;
     --reveal-scale-pop: 1;
     --hover-lift: 0px;
     --img-zoom: 1;
+    --hero-zoom: 1;
   }
 }
 
 /* "subtle" (src/config/motion.ts): fades only, so distance, lift, zoom and stagger go; durations stay. */
 :root[data-motion="subtle"] {
   --stagger: 0ms;
+  --stagger-text: 0ms;
   --reveal-distance: 0px;
   --reveal-scale: 1;
   --reveal-scale-pop: 1;
   --hover-lift: 0px;
   --img-zoom: 1;
+  --hero-zoom: 1;
 }
 
 /* "off": nothing moves and nothing fades. */
@@ -129,9 +135,11 @@
   --duration-reveal: 0ms;
   --duration-hero: 0ms;
   --stagger: 0ms;
+  --stagger-text: 0ms;
   --reveal-distance: 0px;
   --reveal-scale: 1;
   --reveal-scale-pop: 1;
   --hover-lift: 0px;
   --img-zoom: 1;
+  --hero-zoom: 1;
 }

@@ -11,6 +11,15 @@
   inset: 38px 0 0 0 !important;
   height: 843px !important;
   object-fit: cover;
+  /* Motion: a CSS animation on the server-rendered image, so it starts at first paint, not after hydration. */
+  animation: hero-bg-in calc(var(--duration-hero) * 1.5) var(--ease) backwards;
+}
+
+@keyframes hero-bg-in {
+  from {
+    opacity: 0;
+    transform: scale(var(--hero-zoom));
+  }
 }
 
 /* Figma 3:2330 (top fade from Dark-01) and 3:2331 (bottom fade, transparent from 52%) */
