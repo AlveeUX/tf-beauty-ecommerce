@@ -54,7 +54,10 @@ test("E2E-A11Y-02 the search overlay is keyboard operable and labelled", async (
 
 test("E2E-A11Y-03 the cart drawer is a labelled modal: focus moves in, Tab stays inside, Escape returns focus", async ({
   page,
+  browserName,
 }) => {
+  // Playwright's WebKit follows Safari's default of Tab skipping links and buttons (Option+Tab reaches them), so a Tab walk proves nothing there
+  test.skip(browserName === "webkit", "Tab does not reach links and buttons in WebKit by default");
   await page.goto("/shop");
   await page.getByTestId("cart-link").focus();
   await page.keyboard.press("Enter");

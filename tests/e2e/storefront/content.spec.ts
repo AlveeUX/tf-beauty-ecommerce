@@ -72,11 +72,18 @@ test.describe("Policy pages", () => {
 
     // the reader scrolls back up with the wheel
     await page.mouse.move(900, 500);
-    await page.mouse.wheel(0, -3000);
-    await expect(toc.getByRole("link", { name: /Information We Collect/ })).toHaveAttribute(
-      "aria-current",
-      "location",
-    );
+    // Firefox animates a wheel scroll and drops the rest of a long one, so the wheel is repeated until the top is reached
+    await expect
+      .poll(
+        async () => {
+          await page.mouse.wheel(0, -1500);
+          return toc
+            .getByRole("link", { name: /Information We Collect/ })
+            .getAttribute("aria-current");
+        },
+        { timeout: 10_000 },
+      )
+      .toBe("location");
   });
 
   test("E2E-CNT-03 shipping, returns and terms use the same template with the store's own numbers", async ({

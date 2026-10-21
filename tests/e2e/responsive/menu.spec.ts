@@ -160,7 +160,11 @@ test.describe("Header and mobile menu", () => {
     await expect(menu(page)).toBeHidden();
   });
 
-  test("R-05 keyboard focus stays inside the open menu", async ({ page }) => {
+  test("R-05 keyboard focus stays inside the open menu", async ({ page, browserName }) => {
+    test.skip(
+      browserName === "webkit",
+      "Tab does not reach links and buttons in WebKit by default",
+    );
     // opened from a page that does not itself scroll sideways, so the drawer is tested on its own
     await page.goto("/faqs", { waitUntil: "networkidle" });
     await openMenu(page);

@@ -173,16 +173,20 @@ test.describe("Product details", () => {
   test("E2E-PRD-11 share opens the popup and Copy puts the product address on the clipboard", async ({
     page,
     context,
+    browserName,
   }) => {
-    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    // only Chromium lets a test read the clipboard; the other engines still check the "Copied" label
+    if (browserName === "chromium")
+      await context.grantPermissions(["clipboard-read", "clipboard-write"]);
     await page.goto("/product/the-renewal-serum?layout=thumbnail-left");
     await page.getByTestId("share").click();
     await expect(page.getByTestId("share-modal")).toBeVisible();
     await page.getByTestId("share-copy").click();
     await expect(page.getByTestId("share-copy")).toHaveText("Copied");
     // the address is the product page itself, without the layout parameter
-    expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(
-      /\/product\/the-renewal-serum$/,
-    );
+    if (browserName === "chromium")
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(
+        /\/product\/the-renewal-serum$/,
+      );
   });
 });

@@ -87,7 +87,9 @@ test.describe("Overlays", () => {
     page,
   }) => {
     await page.goto("/product/the-renewal-serum");
-    await page.getByTestId("size-guide-link").click();
+    // opened from the keyboard: Safari/WebKit does not focus a button on click, so the opener would be the page body
+    await page.getByTestId("size-guide-link").focus();
+    await page.keyboard.press("Enter");
     const popup = page.getByTestId("size-guide");
     await expect(popup).toBeVisible();
     expect(await box(popup)).toMatchObject({ x: 588, w: 744, h: 445 });
@@ -107,8 +109,11 @@ test.describe("Overlays", () => {
   test("E2E-OVL-04 the share popup shows the product, the platforms and the address, and copies it", async ({
     page,
     context,
+    browserName,
   }) => {
-    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    // only Chromium lets a test read the clipboard; the other engines still show the "Link copied" status below
+    if (browserName === "chromium")
+      await context.grantPermissions(["clipboard-read", "clipboard-write"]);
     await page.goto("/product/the-renewal-serum");
     await page.getByTestId("share").click();
     const popup = page.getByTestId("share-modal");
@@ -130,9 +135,10 @@ test.describe("Overlays", () => {
     }
     // Instagram has no web share address: it copies the link instead
     await popup.getByTestId("share-instagram").click();
-    expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(
-      /\/product\/the-renewal-serum$/,
-    );
+    if (browserName === "chromium")
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(
+        /\/product\/the-renewal-serum$/,
+      );
     await expect(popup.getByRole("status")).toContainText("Link copied");
     await page.keyboard.press("Escape");
     await expect(popup).toBeHidden();

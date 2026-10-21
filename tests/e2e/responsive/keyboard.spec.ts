@@ -41,7 +41,12 @@ test.describe("Keyboard use of the overlays", () => {
 
   test("R-05 the cart drawer traps focus, closes with Escape and returns focus to the cart link", async ({
     page,
+    browserName,
   }) => {
+    test.skip(
+      browserName === "webkit",
+      "Tab does not reach links and buttons in WebKit by default",
+    );
     await addToCart(page, "the-renewal-serum", 1);
     await page.goto("/shop", { waitUntil: "networkidle" });
     const opener = page.getByTestId("cart-link");

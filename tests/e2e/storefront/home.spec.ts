@@ -210,7 +210,12 @@ test.describe("Home page", () => {
 
   test("E2E-STO-06 mega menu opens from the keyboard and highlights the current page", async ({
     page,
+    browserName,
   }) => {
+    test.skip(
+      browserName === "webkit",
+      "Tab does not reach links and buttons in WebKit by default",
+    );
     await page.goto("/shop");
     const mega = page.getByTestId("mega-menu");
     await page.getByRole("link", { name: "Shop", exact: true }).first().focus();

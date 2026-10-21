@@ -44,7 +44,7 @@ const COLUMNS = {
 async function openMega(page: Page) {
   await page
     .getByRole("navigation", { name: "Primary" })
-    .getByRole("link", { name: "Shop" })
+    .getByRole("link", { name: "Shop", exact: true })
     .hover();
   const mega = page.getByTestId("mega-menu");
   await expect(mega).toBeVisible();

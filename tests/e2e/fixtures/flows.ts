@@ -90,9 +90,13 @@ export async function placeOrderFor(page: Page, email: string, slug = "lip-repai
 
 export async function register(page: Page, username: string, email: string, password: string) {
   await page.goto("/register");
-  await page.getByTestId("field-username").fill(username);
-  await page.getByTestId("field-email").fill(email);
-  await page.getByTestId("field-password").fill(password);
+  // WebKit can fill the form before React has hydrated it, and hydration then clears the fields; fill until they stay
+  await expect(async () => {
+    await page.getByTestId("field-username").fill(username);
+    await page.getByTestId("field-email").fill(email);
+    await page.getByTestId("field-password").fill(password);
+    await expect(page.getByTestId("field-username")).toHaveValue(username, { timeout: 500 });
+  }).toPass();
   await page.getByTestId("auth-submit").click();
   await expect(page).toHaveURL(/\/account$/);
 }

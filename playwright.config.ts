@@ -68,6 +68,7 @@ export default defineConfig({
     {
       name: "webkit-desktop",
       testIgnore: "**/responsive/**",
+      timeout: 90_000, // axe scans and the 12-layout loops take about three times longer in WebKit
       use: { ...devices["Desktop Safari"], viewport: { width: 1920, height: 1080 } },
     },
     {

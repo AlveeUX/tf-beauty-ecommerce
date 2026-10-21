@@ -486,7 +486,7 @@ Stop at the TF1 exit gate and report evidence.
 - [x] 5 viewports × full suite green (1920: 156 passed; responsive suite at 7 widths: 87 passed, 0 failed; C13 desktop comparison: identical page heights; evidence in D-056). **Gate G3 approved 2026-10-21 (D-057)**
 
 **TF4 Quality**
-- [ ] Chromium, Firefox, WebKit
+- [x] Chromium, Firefox, WebKit (T01: 1920 and 390 px, D-058)
 - [ ] Latest Next.js minor
 - [ ] Lighthouse targets met
 - [ ] HTML validity, code hygiene, `npm audit`
