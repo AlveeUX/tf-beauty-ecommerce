@@ -17,7 +17,7 @@
 
 .cover {
   object-fit: cover;
-  transition: transform var(--duration-slow, 400ms) var(--ease);
+  transition: transform var(--duration-slow) var(--ease);
 }
 
 .card:hover .cover {

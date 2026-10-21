@@ -70,7 +70,60 @@
   /* Shape */
   --radius-pill: 999px;
 
-  /* Motion */
-  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --duration-fast: 150ms;
+  /* Motion: the one place timing and distance are set (docs/animation-plan.md 2.2). Reduced motion and
+     data-motion="off|subtle" collapse these below, so components need no rules of their own. */
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1); /* primary call to action only */
+  --ease: var(--ease-luxe); /* the name existing components use */
+  --duration-fast: 200ms;
+  --duration-base: 350ms;
+  --duration-slow: 500ms; /* image zooms */
+  --duration-reveal: 700ms;
+  --duration-hero: 1100ms;
+  --stagger: 90ms;
+  --reveal-distance: 28px;
+  --hover-lift: -6px;
+  --img-zoom: 1.06;
+  /* shadows use the Accent-1 tint; hover shadows fade in through a pseudo-element's opacity */
+  --shadow-rest: 0 1px 2px rgb(67 19 16 / 0.04), 0 6px 16px rgb(67 19 16 / 0.05);
+  --shadow-hover:
+    0 2px 4px rgb(67 19 16 / 0.05), 0 14px 32px rgb(67 19 16 / 0.1),
+    0 28px 56px rgb(67 19 16 / 0.06);
+}
+
+/* Reduced motion: short fades, nothing travels. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 120ms;
+    --duration-base: 160ms;
+    --duration-slow: 160ms;
+    --duration-reveal: 160ms;
+    --duration-hero: 160ms;
+    --stagger: 0ms;
+    --reveal-distance: 0px;
+    --hover-lift: 0px;
+    --img-zoom: 1;
+  }
+}
+
+/* "subtle" (src/config/motion.ts): fades only, so distance, lift, zoom and stagger go; durations stay. */
+:root[data-motion="subtle"] {
+  --stagger: 0ms;
+  --reveal-distance: 0px;
+  --hover-lift: 0px;
+  --img-zoom: 1;
+}
+
+/* "off": nothing moves and nothing fades. */
+:root[data-motion="off"] {
+  --duration-fast: 0ms;
+  --duration-base: 0ms;
+  --duration-slow: 0ms;
+  --duration-reveal: 0ms;
+  --duration-hero: 0ms;
+  --stagger: 0ms;
+  --reveal-distance: 0px;
+  --hover-lift: 0px;
+  --img-zoom: 1;
 }

@@ -118,7 +118,7 @@
 
 .category img {
   object-fit: cover;
-  transition: transform 500ms var(--ease);
+  transition: transform var(--duration-slow) var(--ease);
 }
 
 .category:hover img {
@@ -1013,7 +1013,7 @@
 
 .postImage img {
   object-fit: cover;
-  transition: transform 500ms var(--ease);
+  transition: transform var(--duration-slow) var(--ease);
 }
 
 .post:hover .postImage img {

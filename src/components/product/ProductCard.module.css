@@ -18,7 +18,7 @@
 
 .image {
   object-fit: cover;
-  transition: transform 400ms var(--ease);
+  transition: transform var(--duration-slow) var(--ease);
 }
 
 .card:hover .image {
