@@ -83,6 +83,8 @@
   --duration-hero: 1100ms;
   --stagger: 90ms;
   --reveal-distance: 28px;
+  --reveal-scale: 0.98; /* start size of the default reveal */
+  --reveal-scale-pop: 0.9; /* start size of the "scale" reveal (icons, small tiles) */
   --hover-lift: -6px;
   --img-zoom: 1.06;
   /* shadows use the Accent-1 tint; hover shadows fade in through a pseudo-element's opacity */
@@ -102,6 +104,8 @@
     --duration-hero: 160ms;
     --stagger: 0ms;
     --reveal-distance: 0px;
+    --reveal-scale: 1;
+    --reveal-scale-pop: 1;
     --hover-lift: 0px;
     --img-zoom: 1;
   }
@@ -111,6 +115,8 @@
 :root[data-motion="subtle"] {
   --stagger: 0ms;
   --reveal-distance: 0px;
+  --reveal-scale: 1;
+  --reveal-scale-pop: 1;
   --hover-lift: 0px;
   --img-zoom: 1;
 }
@@ -124,6 +130,8 @@
   --duration-hero: 0ms;
   --stagger: 0ms;
   --reveal-distance: 0px;
+  --reveal-scale: 1;
+  --reveal-scale-pop: 1;
   --hover-lift: 0px;
   --img-zoom: 1;
 }

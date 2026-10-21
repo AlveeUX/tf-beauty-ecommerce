@@ -1,0 +1,112 @@
+/*
+ * Motion: reveal states and shared utilities (docs/animation-plan.md 2.4 and 2.5).
+ * Timing and distance come from tokens.css only. Hover utilities (M6-M13) are added here as the
+ * components that use them are built.
+ *
+ * Reveal markup:
+ *   data-reveal="fade-up | fade | scale | clip-left | clip-right | clip-up"   (empty value = fade-up)
+ *   data-reveal-stagger on a parent: its first eight children start 0..7 steps of --stagger apart
+ * The hidden state exists only under html.motion-ready, which MotionInit sets before first paint, so
+ * without JavaScript everything is visible. RevealObserver sets data-revealed when the element comes
+ * into view (once, never removed) and data-reveal-done when the transition has finished. Until then the
+ * reveal owns the element's transition and will-change; afterwards the element's own rules apply again
+ * (hover lift, zoom). Put data-reveal on the element itself or on a wrapper, not on both.
+ */
+
+/* Starting states */
+html.motion-ready [data-reveal]:not([data-revealed]),
+html.motion-ready [data-reveal="fade-up"]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance)) scale(var(--reveal-scale));
+}
+
+html.motion-ready [data-reveal="fade"]:not([data-revealed]) {
+  opacity: 0;
+  transform: none;
+}
+
+html.motion-ready [data-reveal="scale"]:not([data-revealed]) {
+  opacity: 0;
+  transform: scale(var(--reveal-scale-pop));
+}
+
+/* A clip reveal wipes the element in from one edge (images and photo panels only). */
+html.motion-ready [data-reveal="clip-left"]:not([data-revealed]) {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 100% 0 0);
+}
+
+html.motion-ready [data-reveal="clip-right"]:not([data-revealed]) {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 100%);
+}
+
+html.motion-ready [data-reveal="clip-up"]:not([data-revealed]) {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(100% 0 0 0);
+}
+
+/* The way in: owned by the reveal until data-reveal-done */
+html.motion-ready [data-reveal]:not([data-reveal-done]) {
+  transition:
+    opacity var(--duration-reveal) var(--ease),
+    transform var(--duration-reveal) var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+  will-change: opacity, transform;
+}
+
+html.motion-ready [data-reveal^="clip-"]:not([data-reveal-done]) {
+  transition: clip-path var(--duration-hero) var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+  will-change: clip-path;
+}
+
+/* clip-path cannot animate to "none", so the revealed clip is an explicit full inset until it is done */
+html.motion-ready [data-reveal^="clip-"][data-revealed]:not([data-reveal-done]) {
+  clip-path: inset(0);
+}
+
+/* Stagger: --i is the child's position, capped at 7 */
+[data-reveal-stagger] > * {
+  --i: 7;
+}
+
+[data-reveal-stagger] > :nth-child(1) {
+  --i: 0;
+}
+
+[data-reveal-stagger] > :nth-child(2) {
+  --i: 1;
+}
+
+[data-reveal-stagger] > :nth-child(3) {
+  --i: 2;
+}
+
+[data-reveal-stagger] > :nth-child(4) {
+  --i: 3;
+}
+
+[data-reveal-stagger] > :nth-child(5) {
+  --i: 4;
+}
+
+[data-reveal-stagger] > :nth-child(6) {
+  --i: 5;
+}
+
+[data-reveal-stagger] > :nth-child(7) {
+  --i: 6;
+}
+
+/* Printing shows everything */
+@media print {
+  html.motion-ready [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
