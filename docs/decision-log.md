@@ -753,3 +753,22 @@ Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P1
 - **TF5 status:** passed on these decisions. There was no separate G5 screenshot review; the user's answers closed the open items.
 - **Still open elsewhere:** TF0 answers (Envato upload rights, Figma ownership, author profile, product name, public-repo risk D-051) and the Figma-origin of the SVG icons.
 - **Decided by:** the user.
+
+## D-070 · 2026-10-21 · AN · Animation track started: defaults AN-D1 to AN-D10 logged; TF6 skipped for now
+- **Instruction (the user):** "Skip TF6" and run `docs/animation-plan.md`, one phase at a time, starting with AN1. TF6 (buyer documentation) is not started; the AN10 documentation (`docs/animations.md`) becomes a section of it later. TF4's gate is already closed (D-066), so AN10 re-measures Lighthouse itself against the D-068 numbers (mobile Performance Home 80, Shop 87, Product 85, Checkout 89).
+- **Rules for the whole track (the user):** do not change layout, spacing, colours, typography or copy (motion and interaction states only); no animation library (ask first); every effect uses a pattern from plan section 2.5; no phase starts without approval; no test is reported as passed unless it ran; no push without asking. The original project at `C:\Projects\beauty-ecommerce` is never touched.
+- **Defaults, from plan section 0.3 (each can be overridden by the user):**
+  - **AN-D1** Animation library: none. CSS transitions, one IntersectionObserver and small hooks do everything. Lenis is an optional, dynamically imported module in AN9, and only after asking. Reasons: bundle weight (Lighthouse), one fewer licence to credit, nothing to break on a Next upgrade, and handwritten CSS3/JS is a stated project requirement. Reconsidered only if the FLIP utility (M19) proves fragile.
+  - **AN-D2** `header`: `static` (matches Figma: the header is not sticky). `sticky` and `smart` are config options.
+  - **AN-D3** `carouselAutoplay`: `false` (WCAG 2.2.2, the loop budget, calm).
+  - **AN-D4** `magnetic`: `true`, primary CTAs only, fine pointer only, at most 6 px.
+  - **AN-D5** `tilt`: `false` (config option, at most 4 degrees).
+  - **AN-D6** `parallax`: `true`, at most 40 px, hero background and Fresh Drops image only.
+  - **AN-D7** `smoothScroll`, `customCursor`, `preloader`: `false` each.
+  - **AN-D8** `pageTransitions`: `false` until the AN9 spike shows the View Transitions API is stable in Next 16.4.2.
+  - **AN-D9** `flyToCart`: `false`.
+  - **AN-D10** `mode`: `"full"` (`"subtle"` = fades only; `"off"` = nothing moves).
+- **Preconditions checked today (Node 24.18.0):** TF1 passed (D-053) and is committed (`c585426`); the branch is `themeforest` at `96d21ed` with a clean tree; `npm run build` exits 0 with no `.env` and no database.
+- **"Verify" items of plan section 1:** (a) `HomeSections.tsx` is a **server** component; the client ones in `src/components/home` are `HeroSlider`, `BundleBuilder`, `HomeNewsletter`, `Testimonials` and `FlashSale`. (b) `NotFoundPage` holds only the big "404" drawn as two stacked text layers (shadow and front, `aria-hidden`), a heading, a paragraph and a link; there is no illustration or icon, so the AN8 ambient loop is a slow drift of the shadow layer. (d) `MegaMenu` opens by **CSS only** (hover and focus, no state), so the hover-intent delay of AN3-T04 has to be a CSS delay or a small addition. (c) The Home frame `3:2290` section order is checked at the start of AN5, where the mapping is used.
+- **Found while inspecting (carried into the AN1 contract):** the blunt `prefers-reduced-motion` rule in `globals.css` also covers six hover image-zoom transitions with hard-coded 400/500 ms durations; every keyframe animation already has its own reduced-motion override. Three JS smooth scrolls (`ProductTrack`, `Testimonials`, `BlogComments`) ignore reduced motion today; they are handled with the AN6/AN8 work. There are no Playwright screenshot baselines: the "no visual diff" check is `tests/visual/compare-main.mjs` with `BOTH_BRANCH=1`.
+- **Decided by:** the plan author (defaults, `docs/animation-plan.md` section 0.3), adopted by the user's instruction to follow the plan; Claude (record and inspection).

@@ -227,6 +227,102 @@ Prerequisite: TF1 passed.
 | AN1-T07 | Log AN-D1…D10 | decision log |
 | Done when | No visual diff in baselines · CLS < 0.05 · `javaScriptEnabled:false` page shows all content · `data-reveal` demo block in `/dev/components` (or the UI Kit page) reveals once, never replays |
 
+#### AN1 task contract — **status: AWAITING APPROVAL** (written 2026-10-21 against `96d21ed`)
+
+Measured on the branch before writing this: 33 CSS files hold 53 `transition` declarations, 37 of them through `var(--ease)` / `var(--duration-fast)`; **six hover image-zoom transitions have hard-coded 400/500 ms durations** (`ProductCard`, `BlogCard`, `HomeSections` x2, `MegaMenu`, `categories`) and are covered today only by the blunt reduced-motion rule; every keyframe animation (`modal-in`, `drawer-in`, `toast-in`, `marquee`, `shimmer`, the mobile menu fade and slide) already has its own `animation: none` override; no component animates through inline styles; the one IntersectionObserver is `StickyAddToCart`. There are no Playwright screenshot baselines; the visual check is `tests/visual/compare-main.mjs` (`BOTH_BRANCH=1` compares two builds of this branch). `chromium-desktop` ignores only `**/responsive/**`, so a new `motion/` folder would also run there unless it is ignored too. Existing suites: Vitest 144, Playwright Chromium 1920 176, responsive 87 passed / 32 skipped by design.
+
+```
+Task ID:            AN1 (T01-T07, one at a time, local commit after each passing task, exit gate at the end)
+Objective:          The motion foundation exists and nothing visible changes: tokens, a config file, a pre-paint switch, one reveal system,
+                    helpers and a motion test project, with every page looking and behaving as it does today.
+Exact scope:        INCLUDED  tokens from 2.2 with `--ease` kept as an alias; `motionConfig` written to `<html data-*>`; the pre-paint script;
+                              `motion.css` with the reveal states; `RevealObserver`; `lib/motion.ts`; Playwright `reducedMotion: "reduce"` default
+                              and the `motion` project; removal of the blunt reduced-motion rule (with the six hover-zoom durations it still
+                              covered moved to one token); one `data-reveal` demo block at the end of /ui-kit; AN-D1..D10 logged (done, D-070).
+                    EXCLUDED  every hover, button, card, overlay, header, hero or section animation (AN2 and later); `data-reveal` on any real page;
+                              hooks and components the later patterns need (`usePresence`, `useInView`, `SplitText`, `Collapse` ...: each arrives with
+                              the pattern that first uses it, so no dead code ships); any animation library; any change to layout, spacing, colour,
+                              type or copy; Figma frames.
+Figma node IDs:     none (no frame changes). Verify item (c), Home frame 3:2290 section order, is checked at the start of AN5.
+Requirement IDs:    animation-plan 2.1-2.4, 2.8 and 3 (AN1). Motion is a proposed layer (like the responsive work): the PRD has no requirement for it.
+Files/modules:      new     src/config/motion.ts, src/lib/motion.ts, src/styles/motion.css,
+                            src/components/motion/MotionInit.tsx, src/components/motion/RevealObserver.tsx,
+                            src/components/ui-kit/MotionDemo.tsx,
+                            tests/e2e/motion/foundation.spec.ts, tests/unit/motion.test.ts, tests/unit/motion-config.test.ts, tests/unit/motion-css.test.ts
+                    change  src/styles/tokens.css, src/app/globals.css (import motion.css, drop the blunt rule), src/app/layout.tsx,
+                            src/app/(site)/ui-kit/page.tsx + src/components/ui-kit/UiKit.module.css, playwright.config.ts, package.json (script only),
+                            the six CSS files with a hard-coded zoom duration, docs (decision log, context, this plan)
+                    delete  none
+Prerequisites:      TF1 passed (D-053, confirmed); AN-D1..D10 logged (D-070).
+Acceptance criteria:
+  E1  Tokens. Given tokens.css, then it defines --ease-luxe, --ease-standard, --ease-overshoot, --duration-fast 200ms, --duration-base 350ms,
+      --duration-reveal 700ms, --duration-hero 1100ms, --duration-slow 500ms (decision 2), --stagger 90ms, --reveal-distance 28px, --hover-lift -6px,
+      --img-zoom 1.06, --shadow-rest and --shadow-hover (accent-1 tint only); --ease equals --ease-luxe; no existing var(--ease) or
+      var(--duration-fast) use is edited.
+  E2  Reduced motion by tokens. Given prefers-reduced-motion: reduce, then every --duration-* is <= 160ms, --stagger 0ms, --reveal-distance 0px,
+      --hover-lift 0px, --img-zoom 1. Given data-motion="off": the same with durations 0ms. Given data-motion="subtle": distance, lift, zoom and
+      stagger zeroed, durations unchanged (fades only). The blunt `*{animation-duration:.01ms !important}` rule is gone, and a Vitest guard fails
+      if a CSS file under src declares a transition or animation duration in ms/s instead of a token, outside a short allow-list of the existing
+      keyframes and the FreeShippingBar width/left transitions (each already has its own reduced-motion override; the list shrinks in AN3 and AN7).
+  E3  Config. Given src/config/motion.ts, then <html> carries one data-* attribute per key (kebab-case; booleans "true"/"false"), e.g.
+      data-motion="full" data-header="static"; <html> has suppressHydrationWarning; no hydration warning in the console on 10 pages.
+  E4  Pre-paint switch. Given mode "full" or "subtle", then the inline script sits in <head> before the stylesheets and the body, and html.motion-ready
+      is present even with every /_next script request blocked (so it cannot come from React). Given mode "off", no script is rendered. The script adds
+      the class only if IntersectionObserver exists, and removes it after 5 s if RevealObserver has not mounted, so a failed hydration never leaves
+      content hidden.
+  E5  Reveal once. Given a [data-reveal] element below the fold on /ui-kit, then it starts hidden; when it comes within 10% of the viewport bottom,
+      data-revealed is set and it transitions in once; when scrolled away and back it is not hidden again and no new transition runs. All six variants
+      (fade-up, fade, scale, clip-left, clip-right, clip-up) have a hidden and a revealed state; will-change is released after the transition.
+  E6  Stagger. Given a data-reveal-stagger parent, then its children get --i 0..7 (the eighth and later get 7) and a transition delay of --i x --stagger.
+  E7  Dynamic content. Given a [data-reveal] node added to <main> after load, and given a client-side navigation to /ui-kit, then each is observed and
+      revealed without a reload.
+  E8  JS off. Given javaScriptEnabled:false, then the demo block is fully visible and html has no motion-ready class.
+  E9  No layout shift. Cumulative layout shift is < 0.05 on Home, Shop, a Product page and Cart at 1920 and 390, and no more than 0.01 above the same
+      probe on the pre-AN1 build.
+  E10 No visual change. compare-main.mjs with BOTH_BRANCH=1 (pre-AN1 build of 96d21ed vs the AN1 build, 17 routes at 1920): identical page heights and
+      0 differing pixels; only /ui-kit (not in that list) grows by the demo block, shown to you as a screenshot.
+  E11 Test setup. playwright.config.ts defaults to reducedMotion "reduce"; the `motion` project uses "no-preference", runs only tests/e2e/motion/**,
+      and the other desktop projects ignore that folder; `npm run e2e:motion` exists.
+  E12 No library. `git diff` of package.json shows only the new script line; no dependency added.
+  E13 Suites stay green: typecheck, lint, format:check, Vitest (144 + new), Chromium 1920 (176), motion project (new specs), `npm run validate:html`
+      0 errors, `npm audit --omit=dev` 0, knip with no new finding; at the gate the responsive suite at 7 widths (87 passed / 32 skipped by design).
+Responsive:         no layout change anywhere, so no new breakpoints. The motion project runs at 1920; the CLS probe also runs at 390; the responsive
+                    suite (R-01 no sideways scroll covers /ui-kit) is re-run at the gate; the demo block is checked by eye at 390 once.
+Functional tests:   Vitest: tests/unit/motion.test.ts (prefersReducedMotion, canHover, motionOn with a stubbed window, every mode);
+                    tests/unit/motion-config.test.ts (every config key maps to one attribute, enum values valid, MotionInit renders nothing for "off");
+                    tests/unit/motion-css.test.ts (E1 tokens, E2 reduced block and the hard-coded-duration guard, every data-reveal value used in src is
+                    styled in motion.css).
+E2E scenarios:      tests/e2e/motion/foundation.spec.ts, no-preference motion: E2E-MOT-01 pre-paint class with scripts blocked and script order (E4);
+                    -02 config to <html> attributes, no hydration warning (E3); -03 JS off (E8); -04 reveal once, never replays (E5);
+                    -05 stagger delays and the cap at 7 (E6); -06 dynamically added node and client-side navigation (E7); -07 tokens under reduce,
+                    off and subtle (E2); -08 CLS probe, 4 pages x 2 widths (E9). Negative: IntersectionObserver missing means no motion-ready.
+                    Boundary: the eighth stagger child. The existing 176 specs run unchanged under reducedMotion "reduce".
+Visual verification: E10 comparison plus screenshots of the demo block hidden and revealed (1920 and 390) for your eyes.
+Regression risks:   the global token change (--duration-fast 150 to 200ms, a new --ease curve) retunes about 40 existing transitions (intended by the plan;
+                    no layout effect); the root layout gains a manual <head> and <html> attributes (hydration, Next metadata order: re-run
+                    validate:html and the SEO and iframe specs); the new global reduce default for Playwright (re-run all 176); tokens-only reduced motion
+                    (guard test E2); a JS-gated hidden state delays above-the-fold content until hydration, so AN4 must not use IO reveals for the hero.
+                    Pre-existing, not changed here: three JS smooth scrolls (ProductTrack, Testimonials, BlogComments) ignore reduced motion; handled in
+                    AN6 / AN8.
+Evidence required:  per task: typecheck, lint, format:check, Vitest and Playwright (chromium-desktop and motion) counts; at the gate: the E10 table, the E9
+                    before/after CLS table, responsive-suite counts, validate:html result, knip, file list, size of the new client code.
+Status:             AWAITING APPROVAL
+```
+
+**Sub-tasks, in order:** T07 (log AN-D1..D10) is already done (D-070). Then **T06 first**, so every later task lands with its motion spec and the pre-AN1 baseline exists: Playwright reduce default, `motion` project, `npm run e2e:motion`, a worktree build of `96d21ed` outside the repo for the E9/E10 baselines. Then T01 tokens (and the six durations, the blunt rule, the guard test) · T02 config, `<html>` attributes, `MotionInit` · T03 `motion.css` (reveal states, variants, stagger) · T04 `RevealObserver` and the /ui-kit demo block · T05 `lib/motion.ts`. Gate: the full list of E13, then you review.
+
+**Decisions I made in this contract (change any you disagree with):**
+1. **Task order.** T07 first (you asked for it), then T06 before T01, because your rule is to run the `motion` project after every task and it must exist, with the baseline, before the first change. The tasks are the plan's; only the order differs.
+2. **One extra token, `--duration-slow: 500ms`.** Removing the blunt rule (T01) would let six hover zooms run at 400/500 ms under reduced motion, a regression. They move to this token (`BlogCard` already names it with a 400ms fallback), which collapses to 160ms in reduced motion. In full motion `ProductCard` and `BlogCard` go from 400 to 500 ms (AN2 rewrites them as M9 anyway). The alternative is to keep the blunt rule until AN2-T04; tell me if you prefer that.
+3. **Reduced, subtle and off differ slightly from the plan's "same overrides".** The plan says "off = nothing" (AN-D10) and "subtle keeps fades only". So: reduced motion keeps short (<= 160ms) fades; `off` has 0ms durations; `subtle` zeroes distances, lift, zoom and stagger but keeps fade durations.
+4. **Failsafe in the inline script.** It checks for IntersectionObserver and removes `motion-ready` after 5 s if `RevealObserver` never mounted. It costs about 150 bytes and protects buyers from invisible pages after a hydration failure. A buyer who adds a strict CSP will need a nonce on this script (goes into the TF6 docs).
+5. **No "shared keyframes" in T03.** The reveal system needs only transitions. Keyframes (shine, pop, overlay) are written by the task that first uses them (AN2, AN3), so nothing unused ships. This is my reading of the plan's T03 wording.
+6. **Reveal details the plan leaves open.** `clip-left`/`clip-right`/`clip-up` start at that edge and wipe across (`clip-up` rises from the bottom); `scale` starts at 0.96; stagger is pure CSS (`:nth-child`), no JS; `will-change` is released on `transitionend` for the element itself, with a timer fallback.
+7. **Config attributes.** All 13 keys become `data-*` attributes on `<html>` (kebab-case), so CSS and the later lazy modules read one place.
+8. **Demo block.** `/dev/components` no longer exists (D-054), so the `data-reveal` demo is the last section of `/ui-kit` (a proposed page), below the fold, in plain words. It is the only place `data-reveal` is used in AN1.
+9. **Checks beyond the plan's list**, because the root layout touches every page: `validate:html`, the SEO and iframe specs, knip, and the responsive suite once at the gate. The motion project runs on Chromium only for now; Firefox and WebKit join at AN10.
+10. **CLS is measured with a Playwright probe** (unthrottled, before and after), not Lighthouse; Lighthouse is re-run at AN10 against the D-068 numbers.
+
 ### AN2 — Hover system, buttons, product card
 Prerequisite: AN1.
 
@@ -406,7 +502,7 @@ Stop at the AN1 exit gate, summarise what changed and tell me how to test it by 
 
 ## 7. Master checklist
 
-**AN1 Foundation** — [ ] tokens + `--ease` alias · [ ] `motionConfig` + `<html data-*>` · [ ] pre-paint script · [ ] `RevealObserver` · [ ] Playwright reduced-motion default + `motion` project · [ ] decisions logged
+**AN1 Foundation** — [ ] tokens + `--ease` alias · [ ] `motionConfig` + `<html data-*>` · [ ] pre-paint script · [ ] `RevealObserver` · [ ] Playwright reduced-motion default + `motion` project · [x] decisions logged (D-070)
 **AN2 Hover** — [ ] M6–M13 classes · [ ] Button · [ ] links · [ ] ProductCard/CardActions · [ ] icons · [ ] badges · [ ] inputs · [ ] pops · [ ] focus-visible audit
 **AN3 Overlays/header/cart** — [ ] `usePresence` + M14 · [ ] Modal + modals · [ ] CartDrawer · [ ] MegaMenu · [ ] mobile drawer · [ ] SearchOverlay · [ ] Toaster · [ ] add feedback · [ ] header hook · [ ] back-to-top
 **AN4 Hero** — [ ] bg · [ ] headline · [ ] card/badge/CTA · [ ] slide change · [ ] drift/parallax · [ ] light sweep · [ ] (optional) bottle/leaves
