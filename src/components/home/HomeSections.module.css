@@ -255,6 +255,21 @@
   animation: marquee 40s linear infinite;
 }
 
+/*
+ * The strip is an ambient loop (docs/animation-plan.md 2.7): it runs only while it is on screen and the tab is
+ * visible (data-loop, motion.css), stops under the pointer so a label can be read, and stands still when the
+ * "marquee" setting in src/config/motion.ts is off.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .marquee:hover ul {
+    animation-play-state: paused;
+  }
+}
+
+:global(html[data-marquee="false"]) .marquee ul {
+  animation: none;
+}
+
 .marquee li {
   display: inline-flex;
   align-items: center;
