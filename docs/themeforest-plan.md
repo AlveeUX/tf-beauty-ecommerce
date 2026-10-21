@@ -487,7 +487,7 @@ Stop at the TF1 exit gate and report evidence.
 
 **TF4 Quality**
 - [x] Chromium, Firefox, WebKit (T01: 1920 and 390 px, D-058)
-- [ ] Latest Next.js minor
+- [x] Latest Next.js minor (16.4.2, re-check at submission; D-059)
 - [ ] Lighthouse targets met
 - [ ] HTML validity, code hygiene, `npm audit`
 - [ ] SEO metadata, sitemap, robots
