@@ -15,7 +15,8 @@
     "e2e": "playwright test --project=chromium-desktop",
     "e2e:responsive": "playwright test --project=r1440 --project=r1280 --project=r1180 --project=r1024 --project=r768 --project=r390 --project=r320",
     "e2e:browsers": "playwright test --project=firefox-desktop --project=webkit-desktop --project=firefox-r390 --project=webkit-r390",
-    "e2e:all": "playwright test"
+    "e2e:all": "playwright test",
+    "validate:html": "node tests/html/validate-html.mjs"
   },
   "dependencies": {
     "@fontsource-variable/instrument-sans": "5.3.0",

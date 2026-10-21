@@ -114,7 +114,7 @@ export function ReviewsSection({ product, reviews }: Props) {
                   </em>
                 </p>
               </div>
-              <aside className={styles.author}>
+              <div className={styles.author}>
                 <p className={styles.when}>{relativeTime(review.createdAt)}</p>
                 <span className={styles.avatar} aria-hidden="true">
                   {review.authorName.charAt(0)}
@@ -125,7 +125,7 @@ export function ReviewsSection({ product, reviews }: Props) {
                     <Icon name="check-circle" size={12} /> Verified
                   </p>
                 ) : null}
-              </aside>
+              </div>
 
               {review.brandReply ? (
                 <div className={styles.reply}>

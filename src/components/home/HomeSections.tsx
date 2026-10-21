@@ -131,7 +131,7 @@ export function Marquee({ items }: { items: Banner[] }) {
   // The list is rendered twice so the CSS animation can loop seamlessly.
   const loop = [...items, ...items];
   return (
-    <div className={styles.marquee} aria-label="Our promises">
+    <div className={styles.marquee} role="group" aria-label="Our promises">
       <ul>
         {loop.map((item, i) => (
           <li key={`${item.id}-${i}`} aria-hidden={i >= items.length || undefined}>

@@ -46,7 +46,7 @@ function Block({ block }: { block: BlogBlock }) {
       );
     case "note":
       return (
-        <aside className={styles.note}>
+        <div role="note" className={styles.note}>
           <span className={styles.noteIcon} aria-hidden="true">
             <Icon name="info" size={16} />
           </span>
@@ -54,7 +54,7 @@ function Block({ block }: { block: BlogBlock }) {
             <strong>{block.lead}</strong>
             {block.text}
           </p>
-        </aside>
+        </div>
       );
   }
 }

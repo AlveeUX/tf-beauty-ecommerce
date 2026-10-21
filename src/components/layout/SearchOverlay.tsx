@@ -144,7 +144,9 @@ export function SearchOverlay({
           <h2 className={styles.title}>Search our collection</h2>
 
           <form role="search" className={styles.field} onSubmit={submit} action="/search">
-            <Icon name="search" size={20} />
+            <button type="submit" className={styles.submit} aria-label="Search">
+              <Icon name="search" size={20} />
+            </button>
             <label className="visually-hidden" htmlFor="site-search">
               Search products, ingredients and categories
             </label>

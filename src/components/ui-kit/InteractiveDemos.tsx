@@ -54,6 +54,7 @@ export function InteractiveDemos() {
             label="Password"
             name="kit-password"
             kind="password"
+            autoComplete="new-password"
             value={password}
             onChange={setPassword}
           />

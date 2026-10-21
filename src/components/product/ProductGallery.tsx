@@ -242,7 +242,7 @@ export function ProductGallery({ images, name, mode = "below", zoom = "none" }: 
 
       <dialog ref={dialog} className={styles.lightbox} aria-label={`${name} image`}>
         <form method="dialog">
-          <button className={styles.close} aria-label="Close">
+          <button type="submit" className={styles.close} aria-label="Close">
             <Icon name="x" size={20} />
           </button>
         </form>

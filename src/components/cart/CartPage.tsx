@@ -166,6 +166,7 @@ export function CartPage() {
                 </label>
                 <input
                   id="coupon-code"
+                  type="text"
                   placeholder="Coupon code"
                   autoComplete="off"
                   value={coupon}

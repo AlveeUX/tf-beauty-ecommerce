@@ -124,6 +124,7 @@ export function ReviewForm({ slug }: { slug: string }) {
       <Field label="Review headline" error={errors.headline} htmlFor="review-headline">
         <input
           id="review-headline"
+          type="text"
           value={headline}
           onChange={(e) => setHeadline(e.target.value)}
           placeholder="I would buy this product again and again…"
@@ -196,6 +197,7 @@ export function ReviewForm({ slug }: { slug: string }) {
         <Field label="Enter name" error={errors.name} htmlFor="review-name">
           <input
             id="review-name"
+            type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name…"

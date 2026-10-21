@@ -28,9 +28,9 @@ function Block({ block }: { block: PolicyBlock }) {
       );
     case "note":
       return (
-        <aside className={styles.note}>
+        <div role="note" className={styles.note}>
           <strong>{block.label}</strong> {block.text}
-        </aside>
+        </div>
       );
     case "table":
       return (
