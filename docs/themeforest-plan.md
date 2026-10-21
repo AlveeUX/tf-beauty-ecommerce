@@ -368,6 +368,55 @@ T08 evidence, docs, log. **Gate G4:** you review the Lighthouse table and browse
 | Tasks | **TF5-T01** Remove every Figma-sourced photo and product PNG from the zip build (`public/images/**` photos — about 150 files). · **TF5-T02** Generate placeholder images in code (neutral blocks in the theme palette with dimensions printed, correct aspect ratios) — a script, not AI image generation. · **TF5-T03** Source **preview** photos from Unsplash or Pexels (cosmetics, skincare, models, flat-lays). Record each: URL, photographer, licence, where used, in `CREDITS.md`. No AI-generated images anywhere in the zip. · **TF5-T04** Build flag: `NEXT_PUBLIC_DEMO_IMAGES=real|placeholder`; the preview deploy uses `real`, the packaged zip defaults to `placeholder`. Keep both image sets out of each other's build. · **TF5-T05** Fonts: Instrument Sans, Prata, Allura via `@fontsource` (SIL OFL 1.1) — include licence texts in `licenses/`. · **TF5-T06** Icons and logos: confirm the source of every SVG icon; payment logos (Visa, Mastercard, Amex, Discover, PayPal, Bitcoin) are acceptable as payment indicators — keep them unmodified; **remove the B Corp badge** (it's a certification mark; implying certification is misleading). Social icons: use official/brand-guideline shapes. · **TF5-T07** Third-party npm licences: generate a list (`license-checker`) into `licenses/THIRD-PARTY.txt`. · **TF5-T08** No author logo, URL, watermark or personal email anywhere in the item. |
 | Exit gate | `CREDITS.md` complete; a grep of the zip build for `.jpg/.png` finds only placeholders + your own SVGs. Mobile Lighthouse re-measured (`npm run` script in `tests/perf/lighthouse.mjs`); results added to `docs/lighthouse-report.md` (G4, D-066). |
 
+#### TF5 task contract — **status: APPROVED by the user 2026-10-21, T01 in progress**
+
+Measured on the branch before writing this: `public/` holds **183 files, 18 MB**. **109 are raster photos** (75 jpg, 41 png incl. UI) = about 17.6 MB: products 36 (+5 in `the-renewal-serum`), blog 19, home 27 (+1), categories 12, about 7, ingredients 3, stores 2, menu 2, newsletter 1, `ui/page-hero.png`. **67 are svg** (326 KB: icons, payment and social marks, benefit icons, `bcorp.svg`). **38 source files** reference `/images/`; the JSON data holds about 140 image paths; 35 components use `next/image`. The `NEXT_PUBLIC_DEMO_IMAGES` flag does not exist yet. The B Corp badge is shown in `Footer.tsx` and `HomeFooter.tsx`. Fonts are already `@fontsource` (Instrument Sans, Prata, Allura). Git history still contains the Figma photos (public repo, D-051).
+
+```
+Task ID:            TF5 (T01-T08 below, one at a time, local commit after each passing task, review gate G5 at the end)
+Objective:          Nothing in the packaged zip that we cannot redistribute, and a live preview whose photos are licensed and credited.
+Exact scope:        INCLUDED  placeholder generator and placeholder image set; build flag real|placeholder; removal of the Figma photos from the zip build;
+                              licensed preview photos and CREDITS.md; font and npm licence texts; icon/logo source audit; B Corp badge removal; author-branding scan;
+                              mobile Lighthouse re-measure (G4 option C).
+                    EXCLUDED  AI-generated images (never); deleting history (never rewrite); deploy (needs approval); new visual design; buyer docs (TF6); zip script (TF7);
+                              thumbnails and listing images (TF8).
+Figma node IDs:     none (images only; layout must not change).
+Requirement IDs:    TF-D5; TF5 in this plan.
+Files/modules:      new     scripts/make-placeholders.mjs, public/images-placeholder/** (generated, committed), src/lib/images.ts (one place that maps a path to real or placeholder),
+                            CREDITS.md, licenses/ (fonts, THIRD-PARTY.txt), tests/unit/images.test.ts, tests/e2e/storefront/images.spec.ts
+                    change  every component/JSON path that names a photo (through the helper, not 140 edits by hand where possible), next.config.ts (flag), package.json scripts,
+                            Footer.tsx, HomeFooter.tsx, docs/lighthouse-report.md
+                    delete  bcorp.svg and its two uses; any unused real photo after the split
+Prerequisites:      TF4 passed (G4, D-066). TF0 answers help but do not block: the Envato reply on upload rights and Figma ownership decide whether any Figma photo may ever return.
+Acceptance criteria:
+  I1  `NEXT_PUBLIC_DEMO_IMAGES=placeholder` (the default) builds with zero photo files from the Figma set: a script lists every .jpg/.png/.webp in the build output and the zip tree and fails if one is not a generated placeholder.
+  I2  Placeholders come from a script (SVG/PNG in the theme palette, correct aspect ratio per slot, size printed), no AI images; the storefront at placeholder mode has no broken image and no layout shift versus real mode (page heights equal at 1920 and 390).
+  I3  `real` mode shows only photos recorded in CREDITS.md (URL, author, licence, where used); every file used is a commercial-use licence (Unsplash/Pexels). Real photos live in a separate folder that the zip build excludes.
+  I4  Build flag keeps each set out of the other's build output (checked by a script on both builds).
+  I5  Fonts: licence texts for Instrument Sans, Prata and Allura in `licenses/`; `licenses/THIRD-PARTY.txt` lists production dependencies with licence; no GPL/AGPL in production.
+  I6  Every svg has a recorded source (drawn by us, or a named permissive set); payment marks unmodified; `bcorp.svg` and both uses removed; social marks use the platforms' own shapes (no change to which are shown).
+  I7  A scan of the repo and zip tree finds no author logo, URL, watermark, personal email or `@` address other than the placeholder ones in `site.ts`.
+  I8  Mobile Lighthouse (Home, Shop, Product, Checkout) re-measured in both modes and added to `docs/lighthouse-report.md`; the B-or-accept question for the user is restated with the new numbers.
+  I9  Existing suites stay green: Vitest, Chromium 1920, responsive R-01 at 7 widths (E2E specs that match image file names are updated, not skipped).
+Responsive:         placeholder and real modes checked at 1920 and 390; page-height equality at 1920, 1440, 768, 390.
+Functional tests:   Vitest: image helper maps every slot in both modes; every path in the JSON data resolves in both sets.
+E2E scenarios:      E2E-IMG-01 no failed image request on Home, Shop, Product, Blog, About in both modes; E2E-IMG-02 no layout shift versus the other mode; existing 169 stay green.
+Visual verification: side-by-side screenshots of Home, Shop, Product at 1920 and 390 in both modes shown to you before G5 (the look changes by design: photos become neutral blocks).
+Regression risks:   specs that read image file names; `next/image` width/height/sizes; hero and card aspect ratios; JSON data that points to photo names; build size and Lighthouse numbers.
+Evidence required:  counts of removed files, image-listing script output for both builds, CREDITS.md, licence files, Lighthouse before/after, test counts.
+Status:             IN_PROGRESS (approved by the user 2026-10-21)
+```
+
+**Sub-tasks, in order:** T01 inventory + `images.ts` helper + flag skeleton (I4) · T02 placeholder generator and set (I1, I2) · T03 switch every photo reference to the helper, remove Figma photos from the zip build (I1) · T04 licensed preview photos and `CREDITS.md` (I3) · T05 fonts and npm licences (I5) · T06 icon audit and B Corp removal (I6) · T07 author-branding scan (I7) · T08 Lighthouse re-measure, evidence, docs (I8, I9). **Gate G5:** you review the screenshots in both modes, `CREDITS.md` and the Lighthouse numbers.
+
+**Decisions I made in this contract (change any you disagree with):**
+1. **Placeholder is the default mode;** the zip builds with it. `real` is switched on only for the live preview.
+2. **The real photos stay out of the repo's zip tree** (separate folder). Git history cannot be cleaned without rewriting it, which we do not do (D-051).
+3. **Preview photos come from Unsplash/Pexels, which you pick or approve.** I can search and propose candidates with licence links, but I will not download any photo into the repo until you approve the list.
+4. **The look of placeholders:** flat neutral blocks in the theme palette with the size printed, as the plan says; no illustrations.
+5. **B Corp badge is removed** from both footers (a certification mark we do not hold).
+6. **One heavy job at a time** (build, Playwright, Lighthouse), as before (D-054).
+
 ### TF6 — Buyer documentation
 
 | Field | Content |
