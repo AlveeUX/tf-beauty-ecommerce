@@ -650,6 +650,20 @@
   height: 48px;
 }
 
+/* a mouse over a benefit: the icon disc grows a little inside a soft Primary ring (M10) */
+@media (hover: hover) and (pointer: fine) {
+  .featureIcon {
+    transition:
+      box-shadow var(--duration-base) var(--ease),
+      scale var(--duration-fast) var(--ease);
+  }
+
+  .features > li:hover .featureIcon {
+    box-shadow: var(--ring-shadow);
+    scale: var(--ring-scale);
+  }
+}
+
 /* the design writes units lowercase inside uppercase labels */
 .unit {
   text-transform: lowercase;
@@ -831,6 +845,42 @@
 
 .editorialThumb img {
   object-fit: cover;
+}
+
+/*
+ * The lipstick card rises a moment after the photo and the text (--i, in steps of --stagger), then floats a few
+ * pixels up and down, slowly. That float is this section's ambient loop (data-loop: it runs only while the card is
+ * on screen). It uses translate, so it does not fight the reveal or the hover lift, which use transform.
+ */
+.editorialThumb {
+  --i: 3;
+  animation: thumb-float 7s ease-in-out infinite;
+}
+
+@keyframes thumb-float {
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editorialThumb {
+    animation: none;
+  }
+}
+
+/* on a mouse the card lifts and a Primary glow spreads under it (the design gives no product colour to use) */
+@media (hover: hover) and (pointer: fine) {
+  .editorialThumb {
+    transition:
+      transform var(--duration-base) var(--ease),
+      box-shadow var(--duration-base) var(--ease);
+  }
+
+  .editorialThumb:hover {
+    transform: translateY(var(--hover-lift));
+    box-shadow: 0 22px 48px rgb(199 51 43 / 0.4);
+  }
 }
 
 /* handwritten tag: Allura 48px turned 16.54deg counter-clockwise (Figma 3:2839) */

@@ -326,11 +326,11 @@ export function FeatureStrip({ items }: { items: Banner[] }) {
   return (
     <section className={styles.featureSection} aria-label={`Why ${site.name}`}>
       <div className="container">
-        <ul className={styles.features}>
+        <ul className={styles.features} data-reveal-stagger>
           {items.map((f) => {
             const inset = f.data.inset as [number, number, number, number] | undefined;
             return (
-              <li key={f.id}>
+              <li key={f.id} data-reveal="scale">
                 <span className={styles.featureIcon} aria-hidden="true">
                   {/* the design's own artwork, placed by its inset inside the 48px box */}
                   <span>
@@ -380,7 +380,7 @@ export function EditorialBanner({ banner }: { banner: Banner | undefined }) {
             <img src="/images/home/editorial/waves.svg" alt="" />
           </div>
         </div>
-        <div className={styles.editorialText}>
+        <div className={styles.editorialText} data-reveal="fade-left">
           <p className={styles.editorialEyebrow}>{banner.eyebrow}</p>
           <h2 id="editorial-title">{banner.title}</h2>
           <p className={styles.editorialCopy}>{banner.subtitle}</p>
@@ -398,11 +398,11 @@ export function EditorialBanner({ banner }: { banner: Banner | undefined }) {
             <span>{String(banner.data.film ?? "")}</span>
           </p>
         </div>
-        <div className={styles.editorialImage}>
+        <div className={styles.editorialImage} data-reveal="clip-right">
           {banner.image ? <Image src={banner.image} alt="" fill sizes="838px" /> : null}
         </div>
         {secondary ? (
-          <div className={styles.editorialThumb}>
+          <div className={styles.editorialThumb} data-reveal="fade-up" data-loop>
             <Image src={secondary} alt="" fill sizes="200px" />
           </div>
         ) : null}

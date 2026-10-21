@@ -382,3 +382,9 @@ a.m-link:focus-visible {
   border-color: var(--m-field-border, var(--color-secondary));
   box-shadow: 0 0 0 3px var(--m-field-ring, rgb(142 32 24 / 0.2));
 }
+
+/* fade-left: the same reveal, arriving from the left (copy beside a photo) */
+html.motion-ready [data-reveal="fade-left"]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateX(calc(var(--reveal-distance) * -1.5));
+}
