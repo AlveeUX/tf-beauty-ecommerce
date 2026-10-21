@@ -79,8 +79,11 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy} key={slide.id}>
           <p className={styles.eyebrow}>{slide.eyebrow}</p>
-          <h1 className={styles.title} aria-label={slide.title}>
-            <SplitText text={slide.title} />
+          <h1 className={styles.title}>
+            {/* one named unit for assistive technology; the split words are only for the eye */}
+            <span role="img" aria-label={slide.title}>
+              <SplitText text={slide.title} />
+            </span>
           </h1>
         </div>
 

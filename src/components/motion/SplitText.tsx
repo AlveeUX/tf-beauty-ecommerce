@@ -2,8 +2,9 @@ import { Fragment, type CSSProperties } from "react";
 
 /**
  * Mask text reveal (M2, docs/animation-plan.md 2.5): each word is wrapped so it can slide up from behind its
- * own line (`.m-word` in src/styles/motion.css). Put the full text in aria-label on the heading: the words are
- * aria-hidden, so a screen reader reads the heading once. The spaces stay plain text, so line breaks are unchanged.
+ * own line (`.m-word` in src/styles/motion.css). Wrap it in a span with role="img" and the full text as its aria-label
+ * (an aria-label on the heading itself fails HTML validation): the words are aria-hidden, so a screen reader reads
+ * the heading once. The spaces stay plain text, so line breaks are unchanged.
  */
 export function SplitText({ text }: { text: string }) {
   return text.split(" ").map((word, i) => (
