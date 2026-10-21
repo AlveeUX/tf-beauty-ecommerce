@@ -323,11 +323,12 @@
   position: absolute;
 }
 
+/* 201 px tall in the design, which has no consent row (D-035); the card is 21 px taller to hold the row the client asked for (D-044), with 15 px under it as around the portrait */
 .newsletter {
   top: 75px;
   right: 0;
   width: 645px;
-  height: 201px;
+  height: 222px;
   border: 1px dashed var(--color-border-dark);
   background: rgba(253, 251, 248, 0.05);
   backdrop-filter: blur(20px);
@@ -412,33 +413,68 @@
   text-box: trim-both cap alphabetic;
 }
 
+/* the consent row: its square box starts at the field's left edge, 20 px under the field, text 7 px after the box (the standard footer's design, Figma 3:5919) */
 .nlAgree {
   position: absolute;
-  top: 74px;
+  top: 76px;
   left: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: var(--text-14);
-  color: var(--color-light-02);
+  gap: 7px;
+  height: 24px;
+  font-size: var(--text-15);
+  line-height: 24px;
+  color: var(--color-light-03);
+  cursor: pointer;
 }
 
+/* the real checkbox sits invisibly over the drawn box, so clicking, keyboard and screen readers use it */
 .nlForm .nlAgree input {
+  position: absolute;
+  top: 4px;
+  left: 0;
   width: 16px;
   height: 16px;
+  margin: 0;
   padding: 0;
   border: 0;
+  background: none;
   backdrop-filter: none;
-  accent-color: var(--color-primary);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.nlBox {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--color-light-03);
+  color: transparent;
+  pointer-events: none;
+}
+
+.nlAgree input:checked + .nlBox {
+  background: var(--color-light-01);
+  border-color: var(--color-light-01);
+  color: var(--color-bg-dark);
+}
+
+.nlAgree input:focus-visible + .nlBox {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .nlAgree a {
+  color: var(--color-light-01);
   text-decoration: underline;
 }
 
 .nlStatus {
   position: absolute;
-  top: 102px;
+  top: 122px; /* just under the card */
   left: 0;
   font-size: var(--text-14);
   color: var(--color-light-02);
@@ -856,7 +892,12 @@
     gap: 12px;
   }
 
-  .nlAgree,
+  .nlAgree {
+    position: relative; /* the real checkbox is placed against it */
+    top: auto;
+    left: auto;
+  }
+
   .nlStatus {
     position: static;
   }

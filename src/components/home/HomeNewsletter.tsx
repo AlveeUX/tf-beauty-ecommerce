@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { Icon } from "@/components/ui/Icon";
 import { submitNewsletter } from "@/lib/demo-store/forms";
 import styles from "./HomeChrome.module.css";
 
@@ -62,6 +63,9 @@ export function HomeNewsletter() {
       </button>
       <label className={styles.nlAgree}>
         <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
+        <span className={styles.nlBox} aria-hidden="true">
+          <Icon name="check" size={12} strokeWidth={2.5} />
+        </span>
         <span>
           Agree to our <Link href="/policy/terms">Terms &amp; Condition?</Link>
         </span>

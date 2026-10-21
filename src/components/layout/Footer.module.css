@@ -27,7 +27,9 @@
 }
 
 .payments {
-  margin-top: 40px;
+  /* the design has the icons 46 px under the consent box (Figma 3:5868 at 3935, box ends 3889); the form keeps a 32 px line
+     below the row (4 px under the box, then 32 px reserved for status messages), so the margin is 10 px */
+  margin-top: 10px;
 }
 
 .heading {
