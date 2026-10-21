@@ -715,3 +715,11 @@ Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P1
 - **Evidence:** Vitest **140 passed**; Playwright Chromium 1920 **169 passed** (6.9 min); responsive R-01 at 7 widths **11 passed, 3 skipped by design**; typecheck, lint, prettier clean.
 - **Not verified:** scores on a real host (HTTP/2, CDN, compression); Lighthouse on Firefox/Safari (not available); every other page of the site (4 pages x 2 devices as the contract says).
 - **Decided by:** Claude (fixes); the user decides the mobile target at G4.
+
+## D-065 · 2026-10-21 · TF4-T08: evidence, versions re-check, status (gate G4 open)
+- **Versions re-checked today:** Next.js 16.4.2, React 19.3.1, Playwright 1.64.1 are still the latest published (D2 met).
+- **Acceptance criteria:** D1 (T01, D-058), D2 (T02, D-059), D4 (T06, D-063), D5 (T03, D-060), D7 (T04, D-061), D8 (T05, D-062), D9 (T02) met. **D6:** production audit 0 vulnerabilities; the dev-only chain is an exception (D-059). **D3:** met on desktop and for Checkout on mobile; mobile Performance 72-73 on Home, Shop and Product is open (D-064).
+- **Open at G4:** the user decides on mobile Performance (A accept, B hydrate less, C re-measure after TF5; recommendation C). TF4 is marked PASSED only after that decision.
+- **Also open:** the instruction "don't include any link to Facebook or X" has not been applied; the user has not said whether it means the site UI or only docs and logs.
+- **Local commits not pushed:** everything after `ce943e2`; the user is asked before any push.
+- **Decided by:** Claude (record); the user at G4.
