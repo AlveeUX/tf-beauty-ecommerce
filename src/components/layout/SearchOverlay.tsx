@@ -106,7 +106,7 @@ export function SearchOverlay({
       {trigger === "field" ? (
         <button
           type="button"
-          className={styles.fieldTrigger}
+          className={`${styles.fieldTrigger} m-field`}
           aria-haspopup="dialog"
           aria-label="Search Product..."
           data-testid="search-trigger"

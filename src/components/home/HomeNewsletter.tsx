@@ -46,6 +46,7 @@ export function HomeNewsletter() {
       </label>
       <input
         id="home-newsletter-email"
+        className="m-field"
         type="email"
         placeholder="Enter your email"
         autoComplete="email"

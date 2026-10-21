@@ -368,6 +368,8 @@
 }
 
 .nlForm input {
+  --m-field-border: var(--color-primary); /* a dark field: Primary shows, Secondary would not */
+  --m-field-ring: rgb(199 51 43 / 0.28);
   width: 100%;
   height: 60px;
   padding: 0 20px;

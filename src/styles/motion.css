@@ -366,3 +366,19 @@ a.m-link:focus-visible {
     transform: scale(var(--pop-scale));
   }
 }
+
+/*
+ * Field focus (M12): a focused field takes an accent border and a soft ring around it. This sits on top of the global
+ * keyboard focus outline, which stays. --m-field-border and --m-field-ring suit dark fields (Primary instead of
+ * Secondary).
+ */
+.m-field {
+  transition:
+    border-color var(--duration-fast) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
+}
+
+.m-field:is(:focus, :focus-visible) {
+  border-color: var(--m-field-border, var(--color-secondary));
+  box-shadow: 0 0 0 3px var(--m-field-ring, rgb(142 32 24 / 0.2));
+}

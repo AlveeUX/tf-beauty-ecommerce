@@ -271,6 +271,8 @@
 }
 
 .fieldTrigger {
+  --m-field-border: var(--color-primary); /* a dark field: Primary shows, Secondary would not */
+  --m-field-ring: rgb(199 51 43 / 0.28);
   display: inline-flex;
   align-items: center;
   gap: 8px;
