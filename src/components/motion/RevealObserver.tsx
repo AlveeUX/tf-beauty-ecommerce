@@ -145,8 +145,17 @@ export function RevealObserver() {
       });
     }
 
+    // pinned cards (the Home journal): same conditions
+    let stopStack: (() => void) | undefined;
+    if (flagOn("pinnedCards") && motionOn() && canHover()) {
+      void import("./scroll-stack").then(({ attachScrollStack }) => {
+        if (!cancelled) stopStack = attachScrollStack();
+      });
+    }
+
     return () => {
       cancelled = true;
+      stopStack?.();
       stopParallax?.();
       stopMagnetic?.();
       revealer.disconnect();

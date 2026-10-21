@@ -1051,6 +1051,21 @@
   align-items: start;
 }
 
+/*
+ * Pinned (scroll-driven, see src/components/motion/scroll-stack.ts): the script makes the section taller by the distance the
+ * visitor scrolls while it stays on screen, and the grid stays put. The section's own padding moves onto the grid so that
+ * the journal looks the same as before it is engaged. The script sets the section's height and --stack-top.
+ */
+.journal[data-stack-on] {
+  padding-block: 0;
+}
+
+.journal[data-stack-on] .journalGrid {
+  position: sticky;
+  top: var(--stack-top, 0px);
+  padding-block: 100px;
+}
+
 .journalIntro {
   position: relative;
 }

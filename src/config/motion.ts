@@ -5,6 +5,8 @@ export type MotionConfig = {
   header: "static" | "sticky" | "smart";
   parallax: boolean;
   magnetic: boolean;
+  /** The Home journal stays on screen while its cards rise as you scroll (mouse, wide screens). */
+  pinnedCards: boolean;
   tilt: boolean;
   carouselAutoplay: boolean;
   marquee: boolean;
@@ -27,6 +29,7 @@ export const motionConfig: MotionConfig = {
   header: "static",
   parallax: true,
   magnetic: true,
+  pinnedCards: true,
   tilt: false,
   carouselAutoplay: false,
   marquee: true,

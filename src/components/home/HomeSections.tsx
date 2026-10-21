@@ -455,8 +455,8 @@ const formatDate = (iso: string) => {
 export function Journal({ posts }: { posts: Banner[] }) {
   if (posts.length === 0) return null;
   return (
-    <section className={styles.journal} aria-labelledby="journal-title">
-      <div className={`container ${styles.journalGrid}`}>
+    <section className={styles.journal} aria-labelledby="journal-title" data-stack-cards>
+      <div className={`container ${styles.journalGrid}`} data-stack-grid>
         <div className={styles.journalIntro} data-reveal="fade-up">
           <p className={styles.eyebrow}>Latest news</p>
           <h2 id="journal-title" className={styles.journalTitle}>
@@ -467,7 +467,7 @@ export function Journal({ posts }: { posts: Banner[] }) {
             <Icon name="arrow-up-right" size={18} />
           </Link>
         </div>
-        <ul className={styles.posts} data-reveal-stagger>
+        <ul className={styles.posts} data-reveal-stagger data-stack-list>
           {posts.map((post, i) => (
             <li key={post.id} data-reveal="fade-up">
               <Link href={post.ctaHref ?? "/blog"} className={styles.post}>
