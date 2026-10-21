@@ -57,7 +57,7 @@ export function FlashSale({ banner }: { banner: Banner | undefined }) {
               </li>
             ))}
           </ul>
-          <Link href={banner.ctaHref ?? "/shop"} className={styles.cta}>
+          <Link href={banner.ctaHref ?? "/shop"} className={`${styles.cta} m-btn`} data-magnetic>
             <span>{banner.ctaLabel}</span>
             <Icon name="arrow-up-right" size={18} />
           </Link>

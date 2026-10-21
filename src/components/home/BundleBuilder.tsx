@@ -104,7 +104,8 @@ export function BundleBuilder({ bundles }: { bundles: Bundle[] }) {
           <p className={styles.note}>Includes curated shades customizable in bag prior.</p>
           <button
             type="button"
-            className={styles.add}
+            className={`${styles.add} m-btn`}
+            data-magnetic
             disabled={busy}
             onClick={() => void addMany(bundle.products.map((p) => p.slug))}
           >

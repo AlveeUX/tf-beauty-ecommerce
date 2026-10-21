@@ -82,8 +82,7 @@
 }
 
 .outlineButton:hover {
-  background: var(--color-dark-01);
-  color: var(--color-light-01);
+  color: var(--color-light-01); /* the fill grows from the centre (.m-btn-2) */
 }
 
 .darkButton {

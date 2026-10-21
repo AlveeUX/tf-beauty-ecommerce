@@ -34,7 +34,7 @@ function SectionHeader({
       <h2 className={`${styles.title} ${titleShift ? styles.titleShift : ""}`}>{title}</h2>
       {intro ? <p className={styles.intro}>{intro}</p> : null}
       {action ? (
-        <Link href={action.href} className={styles.outlineButton}>
+        <Link href={action.href} className={`${styles.outlineButton} m-btn-2`}>
           <span>{action.label}</span>
           <Icon name="arrow-up-right" size={18} />
         </Link>
@@ -238,7 +238,7 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
               <h3>{banner.title}</h3>
               <AddButton
                 slugs={[String(banner.data.productSlug ?? "")]}
-                className={styles.featureCta}
+                className={`${styles.featureCta} m-btn`}
               >
                 <span>
                   {banner.ctaLabel}
@@ -380,7 +380,11 @@ export function EditorialBanner({ banner }: { banner: Banner | undefined }) {
           <p className={styles.editorialEyebrow}>{banner.eyebrow}</p>
           <h2 id="editorial-title">{banner.title}</h2>
           <p className={styles.editorialCopy}>{banner.subtitle}</p>
-          <Link href={banner.ctaHref ?? "/shop"} className={styles.editorialCta}>
+          <Link
+            href={banner.ctaHref ?? "/shop"}
+            className={`${styles.editorialCta} m-btn`}
+            data-magnetic
+          >
             <span>{banner.ctaLabel}</span>
             <Icon name="arrow-up-right" size={18} />
           </Link>
@@ -453,7 +457,7 @@ export function Journal({ posts }: { posts: Banner[] }) {
           <h2 id="journal-title" className={styles.journalTitle}>
             The journal behind better skin
           </h2>
-          <Link href="/blog" className={styles.blogButton}>
+          <Link href="/blog" className={`${styles.blogButton} m-btn`}>
             <span>More blog</span>
             <Icon name="arrow-up-right" size={18} />
           </Link>

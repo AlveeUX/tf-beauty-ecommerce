@@ -91,7 +91,7 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
           <p key={`p-${slide.id}`} className={swap}>
             {slide.subtitle}
           </p>
-          <Link href={slide.ctaHref ?? "/shop"} className={styles.cta}>
+          <Link href={slide.ctaHref ?? "/shop"} className={`${styles.cta} m-btn`} data-magnetic>
             <span>{slide.ctaLabel}</span>
             <Icon name="arrow-up-right" size={18} />
           </Link>

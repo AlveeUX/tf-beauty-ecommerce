@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { canHover, flagOn, motionOn } from "@/lib/motion";
 
 const REVEAL = "[data-reveal]:not([data-revealed])";
 const LOOP = "[data-loop]";
@@ -104,7 +105,18 @@ export function RevealObserver() {
     onVisibility();
     document.addEventListener("visibilitychange", onVisibility);
 
+    // magnetic buttons: loaded only when the setting is on, for a mouse, without reduced motion
+    let stopMagnetic: (() => void) | undefined;
+    let cancelled = false;
+    if (flagOn("magnetic") && motionOn() && canHover()) {
+      void import("./magnetic").then(({ attachMagnetic }) => {
+        if (!cancelled) stopMagnetic = attachMagnetic();
+      });
+    }
+
     return () => {
+      cancelled = true;
+      stopMagnetic?.();
       revealer.disconnect();
       looper.disconnect();
       mutations.disconnect();

@@ -232,3 +232,58 @@ html:is([data-motion="subtle"], [data-motion="off"]) .m-shine::after {
     display: none;
   }
 }
+
+/*
+ * Primary button (M6): on a mouse the button grows a little, brightens and gains a soft shadow, which fades in with
+ * the filter; pressing it shrinks it. The overshoot ease is used here and nowhere else. Add data-magnetic to lean
+ * toward the pointer (magnetic.ts). Buttons are always a or button elements; the :is() keeps these rules ahead of
+ * a component's own transition without depending on stylesheet order.
+ * No pseudo-elements: a pseudo-element inside a button changes how Chrome anti-aliases the label in some places
+ * (inside the hero glass card), which would make the resting page differ from the design.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .m-btn:is(a, button) {
+    transition:
+      transform var(--duration-fast) var(--ease-overshoot),
+      filter var(--duration-base) var(--ease),
+      translate var(--duration-base) var(--ease),
+      background-color var(--duration-fast) var(--ease),
+      color var(--duration-fast) var(--ease);
+  }
+
+  .m-btn:is(a, button):is(:hover, :focus-visible) {
+    transform: scale(var(--btn-hover-scale));
+    filter: brightness(1.05) drop-shadow(0 8px 14px rgb(67 19 16 / 0.32));
+  }
+
+  .m-btn:is(a, button):active {
+    transform: scale(var(--btn-press-scale));
+  }
+}
+
+/*
+ * Secondary (outline) button (M7): a fill grows from the centre while the label changes colour (the component keeps
+ * its own text colour on :hover). --m-fill sets the fill (default Dark-01). The fill is the button's own background
+ * layer, sized from 0 to full width, so nothing is added to the button and the label stays on top.
+ */
+.m-btn-2:is(a, button) {
+  background-image: linear-gradient(
+    var(--m-fill, var(--color-dark-01)),
+    var(--m-fill, var(--color-dark-01))
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0% 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .m-btn-2:is(a, button) {
+    transition:
+      background-size var(--duration-base) var(--ease),
+      color var(--duration-base) var(--ease);
+  }
+
+  .m-btn-2:is(a, button):is(:hover, :focus-visible) {
+    background-size: 100% 100%;
+  }
+}
