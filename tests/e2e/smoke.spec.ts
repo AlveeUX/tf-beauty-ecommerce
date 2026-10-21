@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { expectNoSeriousViolations } from "./fixtures/axe";
 
-// E2E-SMOKE-01: the app starts, serves the Home page, and the database is reachable.
+// E2E-SMOKE-01: the app starts, serves the Home page, and the health endpoint answers.
 test.describe("E2E-SMOKE-01 foundation smoke", () => {
   test("home page loads with its hero", async ({ page }) => {
     await page.goto("/");

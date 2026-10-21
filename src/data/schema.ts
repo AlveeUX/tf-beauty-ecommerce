@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-/** Zod schemas for the JSON files in this folder. Shapes mirror the former database rows; timestamps are ISO strings. */
+/** Zod schemas for the JSON files in this folder. Timestamps are ISO strings and money is integer cents. */
 
 const iso = z.string();
 const nullableStr = z.string().nullable();

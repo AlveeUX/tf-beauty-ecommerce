@@ -489,7 +489,7 @@ Stop at the TF1 exit gate and report evidence.
 - [x] Chromium, Firefox, WebKit (T01: 1920 and 390 px, D-058)
 - [x] Latest Next.js minor (16.4.2, re-check at submission; D-059)
 - [ ] Lighthouse targets met
-- [ ] HTML validity, code hygiene, `npm audit`
+- [ ] HTML validity (T06), code hygiene (done, D-060), `npm audit` (exception, D-059)
 - [ ] SEO metadata, sitemap, robots
 - [ ] Renders inside an iframe
 

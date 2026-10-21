@@ -5,24 +5,14 @@ import { Header, type NavLink } from "./Header";
 import { NewsletterPopup } from "./NewsletterPopup";
 
 function headerCategories(): NavLink[] {
-  try {
-    return getCategoryTree().map((c) => ({
-      label: c.name,
-      href: `/shop?category=${c.slug}`,
-    }));
-  } catch (error) {
-    // Database not migrated yet: render without the dropdown rather than failing every page.
-    console.error("Header categories unavailable:", error);
-    return [];
-  }
+  return getCategoryTree().map((c) => ({
+    label: c.name,
+    href: `/shop?category=${c.slug}`,
+  }));
 }
 
 export function trendingProducts(): ProductSummary[] {
-  try {
-    return getCollectionProducts("trending-now", 4);
-  } catch {
-    return [];
-  }
+  return getCollectionProducts("trending-now", 4);
 }
 
 /** Standard storefront frame: announcement bar + header above, footer below. */
