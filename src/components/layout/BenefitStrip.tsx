@@ -5,7 +5,7 @@ import { freeShippingFrom } from "@/lib/shipping-copy";
 
 export type Benefit = { icon: string; title: string; text: string };
 
-/** Placeholder copy from the design; managed from the admin in P9 (ACN-003). */
+/** Placeholder copy from the design; edit it in this file. */
 const DEFAULT_BENEFITS: Benefit[] = [
   {
     icon: "/images/ui/benefit-free-shipping.svg",

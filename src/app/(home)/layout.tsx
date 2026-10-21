@@ -5,7 +5,7 @@ import { trendingProducts } from "@/components/layout/SiteChrome";
 import { getCategoryTree } from "@/server/catalog/service";
 import { getBanners } from "@/server/content/banners";
 
-// Home content is read per request so admin changes show immediately (decision-log D-009).
+// Read per request: the sale countdowns are computed from the current time (src/data/json-provider.ts).
 export const dynamic = "force-dynamic";
 
 /** Home chrome: dark header laid over the hero, dark footer with newsletter card. */

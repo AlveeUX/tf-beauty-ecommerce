@@ -5,7 +5,7 @@ import { COMPARE_LIMIT } from "@/config/store";
 
 /**
  * Guest wishlist and compare list (WSH-003, CMP-001): product slugs in localStorage, shared between
- * tabs through the storage event. When accounts arrive (P6) the wishlist syncs to the server.
+ * tabs through the storage event.
  */
 export type ListKey = "wishlist" | "compare";
 
@@ -33,24 +33,8 @@ function snapshot(key: ListKey): readonly string[] {
   return (cache[key] ??= read(key));
 }
 
-/** Signed-in visitors keep their wishlist on the server: every local change is pushed through this hook. */
-let wishlistSync: ((slugs: readonly string[]) => void) | null = null;
-export function setWishlistSync(fn: ((slugs: readonly string[]) => void) | null) {
-  wishlistSync = fn;
-}
-
-/** Replace a list outright (login adopts the merged account wishlist; logout empties it). */
-export function replaceList(
-  key: ListKey,
-  slugs: readonly string[],
-  options: { sync?: boolean } = {},
-) {
-  write(key, [...new Set(slugs.filter((s) => SLUG.test(s)))], options.sync ?? false);
-}
-
-function write(key: ListKey, next: readonly string[], sync = true) {
+function write(key: ListKey, next: readonly string[]) {
   cache[key] = next;
-  if (sync && key === "wishlist") wishlistSync?.(next);
   try {
     localStorage.setItem(STORAGE_KEY[key], JSON.stringify(next));
   } catch {

@@ -41,9 +41,9 @@ const ADDRESSES = "addresses";
 const MAX_FAILURES = 5;
 const LOCK_MS = 15 * 60 * 1000;
 const RESET_TTL_MS = 60 * 60 * 1000;
-export const MAX_ADDRESSES = 10;
+const MAX_ADDRESSES = 10;
 
-export type FieldProblems = Record<string, string>;
+type FieldProblems = Record<string, string>;
 export type Outcome<T = object> =
   ({ ok: true } & T) | { ok: false; message: string; errors?: FieldProblems };
 
@@ -163,7 +163,7 @@ export async function signIn(
 
 /* ------------------------------ password reset ------------------------------ */
 
-export const RESET_SENT =
+const RESET_SENT =
   "If an account exists for that user name or email address, a link to choose a new password has been created.";
 
 /**

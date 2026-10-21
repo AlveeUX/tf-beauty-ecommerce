@@ -1,7 +1,7 @@
 import { expect, type Page } from "@playwright/test";
 
 /** Key prefix of the browser-side demo store (src/lib/demo-store/storage.ts). */
-export const STORE = "cosmia.demo.";
+const STORE = "cosmia.demo.";
 
 /** Make sure the page is on the app's origin so localStorage is reachable (a bare context starts on about:blank). */
 async function onOrigin(page: Page) {

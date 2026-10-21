@@ -17,7 +17,7 @@ const PAYMENTS = "/images/ui/payments.svg";
 
 /**
  * Cart page (CRT-002, CRT-003). Figma 3:20299 (filled) and 3:29452 (empty). Totals come from the
- * server; shipping and tax are decided at checkout (P6), so the total equals the subtotal here.
+ * server; shipping is decided at checkout, so the total equals the subtotal here.
  */
 export function CartPage() {
   const { cart, ready, busy, setQuantity, remove, clear, add } = useCart();
@@ -44,7 +44,7 @@ export function CartPage() {
 
   function applyCoupon(event: FormEvent) {
     event.preventDefault();
-    // Coupon rules (validity, limits, discount maths) are built with the admin module (P9, AST/DSC).
+    // Demo mode has no coupon rules; connect your own backend to validate codes (see the documentation).
     setCouponMessage(
       coupon.trim() ? "This coupon code is not valid." : "Enter a coupon code to apply it.",
     );

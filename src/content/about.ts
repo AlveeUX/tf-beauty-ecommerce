@@ -1,7 +1,7 @@
 import { site } from "@/config/site";
 /**
  * About us copy (CNT-002, Figma 3:28603). The words are the design's own, including its rough edges
- * ("Reasons to choose us", "effectives"), so the client can correct them in the admin pages screen (P9).
+ * ("Reasons to choose us", "effectives"), so buyers can correct them here.
  */
 export const ABOUT = {
   hero: {

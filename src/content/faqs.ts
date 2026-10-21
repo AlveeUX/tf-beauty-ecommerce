@@ -5,7 +5,7 @@ import { site } from "@/config/site";
 /**
  * FAQs (CNT-004, Figma "FAQs" 3:27601 and the Contact page list). The questions and the first shipping
  * answer are the design's; the other answers are written from the store's own rules (returns, shipping,
- * payment methods, checkout) and are Assumptions for the client to confirm in the admin (P9).
+ * payment methods, checkout) and are demo copy for buyers to replace.
  */
 export type Faq = { id: string; q: string; a: string };
 export type FaqCategory = {

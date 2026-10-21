@@ -7,7 +7,7 @@ import styles from "./AnnouncementBar.module.css";
 import { site } from "@/config/site";
 
 type AnnouncementBarProps = {
-  /** Rotating promo messages (managed from the admin in P9). */
+  /** Rotating promo messages (the header passes them; the default is in Header.tsx). */
   messages: string[];
   est?: string;
   /** Replaces the "Est · year · city" line (the Home header shows a release note instead). */

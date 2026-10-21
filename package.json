@@ -14,29 +14,30 @@
     "test:watch": "vitest",
     "e2e": "playwright test --project=chromium-desktop",
     "e2e:responsive": "playwright test --project=r1440 --project=r1280 --project=r1180 --project=r1024 --project=r768 --project=r390 --project=r320",
+    "e2e:browsers": "playwright test --project=firefox-desktop --project=webkit-desktop --project=firefox-r390 --project=webkit-r390",
     "e2e:all": "playwright test"
   },
   "dependencies": {
-    "@fontsource-variable/instrument-sans": "^5.3.0",
-    "@fontsource/allura": "^5.3.0",
-    "@fontsource/prata": "^5.3.0",
+    "@fontsource-variable/instrument-sans": "5.3.0",
+    "@fontsource/allura": "5.3.0",
+    "@fontsource/prata": "5.3.0",
     "next": "16.4.2",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "zod": "^4.6.7"
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "zod": "4.6.7"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.14.0",
-    "@playwright/test": "^1.64.1",
-    "@types/node": "^24.19.2",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
     "eslint-config-next": "16.4.2",
-    "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.9.10",
-    "typescript": "^5",
-    "vitest": "^5.0.5"
+    "eslint-config-prettier": "10.1.8",
+    "prettier": "3.9.10",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
   },
   "engines": {
     "node": ">=22"

@@ -8,7 +8,7 @@ import { site } from "@/config/site";
 
 /**
  * Policy pages (CNT-006, Figma "Policy and privacy" 3:24059). Content is kept as data so the page template
- * stays generic; the admin "pages" screen (P9) will move it into the database.
+ * stays generic; replace it with your own policies.
  * Only the privacy text comes from the design. Shipping figures come from the store settings, returns from
  * the "Easy Returns" benefit card; the terms page is a stub that the store owner has to complete.
  */
@@ -20,7 +20,7 @@ export type PolicyBlock =
   | { type: "note"; label: string; text: string }
   | { type: "table"; headers: [string, string]; rows: [string, string][] };
 
-export type PolicySection = {
+type PolicySection = {
   id: string;
   /** Short name in the "On this page" list. */
   toc: string;
@@ -286,7 +286,7 @@ const TERMS: Policy = {
   },
 };
 
-export const POLICIES: Record<string, Policy> = {
+const POLICIES: Record<string, Policy> = {
   privacy: PRIVACY,
   shipping: SHIPPING,
   returns: RETURNS,

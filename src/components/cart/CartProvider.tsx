@@ -52,7 +52,7 @@ export function useCart(): CartContextValue {
   return value;
 }
 
-export const CART_KEY = "cart";
+const CART_KEY = "cart";
 const NO_ITEMS: StoredCartItem[] = [];
 /** The stored cart right now (handlers read it fresh, so two quick adds never overwrite each other). */
 const readItems = () => readStore<StoredCartItem[]>(CART_KEY, NO_ITEMS);

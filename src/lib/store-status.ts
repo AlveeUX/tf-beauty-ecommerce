@@ -26,7 +26,7 @@ const toMinutes = (time: string) => {
 
 /**
  * "Open · Closes 8:00 PM" / "Closed · Opens 10:00 AM" (Figma 3:24566). The hours are the same every day;
- * per-day opening hours come with the admin store screen (P9).
+ * per-day opening hours are a buyer extension.
  */
 export function storeStatus(
   hours: Hours,

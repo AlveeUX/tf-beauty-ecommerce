@@ -11,6 +11,8 @@ export const site = {
   tagline: "Skincare & Cosmetics",
   /** Default meta description. */
   description: "Skincare and cosmetics, thoughtfully formulated.",
+  /** Public address of the deployed site, used for absolute links in the sitemap, robots.txt and share previews. */
+  url: "https://example.com",
   /** Used by the About page ("started in a small studio in ..."). */
   foundedYear: 2014,
 

@@ -164,7 +164,7 @@ export function CheckoutPage({ methods }: Props) {
           className={styles.couponForm}
           onSubmit={(event) => {
             event.preventDefault();
-            // coupons are managed from the admin in P9 (APM-001); until then every code is rejected
+            // demo mode has no coupon rules, so every code is rejected
             setCouponMessage("This coupon code is not valid.");
           }}
         >

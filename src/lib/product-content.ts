@@ -2,11 +2,11 @@ import { z } from "zod";
 
 /**
  * Structured long-form product content shown under "Inside the formula" and
- * "Formulated for renewal" (Figma 3:13084, 3:13279). Authored per product in the admin (ACT-001).
+ * "Formulated for renewal" (Figma 3:13084, 3:13279). Authored per product in src/data/products.json.
  * Stored as JSON on products.content and validated on read, so malformed data hides the
  * sections instead of breaking the page.
  */
-export const CONTENT_ICONS = [
+const CONTENT_ICONS = [
   "rotate",
   "ban",
   "calendar",
@@ -17,7 +17,7 @@ export const CONTENT_ICONS = [
   "badge-check",
 ] as const;
 
-export const productContentSchema = z.object({
+const productContentSchema = z.object({
   formula: z
     .object({
       title: z.string(),

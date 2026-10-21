@@ -23,5 +23,3 @@ export const commentSchema = z.object({
     .max(2000, "Keep the comment under 2000 characters."),
   parentId: z.number().int().positive().nullable().optional().default(null),
 });
-
-export type CommentInput = z.infer<typeof commentSchema>;

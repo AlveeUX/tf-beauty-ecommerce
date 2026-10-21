@@ -7,7 +7,7 @@ import { site } from "@/config/site";
  * are flagged `built: false`; the shop listing layouts and the product layouts are all built (D-038, D-045). They keep the
  * design's labels so the client can decide which variants to ship. See docs/decision-log.md D-034.
  */
-export type NavBadge = "hot" | "new";
+type NavBadge = "hot" | "new";
 
 export type MenuLink = {
   label: string;

@@ -27,5 +27,3 @@ export const contactSchema = z.object({
     .max(4000, "Keep the message under 4000 characters."),
   consent: z.literal(true, { error: "You must agree to the privacy policy." }),
 });
-
-export type ContactInput = z.infer<typeof contactSchema>;

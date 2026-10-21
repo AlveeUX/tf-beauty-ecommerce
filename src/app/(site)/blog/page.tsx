@@ -5,7 +5,7 @@ import { BLOG_PAGE_SIZE, parseBlogLayout } from "@/lib/blog";
 import { listPosts, sidebarData } from "@/server/blog/queries";
 
 export const metadata: Metadata = { title: "Blog" };
-export const dynamic = "force-dynamic"; // posts are managed in the admin and must show immediately
+export const dynamic = "force-dynamic"; // the list depends on the query string (layout, page, filters)
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 

@@ -9,5 +9,3 @@ export const reviewInputSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name.").max(60),
   email: z.string().trim().toLowerCase().email("Please enter a valid email.").max(120),
 });
-
-export type ReviewInput = z.infer<typeof reviewInputSchema>;

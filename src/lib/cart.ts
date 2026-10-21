@@ -15,7 +15,7 @@ export type VariantLine = {
   available: number;
 };
 
-export type CartLine = VariantLine & {
+type CartLine = VariantLine & {
   quantity: number;
   lineCents: number;
 };

@@ -58,6 +58,28 @@ export default defineConfig({
         hasTouch: width <= 768,
       },
     })),
+    // TF4: the same suites in Firefox and WebKit (npm run e2e:browsers). Firefox has no `isMobile`, so its phone
+    // project only sets the viewport and touch.
+    {
+      name: "firefox-desktop",
+      testIgnore: "**/responsive/**",
+      use: { ...devices["Desktop Firefox"], viewport: { width: 1920, height: 1080 } },
+    },
+    {
+      name: "webkit-desktop",
+      testIgnore: "**/responsive/**",
+      use: { ...devices["Desktop Safari"], viewport: { width: 1920, height: 1080 } },
+    },
+    {
+      name: "firefox-r390",
+      testMatch: "**/responsive/**/*.spec.ts",
+      use: { ...devices["Desktop Firefox"], viewport: { width: 390, height: 844 }, hasTouch: true },
+    },
+    {
+      name: "webkit-r390",
+      testMatch: "**/responsive/**/*.spec.ts",
+      use: { ...devices["Desktop Safari"], viewport: { width: 390, height: 844 }, hasTouch: true },
+    },
   ],
   // Real production build; state lives in each test's own browser context (localStorage).
   webServer: {

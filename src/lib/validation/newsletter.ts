@@ -12,5 +12,3 @@ export const newsletterSchema = z.object({
   /** The standard footer form has a checkbox; the other two show the consent text instead. */
   consent: z.literal(true, { error: "Please accept the terms to subscribe." }),
 });
-
-export type NewsletterInput = z.infer<typeof newsletterSchema>;

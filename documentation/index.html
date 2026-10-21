@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cosmia Next.js eCommerce Template: Documentation</title>
+<style>
+  :root { --ink:#211a18; --muted:#4d4b46; --line:#ccc8c2; --bg:#f8f5f0; --card:#eee9e1; --accent:#c7332b; --code:#241c1b; --codefg:#fdfbf8; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--ink); background:var(--bg); }
+  .wrap { display:grid; grid-template-columns: 280px minmax(0,1fr); min-height:100vh; }
+  nav.toc { position:sticky; top:0; align-self:start; height:100vh; overflow:auto; padding:28px 22px; background:var(--card); border-right:1px solid var(--line); }
+  nav.toc h2 { margin:0 0 12px; font-size:1rem; letter-spacing:.08em; text-transform:uppercase; }
+  nav.toc ol { margin:0; padding-left:1.2rem; font-size:.95rem; }
+  nav.toc a { color:var(--ink); text-decoration:none; }
+  nav.toc a:hover { color:var(--accent); text-decoration:underline; }
+  main { max-width:860px; padding:48px 40px 96px; }
+  h1 { font-size:2.2rem; line-height:1.2; margin:0 0 8px; }
+  h2 { margin:56px 0 12px; padding-top:12px; border-top:1px solid var(--line); font-size:1.5rem; }
+  h3 { margin:28px 0 8px; font-size:1.1rem; }
+  p, li { color:var(--muted); }
+  code { font:0.9em ui-monospace,Menlo,Consolas,monospace; background:var(--card); padding:.1em .35em; border-radius:3px; color:var(--ink); }
+  pre { margin:14px 0; padding:16px 18px; overflow:auto; background:var(--code); color:var(--codefg); border-radius:4px; font:0.88rem/1.55 ui-monospace,Menlo,Consolas,monospace; }
+  pre code { background:none; color:inherit; padding:0; }
+  table { width:100%; border-collapse:collapse; margin:14px 0; font-size:.95rem; }
+  th, td { text-align:left; vertical-align:top; padding:9px 12px; border:1px solid var(--line); }
+  th { background:var(--card); color:var(--ink); }
+  .note { margin:16px 0; padding:12px 16px; background:var(--card); border-left:4px solid var(--accent); }
+  .note p { margin:0; color:var(--ink); }
+  @media (max-width: 900px) { .wrap { grid-template-columns:1fr; } nav.toc { position:static; height:auto; } main { padding:32px 20px 72px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#intro">Introduction and features</a></li>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#quick-start">Quick start</a></li>
+    <li><a href="#structure">Folder structure</a></li>
+    <li><a href="#rebrand">Rebranding</a></li>
+    <li><a href="#tokens">Theming with design tokens</a></li>
+    <li><a href="#pages">Pages and demos</a></li>
+    <li><a href="#content">Content: the data files</a></li>
+    <li><a href="#backend">Connecting a real backend</a></li>
+    <li><a href="#demo-mode">Cart, checkout and accounts in demo mode</a></li>
+    <li><a href="#images">Images</a></li>
+    <li><a href="#deploy">Deployment</a></li>
+    <li><a href="#a11y">Accessibility and browser support</a></li>
+    <li><a href="#credits">Credits and licences</a></li>
+    <li><a href="#changelog">Changelog</a></li>
+    <li><a href="#faq">FAQ and troubleshooting</a></li>
+    <li><a href="#support">Support policy</a></li>
+  </ol>
+</nav>
+<main>
+<h1>Cosmia: Next.js eCommerce template</h1>
+<p>Documentation for version 1.0.0. Read it top to bottom once; every later section stands alone.</p>
+
+<h2 id="intro">1. Introduction and features</h2>
+<p>Cosmia is the <strong>front end</strong> of a skincare and cosmetics shop, built with Next.js (App Router), React and TypeScript. It reads products, categories and blog posts from JSON files and keeps the cart, orders and accounts in the visitor's browser, so it builds and runs anywhere Node runs, with no database and no environment variables. When you are ready for a real shop, you connect your own backend through one interface (<a href="#backend">section 9</a>).</p>
+<ul>
+  <li><strong>10 shop layouts</strong> (sidebar left or right, list rows, load more, top filter panel, horizontal filters, filter drawer) and <strong>10 product page layouts</strong> (default, colour, subscribe and save, sale countdown, two thumbnail layouts, one and two column galleries, inner and external zoom), <strong>5 blog layouts</strong>, all listed on one demo page (<code>/demos</code>).</li>
+  <li>Cart drawer and cart page, checkout, order confirmation, order tracking, wishlist, compare, quick view, live search, newsletter popup, accounts (demo), reviews and blog comments (demo).</li>
+  <li>Content pages: About, Contact, FAQs, Store locator, four policy pages, 404 and error screens. A UI kit page (<code>/ui-kit</code>) shows every component and token.</li>
+  <li><strong>Responsive</strong> from 320 to 1920 px, with a menu drawer, a filter sheet, a sticky add-to-cart bar and 44 px touch targets on phones and tablets. Tested at 1920, 1440, 1280, 1180, 1024, 768, 390 and 320 px.</li>
+  <li><strong>Accessible</strong>: automated checks (axe) report no serious violations including colour contrast; focus is trapped in every dialog and drawer; reduced motion is respected.</li>
+  <li>Design tokens in one CSS file, one settings file to rebrand, typed content with schemas, and more than 400 automated tests (Vitest and Playwright) included.</li>
+</ul>
+
+<h2 id="requirements">2. Requirements</h2>
+<table>
+  <tr><th>Tool</th><th>Version</th></tr>
+  <tr><td>Node.js</td><td>22 or newer (LTS recommended)</td></tr>
+  <tr><td>npm</td><td>10 or newer (comes with Node)</td></tr>
+</table>
+<p>The template has no native modules, so <code>npm install</code> needs no compiler. Any modern browser opens the result.</p>
+
+<h2 id="quick-start">3. Quick start</h2>
+<pre><code>cd cosmia
+npm install
+npm run dev
+# open http://localhost:3000</code></pre>
+<p>For a production build:</p>
+<pre><code>npm run build
+npm start
+# open http://localhost:3000</code></pre>
+<table>
+  <tr><th>Command</th><th>What it does</th></tr>
+  <tr><td><code>npm run dev</code></td><td>Development server with hot reload</td></tr>
+  <tr><td><code>npm run build</code> / <code>npm start</code></td><td>Production build and server</td></tr>
+  <tr><td><code>npm run typecheck</code></td><td>TypeScript check</td></tr>
+  <tr><td><code>npm run lint</code></td><td>ESLint</td></tr>
+  <tr><td><code>npm test</code></td><td>Unit and integration tests (Vitest)</td></tr>
+  <tr><td><code>npm run e2e</code></td><td>Browser tests (Playwright). Run <code>npx playwright install chromium</code> once first. The command builds the site and serves it on port 3100.</td></tr>
+</table>
+
+<h2 id="structure">4. Folder structure</h2>
+<pre><code>src/app          routes (pages, layouts, error screens, robots, sitemap, share image)
+src/components   UI, grouped by area (layout, home, shop, product, cart, checkout, account, blog ...)
+src/config       site.ts (settings), navigation.ts (menus), store.ts and order-constants.ts
+src/content      page copy: about, FAQs, policies, store list, the demo hub catalogue
+src/data         JSON content, Zod schemas, the DataProvider interface and its JSON version
+src/server       read functions the pages call; they delegate to the DataProvider
+src/lib          shared logic: cart rules, totals, validation, the browser demo store
+src/styles       tokens.css (design tokens)
+public/images    pictures used by the pages
+tests            unit, integration, e2e (Playwright) and visual helper scripts
+documentation    this file</code></pre>
+
+<h2 id="rebrand">5. Rebranding</h2>
+<ol>
+  <li>Open <code>src/config/site.ts</code>. Change <code>name</code>, <code>tagline</code>, <code>description</code>, <code>url</code> (your public address), the contact block, the social profile addresses and the shop rules: currency, free-shipping threshold, flat shipping rate, return window, countries.</li>
+  <li>Logo: the logo is the site name set in the display font, drawn in <code>src/components/layout/Header.tsx</code>, <code>src/components/home/HomeHeader.tsx</code> and the two footers. Replace it with an image or SVG there if you prefer.</li>
+  <li>Favicon and share image: replace <code>src/app/icon.svg</code> and <code>src/app/favicon.ico</code>; <code>src/app/opengraph-image.tsx</code> draws the share preview from your name and tagline.</li>
+  <li>Fonts: Instrument Sans, Prata and Allura are installed as npm packages (<code>@fontsource</code>) and imported in <code>src/app/layout.tsx</code>. To change one, install another <code>@fontsource</code> package, change the import and update the three font variables in <code>tokens.css</code>.</li>
+  <li>Page copy that is not a setting lives in <code>src/content</code> (About, FAQs, policies, stores). Edit the text there.</li>
+</ol>
+<div class="note"><p>A unit test (<code>tests/unit/brand-guard.test.ts</code>) fails if the original brand name or demo contact details appear anywhere in <code>src</code> outside <code>site.ts</code> and the data files. After rebranding, if it fails it tells you which file still holds the old text.</p></div>
+
+<h2 id="tokens">6. Theming with design tokens</h2>
+<p>Every colour, font size, weight and spacing value comes from <code>src/styles/tokens.css</code>. Components use <code>var(--color-primary)</code> and similar names, so changing a token changes the whole site.</p>
+<table>
+  <tr><th>Token group</th><th>Examples</th></tr>
+  <tr><td>Text colours</td><td><code>--color-dark-01</code> (main text), <code>--color-dark-02</code>, <code>--color-dark-03</code> (muted), <code>--color-light-01</code> (text on dark)</td></tr>
+  <tr><td>Surfaces</td><td><code>--color-bg-body</code>, <code>--color-bg-light-01</code> (cards), <code>--color-bg-dark</code></td></tr>
+  <tr><td>Brand</td><td><code>--color-primary</code> (buttons, badges), <code>--color-secondary</code> (links)</td></tr>
+  <tr><td>Type</td><td><code>--font-sans</code>, <code>--font-display</code>, <code>--text-12</code> to <code>--text-56</code></td></tr>
+  <tr><td>Touch size</td><td><code>--tap</code> (44 px minimum for controls on phones and tablets)</td></tr>
+</table>
+<div class="note"><p>If you change a colour, check the contrast: text must keep a ratio of at least 4.5 to 1 against its background. <code>npm run e2e</code> includes an automated contrast check across the pages.</p></div>
+
+<h3>Breakpoints</h3>
+<p>Only three media queries are used, all <code>max-width</code>: <strong>1439px</strong> (laptops), <strong>1100px</strong> (tablets and below) and <strong>767px</strong> (phones). A unit test fails if another width or a <code>min-width</code> query is added, to keep the layout predictable.</p>
+
+<h2 id="pages">7. Pages and demos</h2>
+<p>Open <code>/demos</code> for every layout and key page, one click each.</p>
+<table>
+  <tr><th>Page</th><th>Address</th></tr>
+  <tr><td>Home</td><td><code>/</code></td></tr>
+  <tr><td>Shop (10 layouts)</td><td><code>/shop?layout=left</code> (also <code>right</code>, <code>list-left</code>, <code>list-right</code>, <code>load-more</code>, <code>top-filter</code>, <code>list-top-filter</code>, <code>horizontal</code>, <code>list-horizontal</code>, <code>filter-drawer</code>)</td></tr>
+  <tr><td>Product (10 layouts)</td><td><code>/product/the-renewal-serum?layout=inner-zoom</code> (see <code>src/lib/pdp-layouts.ts</code> for all names)</td></tr>
+  <tr><td>Blog (5 layouts)</td><td><code>/blog?layout=grid</code> (<code>list</code>, <code>standard</code>, <code>sidebar-left</code>, <code>sidebar-right</code>) and <code>/blog/&lt;slug&gt;</code></td></tr>
+  <tr><td>Cart, checkout, confirmation</td><td><code>/cart</code>, <code>/checkout</code>, <code>/checkout/confirmation/&lt;order&gt;</code></td></tr>
+  <tr><td>Account (demo)</td><td><code>/register</code>, <code>/login</code>, <code>/forgot-password</code>, <code>/account</code>, <code>/account/orders</code>, <code>/account/addresses</code></td></tr>
+  <tr><td>Other</td><td><code>/wishlist</code>, <code>/compare</code>, <code>/search?q=</code>, <code>/categories</code>, <code>/track-order</code>, <code>/about</code>, <code>/contact</code>, <code>/faqs</code>, <code>/store-locator</code>, <code>/policy/privacy</code>, <code>/policy/shipping</code>, <code>/policy/returns</code>, <code>/policy/terms</code>, <code>/ui-kit</code></td></tr>
+</table>
+<h3>Choosing your default layouts</h3>
+<ul>
+  <li><strong>Shop:</strong> the default is <code>DEFAULT_SHOP_LAYOUT</code> in <code>src/lib/shop-layouts.ts</code>. Visitors can still pass <code>?layout=</code>.</li>
+  <li><strong>Product:</strong> each product has an optional <code>pdpLayout</code> in <code>src/data/products.json</code>; without one the page uses "details-default". <code>?layout=</code> overrides it for previews.</li>
+  <li><strong>Blog:</strong> the default is <code>DEFAULT_BLOG_LAYOUT</code> in <code>src/lib/blog.ts</code>.</li>
+</ul>
+<p>The menus are defined in <code>src/config/navigation.ts</code>.</p>
+
+<h2 id="content">8. Content: the data files</h2>
+<p>All catalogue and blog content is in <code>src/data/*.json</code>. <code>src/data/schema.ts</code> holds a Zod schema for each file, and a unit test checks that every file matches its schema and that every reference (a product's category, a review's product) points at something that exists. Edit the JSON, then run <code>npm test</code>.</p>
+<table>
+  <tr><th>File</th><th>Holds</th></tr>
+  <tr><td><code>products.json</code></td><td>Products: name, slug, description, ingredients, badge, rating, status, layout</td></tr>
+  <tr><td><code>variants.json</code></td><td>Sizes of each product: price in <strong>integer cents</strong>, compare-at price, SKU, size label</td></tr>
+  <tr><td><code>inventory.json</code></td><td>Stock per variant</td></tr>
+  <tr><td><code>categories.json</code>, <code>product_categories.json</code></td><td>Category tree and which product is in which category</td></tr>
+  <tr><td><code>colors.json</code>, <code>product_colors.json</code></td><td>Colour swatches and their product links</td></tr>
+  <tr><td><code>product_images.json</code>, <code>product_tags.json</code></td><td>Pictures (paths under <code>public/images</code>) and tags</td></tr>
+  <tr><td><code>collections.json</code>, <code>collection_products.json</code></td><td>Home page collections ("Most loved", "Drops")</td></tr>
+  <tr><td><code>reviews.json</code></td><td>Approved product reviews</td></tr>
+  <tr><td><code>blog_posts.json</code>, <code>blog_comments.json</code></td><td>Journal posts (body as a small JSON block list) and comments</td></tr>
+  <tr><td><code>banners.json</code></td><td>Home page banners and the flash-sale countdown</td></tr>
+</table>
+<div class="note"><p>Money is always an integer number of cents (4800 is $48.00). Dates are ISO strings. Sale countdowns use <code>saleEndsInMs</code> / <code>endsInMs</code> (time from now), so the demo never shows an expired sale; use a fixed <code>endsAt</code> date for a real sale.</p></div>
+
+<h2 id="backend">9. Connecting a real backend</h2>
+<p>Every page reads data through one interface, <code>DataProvider</code> (<code>src/data/provider.ts</code>). The bundled <code>JsonProvider</code> serves the JSON files. To use your own API (a custom REST service, Shopify Storefront, Medusa, Saleor, a CMS), write another implementation and return it from <code>getProvider()</code> in <code>src/data/index.ts</code>. Pages and components do not change.</p>
+<h3>Steps</h3>
+<ol>
+  <li>Open <code>src/data/provider.ts</code>. Each method returns the shape the pages need (for example <code>listProducts(query)</code> returns items, totals and page counts).</li>
+  <li>Create <code>src/data/my-provider.ts</code> that implements <code>DataProvider</code>.</li>
+  <li>In <code>src/data/index.ts</code> return it from <code>getProvider()</code>.</li>
+  <li>Run <code>npm run typecheck</code>: TypeScript lists every method you have not implemented or shaped correctly.</li>
+</ol>
+<h3>Example outline</h3>
+<pre><code>// src/data/my-provider.ts
+import type { DataProvider } from "./provider";
+
+export function createApiProvider(baseUrl: string): DataProvider {
+  return {
+    listProducts(q) {
+      // map your API's response to CatalogResult
+      // { items, total, page, pageCount, from, to }
+      throw new Error("not implemented");
+    },
+    getProductBySlug(slug) {
+      throw new Error("not implemented");
+    },
+    // ...the other methods of DataProvider
+  } as DataProvider;
+}</code></pre>
+<div class="note"><p>The provider methods are synchronous in the bundled version. A network API is asynchronous: change the interface methods to return <code>Promise&lt;...&gt;</code> and add <code>await</code> in the read functions in <code>src/server</code> and in the pages that call them. TypeScript marks each place. Plan about one working day for a full catalogue, longer for a headless commerce platform with its own cart and checkout.</p></div>
+<h3>What stays in the browser until you replace it</h3>
+<p>Cart, orders, accounts, reviews, comments, contact and newsletter forms live in <code>src/lib/demo-store</code>. The function names (for example <code>submitContact</code> in <code>forms.ts</code> and <code>placeDemoOrder</code> in <code>orders.ts</code>) are the places to call your own API instead.</p>
+
+<h2 id="demo-mode">10. Cart, checkout and accounts in demo mode</h2>
+<ul>
+  <li>The cart stores variant ids and quantities in <code>localStorage</code> under the prefix <code>cosmia.demo.</code>. Prices and stock are always re-read from the data, so a changed price shows at once.</li>
+  <li>Checkout validates the form with the same Zod schemas used for the data, then stores an order in the browser and opens the confirmation page. <strong>Nothing is charged and nothing is sent.</strong> Payment methods shown: bank transfer, cash on delivery, check. To show the demo test card, build with <code>NEXT_PUBLIC_PAYMENT_METHODS=bank_transfer,cod,check,card_test</code>.</li>
+  <li>Accounts (register, login, forgot and reset password) keep a profile and a session in the browser. Passwords are stored as a salted digest <strong>for the demo only; this is not real security</strong>. Because no email is sent, the forgot-password page shows the reset link on screen.</li>
+  <li>Order tracking finds orders stored in the browser. A sample order is always available: number <code>CSM-DEMO2026</code> with email <code>demo@example.com</code>.</li>
+  <li>A dismissible "Demo mode" note appears on the login, account and checkout pages. Remove it in <code>src/components/feedback/DemoNotice.tsx</code> when you connect a backend.</li>
+</ul>
+
+<h2 id="images">11. Images</h2>
+<p>Pictures live in <code>public/images</code> and are referenced by path in the data files and components. <strong>Replace them with your own photographs and keep the file names, or update the paths.</strong> The photographs included for the live preview are not part of your licence unless <code>CREDITS.md</code> says so; see <a href="#credits">section 14</a>.</p>
+<ul>
+  <li>Product pictures: <code>public/images/products</code>, listed in <code>product_images.json</code>.</li>
+  <li>Aspect ratios: product cards 308 &times; 359, gallery 645 &times; 752, blog covers 870 &times; 549, categories square. Other ratios are cropped to fit (<code>object-fit: cover</code>).</li>
+  <li>Keep JPEG or WebP under 300 KB per picture for fast pages.</li>
+</ul>
+
+<h2 id="deploy">12. Deployment</h2>
+<table>
+  <tr><th>Host</th><th>How</th></tr>
+  <tr><td>Vercel</td><td>Import the repository or upload the folder. Framework preset: Next.js. No environment variables are needed. Build command <code>npm run build</code>.</td></tr>
+  <tr><td>Netlify</td><td>Use the Next.js runtime (the default for Next.js sites). Build command <code>npm run build</code>.</td></tr>
+  <tr><td>Your own Node server</td><td><code>npm ci &amp;&amp; npm run build &amp;&amp; npm start</code> behind a reverse proxy; set <code>PORT</code> or pass <code>-p</code>.</td></tr>
+</table>
+<div class="note"><p>The shop pages read the query string (filters, sort, layout), so they are rendered per request. A static export (<code>output: "export"</code>) is not supported without changing the shop to filter in the browser.</p></div>
+<p>Before you go live, set <code>site.url</code> in <code>src/config/site.ts</code> to your real address: the sitemap, <code>robots.txt</code> and share previews use it. The preview iframe use case works: the site sends no <code>X-Frame-Options</code> header. If you do not want to be embedded, add the header in <code>next.config.ts</code>.</p>
+
+<h2 id="a11y">13. Accessibility and browser support</h2>
+<ul>
+  <li>Automated tests check every key page with axe, colour contrast included, at desktop, tablet and phone widths. Keyboard tests check the menu drawer, filter sheet, cart drawer and dialogs: Tab stays inside, Escape closes, focus returns.</li>
+  <li>Controls are at least 44 &times; 44 px on tablets and phones. Motion respects <code>prefers-reduced-motion</code>.</li>
+  <li><strong>Browsers:</strong> the current versions of Chrome, Edge, Firefox and Safari. The test suite runs on Chromium, Firefox and WebKit.</li>
+</ul>
+
+<h2 id="credits">14. Credits and licences</h2>
+<p>The full list with addresses, authors and licences is in <code>CREDITS.md</code>; licence texts are in the <code>licenses</code> folder.</p>
+<ul>
+  <li><strong>Fonts:</strong> Instrument Sans, Prata and Allura, SIL Open Font License 1.1, installed from the <code>@fontsource</code> packages.</li>
+  <li><strong>Code:</strong> Next.js, React and Zod (MIT). The complete list of packages and licences is in <code>licenses/THIRD-PARTY.txt</code>.</li>
+  <li><strong>Icons:</strong> drawn for this template (<code>src/components/ui/Icon.tsx</code>). Payment logos are generic indicators.</li>
+  <li><strong>Photographs:</strong> see <code>CREDITS.md</code>. Photographs used only in the live preview are not included in your download.</li>
+</ul>
+
+<h2 id="changelog">15. Changelog</h2>
+<h3>1.0.0</h3>
+<ul>
+  <li>First release: 10 shop, 10 product and 5 blog layouts, demo cart, checkout and accounts, JSON data layer with a replaceable <code>DataProvider</code>, responsive layouts from 320 to 1920 px, accessibility checks, design tokens, UI kit and demo hub.</li>
+</ul>
+
+<h2 id="faq">16. FAQ and troubleshooting</h2>
+<h3>It does not start: "Node version"</h3>
+<p>Check <code>node -v</code>. You need 22 or newer.</p>
+<h3>The port is in use</h3>
+<p><code>npm run dev -- -p 3001</code> starts on another port.</p>
+<h3>I changed a JSON file and the page did not update</h3>
+<p>In development the page reloads by itself. After a production <code>npm run build</code> you need to rebuild. If a test now fails, the message names the file and the field.</p>
+<h3>A price looks wrong</h3>
+<p>Prices are integer cents. 4800 is $48.00, 480 is $4.80.</p>
+<h3>The cart or orders disappeared</h3>
+<p>They live in the browser. Clearing site data, a private window or another browser starts empty. That is expected in demo mode.</p>
+<h3>Where do I add a page?</h3>
+<p>Create <code>src/app/(site)/my-page/page.tsx</code>; the <code>(site)</code> group adds the header and footer.</p>
+<h3>Can I use it with Shopify, WooCommerce or Medusa?</h3>
+<p>Yes, as a front end: see <a href="#backend">section 9</a>. The backend integration itself is not included.</p>
+<h3>The Playwright tests cannot find a browser</h3>
+<p>Run <code>npx playwright install chromium</code> once (add <code>firefox webkit</code> for the other browsers).</p>
+
+<h2 id="support">17. Support policy</h2>
+<p>Support covers questions about how the template works, bugs in the template as delivered, and help with the documented setup. It does <strong>not</strong> cover installation or deployment on your hosting, customisation or new features, backend integration, third-party services, or problems caused by changes you made.</p>
+<ul>
+  <li>Support period: 6 months from purchase (extendable on the item page).</li>
+  <li>How to ask: use the item's comments or support channel on the marketplace where you bought it, and include your Node version, what you did and any error text.</li>
+  <li>Response target: within 1 to 2 business days (Monday to Friday).</li>
+  <li>Updates: bug fixes and compatibility updates are free for everyone who bought the template; changes are listed in the changelog.</li>
+</ul>
+</main>
+</div>
+</body>
+</html>

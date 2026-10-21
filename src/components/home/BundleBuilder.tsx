@@ -9,7 +9,7 @@ import type { ProductSummary } from "@/lib/catalog-types";
 import { formatMoney } from "@/lib/money";
 import styles from "./BundleBuilder.module.css";
 
-export type BundleItem = ProductSummary & { imageCrop?: { height: number; top: number } };
+type BundleItem = ProductSummary & { imageCrop?: { height: number; top: number } };
 export type Bundle = { label: string; products: BundleItem[]; discountPercent: number };
 
 /** "Barely There" -> the unit stays lowercase inside the uppercase label, as in the design. */
@@ -26,7 +26,7 @@ function withUnit(text: string) {
 
 /**
  * "Explore bundle" tabs with three items and a bundle total (HOM-007, Figma 3:3364).
- * Bundle price = sum of the items minus the discount; adding the bundle to the cart is wired in P5.
+ * Bundle price = sum of the items minus the discount; the bundle adds all its items to the cart.
  */
 export function BundleBuilder({ bundles }: { bundles: Bundle[] }) {
   const [active, setActive] = useState(0);

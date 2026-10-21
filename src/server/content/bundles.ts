@@ -19,7 +19,7 @@ type BundleDefinition = {
 
 /**
  * Curated bundles for the Home "Explore bundle" tabs (HOM-007, Figma 3:3364). Tab names come from the
- * design; the item choice is demo data until bundles are managed in the admin (PRD OQ-13). The first tab
+ * design; the item choice is demo data until a buyer defines their own bundles. The first tab
  * carries the design's own item names and prices so it matches the frame ($26 + $39 + $45 = $110).
  */
 const BUNDLE_DEFINITIONS: BundleDefinition[] = [
@@ -56,7 +56,7 @@ const BUNDLE_DEFINITIONS: BundleDefinition[] = [
   },
 ];
 
-export const BUNDLE_DISCOUNT_PERCENT = 20;
+const BUNDLE_DISCOUNT_PERCENT = 20;
 
 export function getBundles(): Bundle[] {
   return BUNDLE_DEFINITIONS.map((def) => {

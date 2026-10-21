@@ -9,7 +9,7 @@ export type BlogBlock =
 
 export const BLOG_LAYOUTS = ["grid", "list", "standard", "sidebar-left", "sidebar-right"] as const;
 export type BlogLayout = (typeof BLOG_LAYOUTS)[number];
-export const DEFAULT_BLOG_LAYOUT: BlogLayout = "grid";
+const DEFAULT_BLOG_LAYOUT: BlogLayout = "grid";
 
 export function parseBlogLayout(value: string | undefined): BlogLayout {
   return (BLOG_LAYOUTS as readonly string[]).includes(value ?? "")

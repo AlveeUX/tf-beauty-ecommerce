@@ -7,8 +7,6 @@ import { AddButton, CompareToggle, QuickAdd, QuickViewLink, WishlistToggle } fro
 import type { ProductBadge, ProductSummary } from "@/lib/catalog-types";
 import styles from "./ProductCard.module.css";
 
-export type { ProductBadge };
-
 /** "Serum · 30ml" -> the unit stays lowercase, as in the design's uppercase labels. */
 function withUnit(text: string) {
   const m = /^(.*\d)([a-z]+)$/.exec(text);

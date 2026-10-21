@@ -4,7 +4,7 @@ import { parseCatalogQuery } from "@/server/catalog/query";
 import { getFacets, listProducts } from "@/server/catalog/service";
 
 export const metadata: Metadata = { title: "Shop" };
-export const dynamic = "force-dynamic"; // admin changes must show immediately (decision-log D-009)
+export const dynamic = "force-dynamic"; // filtering and sorting come from the query string
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 

@@ -19,7 +19,7 @@ const optional = (max = 120) =>
     .transform((v) => (v ? v : undefined));
 
 /** Billing details form (CHK-001). Shared by the checkout page and the order API. */
-export const billingSchema = z.object({
+const billingSchema = z.object({
   firstName: required("First name"),
   lastName: required("Last name"),
   company: optional(),

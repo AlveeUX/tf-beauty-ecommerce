@@ -1,6 +1,6 @@
 import { SiteChrome } from "@/components/layout/SiteChrome";
 
-// The header reads live categories, so pages render per request (decision-log D-009).
+// Pages render per request: they read the query string, and the sale countdowns use the current time.
 export const dynamic = "force-dynamic";
 
 export default function SiteLayout({ children }: Readonly<{ children: React.ReactNode }>) {

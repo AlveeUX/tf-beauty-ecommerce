@@ -6,7 +6,7 @@ import { site } from "@/config/site";
  * opening hours follow the design's "Closes 8:00 PM / 7:00 PM / Opens 10:00 AM" and are the same every day.
  * The design also shows a distance ("0.4 mi"); distances need the visitor's location, which the store
  * locator does not ask for (PRD OQ-22 default: static list), so `distance` stays empty until the client decides.
- * The admin "stores" screen (P9) will own this list.
+ * Replace this list with your own stores.
  */
 export type StoreLocation = {
   id: string;

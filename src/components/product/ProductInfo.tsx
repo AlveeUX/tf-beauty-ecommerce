@@ -20,7 +20,7 @@ import { SizeGuideModal } from "./SizeGuideModal";
 import extras from "./PurchaseExtras.module.css";
 import styles from "./ProductInfo.module.css";
 
-export type InfoVariant = {
+type InfoVariant = {
   id: number;
   sku: string;
   sizeLabel: string;
@@ -69,7 +69,7 @@ const TRUST = [
 /** "15ml" -> "15 ml", as the size selector shows it. */
 const displaySize = (label: string) => label.replace(/^(\d+(?:\.\d+)?)(ml|g)/i, "$1 $2");
 
-/** Product summary and purchase panel. Figma 3:12769 (575 wide). Cart/wishlist/compare are wired in P5. */
+/** Product summary and purchase panel. Figma 3:12769 (575 wide). Cart, wishlist and compare use the browser stores. */
 export function ProductInfo(props: ProductInfoProps) {
   const { name, badge, shortDescription, rating, reviewCount, variants, categories, tags } = props;
   const [variantId, setVariantId] = useState(props.defaultVariantId);

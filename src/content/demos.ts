@@ -70,7 +70,7 @@ const BLOG_LABEL: Record<BlogLayout, string> = {
   "sidebar-right": "Right sidebar",
 };
 
-export const BLOG_SAMPLE_POST = "inside-the-formula-behind-beautiful-skin";
+const BLOG_SAMPLE_POST = "inside-the-formula-behind-beautiful-skin";
 
 export const DEMO_GROUPS: DemoGroup[] = [
   {

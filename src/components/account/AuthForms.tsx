@@ -20,7 +20,7 @@ import { fieldErrors, type FieldErrors } from "@/lib/validation/checkout";
 import styles from "./AuthForms.module.css";
 
 /** Only same-site paths are followed after login (no open redirect). */
-export function safeNext(value: string | undefined): string {
+function safeNext(value: string | undefined): string {
   return value && /^\/(?!\/)[\w\-/?=&.%]*$/.test(value) ? value : "/account";
 }
 
