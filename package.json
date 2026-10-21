@@ -4,8 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/images.mjs apply",
     "build": "next build",
     "start": "next start",
+    "images:placeholder": "node scripts/images.mjs use placeholder",
+    "images:real": "node scripts/images.mjs use real",
+    "images:figma": "node scripts/images.mjs use figma",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
@@ -16,6 +20,7 @@
     "e2e:responsive": "playwright test --project=r1440 --project=r1280 --project=r1180 --project=r1024 --project=r768 --project=r390 --project=r320",
     "e2e:browsers": "playwright test --project=firefox-desktop --project=webkit-desktop --project=firefox-r390 --project=webkit-r390",
     "e2e:all": "playwright test",
+    "licenses": "node scripts/licenses.mjs",
     "validate:html": "node tests/html/validate-html.mjs"
   },
   "dependencies": {
@@ -37,6 +42,7 @@
     "eslint-config-next": "16.4.2",
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.9.10",
+    "sharp": "0.35.5",
     "typescript": "5.9.3",
     "vitest": "5.0.5"
   },

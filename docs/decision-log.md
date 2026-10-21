@@ -729,3 +729,20 @@ Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P1
 - **Social platforms:** named platforms are kept out of the docs and logs only; the site UI is unchanged. Earlier entries were reworded to match.
 - **Status:** TF4 PASSED. TF5 not started; it needs the user's approval.
 - **Decided by:** the user.
+
+## D-067 · 2026-10-21 · TF5: placeholder pictures in the zip, real photos only for the preview
+- **How it works (changed from the contract, simpler):** `public/images` always holds one picture set. The default is **generated placeholders** with the same file names and pixel sizes as the Figma photos, so no component or JSON path changed and layout cannot shift. `scripts/images.mjs` makes them with `sharp` (flat neutral blocks, size and file name printed, rounded inset for the transparent product cut-outs) from `assets/placeholders.json` (116 pictures). `npm run build` runs it first (`prebuild`, mode from `NEXT_PUBLIC_DEMO_IMAGES`: `placeholder` default, `real`, `figma`). `real` copies licensed photos from `assets/preview-photos` over the placeholders; `figma` copies the design's photos for local fidelity checks. Because only one set is in `public/images` at build time, the sets cannot leak into each other's build.
+- **Figma photos moved, not deleted:** `assets/figma-reference/` (18 MB, in git history already, D-051). **TF7's zip script must exclude `assets/figma-reference`, `assets/preview-photos`, `docs/`, `CLAUDE.md`, `tests/` results.** `public/` went from 18 MB to 1.6 MB.
+- **B Corp badge removed** from both footers (a certification mark the shop does not hold); both SVGs deleted; the footer grid lost its 72 px column (positions of the other columns unchanged).
+- **Licences:** the three OFL licence texts are in `licenses/`; `scripts/licenses.mjs` (`npm run licenses`) writes `licenses/THIRD-PARTY.txt` from the lockfile (61 production packages: MIT 20, Apache-2.0 19, LGPL-3.0 (sharp's libvips binaries, installed by npm, not copied into the zip) 14, OFL 3, ISC 2, CC-BY-4.0 1 (`caniuse-lite`, data), BSD, 0BSD). No GPL/AGPL. `CREDITS.md` written.
+- **`sharp` added as a pinned devDependency** (0.35.5) because the script imports it; Next already uses it.
+- **Branding scan:** no author name, email or URL in `src/`, `public/`, `README.md` or `documentation/`; the owner name appears only in `CLAUDE.md` and `docs/` (internal, excluded from the zip).
+- **Tests:** `tests/unit/images.test.ts` (manifest sizes, no unlisted photo, placeholder set under 3 MB, every `/images` path in code exists), E2E-IMG-01 on 7 pages (no failed or broken picture).
+- **Still open:** T04 licensed preview photos need the user's approval of a list; product cut-outs have no free-licence equivalent, so the preview keeps their placeholders unless the user supplies packshots. SVG icon origin (drawn in the Figma file) depends on the TF0 Figma-ownership answer.
+- **Decided by:** Claude (design), the user approved the TF5 contract.
+
+## D-068 · 2026-10-21 · TF5 evidence: placeholder build checked, mobile Lighthouse re-measured
+- **Checks:** typecheck, lint, prettier and knip clean; Vitest **144 passed**; Playwright Chromium 1920 **176 passed** (includes 7 E2E-IMG-01); responsive suite **87 passed, 32 skipped by design** (7 widths); production build good.
+- **Mobile Lighthouse with placeholders (D-066 follow-up):** Performance **Home 80, Shop 87, Product 85, Checkout 89** (were 72, 73, 73, 90); Accessibility 99-100, Best practices 96-100, SEO 100 (Checkout 69, noindex by design). Report: `docs/lighthouse-report.md`.
+- **Left for the user:** accept these numbers or hydrate less (option B). Real-photo mode is not measured because no licensed photos are chosen yet (T04).
+- **Not verified:** Firefox/WebKit after the picture swap (only file contents changed, sizes identical); `NEXT_PUBLIC_DEMO_IMAGES=real` with actual photos.

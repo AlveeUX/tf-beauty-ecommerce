@@ -58,14 +58,6 @@ export function Footer() {
         <FooterColumn title="Shop now" links={SHOP_NOW} />
         <FooterColumn title="Quick link" links={QUICK_LINK} />
         <FooterColumn title="Get help" links={GET_HELP} />
-        <Image
-          className={styles.bcorp}
-          src="/images/ui/bcorp.svg"
-          alt="Certified B Corporation"
-          width={72}
-          height={121}
-          unoptimized
-        />
       </div>
 
       <div className={styles.bottom}>

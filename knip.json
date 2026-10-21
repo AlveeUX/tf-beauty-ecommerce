@@ -1,6 +1,5 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "entry": ["tests/visual/*.mjs"],
-  "project": ["src/**/*.{ts,tsx}", "tests/**/*.{ts,mjs}", "*.{ts,mts,mjs}"],
-  "ignoreDependencies": ["sharp"]
+  "entry": ["tests/visual/*.mjs", "tests/perf/*.mjs", "scripts/*.mjs"],
+  "project": ["src/**/*.{ts,tsx}", "tests/**/*.{ts,mjs}", "scripts/*.mjs", "*.{ts,mts,mjs}"]
 }

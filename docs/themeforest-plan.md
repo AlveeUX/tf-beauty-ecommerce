@@ -16,7 +16,7 @@
 | Envato account | `TreeTech_Themes`, author since Aug 2024, but `/upload` redirects to the dashboard and the menu still shows "Become an Author". Support ticket sent 2026-10-20 — **waiting** |
 | Figma design ownership | **Unconfirmed** (TF0-T02) |
 | `npm install` in the copy | **Fails** (checked 2026-10-20, Node 24.18, no VS Build Tools) on `better-sqlite3` (no prebuilt binary for Node 24.18, no C++ build tools). Local-machine issue, not a repo problem. Fix in TF1-T00 below; the problem disappears for good once TF1-T09 removes the native module |
-| Progress (updated 2026-10-21) | TF1, TF2 and TF3 passed (G3 approved); TF4 passed (G4: option C, D-066); TF0 answers and TF5–TF8 not started. See the master checklist in section 6 |
+| Progress (updated 2026-10-21) | TF1, TF2 and TF3 passed (G3 approved); TF4 passed (G4: option C, D-066); TF5 built except T04 licensed preview photos (D-067, D-068), awaiting G5; TF0 answers and TF6–TF8 not started. See the master checklist in section 6 |
 
 ---
 
@@ -404,7 +404,7 @@ E2E scenarios:      E2E-IMG-01 no failed image request on Home, Shop, Product, B
 Visual verification: side-by-side screenshots of Home, Shop, Product at 1920 and 390 in both modes shown to you before G5 (the look changes by design: photos become neutral blocks).
 Regression risks:   specs that read image file names; `next/image` width/height/sizes; hero and card aspect ratios; JSON data that points to photo names; build size and Lighthouse numbers.
 Evidence required:  counts of removed files, image-listing script output for both builds, CREDITS.md, licence files, Lighthouse before/after, test counts.
-Status:             IN_PROGRESS (approved by the user 2026-10-21)
+Status:             IN_PROGRESS (T01-T03, T05-T08 done; T04 waits for the user's photo list)
 ```
 
 **Sub-tasks, in order:** T01 inventory + `images.ts` helper + flag skeleton (I4) · T02 placeholder generator and set (I1, I2) · T03 switch every photo reference to the helper, remove Figma photos from the zip build (I1) · T04 licensed preview photos and `CREDITS.md` (I3) · T05 fonts and npm licences (I5) · T06 icon audit and B Corp removal (I6) · T07 author-branding scan (I7) · T08 Lighthouse re-measure, evidence, docs (I8, I9). **Gate G5:** you review the screenshots in both modes, `CREDITS.md` and the Lighthouse numbers.
@@ -543,9 +543,9 @@ Stop at the TF1 exit gate and report evidence.
 - [x] Renders inside an iframe (T05, D-062; real-domain check in TF7-T05)
 
 **TF5 Legal**
-- [ ] Figma photos removed from zip; placeholders generated
+- [x] Figma photos removed from zip; placeholders generated (T01-T03, D-067)
 - [ ] Preview photos licensed + `CREDITS.md`
-- [ ] Image build flag
+- [x] Image build flag (`NEXT_PUBLIC_DEMO_IMAGES`, D-067)
 - [ ] Font, icon, npm licences in `licenses/`
 - [ ] B Corp badge removed; no author branding
 

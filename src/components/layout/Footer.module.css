@@ -6,7 +6,7 @@
 .top {
   display: grid;
   /* x offsets measured at 1920: newsletter 301, columns 830 / 1069 / 1308, badge 1547 */
-  grid-template-columns: 528px 239px 239px 239px 72px;
+  grid-template-columns: 528px 239px 239px 239px;
   padding-top: 100px;
   padding-bottom: 135px; /* Figma 3:24335: the rule sits 553px under the footer top */
 }
@@ -56,10 +56,6 @@
   text-decoration: underline;
   text-decoration-thickness: 6%;
   text-underline-offset: 3px;
-}
-
-.bcorp {
-  justify-self: end;
 }
 
 .bottom {
@@ -132,7 +128,7 @@
 /* Laptop (1101-1439): the 1920 design's fixed column widths become shares of the available width */
 @media (max-width: 1439px) {
   .top {
-    grid-template-columns: minmax(0, 2.2fr) repeat(3, minmax(0, 1fr)) 72px;
+    grid-template-columns: minmax(0, 2.2fr) repeat(3, minmax(0, 1fr));
     column-gap: 24px;
   }
 
@@ -154,10 +150,6 @@
 
   .newsletter {
     grid-column: 1 / -1;
-  }
-
-  .bcorp {
-    justify-self: start;
   }
 
   .bottomInner {
@@ -218,10 +210,6 @@
 
   .heading {
     margin-bottom: 0;
-  }
-
-  .bcorp {
-    margin-top: 32px;
   }
 
   .bottomInner {

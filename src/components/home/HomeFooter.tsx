@@ -75,15 +75,6 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
       <span className={`${styles.rule} ${styles.ruleBottom}`} aria-hidden="true" />
 
       <div className={styles.footInner}>
-        <Image
-          src={`${ASSET}/bcorp.svg`}
-          alt="Certified B Corporation"
-          width={72}
-          height={121}
-          unoptimized
-          className={styles.bcorp}
-        />
-
         <div className={styles.newsletter}>
           <div className={styles.portrait}>
             {portrait ? <Image src={portrait} alt="" fill sizes="171px" /> : null}

@@ -1,0 +1,698 @@
+[
+  {
+    "path": "about/expert.jpg",
+    "width": 1400,
+    "height": 933,
+    "alpha": false
+  },
+  {
+    "path": "about/founder.jpg",
+    "width": 600,
+    "height": 600,
+    "alpha": false
+  },
+  {
+    "path": "about/hero.jpg",
+    "width": 1400,
+    "height": 1400,
+    "alpha": false
+  },
+  {
+    "path": "about/reason-1.jpg",
+    "width": 900,
+    "height": 900,
+    "alpha": false
+  },
+  {
+    "path": "about/reason-2.jpg",
+    "width": 900,
+    "height": 900,
+    "alpha": false
+  },
+  {
+    "path": "about/reason-3.jpg",
+    "width": 900,
+    "height": 900,
+    "alpha": false
+  },
+  {
+    "path": "about/transparency.jpg",
+    "width": 1400,
+    "height": 933,
+    "alpha": false
+  },
+  {
+    "path": "blog/author-selena.jpg",
+    "width": 48,
+    "height": 48,
+    "alpha": false
+  },
+  {
+    "path": "blog/avatar-darrell.jpg",
+    "width": 120,
+    "height": 120,
+    "alpha": false
+  },
+  {
+    "path": "blog/avatar-eleanor.jpg",
+    "width": 120,
+    "height": 120,
+    "alpha": false
+  },
+  {
+    "path": "blog/avatar-michel.jpg",
+    "width": 160,
+    "height": 89,
+    "alpha": false
+  },
+  {
+    "path": "blog/cleanse-to-glow-understand-every-step-of-your-ritual.jpg",
+    "width": 1200,
+    "height": 673,
+    "alpha": false
+  },
+  {
+    "path": "blog/details-pair-1.jpg",
+    "width": 1024,
+    "height": 683,
+    "alpha": false
+  },
+  {
+    "path": "blog/details-pair-2.jpg",
+    "width": 1024,
+    "height": 574,
+    "alpha": false
+  },
+  {
+    "path": "blog/how-to-create-a-skincare-routine-that-works.jpg",
+    "width": 1200,
+    "height": 800,
+    "alpha": false
+  },
+  {
+    "path": "blog/inside-the-formula-behind-beautiful-skin.jpg",
+    "width": 1200,
+    "height": 800,
+    "alpha": false
+  },
+  {
+    "path": "blog/preparing-your-skin-for-makeup-that-looks-natural.jpg",
+    "width": 1200,
+    "height": 801,
+    "alpha": false
+  },
+  {
+    "path": "blog/promo-mid-year-sale.jpg",
+    "width": 1200,
+    "height": 800,
+    "alpha": false
+  },
+  {
+    "path": "blog/skin-simplified-for-smarter-skincare-routine.jpg",
+    "width": 1200,
+    "height": 675,
+    "alpha": false
+  },
+  {
+    "path": "blog/smarter-approach-to-building-daily-skincare-routine.jpg",
+    "width": 1200,
+    "height": 800,
+    "alpha": false
+  },
+  {
+    "path": "blog/the-evening-ritual-for-rested-radiant-skin.jpg",
+    "width": 1200,
+    "height": 800,
+    "alpha": false
+  },
+  {
+    "path": "blog/the-evening-ritual-your-skin-looks-forward.jpg",
+    "width": 1200,
+    "height": 654,
+    "alpha": false
+  },
+  {
+    "path": "blog/the-ingredients-that-give-your-skincare-beautiful-finish.jpg",
+    "width": 1200,
+    "height": 800,
+    "alpha": false
+  },
+  {
+    "path": "blog/the-little-skincare-habits-that-make-a-noticeable-difference.jpg",
+    "width": 1200,
+    "height": 800,
+    "alpha": false
+  },
+  {
+    "path": "blog/the-ritual-behind-skin-that-feels-truly-refreshed.jpg",
+    "width": 1200,
+    "height": 800,
+    "alpha": false
+  },
+  {
+    "path": "blog/what-your-skin-really-needs-for-a-healthy-looking-glow.jpg",
+    "width": 1200,
+    "height": 800,
+    "alpha": false
+  },
+  {
+    "path": "categories/cleansers.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/essentials.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/eyes.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/face.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/fragrance.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/haircare.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/lips.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/masks.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/moisturizers.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/skincare.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/tools.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "categories/treatments.jpg",
+    "width": 308,
+    "height": 420,
+    "alpha": false
+  },
+  {
+    "path": "home/badge-fill.png",
+    "width": 228,
+    "height": 228,
+    "alpha": true
+  },
+  {
+    "path": "home/cat-eyes.jpg",
+    "width": 900,
+    "height": 1117,
+    "alpha": false
+  },
+  {
+    "path": "home/cat-face.jpg",
+    "width": 900,
+    "height": 1125,
+    "alpha": false
+  },
+  {
+    "path": "home/cat-lips.jpg",
+    "width": 900,
+    "height": 1195,
+    "alpha": false
+  },
+  {
+    "path": "home/cat-skincare.jpg",
+    "width": 900,
+    "height": 1117,
+    "alpha": false
+  },
+  {
+    "path": "home/drops-1.jpg",
+    "width": 520,
+    "height": 646,
+    "alpha": false
+  },
+  {
+    "path": "home/drops-2.jpg",
+    "width": 520,
+    "height": 646,
+    "alpha": false
+  },
+  {
+    "path": "home/drops-3.jpg",
+    "width": 520,
+    "height": 646,
+    "alpha": false
+  },
+  {
+    "path": "home/editorial-lipstick.jpg",
+    "width": 500,
+    "height": 621,
+    "alpha": false
+  },
+  {
+    "path": "home/editorial-model.jpg",
+    "width": 1152,
+    "height": 928,
+    "alpha": false
+  },
+  {
+    "path": "home/flash-sale.jpg",
+    "width": 1024,
+    "height": 572,
+    "alpha": false
+  },
+  {
+    "path": "home/footer-newsletter.jpg",
+    "width": 360,
+    "height": 360,
+    "alpha": false
+  },
+  {
+    "path": "home/fresh-multiplate.jpg",
+    "width": 1376,
+    "height": 768,
+    "alpha": false
+  },
+  {
+    "path": "home/fresh/badge-fill.png",
+    "width": 228,
+    "height": 228,
+    "alpha": true
+  },
+  {
+    "path": "home/hero.jpg",
+    "width": 2048,
+    "height": 1152,
+    "alpha": false
+  },
+  {
+    "path": "home/ig-1.jpg",
+    "width": 520,
+    "height": 646,
+    "alpha": false
+  },
+  {
+    "path": "home/ig-2.jpg",
+    "width": 520,
+    "height": 646,
+    "alpha": false
+  },
+  {
+    "path": "home/ig-3.jpg",
+    "width": 520,
+    "height": 646,
+    "alpha": false
+  },
+  {
+    "path": "home/ig-4.jpg",
+    "width": 520,
+    "height": 520,
+    "alpha": false
+  },
+  {
+    "path": "home/ig-5.jpg",
+    "width": 520,
+    "height": 520,
+    "alpha": false
+  },
+  {
+    "path": "home/ig-6.jpg",
+    "width": 520,
+    "height": 646,
+    "alpha": false
+  },
+  {
+    "path": "home/journal-1.jpg",
+    "width": 900,
+    "height": 600,
+    "alpha": false
+  },
+  {
+    "path": "home/journal-2.jpg",
+    "width": 900,
+    "height": 506,
+    "alpha": false
+  },
+  {
+    "path": "home/journal-3.jpg",
+    "width": 900,
+    "height": 600,
+    "alpha": false
+  },
+  {
+    "path": "home/story-1.jpg",
+    "width": 928,
+    "height": 1152,
+    "alpha": false
+  },
+  {
+    "path": "home/story-2.jpg",
+    "width": 928,
+    "height": 1152,
+    "alpha": false
+  },
+  {
+    "path": "home/story-3.jpg",
+    "width": 928,
+    "height": 1152,
+    "alpha": false
+  },
+  {
+    "path": "home/story-4.jpg",
+    "width": 928,
+    "height": 1152,
+    "alpha": false
+  },
+  {
+    "path": "ingredients/hyaluronic-tri-complex.jpg",
+    "width": 1200,
+    "height": 673,
+    "alpha": false
+  },
+  {
+    "path": "ingredients/palmitoyl-tripeptide-38.jpg",
+    "width": 1200,
+    "height": 670,
+    "alpha": false
+  },
+  {
+    "path": "ingredients/pure-niacinamide.jpg",
+    "width": 1200,
+    "height": 905,
+    "alpha": false
+  },
+  {
+    "path": "menu/best-seller.jpg",
+    "width": 700,
+    "height": 869,
+    "alpha": false
+  },
+  {
+    "path": "menu/new-arrival.jpg",
+    "width": 700,
+    "height": 700,
+    "alpha": false
+  },
+  {
+    "path": "newsletter/popup.jpg",
+    "width": 840,
+    "height": 1200,
+    "alpha": false
+  },
+  {
+    "path": "products/barrier-repair-cream.png",
+    "width": 840,
+    "height": 980,
+    "alpha": true
+  },
+  {
+    "path": "products/brightening-eye-gel.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/cooling-eye-wand.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/cooling-facial-stick.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/daily-defense-spf-50.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/dew-drop-spray.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/facial-cleansing-brush.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/facial-roller.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/firming-neck-cream.png",
+    "width": 840,
+    "height": 980,
+    "alpha": true
+  },
+  {
+    "path": "products/flush-cream-blush.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/gentle-cleansing-milk.png",
+    "width": 840,
+    "height": 980,
+    "alpha": true
+  },
+  {
+    "path": "products/gentle-exfoliating-polish.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/glam-edit-eyeshadow.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/glass-glow-primer.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/glow-cleansing-bar.png",
+    "width": 840,
+    "height": 980,
+    "alpha": true
+  },
+  {
+    "path": "products/glow-veil-highlighter.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/hydra-mist-toner.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/hydrating-body-lotion.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/led-face-mask.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/lift-and-define-brow-gel.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/lip-repair-balm.png",
+    "width": 840,
+    "height": 980,
+    "alpha": true
+  },
+  {
+    "path": "products/luxe-matte-lipstick.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/nourishing-face-oil.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/overnight-renewal-mask.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/precision-brow-pencil.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/scalp-renewal-scrub.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/sculpting-facial-massager.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/silk-repair-shampoo.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/silk-shine-lip-oil.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/skin-rescue-ampoule.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/skin-rescue-shampoo.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/soft-focus-concealer.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/soft-sculpt-bronzer.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/the-renewal-serum.png",
+    "width": 840,
+    "height": 980,
+    "alpha": true
+  },
+  {
+    "path": "products/the-renewal-serum/gallery-1.jpg",
+    "width": 1328,
+    "height": 1760,
+    "alpha": false
+  },
+  {
+    "path": "products/the-renewal-serum/gallery-2.jpg",
+    "width": 1600,
+    "height": 900,
+    "alpha": false
+  },
+  {
+    "path": "products/the-renewal-serum/gallery-3.jpg",
+    "width": 1376,
+    "height": 768,
+    "alpha": false
+  },
+  {
+    "path": "products/the-renewal-serum/gallery-4.jpg",
+    "width": 840,
+    "height": 1200,
+    "alpha": false
+  },
+  {
+    "path": "products/the-renewal-serum/gallery-5.jpg",
+    "width": 1349,
+    "height": 1166,
+    "alpha": false
+  },
+  {
+    "path": "products/velvet-bloom-perfume.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/velvet-skin-foundation.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "stores/map.png",
+    "width": 1290,
+    "height": 1430,
+    "alpha": true
+  },
+  {
+    "path": "stores/marker.png",
+    "width": 362,
+    "height": 362,
+    "alpha": true
+  },
+  {
+    "path": "ui/page-hero.png",
+    "width": 1920,
+    "height": 480,
+    "alpha": true
+  }
+]

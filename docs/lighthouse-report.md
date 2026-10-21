@@ -66,3 +66,16 @@ node tests/perf/lighthouse.mjs http://localhost:3300 3        # all pages, both 
 LH_ONLY=home LH_DEVICES=mobile node tests/perf/lighthouse.mjs http://localhost:3300 1
 ```
 Reports are written to `tests/perf/results/` (git-ignored). One heavy job at a time: do not run it while Playwright or a build is running.
+
+## Re-measure after TF5 (placeholder pictures, 2026-10-21)
+
+The download ships the generated placeholders, so this is what a buyer's first build scores. Same method as above (production build, local server, median of 3, mobile only).
+
+| Page | Performance | Accessibility | Best practices | SEO | LCP ms | CLS | TBT ms | KB |
+|---|---|---|---|---|---|---|---|---|
+| Home | **80** (was 72) | 100 | 96 | 100 | 4100 | 0 | 260 | 552 |
+| Shop | **87** (was 73) | 99 | 100 | 100 | 3728 | 0.001 | 164 | 400 |
+| Product | **85** (was 73) | 100 | 100 | 100 | 3674 | 0.001 | 213 | 379 |
+| Checkout | **89** (was 90) | 100 | 100 | 69 (noindex, by design) | 3538 | 0.042 | 113 | 364 |
+
+The photos were a large part of the gap: Home went from 72 to 80 and Shop and Product by 12 to 14 points. The remaining gap to 90 is the framework's hydration time (total blocking time 160 to 260 ms). The live preview with real photos will score lower than this; the zip will not. The choice between accepting these numbers and hydrating less (option B) is open for the user.
