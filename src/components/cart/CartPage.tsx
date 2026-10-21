@@ -51,7 +51,7 @@ export function CartPage() {
   }
 
   if (!ready && cart.lines.length === 0) {
-    return <div className={`container ${styles.page}`} aria-busy="true" />;
+    return <div className={`container ${styles.page} ${styles.pending}`} aria-busy="true" />;
   }
 
   return (

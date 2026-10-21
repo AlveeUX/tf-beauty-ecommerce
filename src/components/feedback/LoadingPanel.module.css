@@ -3,7 +3,8 @@
   display: grid;
   gap: 20px;
   padding-block: 120px;
-  min-height: 60vh;
+  /* at least a full screen, so the footer below it starts out of view and does not jump when the page streams in */
+  min-height: 100vh;
   align-content: start;
 }
 

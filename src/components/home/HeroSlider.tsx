@@ -28,7 +28,15 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
       aria-label="Featured collection"
     >
       {slide.image ? (
-        <Image src={slide.image} alt="" fill priority sizes="100vw" className={styles.bg} />
+        <Image
+          src={slide.image}
+          alt=""
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
+          className={styles.bg}
+        />
       ) : null}
       <div className={styles.shade} aria-hidden="true" />
 

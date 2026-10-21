@@ -15,12 +15,16 @@ const CHROME = process.env.CHROME_PATH ?? "C:/Program Files/Google/Chrome/Applic
 const OUT = join("tests", "perf", "results");
 mkdirSync(OUT, { recursive: true });
 
-const PAGES = [
+const ALL_PAGES = [
   { name: "home", path: "/" },
   { name: "shop", path: "/shop" },
   { name: "product", path: "/product/the-renewal-serum" },
   { name: "checkout", path: "/checkout", cart: true },
 ];
+// LH_ONLY=home,product measures just those pages; LH_DEVICES=mobile just that device
+const ONLY = process.env.LH_ONLY?.split(",");
+const DEVICES = process.env.LH_DEVICES?.split(",") ?? ["mobile", "desktop"];
+const PAGES = ALL_PAGES.filter((p) => !ONLY || ONLY.includes(p.name));
 const CATEGORIES = ["performance", "accessibility", "best-practices", "seo"];
 const TARGETS = { performance: 90, accessibility: 95, "best-practices": 95, seo: 95 };
 
@@ -54,7 +58,7 @@ function median(values) {
 const profile = await seededProfile();
 const rows = [];
 for (const page of PAGES) {
-  for (const device of ["mobile", "desktop"]) {
+  for (const device of DEVICES) {
     const scores = Object.fromEntries(CATEGORIES.map((c) => [c, []]));
     const metrics = { lcp: [], cls: [], tbt: [], bytes: [] };
     for (let run = 1; run <= RUNS; run++) {

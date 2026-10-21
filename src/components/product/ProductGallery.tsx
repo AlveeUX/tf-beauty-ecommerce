@@ -68,6 +68,7 @@ export function ProductGallery({ images, name, mode = "below", zoom = "none" }: 
       alt={priority ? current.alt || name : ""}
       fill
       priority={priority}
+      fetchPriority={priority ? "high" : undefined}
       sizes={sizes}
       className={styles.image}
     />
@@ -159,6 +160,7 @@ export function ProductGallery({ images, name, mode = "below", zoom = "none" }: 
                   alt={img.alt || name}
                   fill
                   priority={i === 0}
+                  fetchPriority={i === 0 ? "high" : undefined}
                   sizes={mode === "grid-2" ? "315px" : "(min-width: 1100px) 645px, 100vw"}
                   className={styles.image}
                 />

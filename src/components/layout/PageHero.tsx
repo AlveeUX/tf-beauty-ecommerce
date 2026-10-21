@@ -20,6 +20,7 @@ export function PageHero({ title, crumbs = [{ label: title }] }: PageHeroProps) 
         alt=""
         fill
         priority
+        fetchPriority="high"
         sizes="100vw"
         className={styles.image}
       />

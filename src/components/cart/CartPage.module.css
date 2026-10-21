@@ -541,3 +541,8 @@
     width: 100%;
   }
 }
+
+/* shown until the cart is read in the browser: a full screen tall, so the sections below start out of view and do not jump */
+.pending {
+  min-height: 100vh;
+}

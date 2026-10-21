@@ -81,7 +81,7 @@ export function CheckoutPage({ methods }: Props) {
     setEdited((v) => ({ ...v, [name]: value }));
 
   if (!ready && cart.lines.length === 0) {
-    return <div className={`container ${styles.page}`} aria-busy="true" />;
+    return <div className={`container ${styles.page} ${styles.pending}`} aria-busy="true" />;
   }
 
   if (cart.lines.length === 0) {
