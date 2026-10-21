@@ -84,7 +84,7 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
           </h1>
         </div>
 
-        <aside className={styles.card}>
+        <aside className={`${styles.card} m-shine m-sweep`}>
           <h2 key={`h-${slide.id}`} className={swap}>
             {String(slide.data.cardTitle ?? "")}
           </h2>

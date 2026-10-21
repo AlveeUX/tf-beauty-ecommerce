@@ -169,9 +169,14 @@ html:is([data-motion="subtle"], [data-motion="off"]) [data-loop] {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(110deg, transparent 38%, rgb(253 251 248 / 0.5) 50%, transparent 62%)
+  background: linear-gradient(
+      110deg,
+      transparent 38%,
+      rgb(253 251 248 / var(--shine-alpha, 0.5)) 50%,
+      transparent 62%
+    )
     0 0 / 300% 100% no-repeat;
-  animation: m-shine var(--duration-hero) var(--ease) var(--shine-delay, 0ms) backwards;
+  animation: m-shine var(--duration-hero) var(--ease-standard) var(--shine-delay, 0ms) backwards;
 }
 
 @keyframes m-shine {
@@ -188,4 +193,36 @@ html:is([data-motion="subtle"], [data-motion="off"]) [data-loop] {
 
 html:is([data-motion="subtle"], [data-motion="off"]) .m-shine::after {
   animation: none;
+}
+
+/*
+ * Hover sweep: a soft highlight crosses the element once each time the pointer enters it, then resets out of
+ * sight (no loop, nothing on touch, nothing for reduced motion or the "subtle" and "off" modes). The element must
+ * be positioned. --sweep-alpha sets the strength; the one-time shine uses --shine-alpha and --shine-delay.
+ */
+@media (hover: hover) and (pointer: fine) {
+  html:not([data-motion="subtle"], [data-motion="off"]) .m-sweep::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        110deg,
+        transparent 38%,
+        rgb(253 251 248 / var(--sweep-alpha, 0.12)) 50%,
+        transparent 62%
+      )
+      100% 0 / 300% 100% no-repeat;
+  }
+
+  html:not([data-motion="subtle"], [data-motion="off"]) .m-sweep:hover::before {
+    background-position: 0 0;
+    transition: background-position var(--duration-hero) var(--ease-standard);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-sweep::before {
+    display: none;
+  }
 }

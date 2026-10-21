@@ -411,3 +411,9 @@
 .hero[data-drift] .bg {
   translate: 0 calc(var(--hero-p, 0) * 24px);
 }
+
+/* Light sweep over the glass card: once after it has entered (the shine from motion.css), and when the pointer enters it. */
+.card {
+  --shine-delay: calc(var(--stagger) * 4 + var(--duration-reveal) + var(--duration-base));
+  --shine-alpha: 0.14; /* a glint on glass, not the strength of the badge shine */
+}
