@@ -120,8 +120,45 @@
   transition: transform var(--duration-slow) var(--ease);
 }
 
-.category:hover img {
-  transform: scale(1.04);
+/*
+ * Tile hover (a mouse only): the photo zooms and dims a little (a filter, so nothing is laid over the caption text),
+ * the caption lifts and its title is underlined from the centre. Keyboard focus does the same.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .category img {
+    transition:
+      transform var(--duration-slow) var(--ease),
+      filter var(--duration-slow) var(--ease);
+  }
+
+  .category:is(:hover, :focus-visible) img {
+    transform: scale(var(--img-zoom));
+    filter: brightness(0.78);
+  }
+
+  .label {
+    transition: translate var(--duration-base) var(--ease);
+  }
+
+  .category:is(:hover, :focus-visible) .label {
+    translate: 0 calc(var(--hover-lift) * 0.6667); /* 4px; none with reduced motion */
+  }
+
+  .label strong {
+    width: fit-content;
+    /* the title box is trimmed to its cap height, so the underline gets 4px below the baseline (the margin cancels it) */
+    padding-bottom: 4px;
+    margin-bottom: -4px;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+    background-size: 0% 1px;
+    transition: background-size var(--duration-base) var(--ease);
+  }
+
+  .category:is(:hover, :focus-visible) .label strong {
+    background-size: 100% 1px;
+  }
 }
 
 /* caption glass: 278x80, 15px from the card edges (Figma 3:2519) */

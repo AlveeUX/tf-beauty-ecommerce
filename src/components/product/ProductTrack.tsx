@@ -12,6 +12,8 @@ type ProductTrackProps = {
   tone?: "default" | "light";
   /** Let the row run to the right edge of the viewport (Home "Trending now"). */
   bleed?: boolean;
+  /** Cards fade in one after another as the row comes into view (Home). */
+  reveal?: boolean;
 };
 
 /** Horizontally scrolling row of product cards with previous/next controls. */
@@ -20,6 +22,7 @@ export function ProductTrack({
   label,
   tone = "default",
   bleed = false,
+  reveal = false,
 }: ProductTrackProps) {
   const track = useRef<HTMLUListElement>(null);
 
@@ -31,9 +34,14 @@ export function ProductTrack({
 
   return (
     <div className={`${styles.frame} ${bleed ? styles.bleed : ""}`}>
-      <ul ref={track} className={styles.track} data-testid="carousel-track">
+      <ul
+        ref={track}
+        className={styles.track}
+        data-testid="carousel-track"
+        data-reveal-stagger={reveal || undefined}
+      >
         {products.map((p) => (
-          <li key={p.slug}>
+          <li key={p.slug} data-reveal={reveal ? "fade" : undefined}>
             <ProductCard product={p} tone={tone} />
           </li>
         ))}

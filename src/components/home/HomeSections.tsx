@@ -29,7 +29,7 @@ function SectionHeader({
   titleShift?: boolean;
 }) {
   return (
-    <header className={`${styles.header} ${center ? styles.center : ""}`}>
+    <header className={`${styles.header} ${center ? styles.center : ""}`} data-reveal="fade-up">
       {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
       <h2 className={`${styles.title} ${titleShift ? styles.titleShift : ""}`}>{title}</h2>
       {intro ? <p className={styles.intro}>{intro}</p> : null}
@@ -60,14 +60,14 @@ export function CategoryCards({
           title="Find favorites"
           action={{ label: "More categories", href: "/categories" }}
         />
-        <ul className={styles.cards} id="favorites-title">
+        <ul className={styles.cards} id="favorites-title" data-reveal-stagger>
           {cards.map((card) => {
             const slug = String(card.data.categorySlug ?? "");
             const count = counts[slug];
             const crop = card.data.crop as
               { width: number; height: number; left: number; top: number } | undefined;
             return (
-              <li key={card.id}>
+              <li key={card.id} data-reveal="fade-up">
                 <Link href={card.ctaHref ?? "/shop"} className={styles.category}>
                   {card.image && crop ? (
                     // a fill crop taken from the design: the image is larger than the card
@@ -156,7 +156,7 @@ export function TrendingNow({ products }: { products: ProductSummary[] }) {
           action={{ label: "More products", href: "/shop?badge=trending" }}
         />
       </div>
-      <ProductTrack products={products} label="Trending now" tone="light" bleed />
+      <ProductTrack products={products} label="Trending now" tone="light" bleed reveal />
     </section>
   );
 }
