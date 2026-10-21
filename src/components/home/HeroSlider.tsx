@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SplitText } from "@/components/motion/SplitText";
 import { Icon } from "@/components/ui/Icon";
+import { canHover, flagOn, motionOn } from "@/lib/motion";
 import type { Banner } from "@/server/content/banners";
 import styles from "./HeroSlider.module.css";
 
@@ -16,11 +17,27 @@ type HeroBadge = { top?: string; value?: string; bottom?: string };
  * the old one and plays the headline again; there is no autoplay.
  */
 export function HeroSlider({ slides }: { slides: Banner[] }) {
+  const heroRef = useRef<HTMLElement>(null);
   const [index, setIndex] = useState(0);
   // the slide being left stays underneath until the new background has faded in over it
   const [leaving, setLeaving] = useState<Banner | null>(null);
   // the card text fades on a slide change, but not on the first view (the card itself enters then)
   const [changed, setChanged] = useState(false);
+  // scroll drift and background parallax: loaded only when the setting is on, for a mouse, without reduced motion
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero || !flagOn("parallax") || !motionOn() || !canHover()) return;
+    let detach: (() => void) | undefined;
+    let cancelled = false;
+    void import("@/components/motion/hero-drift").then(({ attachHeroDrift }) => {
+      if (!cancelled) detach = attachHeroDrift(hero);
+    });
+    return () => {
+      cancelled = true;
+      detach?.();
+    };
+  }, []);
+
   const count = slides.length;
   const slide = slides[index];
   if (!slide) return null;
@@ -37,6 +54,7 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
 
   return (
     <section
+      ref={heroRef}
       className={styles.hero}
       aria-roledescription="carousel"
       aria-label="Featured collection"

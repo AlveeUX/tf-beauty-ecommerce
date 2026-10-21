@@ -396,3 +396,18 @@
 .index button[aria-current="true"] span {
   animation: hero-index var(--duration-base) var(--ease) backwards;
 }
+
+/*
+ * Scroll drift (the "parallax" setting): hero-drift.ts writes --hero-p (0 at the top, 1 once the hero has mostly
+ * scrolled away) and marks the hero data-drift. The copy, card and controls drift up and fade; the background
+ * moves down a little, the other way. translate is its own property, so it adds to the entrance transforms.
+ * The gap the background leaves at the top sits under the dark top fade of .shade.
+ */
+.hero[data-drift] :is(.copy, .card, .controls) {
+  translate: 0 calc(var(--hero-p, 0) * -24px);
+  opacity: calc(1 - var(--hero-p, 0));
+}
+
+.hero[data-drift] .bg {
+  translate: 0 calc(var(--hero-p, 0) * 24px);
+}

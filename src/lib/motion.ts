@@ -3,6 +3,8 @@
  * All of them are safe to call on the server: they report "no motion" there.
  */
 
+import type { MotionConfig } from "@/config/motion";
+
 /** True when the visitor asked their system for less motion. */
 export function prefersReducedMotion(): boolean {
   return (
@@ -15,6 +17,11 @@ export function canHover(): boolean {
   return (
     typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches
   );
+}
+
+/** True when a yes/no setting of src/config/motion.ts (written to <html> as a data attribute) is on. */
+export function flagOn(name: Exclude<keyof MotionConfig, "mode" | "header">): boolean {
+  return typeof document !== "undefined" && document.documentElement.dataset[name] === "true";
 }
 
 /**
