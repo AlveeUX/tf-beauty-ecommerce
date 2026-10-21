@@ -75,7 +75,7 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
       <span className={`${styles.rule} ${styles.ruleBottom}`} aria-hidden="true" />
 
       <div className={styles.footInner}>
-        <div className={styles.newsletter}>
+        <div className={styles.newsletter} data-reveal="fade-up">
           <div className={styles.portrait}>
             {portrait ? <Image src={portrait} alt="" fill sizes="171px" /> : null}
           </div>

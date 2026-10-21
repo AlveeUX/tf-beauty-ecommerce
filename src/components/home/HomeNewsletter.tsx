@@ -69,6 +69,7 @@ export function HomeNewsletter() {
       <p
         id="home-newsletter-status"
         className={styles.nlStatus}
+        data-state={status}
         role={status === "error" || status === "consent" ? "alert" : "status"}
       >
         {status === "error" ? "Please enter a valid email address." : null}

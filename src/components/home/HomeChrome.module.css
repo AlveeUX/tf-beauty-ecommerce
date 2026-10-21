@@ -449,6 +449,35 @@
   display: none;
 }
 
+/*
+ * A successful sign-up gets a small check mark, drawn with two borders, that pops in before the message. It exists
+ * only in the success state (the design does not show one), so the form at rest and the error messages are unchanged.
+ */
+.nlStatus[data-state="success"]::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 10px;
+  margin: 0 10px 2px 3px;
+  border: solid var(--color-primary);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  animation: nl-check var(--duration-base) var(--ease-overshoot) backwards;
+}
+
+@keyframes nl-check {
+  from {
+    opacity: 0;
+    transform: rotate(45deg) scale(0.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nlStatus[data-state="success"]::before {
+    animation: none;
+  }
+}
+
 /* columns: 330px wide, dashed dividers at x = 300 / 630 / 960 / 1290 / 1620, 251px tall from y+401 */
 .columns {
   top: 401px;
