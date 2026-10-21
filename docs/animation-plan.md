@@ -227,7 +227,7 @@ Prerequisite: TF1 passed.
 | AN1-T07 | Log AN-D1…D10 | decision log |
 | Done when | No visual diff in baselines · CLS < 0.05 · `javaScriptEnabled:false` page shows all content · `data-reveal` demo block in `/dev/components` (or the UI Kit page) reveals once, never replays |
 
-#### AN1 task contract — **status: AWAITING APPROVAL** (written 2026-10-21 against `96d21ed`)
+#### AN1 task contract — **status: SUPERSEDED for now by the Home preview contract below (D-071); decisions 2-7 stand** (written 2026-10-21 against `96d21ed`)
 
 Measured on the branch before writing this: 33 CSS files hold 53 `transition` declarations, 37 of them through `var(--ease)` / `var(--duration-fast)`; **six hover image-zoom transitions have hard-coded 400/500 ms durations** (`ProductCard`, `BlogCard`, `HomeSections` x2, `MegaMenu`, `categories`) and are covered today only by the blunt reduced-motion rule; every keyframe animation (`modal-in`, `drawer-in`, `toast-in`, `marquee`, `shimmer`, the mobile menu fade and slide) already has its own `animation: none` override; no component animates through inline styles; the one IntersectionObserver is `StickyAddToCart`. There are no Playwright screenshot baselines; the visual check is `tests/visual/compare-main.mjs` (`BOTH_BRANCH=1` compares two builds of this branch). `chromium-desktop` ignores only `**/responsive/**`, so a new `motion/` folder would also run there unless it is ignored too. Existing suites: Vitest 144, Playwright Chromium 1920 176, responsive 87 passed / 32 skipped by design.
 
@@ -306,7 +306,7 @@ Regression risks:   the global token change (--duration-fast 150 to 200ms, a new
                     AN6 / AN8.
 Evidence required:  per task: typecheck, lint, format:check, Vitest and Playwright (chromium-desktop and motion) counts; at the gate: the E10 table, the E9
                     before/after CLS table, responsive-suite counts, validate:html result, knip, file list, size of the new client code.
-Status:             AWAITING APPROVAL
+Status:             SUPERSEDED (D-071)
 ```
 
 **Sub-tasks, in order:** T07 (log AN-D1..D10) is already done (D-070). Then **T06 first**, so every later task lands with its motion spec and the pre-AN1 baseline exists: Playwright reduce default, `motion` project, `npm run e2e:motion`, a worktree build of `96d21ed` outside the repo for the E9/E10 baselines. Then T01 tokens (and the six durations, the blunt rule, the guard test) · T02 config, `<html>` attributes, `MotionInit` · T03 `motion.css` (reveal states, variants, stagger) · T04 `RevealObserver` and the /ui-kit demo block · T05 `lib/motion.ts`. Gate: the full list of E13, then you review.
@@ -322,6 +322,83 @@ Status:             AWAITING APPROVAL
 8. **Demo block.** `/dev/components` no longer exists (D-054), so the `data-reveal` demo is the last section of `/ui-kit` (a proposed page), below the fold, in plain words. It is the only place `data-reveal` is used in AN1.
 9. **Checks beyond the plan's list**, because the root layout touches every page: `validate:html`, the SEO and iframe specs, knip, and the responsive suite once at the gate. The motion project runs on Chromium only for now; Firefox and WebKit join at AN10.
 10. **CLS is measured with a Playwright probe** (unthrottled, before and after), not Lighthouse; Lighthouse is re-run at AN10 against the D-068 numbers.
+
+#### Home preview contract — **status: AWAITING APPROVAL** (written 2026-10-21 against `e38f931`; D-071)
+
+Preview mode (the user): the motion for the **whole Home page** is built first, **without new tests**, so it can be judged by eye before the rest of the plan. Every effect is a pattern of 2.5 using the tokens of 2.2. The AN1 contract above is superseded for now; its decisions 2-7 carry over.
+
+Measured on the code before writing this: Home is `HeroSlider` (client) + 11 sections in `HomeSections.tsx` (server) + `FlashSale`, `Testimonials` and `BundleBuilder` (client) + `HomeHeader` and `HomeFooter` (with `HomeNewsletter`, client). The plan's "Trust strip" (`BenefitStrip`) is not on Home, so there are **14 section rows**, not 15. Home buttons are **not** `ui/Button`: the hero `.cta`, `.outlineButton`, `.editorialCta`, the flash-sale `.cta`, the bundle `.add` and the Fresh-drops `.featureCta` each carry their own class. 27 hover/focus rules already exist in the Home stylesheets. The marquee has no pause button and the flash sale no urgency line (both new UI). The hero background is the LCP image (`next/image`, `priority`).
+
+```
+Task ID:            HP0-HP4 (below), one task at a time, one local commit each ("Preview: ..."), no push
+Objective:          The Home page moves as this plan describes, and every resting state is pixel-identical to today.
+Exact scope:        INCLUDED  foundation (tokens, config, pre-paint switch, reveal system, helpers); hero (AN4 T01-T06); the hover patterns Home uses
+                              (M6-M13, with magnetic); the 14 section rows of AN5 on Home; Home header and footer hover; reduced motion, JS off.
+                    EXCLUDED  tests of any kind written for this work; the `motion` Playwright project; gates and checklist ticks; overlays, cart feedback,
+                              toasts, header modes, back-to-top (AN3); carousel drag/autoplay, countdown digits, bundle total tween (AN6); every other page
+                              (AN7, AN8); skeletons, lazy images, optional modules (AN9); QA and docs (AN10); the optional hero bottle (AN4-T08); the
+                              marquee pause button and the flash-sale urgency line (new UI: your decision); any change to layout, spacing, colour, type, copy.
+Figma node IDs:     none. Verify item (c): section order of frame 3:2290 against `page.tsx` (one metadata call for that frame) at the start of HP3.
+Requirement IDs:    animation-plan 2.1-2.8, AN1, AN4, AN5, and the hover patterns of AN2 that Home uses.
+Files/modules:      new     src/config/motion.ts, src/lib/motion.ts, src/styles/motion.css, src/components/motion/{MotionInit,RevealObserver,SplitText,LoopGate}.tsx,
+                            hooks for magnetic and parallax (lazy-imported)
+                    change  src/styles/tokens.css, src/app/globals.css, src/app/layout.tsx, playwright.config.ts (one line: reducedMotion "reduce"),
+                            HeroSlider, HomeSections (+ its CSS), FlashSale, Testimonials, BundleBuilder, HomeHeader, HomeFooter, HomeNewsletter (+ their CSS),
+                            ProductCard, CardActions, NavLink, CounterLink, MegaMenu (+ CSS), the six CSS files with a hard-coded zoom duration
+                    delete  none
+Prerequisites:      AN-D1..D10 (D-070). AN1 decisions 2-7. Baseline screenshots of Home taken before the first change (HP0).
+Acceptance criteria (checked by eye and by measurement, not by new tests):
+  H1  At rest nothing changes: with animations switched off, full-page screenshots of Home at 1920 and 390 equal the baseline (same height, 0 differing pixels).
+  H2  Foundation (AN1 E1-E4): the tokens exist and `--ease` aliases `--ease-luxe`; under prefers-reduced-motion every duration is <= 160ms and distance, lift,
+      zoom and stagger are zero; `<html>` carries one data-* attribute per config key; `motion-ready` is set before first paint, absent with JS off, and removed
+      after 5 s if the observer never mounts. Read from the running page, not asserted by a test.
+  H3  Hero: background fade and scale (1.6 s), headline mask reveal (70 ms stagger, `aria-label` on the h1), eyebrow/card/badge fade (+200 ms), badge shine once,
+      CTA last with the overshoot ease, slide change (cross-fade, headline re-runs, index dot slides, no autoplay), scroll drift <= 24 px, background parallax
+      <= 24 px, light sweep once on load and on hover. No loop. Content visible with JS off; reduced motion shows the final state.
+  H4  Hover (all inside `@media (hover:hover) and (pointer:fine)`): primary CTAs (M6, magnetic <= 6 px), outline buttons (M7), links (M8), cards (M9: lift, image zoom,
+      shadow pseudo-element, actions also on focus-within, name/price/rating always visible), icon rings (M10), badges shine once (M11), wishlist heart pop (M13),
+      field focus (M12). On touch emulation no hover effect applies.
+  H5  Sections: each of the 14 rows of AN5 reveals once and never replays, with its stagger and hover; ambient loops are at most 2 per viewport at 1920x1080 and
+      390x844 (marquee and the editorial lipstick card), none in the hero; no pulse faster than once per 2 s.
+  H6  Accessibility: card actions and links show the same effects on keyboard focus; reduced motion switches off transforms, parallax, magnetic and loops; with JS off
+      all content is visible; menus, search and the cart drawer still work by keyboard.
+  H7  No sideways scroll on Home at 1920, 1440, 1024, 768 and 390 (tests/visual/overflow-audit.mjs, ROUTES=/).
+  H8  Performance: Lighthouse on Home (3 runs, median) stays within 3 points of D-064/D-068: mobile Performance >= 77 (was 80), desktop >= 95, layout shift < 0.05.
+  H9  Existing suites: typecheck, lint, format:check clean after every task; at the end the 176 Chromium specs are run under reduced motion and the counts are reported
+      with any failure listed, not hidden. No dependency added.
+Responsive:         Home only: 1920 (Figma) and 390 are looked at after each effect; 1440, 1024 and 768 in the overflow audit. No new breakpoints.
+Functional tests:   none written (preview mode). Existing Vitest runs per task.
+E2E scenarios:      none new. Existing 176 specs run once at the end.
+Visual verification: baseline screenshots (HP0) vs final at rest (H1); screenshots after each effect; short recordings of the hero and the sections for you.
+Regression risks:   shared components also animate on other pages (ProductCard, CardActions, NavLink, CounterLink, MegaMenu); hero headline word masks vs `text-box: trim`
+                    (inline-block + overflow shifts the baseline, so masks use clip-path); the LCP image fading in; `clip-path` on a revealed element clipping children that
+                    overflow it (badges); transforms causing sideways scroll; ProductTrack and Testimonials scroll containers; FlashSale re-rendering every second.
+Evidence required:  per task: typecheck/lint/format result and what I saw; at the end: H1 pixel table, H8 Lighthouse table, H7 overflow table, the 176-spec counts,
+                    JS-off and reduced-motion screenshots, the list of anything not run.
+Status:             AWAITING APPROVAL
+```
+
+**Tasks, order and estimates** (my estimates; coding, a look in the browser and the per-task checks included)
+
+| Part | Tasks | Estimate |
+|---|---|---|
+| HP0 Foundation | baseline screenshots · tokens + `--duration-slow` + blunt rule gone · config + `<html>` attributes + `MotionInit` · `motion.css` reveal states + stagger · `RevealObserver` + `lib/motion.ts` + shared loop observer · Playwright reduced-motion default | about 2 h |
+| HP1 Hero | T01 background · T02 headline `SplitText` · T03 eyebrow/card/badge/CTA + shine · T04 slide change · T05 drift + parallax · T06 light sweep | about 3.5 h |
+| HP2 Hover patterns | M6/M7 buttons + magnetic · M8 links · M9 cards and tiles · M10 rings (incl. hero arrows) · M11 shine + M13 pop · M12 field focus · `:focus-visible` pass on Home | about 4 h |
+| HP3 Sections | favourites + trending · marquee loop gate · fresh drops · four benefits · right colour · hall of fame · flash sale · made personal + bundle · journal + instagram · newsletter + footer | about 6.5-7 h |
+| HP4 Checks | existing 176 specs · Lighthouse Home · overflow audit · JS-off and reduced-motion screenshots · recordings · D-072 and summary | about 1 h |
+| **Total** | | **15-18 h** |
+
+**Decisions I made in this contract (change any you disagree with):**
+1. **The estimate moved up** from 12-13 h to 15-18 h after reading the Home code (14 rows, five client components, every Home button styled separately).
+2. **Shared components animate on other pages too.** Same component, same hover. No reveals or page effects are added outside Home.
+3. **Two plan items are new UI and are left out:** the marquee pause button and the flash-sale urgency line. The marquee still pauses on hover, on focus, off-screen and in a hidden tab, and is static under reduced motion. Say if you want either added (behind a config flag).
+4. **The newsletter success check is included** (the success state is not in the Figma; it is one small drawn check before the existing words).
+5. **`Testimonials` smooth scroll** gets the reduced-motion gate while I am in that file (it ignores the setting today).
+6. **Section order** is checked against Figma frame 3:2290 with one metadata call at the start of HP3.
+7. **Playwright default** becomes `reducedMotion: "reduce"` (one line) so the final run of the 176 specs is not affected by running animations; no `motion` project.
+8. **Straight through, with local commits.** I do not stop after the hero unless you say so. You can run `npm run dev` and open `http://localhost:3000` at any point to look, or interrupt me.
+9. **LCP rule:** the hero animates with CSS from first paint, not after hydration. If Lighthouse shows Home worse than H8 allows, I fix it before reporting.
 
 ### AN2 — Hover system, buttons, product card
 Prerequisite: AN1.
