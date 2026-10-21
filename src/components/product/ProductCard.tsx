@@ -59,6 +59,7 @@ export function ProductCard({
     <article
       className={`${styles.card} ${tone === "light" ? styles.light : ""} ${layout === "cta" ? styles.cta : ""} ${layout === "row" ? styles.row : ""}`}
       data-testid="product-card"
+      data-hover-image={product.hoverImage ? "" : undefined}
     >
       <div className={styles.media}>
         <Link href={href} className={styles.imageLink} aria-label={product.name} tabIndex={-1}>
@@ -70,6 +71,17 @@ export function ProductCard({
             priority={priority}
             className={styles.image}
           />
+          {product.hoverImage ? (
+            // a mouse only: hidden (and never fetched) on touch screens, see ProductCard.module.css
+            <Image
+              src={product.hoverImage}
+              alt=""
+              fill
+              sizes={sizes}
+              loading="lazy"
+              className={`${styles.image} ${styles.hoverImage}`}
+            />
+          ) : null}
         </Link>
         {badgeLabel ? (
           <span className={`${styles.badge} m-shine`}>{badgeLabel}</span>

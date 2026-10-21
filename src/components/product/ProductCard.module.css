@@ -21,6 +21,12 @@
   transition: transform var(--duration-slow) var(--ease);
 }
 
+/* second picture: hidden by default so that touch screens never load it (a hidden lazy image is not fetched) */
+.hoverImage {
+  display: none;
+  opacity: 0;
+}
+
 /*
  * Hover (a mouse only): the card lifts, a soft shadow fades in and the photo zooms; the action stack already slides
  * in from the right on hover and on focus. Name, price and rating stay visible. The lift uses the translate
@@ -41,6 +47,25 @@
 
   .card:hover .image {
     transform: scale(var(--img-zoom));
+  }
+
+  /* the second picture takes over from the first while the pointer is on the card */
+  .hoverImage {
+    display: block;
+  }
+
+  .image {
+    transition:
+      transform var(--duration-slow) var(--ease),
+      opacity var(--duration-base) var(--ease);
+  }
+
+  .card[data-hover-image]:hover .image {
+    opacity: 0;
+  }
+
+  .card[data-hover-image]:hover .hoverImage {
+    opacity: 1;
   }
 }
 

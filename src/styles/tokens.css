@@ -79,19 +79,19 @@
   --duration-fast: 200ms;
   --duration-base: 350ms;
   --duration-slow: 500ms; /* image zooms */
-  --duration-reveal: 700ms;
-  --duration-hero: 1100ms;
-  --stagger: 90ms;
-  --stagger-text: 70ms; /* word-by-word text reveals */
-  --reveal-distance: 28px;
+  --duration-reveal: 900ms;
+  --duration-hero: 1400ms;
+  --stagger: 130ms;
+  --stagger-text: 100ms; /* word-by-word text reveals */
+  --reveal-distance: 44px;
   --reveal-scale: 0.98; /* start size of the default reveal */
   --reveal-scale-pop: 0.9; /* start size of the "scale" reveal (icons, small tiles) */
   --hover-lift: -6px;
-  --img-zoom: 1.06;
-  --btn-hover-scale: 1.03; /* primary button on hover */
-  --btn-press-scale: 0.98; /* primary button while pressed */
+  --img-zoom: 1; /* photo zoom on hover: off; 1.06 gives a gentle zoom */
+  --btn-hover-scale: 1; /* primary button on hover: off; 1.03 makes it grow a little */
+  --btn-press-scale: 1; /* primary button while pressed: off; 0.98 makes it shrink */
   --hero-zoom: 1.05; /* start scale of the Home hero background */
-  --ring-scale: 1.08; /* icon buttons on hover */
+  --ring-scale: 1; /* icon buttons on hover: off; 1.08 makes them grow */
   --pop-scale: 1.18; /* a heart or a count popping after a change */
   /* the glow ring around an icon button on hover: Primary at low strength */
   --ring-shadow: 0 0 0 5px rgb(199 51 43 / 0.2), 0 0 18px rgb(199 51 43 / 0.35);

@@ -16,6 +16,8 @@ export type ProductSummary = {
   reviewCount: number;
   badge?: ProductBadge | null;
   image: string;
+  /** Shown instead of `image` while the pointer is over the card (a mouse only). */
+  hoverImage?: string | null;
   inStock?: boolean;
   /** Short description, shown in the list layouts. */
   description?: string | null;

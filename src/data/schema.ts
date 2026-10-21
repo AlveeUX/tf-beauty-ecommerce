@@ -35,6 +35,8 @@ export const productRow = z.object({
   ratingBreakdown: z.string(),
   soldCount: z.number().int().min(0),
   pdpLayout: nullableStr,
+  /** A second picture shown on the product card while the pointer is over it. Optional; not part of the product page gallery. */
+  hoverImage: nullableStr.optional(),
   /** Fixed deadline (ISO), or null. */
   saleEndsAt: nullableStr,
   /** Rolling deadline: this many ms after the page is read. Used when `saleEndsAt` is null. */

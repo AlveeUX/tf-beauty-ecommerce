@@ -140,6 +140,7 @@ export function createJsonProvider(t: Tables): DataProvider {
     reviewCount: p.reviewCount,
     badge: p.badge,
     image: imagesOf.get(p.id)?.[0]?.url ?? FALLBACK_IMAGE,
+    hoverImage: p.hoverImage ?? imagesOf.get(p.id)?.[1]?.url ?? null,
     inStock: inStock(p),
     description: p.shortDescription,
   });

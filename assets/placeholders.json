@@ -432,9 +432,21 @@
     "alpha": false
   },
   {
+    "path": "products/barrier-repair-cream-2.png",
+    "width": 840,
+    "height": 980,
+    "alpha": true
+  },
+  {
     "path": "products/barrier-repair-cream.png",
     "width": 840,
     "height": 980,
+    "alpha": true
+  },
+  {
+    "path": "products/brightening-eye-gel-2.png",
+    "width": 420,
+    "height": 490,
     "alpha": true
   },
   {
@@ -444,13 +456,31 @@
     "alpha": true
   },
   {
+    "path": "products/cooling-eye-wand-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/cooling-eye-wand.png",
     "width": 308,
     "height": 359,
     "alpha": true
   },
   {
+    "path": "products/cooling-facial-stick-2.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
     "path": "products/cooling-facial-stick.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/daily-defense-spf-50-2.png",
     "width": 420,
     "height": 490,
     "alpha": true
@@ -462,7 +492,19 @@
     "alpha": true
   },
   {
+    "path": "products/dew-drop-spray-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/dew-drop-spray.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/facial-cleansing-brush-2.png",
     "width": 308,
     "height": 359,
     "alpha": true
@@ -474,9 +516,21 @@
     "alpha": true
   },
   {
+    "path": "products/facial-roller-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/facial-roller.png",
     "width": 308,
     "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/firming-neck-cream-2.png",
+    "width": 840,
+    "height": 980,
     "alpha": true
   },
   {
@@ -486,9 +540,21 @@
     "alpha": true
   },
   {
+    "path": "products/flush-cream-blush-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/flush-cream-blush.png",
     "width": 308,
     "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/gentle-cleansing-milk-2.png",
+    "width": 840,
+    "height": 980,
     "alpha": true
   },
   {
@@ -498,13 +564,31 @@
     "alpha": true
   },
   {
+    "path": "products/gentle-exfoliating-polish-2.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
     "path": "products/gentle-exfoliating-polish.png",
     "width": 420,
     "height": 490,
     "alpha": true
   },
   {
+    "path": "products/glam-edit-eyeshadow-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/glam-edit-eyeshadow.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/glass-glow-primer-2.png",
     "width": 308,
     "height": 359,
     "alpha": true
@@ -516,9 +600,21 @@
     "alpha": true
   },
   {
+    "path": "products/glow-cleansing-bar-2.png",
+    "width": 840,
+    "height": 980,
+    "alpha": true
+  },
+  {
     "path": "products/glow-cleansing-bar.png",
     "width": 840,
     "height": 980,
+    "alpha": true
+  },
+  {
+    "path": "products/glow-veil-highlighter-2.png",
+    "width": 308,
+    "height": 359,
     "alpha": true
   },
   {
@@ -528,7 +624,19 @@
     "alpha": true
   },
   {
+    "path": "products/hydra-mist-toner-2.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
     "path": "products/hydra-mist-toner.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/hydrating-body-lotion-2.png",
     "width": 420,
     "height": 490,
     "alpha": true
@@ -540,7 +648,19 @@
     "alpha": true
   },
   {
+    "path": "products/led-face-mask-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/led-face-mask.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/lift-and-define-brow-gel-2.png",
     "width": 308,
     "height": 359,
     "alpha": true
@@ -552,9 +672,21 @@
     "alpha": true
   },
   {
+    "path": "products/lip-repair-balm-2.png",
+    "width": 840,
+    "height": 980,
+    "alpha": true
+  },
+  {
     "path": "products/lip-repair-balm.png",
     "width": 840,
     "height": 980,
+    "alpha": true
+  },
+  {
+    "path": "products/luxe-matte-lipstick-2.png",
+    "width": 308,
+    "height": 359,
     "alpha": true
   },
   {
@@ -564,7 +696,19 @@
     "alpha": true
   },
   {
+    "path": "products/nourishing-face-oil-2.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
     "path": "products/nourishing-face-oil.png",
+    "width": 420,
+    "height": 490,
+    "alpha": true
+  },
+  {
+    "path": "products/overnight-renewal-mask-2.png",
     "width": 420,
     "height": 490,
     "alpha": true
@@ -576,7 +720,19 @@
     "alpha": true
   },
   {
+    "path": "products/precision-brow-pencil-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/precision-brow-pencil.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/scalp-renewal-scrub-2.png",
     "width": 308,
     "height": 359,
     "alpha": true
@@ -588,7 +744,19 @@
     "alpha": true
   },
   {
+    "path": "products/sculpting-facial-massager-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/sculpting-facial-massager.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/silk-repair-shampoo-2.png",
     "width": 308,
     "height": 359,
     "alpha": true
@@ -600,9 +768,21 @@
     "alpha": true
   },
   {
+    "path": "products/silk-shine-lip-oil-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/silk-shine-lip-oil.png",
     "width": 308,
     "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/skin-rescue-ampoule-2.png",
+    "width": 420,
+    "height": 490,
     "alpha": true
   },
   {
@@ -612,13 +792,31 @@
     "alpha": true
   },
   {
+    "path": "products/skin-rescue-shampoo-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/skin-rescue-shampoo.png",
     "width": 308,
     "height": 359,
     "alpha": true
   },
   {
+    "path": "products/soft-focus-concealer-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/soft-focus-concealer.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/soft-sculpt-bronzer-2.png",
     "width": 308,
     "height": 359,
     "alpha": true
@@ -666,7 +864,19 @@
     "alpha": false
   },
   {
+    "path": "products/velvet-bloom-perfume-2.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
     "path": "products/velvet-bloom-perfume.png",
+    "width": 308,
+    "height": 359,
+    "alpha": true
+  },
+  {
+    "path": "products/velvet-skin-foundation-2.png",
     "width": 308,
     "height": 359,
     "alpha": true
