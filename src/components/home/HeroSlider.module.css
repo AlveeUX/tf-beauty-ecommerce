@@ -11,13 +11,15 @@
   inset: 38px 0 0 0 !important;
   height: 843px !important;
   object-fit: cover;
-  /* Motion: a CSS animation on the server-rendered image, so it starts at first paint, not after hydration. */
+  /* Motion: a CSS animation on the server-rendered image, so it starts at first paint, not after hydration. It fades in from
+     30%, not 0: from fully transparent the browser sometimes took the small badge image as the largest paint (a few
+     points of desktop Performance); with this start the photo is the largest contentful paint every time. */
   animation: hero-bg-in calc(var(--duration-hero) * 1.5) var(--ease) backwards;
 }
 
 @keyframes hero-bg-in {
   from {
-    opacity: 0;
+    opacity: 0.3;
     transform: scale(var(--hero-zoom));
   }
 }
