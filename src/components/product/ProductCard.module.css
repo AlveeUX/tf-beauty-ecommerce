@@ -21,8 +21,27 @@
   transition: transform var(--duration-slow) var(--ease);
 }
 
-.card:hover .image {
-  transform: scale(1.03);
+/*
+ * Hover (a mouse only): the card lifts, a soft shadow fades in and the photo zooms; the action stack already slides
+ * in from the right on hover and on focus. Name, price and rating stay visible. The lift uses the translate
+ * property and the shadow is the card's own box-shadow, so nothing is added to the card at rest. Reduced motion
+ * zeroes --hover-lift and --img-zoom.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .card {
+    transition:
+      translate var(--duration-base) var(--ease),
+      box-shadow var(--duration-base) var(--ease);
+  }
+
+  .card:hover {
+    translate: 0 var(--hover-lift);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .card:hover .image {
+    transform: scale(var(--img-zoom));
+  }
 }
 
 .badge {

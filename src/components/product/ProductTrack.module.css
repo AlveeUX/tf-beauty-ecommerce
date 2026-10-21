@@ -10,6 +10,19 @@
   scrollbar-width: none;
 }
 
+/*
+ * A row that scrolls clips what sticks out of it, so on a mouse its cards do not lift (they would lose their top edge),
+ * and it gets room below for a hovered card's shadow; the negative margin cancels the padding, so nothing moves.
+ * Padding only at the bottom: any overlap with the heading above would change how that text is rendered.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .track {
+    --hover-lift: 0px;
+    padding-bottom: 80px;
+    margin-bottom: -80px;
+  }
+}
+
 .track::-webkit-scrollbar {
   display: none;
 }
