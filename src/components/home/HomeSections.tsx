@@ -199,7 +199,7 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
                 height={768}
                 sizes="1021px"
                 className={styles.featureImage}
-                data-parallax="40"
+                data-parallax-px="40"
                 data-parallax-axis="x"
               />
             ) : null}
@@ -387,7 +387,7 @@ export function EditorialBanner({ banner }: { banner: Banner | undefined }) {
           <Link
             href={banner.ctaHref ?? "/shop"}
             className={`${styles.editorialCta} m-btn`}
-            data-magnetic
+            data-magnet
           >
             <span>{banner.ctaLabel}</span>
             <Icon name="arrow-up-right" size={18} />

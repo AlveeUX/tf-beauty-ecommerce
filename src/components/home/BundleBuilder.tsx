@@ -105,7 +105,7 @@ export function BundleBuilder({ bundles }: { bundles: Bundle[] }) {
           <button
             type="button"
             className={`${styles.add} m-btn`}
-            data-magnetic
+            data-magnet
             disabled={busy}
             onClick={() => void addMany(bundle.products.map((p) => p.slug))}
           >

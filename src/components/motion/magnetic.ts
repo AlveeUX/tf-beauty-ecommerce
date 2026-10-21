@@ -1,8 +1,9 @@
 /**
- * Magnetic call-to-action buttons (animation-plan M17). While the pointer is within 70 px of a [data-magnetic]
+ * Magnetic call-to-action buttons (animation-plan M17). While the pointer is within 70 px of a [data-magnet]
  * element, the element leans toward it by at most 6 px, and it settles back when the pointer moves away or leaves
  * the window. The CSS (motion.css, .m-btn) smooths the movement with a transition on `translate`.
  *
+ * (Not [data-magnetic]: that name is the setting written on <html>, and matching it moved the whole page.)
  * One pointermove listener for the whole page, one animation frame per move. Mouse only. Loaded on demand by
  * RevealObserver, and only when the setting is on, the visitor has a fine pointer and has not asked for reduced motion.
  */
@@ -21,7 +22,7 @@ export function attachMagnetic(): () => void {
 
   const update = () => {
     frame = 0;
-    document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
+    document.querySelectorAll<HTMLElement>("[data-magnet]").forEach((el) => {
       if (!point) return release(el);
       const box = el.getBoundingClientRect();
       const outsideX = Math.max(box.left - point.x, 0, point.x - box.right);

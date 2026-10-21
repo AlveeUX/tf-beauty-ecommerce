@@ -240,7 +240,7 @@ html:is([data-motion="subtle"], [data-motion="off"]) .m-shine::after {
 
 /*
  * Primary button (M6): on a mouse the button grows a little, brightens and gains a soft shadow, which fades in with
- * the filter; pressing it shrinks it. The overshoot ease is used here and nowhere else. Add data-magnetic to lean
+ * the filter; pressing it shrinks it. The overshoot ease is used here and nowhere else. Add data-magnet to lean
  * toward the pointer (magnetic.ts). Buttons are always a or button elements; the :is() keeps these rules ahead of
  * a component's own transition without depending on stylesheet order.
  * No pseudo-elements: a pseudo-element inside a button changes how Chrome anti-aliases the label in some places

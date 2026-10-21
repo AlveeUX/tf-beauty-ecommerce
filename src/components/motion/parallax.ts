@@ -1,9 +1,10 @@
 /**
- * Parallax (animation-plan M17). An element with data-parallax="<max px>" slides slowly against the scroll while it
+ * Parallax (animation-plan M17). An element with data-parallax-px="<max px>" slides slowly against the scroll while it
  * is on screen: by at most that many pixels either way, along y (default) or along x (data-parallax-axis="x").
  * Its offset follows where the element's parent sits in the viewport, so a photo drifts a little behind the page.
  * The image must be larger than its frame by at least that much on the moving axis, or the frame would show a gap.
  *
+ * (Not [data-parallax]: that name is the setting written on <html>, and matching it moved the whole page.)
  * One scroll listener (passive, one animation frame per scroll) that runs only while a parallax element is visible;
  * elements added later are picked up. Loaded on demand by RevealObserver, only when the "parallax" setting is on,
  * the visitor has a fine pointer and has not asked for reduced motion.
@@ -17,7 +18,7 @@ export function attachParallax(): () => void {
     frame = 0;
     const half = window.innerHeight / 2;
     visible.forEach((el) => {
-      const max = Number(el.dataset.parallax) || 0;
+      const max = Number(el.dataset.parallaxPx) || 0;
       const box = (el.parentElement ?? el).getBoundingClientRect();
       const progress = Math.max(
         -1,
@@ -48,13 +49,13 @@ export function attachParallax(): () => void {
   });
 
   const watch = (scope: ParentNode) =>
-    scope.querySelectorAll<HTMLElement>("[data-parallax]").forEach((el) => seen.observe(el));
+    scope.querySelectorAll<HTMLElement>("[data-parallax-px]").forEach((el) => seen.observe(el));
   watch(document);
   const added = new MutationObserver((records) => {
     for (const record of records) {
       record.addedNodes.forEach((node) => {
         if (!(node instanceof HTMLElement)) return;
-        if (node.matches("[data-parallax]")) seen.observe(node);
+        if (node.matches("[data-parallax-px]")) seen.observe(node);
         watch(node);
       });
     }
