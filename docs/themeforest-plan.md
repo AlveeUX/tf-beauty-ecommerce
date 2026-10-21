@@ -16,7 +16,7 @@
 | Envato account | `TreeTech_Themes`, author since Aug 2024, but `/upload` redirects to the dashboard and the menu still shows "Become an Author". Support ticket sent 2026-10-20 — **waiting** |
 | Figma design ownership | **Unconfirmed** (TF0-T02) |
 | `npm install` in the copy | **Fails** (checked 2026-10-20, Node 24.18, no VS Build Tools) on `better-sqlite3` (no prebuilt binary for Node 24.18, no C++ build tools). Local-machine issue, not a repo problem. Fix in TF1-T00 below; the problem disappears for good once TF1-T09 removes the native module |
-| Progress (updated 2026-10-21) | TF1, TF2 and TF3 passed (G3 approved); TF4 tasks T01-T08 done, gate G4 open (mobile Performance decision); TF0 answers and TF5–TF8 not started. See the master checklist in section 6 |
+| Progress (updated 2026-10-21) | TF1, TF2 and TF3 passed (G3 approved); TF4 passed (G4: option C, D-066); TF0 answers and TF5–TF8 not started. See the master checklist in section 6 |
 
 ---
 
@@ -309,7 +309,7 @@ Status:             PASSED 2026-10-21 (G3 approved; evidence and deviations: dec
 | Tasks | **TF4-T01** Playwright on Chromium, Firefox and WebKit (add projects). · **TF4-T02** Upgrade to the **latest public Next.js minor** (and React) at submission time; re-run everything. · **TF4-T03** Lighthouse on Home, Shop, PDP, Checkout (mobile + desktop): target Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95. Fix image sizing (`next/image` sizes), font loading, CLS. · **TF4-T04** HTML validity check on rendered pages (W3C validator or `html-validate`). · **TF4-T05** Code hygiene: no `console.log`, no commented-out blocks, no TODOs, no unused files/exports (`knip` or `ts-prune`), consistent naming, comments where non-obvious. Remove `tests/visual/_dbg.mjs`, `_m2–_m4.mjs`, `_outline.py` style scratch files. · **TF4-T06** `npm audit` 0 high/critical; pin dependency versions. · **TF4-T07** Metadata: per-page `<title>`/description, Open Graph image, favicon set, `robots.txt`, `sitemap.xml`. · **TF4-T08** Make sure the site can render inside an **iframe** (ThemeForest's live preview frames your demo): no `X-Frame-Options: DENY` and no `frame-ancestors 'none'` on the preview deploy. |
 | Exit gate | All suites green on 3 browsers × 5 viewports; Lighthouse report saved; validator clean. |
 
-#### TF4 task contract — **status: APPROVED by the user 2026-10-21; T01-T08 done, awaiting gate G4**
+#### TF4 task contract — **status: APPROVED by the user 2026-10-21; T01-T08 done, G4 passed (option C, D-066)**
 
 Measured on the branch before writing this (2026-10-21): Next.js **16.4.2 is already the latest** published version, React 19.3.1 and Playwright 1.64.1 likewise; `npm audit` (production) **0 vulnerabilities**, full audit **5 high** (one dev-only chain: `braces` → `micromatch` → `fast-glob` → `@next/eslint-plugin-next` → `eslint-config-next`); **0** `console.log`; **0** real TODO/FIXME in source (grep matches were binary files only); no `X-Frame-Options` or `frame-ancestors` anywhere; Playwright already defines `firefox-desktop`, `webkit-desktop`, `firefox-r390`, `webkit-r390` (never run); `robots.ts`, `sitemap.ts`, `opengraph-image.tsx`, `icon.svg` and `seo.spec.ts` exist from commit `ce943e2` (T07 partly built, not yet verified or logged). `package.json` still says `"name": "beauty-ecommerce"`, `"version": "0.1.0"`.
 
@@ -345,7 +345,7 @@ Visual verification: no visual change expected; compare-main style check at 1920
 Regression risks:   Next/React bump (hydration, routing), image/font changes (layout shift, tests that measure pixel positions), metadata changes
                     (title tests), WebKit-specific CSS (scroll-snap, sticky, dvh) in the TF3 layouts.
 Evidence required:  per-browser pass/fail counts, Lighthouse table (route x device x category), validator and knip output, npm audit output.
-Status:             AWAITING_G4 (T01-T08 done; mobile Performance decision pending, D-065)
+Status:             PASSED (G4: option C, mobile Performance re-measured after TF5, D-066)
 ```
 
 **Sub-tasks, in order:** T01 browsers (slowest, so first) · T02 versions, `npm audit`, package name/version (D2, D6, D9) · T03 hygiene and knip (D5) ·
@@ -366,7 +366,7 @@ T08 evidence, docs, log. **Gate G4:** you review the Lighthouse table and browse
 |---|---|
 | Objective | Nothing in the zip that you don't have the right to redistribute. |
 | Tasks | **TF5-T01** Remove every Figma-sourced photo and product PNG from the zip build (`public/images/**` photos — about 150 files). · **TF5-T02** Generate placeholder images in code (neutral blocks in the theme palette with dimensions printed, correct aspect ratios) — a script, not AI image generation. · **TF5-T03** Source **preview** photos from Unsplash or Pexels (cosmetics, skincare, models, flat-lays). Record each: URL, photographer, licence, where used, in `CREDITS.md`. No AI-generated images anywhere in the zip. · **TF5-T04** Build flag: `NEXT_PUBLIC_DEMO_IMAGES=real|placeholder`; the preview deploy uses `real`, the packaged zip defaults to `placeholder`. Keep both image sets out of each other's build. · **TF5-T05** Fonts: Instrument Sans, Prata, Allura via `@fontsource` (SIL OFL 1.1) — include licence texts in `licenses/`. · **TF5-T06** Icons and logos: confirm the source of every SVG icon; payment logos (Visa, Mastercard, Amex, Discover, PayPal, Bitcoin) are acceptable as payment indicators — keep them unmodified; **remove the B Corp badge** (it's a certification mark; implying certification is misleading). Social icons: use official/brand-guideline shapes. · **TF5-T07** Third-party npm licences: generate a list (`license-checker`) into `licenses/THIRD-PARTY.txt`. · **TF5-T08** No author logo, URL, watermark or personal email anywhere in the item. |
-| Exit gate | `CREDITS.md` complete; a grep of the zip build for `.jpg/.png` finds only placeholders + your own SVGs. |
+| Exit gate | `CREDITS.md` complete; a grep of the zip build for `.jpg/.png` finds only placeholders + your own SVGs. Mobile Lighthouse re-measured (`npm run` script in `tests/perf/lighthouse.mjs`); results added to `docs/lighthouse-report.md` (G4, D-066). |
 
 ### TF6 — Buyer documentation
 
@@ -488,7 +488,7 @@ Stop at the TF1 exit gate and report evidence.
 **TF4 Quality**
 - [x] Chromium, Firefox, WebKit (T01: 1920 and 390 px, D-058)
 - [x] Latest Next.js minor (16.4.2, re-check at submission; D-059)
-- [ ] Lighthouse targets met (desktop and Checkout yes; mobile Performance 72-73 on 3 pages, decision at G4, D-064)
+- [x] Lighthouse targets met on desktop and Checkout; mobile Performance 72-73 on Home, Shop, Product accepted for now, **re-measure after TF5** (G4 option C, D-066)
 - [x] HTML validity (T06, D-063), code hygiene (D-060), `npm audit` (exception, D-059)
 - [x] SEO metadata, sitemap, robots (T04, D-061)
 - [x] Renders inside an iframe (T05, D-062; real-domain check in TF7-T05)
