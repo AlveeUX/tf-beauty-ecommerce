@@ -80,7 +80,11 @@ async function applyMode(mode) {
     console.warn(`No pictures in ${SOURCES[mode]}; the placeholders stay.`);
   }
   for (const item of items) {
-    const from = SOURCES[mode] && join(SOURCES[mode], item.path);
+    let from = SOURCES[mode] && join(SOURCES[mode], item.path);
+    // a product card's second (hover) picture has no photo of its own in the design: with real photos it repeats the card's first photo
+    // instead of showing a grey placeholder over it
+    if (from && !existsSync(from))
+      from = join(SOURCES[mode], item.path.replace(/-2(\.[a-z]+)$/i, "$1"));
     const data = from && existsSync(from) ? readFileSync(from) : await makePlaceholder(item);
     changed += put(join(PUBLIC, item.path), data) ? 1 : 0;
   }
