@@ -1120,8 +1120,34 @@
   transition: transform var(--duration-slow) var(--ease);
 }
 
-.post:hover .postImage img {
-  transform: scale(1.04);
+/*
+ * Post hover (a mouse only, and keyboard focus): the photo zooms, the row lifts a little and the title is
+ * underlined (its own underline fading in, since a title can wrap over several lines).
+ */
+@media (hover: hover) and (pointer: fine) {
+  .post {
+    transition: translate var(--duration-base) var(--ease);
+  }
+
+  .post:is(:hover, :focus-visible) {
+    translate: 0 calc(var(--hover-lift) * 0.6667); /* 4px; none with reduced motion */
+  }
+
+  .post:is(:hover, :focus-visible) .postImage img {
+    transform: scale(var(--img-zoom));
+  }
+
+  .postTitle {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color var(--duration-base) var(--ease);
+  }
+
+  .post:is(:hover, :focus-visible) .postTitle {
+    text-decoration-color: currentColor;
+  }
 }
 
 .postMeta {
@@ -1339,6 +1365,17 @@
 
 .instaGrid img {
   object-fit: cover;
+}
+
+/* on a mouse (and keyboard focus) the photo also zooms under the design's veil */
+@media (hover: hover) and (pointer: fine) {
+  .instaGrid img {
+    transition: transform var(--duration-slow) var(--ease);
+  }
+
+  .instaGrid a:is(:hover, :focus-visible) img {
+    transform: scale(var(--img-zoom));
+  }
 }
 
 /* hover state from the design: 50% Dark-01 veil with a small Instagram glyph */

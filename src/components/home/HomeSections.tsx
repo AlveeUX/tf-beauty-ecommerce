@@ -456,7 +456,7 @@ export function Journal({ posts }: { posts: Banner[] }) {
   return (
     <section className={styles.journal} aria-labelledby="journal-title">
       <div className={`container ${styles.journalGrid}`}>
-        <div className={styles.journalIntro}>
+        <div className={styles.journalIntro} data-reveal="fade-up">
           <p className={styles.eyebrow}>Latest news</p>
           <h2 id="journal-title" className={styles.journalTitle}>
             The journal behind better skin
@@ -466,9 +466,9 @@ export function Journal({ posts }: { posts: Banner[] }) {
             <Icon name="arrow-up-right" size={18} />
           </Link>
         </div>
-        <ul className={styles.posts}>
+        <ul className={styles.posts} data-reveal-stagger>
           {posts.map((post, i) => (
-            <li key={post.id}>
+            <li key={post.id} data-reveal="fade-up">
               <Link href={post.ctaHref ?? "/blog"} className={styles.post}>
                 <span className={styles.postImage}>
                   {post.image ? <Image src={post.image} alt="" fill sizes="405px" /> : null}
@@ -507,12 +507,12 @@ export function InstagramStrip({ items }: { items: Banner[] }) {
         <img src="/images/home/icons/instagram-32.svg" alt="" width={32} height={32} />
       </span>
       <div className="container">
-        <h2 id="insta-title" className={styles.instaTitle}>
+        <h2 id="insta-title" className={styles.instaTitle} data-reveal="fade-up">
           Moments made on Instagram
         </h2>
-        <ul className={styles.instaGrid}>
+        <ul className={styles.instaGrid} data-reveal-stagger>
           {items.slice(0, 6).map((item) => (
-            <li key={item.id}>
+            <li key={item.id} data-reveal="scale">
               <a
                 href={site.socials.instagram}
                 target="_blank"
