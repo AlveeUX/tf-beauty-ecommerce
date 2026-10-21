@@ -12,15 +12,28 @@ type HeroBadge = { top?: string; value?: string; bottom?: string };
 
 /**
  * Home hero (Figma 3:2328..3:2423). Slides come from the "home-hero" banners; arrows and the
- * 01/02/03 index are always shown, as in the design.
+ * 01/02/03 index are always shown, as in the design. A slide change fades the new background in over
+ * the old one and plays the headline again; there is no autoplay.
  */
 export function HeroSlider({ slides }: { slides: Banner[] }) {
   const [index, setIndex] = useState(0);
+  // the slide being left stays underneath until the new background has faded in over it
+  const [leaving, setLeaving] = useState<Banner | null>(null);
+  // the card text fades on a slide change, but not on the first view (the card itself enters then)
+  const [changed, setChanged] = useState(false);
   const count = slides.length;
   const slide = slides[index];
   if (!slide) return null;
   const badge = slide.data.badge as HeroBadge | undefined;
-  const go = (delta: number) => setIndex((i) => (i + delta + count) % count);
+  const select = (next: number) => {
+    if (next === index) return;
+    setLeaving(slide);
+    setChanged(true);
+    setIndex(next);
+  };
+  const go = (delta: number) => select((index + delta + count) % count);
+  const backgrounds = leaving && leaving.id !== slide.id ? [leaving, slide] : [slide];
+  const swap = changed ? styles.swap : undefined;
 
   return (
     <section
@@ -28,21 +41,25 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
       aria-roledescription="carousel"
       aria-label="Featured collection"
     >
-      {slide.image ? (
-        <Image
-          src={slide.image}
-          alt=""
-          fill
-          priority
-          fetchPriority="high"
-          sizes="100vw"
-          className={styles.bg}
-        />
-      ) : null}
+      {backgrounds.map((s) =>
+        s.image ? (
+          <Image
+            key={s.id}
+            src={s.image}
+            alt=""
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className={s.id === slide.id ? styles.bg : `${styles.bg} ${styles.bgStill}`}
+            onAnimationEnd={s.id === slide.id ? () => setLeaving(null) : undefined}
+          />
+        ) : null,
+      )}
       <div className={styles.shade} aria-hidden="true" />
 
       <div className={`container ${styles.inner}`}>
-        <div className={styles.copy}>
+        <div className={styles.copy} key={slide.id}>
           <p className={styles.eyebrow}>{slide.eyebrow}</p>
           <h1 className={styles.title} aria-label={slide.title}>
             <SplitText text={slide.title} />
@@ -50,8 +67,12 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
         </div>
 
         <aside className={styles.card}>
-          <h2>{String(slide.data.cardTitle ?? "")}</h2>
-          <p>{slide.subtitle}</p>
+          <h2 key={`h-${slide.id}`} className={swap}>
+            {String(slide.data.cardTitle ?? "")}
+          </h2>
+          <p key={`p-${slide.id}`} className={swap}>
+            {slide.subtitle}
+          </p>
           <Link href={slide.ctaHref ?? "/shop"} className={styles.cta}>
             <span>{slide.ctaLabel}</span>
             <Icon name="arrow-up-right" size={18} />
@@ -84,7 +105,7 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
               type="button"
               aria-label={`${String(i + 1).padStart(2, "0")}, go to slide ${i + 1}`}
               aria-current={i === index}
-              onClick={() => setIndex(i)}
+              onClick={() => select(i)}
             >
               <span>{String(i + 1).padStart(2, "0")}</span>
             </button>

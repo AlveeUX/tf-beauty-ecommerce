@@ -368,3 +368,31 @@
     opacity: 1;
   }
 }
+
+/*
+ * Slide change: the background of the new slide fades in over the old one (which stays underneath, still), the
+ * headline plays again because its block is remounted, the card text fades, and the index numbers cross-fade
+ * while the active one slides in from the left.
+ */
+.bgStill {
+  animation: none;
+}
+
+.swap {
+  animation: hero-fade var(--duration-base) var(--ease) backwards;
+}
+
+@keyframes hero-index {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--reveal-distance) * -0.4));
+  }
+}
+
+.index button {
+  transition: opacity var(--duration-base) var(--ease);
+}
+
+.index button[aria-current="true"] span {
+  animation: hero-index var(--duration-base) var(--ease) backwards;
+}
