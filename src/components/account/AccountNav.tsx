@@ -22,7 +22,7 @@ export function AccountNav() {
   }
 
   return (
-    <nav className={styles.nav} aria-label="Account">
+    <nav className={styles.nav} aria-label="Account" data-reveal="fade">
       <ul>
         {LINKS.map((link) => {
           const active =

@@ -35,11 +35,11 @@ export function ReviewsSection({ product, reviews }: Props) {
 
   return (
     <section className={styles.section} aria-labelledby="reviews-title">
-      <h2 id="reviews-title" className={styles.heading}>
+      <h2 id="reviews-title" className={styles.heading} data-reveal="fade-up">
         Trusted reviews
       </h2>
 
-      <div className={styles.card}>
+      <div className={styles.card} data-reveal="fade-up">
         <div className={styles.summary}>
           <div className={styles.score}>
             <p className={styles.average} data-testid="rating-average">
@@ -62,7 +62,7 @@ export function ReviewsSection({ product, reviews }: Props) {
             </a>
           </div>
 
-          <ul className={styles.bars} aria-label="Rating distribution">
+          <ul className={styles.bars} aria-label="Rating distribution" data-reveal="fade">
             {STARS.map((star) => {
               const count = product.ratingBreakdown[String(star) as "5" | "4" | "3" | "2" | "1"];
               return (

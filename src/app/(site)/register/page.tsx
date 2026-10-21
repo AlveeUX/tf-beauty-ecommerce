@@ -21,7 +21,7 @@ export default async function RegisterRoute({ searchParams }: Props) {
     <>
       <PageHero title="My account" />
       <div className={`container ${styles.page}`}>
-        <div className={styles.card}>
+        <div className={styles.card} data-reveal="fade-up">
           <AuthTabs active="register" />
           <RegisterForm next={next} />
         </div>

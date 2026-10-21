@@ -28,7 +28,7 @@ export function AccountDashboard() {
   if (!user) return null;
   return (
     <>
-      <section className={styles.card} aria-labelledby="profile">
+      <section data-reveal="fade-up" className={styles.card} aria-labelledby="profile">
         <h2 id="profile">Hello, {user.username}</h2>
         <dl className={styles.profile} data-testid="profile">
           <dt>User name</dt>
@@ -57,7 +57,7 @@ export function OrdersList() {
   const { user } = useCurrentUser();
   const orders = useMyOrders(user);
   return (
-    <section className={styles.card} aria-labelledby="orders">
+    <section data-reveal="fade-up" className={styles.card} aria-labelledby="orders">
       <h2 id="orders">Orders</h2>
       {orders.length === 0 ? (
         <div className={orderStyles.empty} data-testid="orders-empty">
@@ -101,13 +101,13 @@ export function OrderPage({ number }: { number: string }) {
   if (!order) return user ? notFound() : null;
   return (
     <>
-      <section className={styles.card} aria-labelledby="order">
+      <section data-reveal="fade-up" className={styles.card} aria-labelledby="order">
         <h2 id="order" data-testid="order-heading">
           Order {order.number} · {STATUS_LABEL[order.status]}
         </h2>
         <OrderTimeline order={order} />
       </section>
-      <section className={styles.card} aria-label="Order details">
+      <section data-reveal="fade-up" className={styles.card} aria-label="Order details">
         <OrderDetails order={order} />
       </section>
       <p>

@@ -90,7 +90,7 @@ export function CheckoutPage({ methods }: Props) {
         <div className={styles.empty} data-testid="checkout-empty">
           <h2>Your cart is empty</h2>
           <p>Add something to your cart before you check out.</p>
-          <Link href="/shop" className={styles.dark}>
+          <Link href="/shop" className={`${styles.dark} m-btn`}>
             <span>Continue shopping</span>
             <Icon name="arrow-up-right" size={18} />
           </Link>
@@ -143,7 +143,7 @@ export function CheckoutPage({ methods }: Props) {
 
   return (
     <div className={`container ${styles.page}`}>
-      <div className={styles.couponBar}>
+      <div className={styles.couponBar} data-reveal="fade">
         <p>
           Have a coupon?{" "}
           <button
@@ -176,7 +176,7 @@ export function CheckoutPage({ methods }: Props) {
             aria-label="Coupon code"
             data-testid="coupon-input"
           />
-          <button type="submit" className={styles.dark}>
+          <button type="submit" className={`${styles.dark} m-btn`}>
             <span>Apply coupon</span>
             <Icon name="arrow-up-right" size={18} />
           </button>
@@ -194,8 +194,9 @@ export function CheckoutPage({ methods }: Props) {
         onSubmit={submit}
         noValidate
         data-testid="checkout-form"
+        data-reveal-stagger
       >
-        <div className={styles.main}>
+        <div className={styles.main} data-reveal="fade-up">
           <FreeShippingBar
             subtotalCents={cart.subtotalCents}
             thresholdCents={cart.freeShippingThresholdCents}
@@ -314,7 +315,7 @@ export function CheckoutPage({ methods }: Props) {
           </div>
         </div>
 
-        <aside className={styles.panel} aria-label="Your order">
+        <aside className={styles.panel} aria-label="Your order" data-reveal="fade-up">
           <h2>Your order</h2>
           <div className={styles.head}>
             <span>Product</span>
@@ -405,7 +406,12 @@ export function CheckoutPage({ methods }: Props) {
             </div>
           ) : null}
 
-          <button type="submit" className={styles.place} disabled={busy} data-testid="place-order">
+          <button
+            type="submit"
+            className={`${styles.place} m-btn`}
+            disabled={busy}
+            data-testid="place-order"
+          >
             <span>{busy ? "Placing order…" : "Proceed to checkout"}</span>
             <Icon name="arrow-up-right" size={18} />
           </button>

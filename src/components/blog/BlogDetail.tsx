@@ -87,10 +87,10 @@ export function BlogDetail({ post, comments, neighbours }: Props) {
   const threads = comments.filter((c) => c.parentId === null).length;
   return (
     <article className={styles.article} data-testid="blog-post">
-      <div className={styles.hero}>
+      <div className={`${styles.hero} m-fade-soft`}>
         <Image src={post.coverImage} alt={post.title} fill priority sizes="870px" />
       </div>
-      <p className={styles.meta}>
+      <p className={styles.meta} data-reveal="fade-up">
         <span className={styles.author}>
           <Image
             src={post.authorImage ?? "/images/blog/author-selena.jpg"}
@@ -117,15 +117,17 @@ export function BlogDetail({ post, comments, neighbours }: Props) {
         </span>
         <span>{post.readMinutes} mins read</span>
       </p>
-      <h1 className={styles.title}>{post.title}</h1>
+      <h1 className={styles.title} data-reveal="fade-up">
+        {post.title}
+      </h1>
 
-      <div className={styles.body}>
+      <div className={styles.body} data-reveal="fade-up">
         {post.blocks.map((block, i) => (
           <Block key={i} block={block} />
         ))}
       </div>
 
-      <div className={styles.foot}>
+      <div className={styles.foot} data-reveal="fade-up">
         <div className={styles.tags}>
           <span>Tags:</span>
           <ul>
@@ -148,7 +150,7 @@ export function BlogDetail({ post, comments, neighbours }: Props) {
       </div>
 
       {neighbours.previous && neighbours.next ? (
-        <nav className={styles.neighbours} aria-label="More posts">
+        <nav className={styles.neighbours} aria-label="More posts" data-reveal="fade-up">
           <Neighbour post={neighbours.previous} side="previous" />
           <Link href="/blog" className={styles.all} aria-label="All posts">
             <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">

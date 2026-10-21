@@ -370,6 +370,7 @@
   inset: 0;
   z-index: 150;
   background: rgb(36 28 27 / 0.7);
+  animation: filter-fade var(--duration-base) var(--ease);
 }
 
 .drawer {
@@ -379,6 +380,26 @@
   padding: 0 30px 30px;
   overflow-y: auto;
   background: var(--color-bg-body);
+  animation: filter-slide var(--duration-base) var(--ease);
+}
+
+@keyframes filter-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes filter-slide {
+  from {
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .drawer {
+    animation: none;
+  }
 }
 
 .drawerHead {

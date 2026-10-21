@@ -140,7 +140,7 @@ export function ProductGallery({ images, name, mode = "below", zoom = "none" }: 
 
   return (
     <div
-      className={[styles.gallery, styles[mode]].filter(Boolean).join(" ")}
+      className={[styles.gallery, styles[mode], "m-enter-soft"].filter(Boolean).join(" ")}
       data-testid="product-gallery"
       data-mode={mode}
       data-zoom={zoom}

@@ -211,7 +211,7 @@ export function ProductInfo(props: ProductInfoProps) {
         </div>
         <button
           type="button"
-          className={styles.add}
+          className={`${styles.add} m-btn`}
           disabled={!canBuy}
           data-testid="add-to-cart"
           onClick={() => void add({ variantId: variant.id, name }, qty)}
@@ -221,7 +221,7 @@ export function ProductInfo(props: ProductInfoProps) {
         </button>
         <button
           type="button"
-          className={styles.buyNow}
+          className={`${styles.buyNow} m-btn`}
           disabled={!canBuy}
           data-testid="buy-now"
           onClick={async () => {

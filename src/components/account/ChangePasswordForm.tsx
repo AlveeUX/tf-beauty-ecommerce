@@ -38,7 +38,11 @@ export function ChangePasswordForm() {
   return (
     <form className={formStyles.form} onSubmit={submit} noValidate data-testid="password-form">
       {done ? (
-        <p role="status" className={formStyles.success} data-testid="password-changed">
+        <p
+          role="status"
+          className={`${formStyles.success} m-slide-down`}
+          data-testid="password-changed"
+        >
           Your password has been changed.
         </p>
       ) : null}
@@ -62,7 +66,12 @@ export function ChangePasswordForm() {
         autoComplete="new-password"
         required
       />
-      <button type="submit" className={formStyles.submit} disabled={busy} data-testid="auth-submit">
+      <button
+        type="submit"
+        className={`${formStyles.submit} m-btn`}
+        disabled={busy}
+        data-testid="auth-submit"
+      >
         <span>Change password</span>
       </button>
     </form>

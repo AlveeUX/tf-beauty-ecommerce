@@ -61,7 +61,11 @@ export function BlogCard({
   const href = `/blog/${post.slug}`;
   const sizes = variant === "grid" ? "390px" : variant === "row" ? "405px" : "870px";
   return (
-    <article className={`${styles.card} ${styles[variant]}`} data-testid="blog-card">
+    <article
+      className={`${styles.card} ${styles[variant]}`}
+      data-testid="blog-card"
+      data-reveal="fade-up"
+    >
       <Link href={href} className={styles.image} tabIndex={-1} aria-hidden="true">
         <Image
           src={post.coverImage}

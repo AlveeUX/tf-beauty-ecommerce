@@ -21,7 +21,7 @@ export default async function ResetPasswordRoute({ searchParams }: Props) {
     <>
       <PageHero title="My account" />
       <div className={`container ${styles.page}`}>
-        <div className={styles.card}>
+        <div className={styles.card} data-reveal="fade-up">
           <ResetPanel token={token} />
         </div>
       </div>

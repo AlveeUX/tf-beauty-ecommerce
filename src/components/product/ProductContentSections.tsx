@@ -21,7 +21,9 @@ export function ProductContentSections({ content, ingredients }: Props) {
 
   return (
     <div className={styles.wrap}>
-      <h2 className={styles.heading}>Inside the formula</h2>
+      <h2 className={styles.heading} data-reveal="fade-up">
+        Inside the formula
+      </h2>
 
       {formula ? (
         <Section icon="droplet" title={formula.title}>
@@ -112,7 +114,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <details className={styles.section} open>
+    <details className={styles.section} open data-reveal="fade-up">
       <summary>
         <span className={styles.summaryTitle}>
           <Icon name={icon} size={20} strokeWidth={1.4} />

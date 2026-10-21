@@ -52,8 +52,26 @@
   transition: transform var(--duration-slow) var(--ease);
 }
 
-.card:hover img {
-  transform: scale(1.04);
+/* a mouse (or keyboard focus): the photo dims a little (a filter, so nothing is laid over the caption) and the caption lifts */
+@media (hover: hover) and (pointer: fine) {
+  .card img {
+    transition:
+      transform var(--duration-slow) var(--ease),
+      filter var(--duration-slow) var(--ease);
+  }
+
+  .card:is(:hover, :focus-visible) img {
+    transform: scale(var(--img-zoom));
+    filter: brightness(0.78);
+  }
+
+  .label {
+    transition: translate var(--duration-base) var(--ease);
+  }
+
+  .card:is(:hover, :focus-visible) .label {
+    translate: 0 calc(var(--hover-lift) * 0.6667);
+  }
 }
 
 .label {

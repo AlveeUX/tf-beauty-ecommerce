@@ -62,7 +62,7 @@ const PAYMENT_STATUS_LABEL = {
 export function OrderDetails({ order }: { order: OrderView }) {
   const b = order.billing;
   return (
-    <div className={styles.details}>
+    <div className={styles.details} data-reveal="fade-up">
       <table className={styles.items} data-testid="order-items">
         <thead>
           <tr>

@@ -34,7 +34,7 @@ export function BlogSidebar({ data, layout, activeCategory, activeTag, query }: 
   const firstCategory = data.categories[0]?.name;
   const current = activeCategory ?? (activeTag || query ? undefined : firstCategory);
   return (
-    <aside className={styles.side} aria-label="Blog sidebar">
+    <aside className={styles.side} aria-label="Blog sidebar" data-reveal="fade">
       <section className={`${styles.widget} ${styles.search}`}>
         <Heading>Search here</Heading>
         <form action="/blog" method="get" role="search" className={styles.box}>

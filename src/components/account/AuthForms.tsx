@@ -51,7 +51,12 @@ export function AuthTabs({ active }: { active: Tab }) {
 
 function SubmitButton({ busy, children }: { busy: boolean; children: string }) {
   return (
-    <button type="submit" className={styles.submit} disabled={busy} data-testid="auth-submit">
+    <button
+      type="submit"
+      className={`${styles.submit} m-btn`}
+      disabled={busy}
+      data-testid="auth-submit"
+    >
       <span>{children}</span>
       <Icon name="arrow-up-right" size={18} />
     </button>
@@ -97,7 +102,7 @@ export function LoginForm({ next }: { next?: string }) {
   return (
     <form className={`${styles.form} ${styles.withTabs}`} onSubmit={submit} noValidate>
       {formError ? (
-        <p role="alert" className={styles.alert} data-testid="form-error">
+        <p role="alert" className={`${styles.alert} m-slide-down`} data-testid="form-error">
           {formError}
         </p>
       ) : null}
@@ -165,7 +170,7 @@ export function RegisterForm({ next }: { next?: string }) {
   return (
     <form className={`${styles.form} ${styles.withTabs}`} onSubmit={submit} noValidate>
       {formError ? (
-        <p role="alert" className={styles.alert} data-testid="form-error">
+        <p role="alert" className={`${styles.alert} m-slide-down`} data-testid="form-error">
           {formError}
         </p>
       ) : null}
@@ -236,7 +241,7 @@ export function ForgotForm() {
         create a new password via email.
       </p>
       {sent ? (
-        <p role="status" className={styles.success} data-testid="forgot-sent">
+        <p role="status" className={`${styles.success} m-slide-down`} data-testid="forgot-sent">
           {sent}
         </p>
       ) : null}
@@ -267,7 +272,7 @@ export function ResetPanel({ token }: { token: string | undefined }) {
   if (valid && token) return <ResetForm token={token} />;
   return (
     <div className={styles.form}>
-      <p role="alert" className={styles.alert} data-testid="reset-invalid">
+      <p role="alert" className={`${styles.alert} m-slide-down`} data-testid="reset-invalid">
         This reset link is invalid or has expired.
       </p>
       <Link href="/forgot-password" className={styles.textLink}>
@@ -306,7 +311,7 @@ function ResetForm({ token }: { token: string }) {
     <form className={styles.form} onSubmit={submit} noValidate>
       <p className={styles.intro}>Choose a new password for your account.</p>
       {formError ? (
-        <p role="alert" className={styles.alert} data-testid="form-error">
+        <p role="alert" className={`${styles.alert} m-slide-down`} data-testid="form-error">
           {formError}
         </p>
       ) : null}

@@ -231,7 +231,7 @@ export function ReviewForm({ slug }: { slug: string }) {
       <div className={styles.actions}>
         <button
           type="submit"
-          className={styles.submit}
+          className={`${styles.submit} m-btn`}
           disabled={submitting}
           data-testid="submit-review"
         >

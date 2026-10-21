@@ -22,12 +22,17 @@ export default function DemosPage() {
     <>
       <PageHero title="Demos" crumbs={[{ label: "Demos" }]} />
       <div className={`container ${styles.page}`}>
-        <p className={styles.intro}>
+        <p className={styles.intro} data-reveal="fade-up">
           Every layout and page of the {site.name} template, one click each. Shop, product and blog
           layouts are chosen with the <code>layout</code> parameter in the address.
         </p>
         {DEMO_GROUPS.map((group) => (
-          <section key={group.id} className={styles.group} aria-labelledby={`demos-${group.id}`}>
+          <section
+            key={group.id}
+            className={styles.group}
+            aria-labelledby={`demos-${group.id}`}
+            data-reveal="fade-up"
+          >
             <header>
               <h2 id={`demos-${group.id}`}>
                 {group.title} <span className={styles.count}>({group.items.length})</span>

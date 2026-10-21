@@ -20,6 +20,41 @@
   white-space: nowrap;
 }
 
+/* Motion: the number rises in, then drifts up and down slowly - the one loop of this page (animation-plan 2.7). It pauses while the tab
+   is hidden; "subtle" and "off" modes and reduced motion skip the drift. */
+@keyframes digits-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+}
+
+@keyframes digits-float {
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+.digits {
+  animation:
+    digits-in var(--duration-reveal) var(--ease) backwards,
+    digits-float 8s ease-in-out var(--duration-reveal) infinite;
+}
+
+:global(html[data-tab-hidden]) .digits {
+  animation-play-state: paused;
+}
+
+:global(html:is([data-motion="subtle"], [data-motion="off"])) .digits {
+  animation: digits-in var(--duration-reveal) var(--ease) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .digits {
+    animation: digits-in var(--duration-reveal) var(--ease) backwards;
+  }
+}
+
 .digits span {
   position: absolute;
   top: 0;

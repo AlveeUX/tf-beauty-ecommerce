@@ -20,6 +20,25 @@
   margin-top: 40px;
 }
 
+/* opening and closing slide where ::details-content exists (Chrome and Edge 131+); elsewhere they switch at once, as before */
+@supports selector(::details-content) {
+  .section {
+    interpolate-size: allow-keywords;
+  }
+
+  .section::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size var(--duration-base) var(--ease),
+      content-visibility var(--duration-base) allow-discrete;
+  }
+
+  .section[open]::details-content {
+    block-size: auto;
+  }
+}
+
 .section summary {
   display: flex;
   align-items: center;

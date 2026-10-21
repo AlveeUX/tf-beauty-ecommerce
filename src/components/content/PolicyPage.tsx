@@ -58,7 +58,7 @@ function Block({ block }: { block: PolicyBlock }) {
 export function PolicyPage({ policy }: { policy: Policy }) {
   return (
     <div className={`container ${styles.page}`}>
-      <aside className={styles.side}>
+      <aside className={styles.side} data-reveal="fade">
         <PolicyToc
           items={[
             ...policy.sections.map(({ id, toc }) => ({ id, toc })),
@@ -67,12 +67,17 @@ export function PolicyPage({ policy }: { policy: Policy }) {
         />
       </aside>
       <article className={styles.article}>
-        <p className={styles.updated}>
+        <p className={styles.updated} data-reveal="fade-up">
           Last updated: <strong>{formatDateLong(policy.updated)}</strong>
         </p>
         <p className={styles.intro}>{policy.intro}</p>
         {policy.sections.map((section) => (
-          <section key={section.id} id={section.id} className={styles.section}>
+          <section
+            key={section.id}
+            id={section.id}
+            className={styles.section}
+            data-reveal="fade-up"
+          >
             <h2>{section.title}</h2>
             <div className={styles.body}>
               {section.blocks.map((block, i) => (
@@ -81,7 +86,12 @@ export function PolicyPage({ policy }: { policy: Policy }) {
             </div>
           </section>
         ))}
-        <div id="contact" className={styles.contact} data-testid="policy-contact">
+        <div
+          id="contact"
+          className={styles.contact}
+          data-testid="policy-contact"
+          data-reveal="fade-up"
+        >
           <p>{policy.contact.heading}</p>
           <p>
             {policy.contact.lead}{" "}

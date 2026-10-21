@@ -45,7 +45,7 @@ export function ContactPage() {
   return (
     <>
       <section className={`container ${styles.intro}`} aria-labelledby="contact-title">
-        <div className={styles.head}>
+        <div className={styles.head} data-reveal="fade-up">
           <div>
             <p className={styles.label}>Contact us</p>
             <h2 id="contact-title" className={styles.display}>
@@ -57,9 +57,14 @@ export function ContactPage() {
             scripts. <strong>Average reply time: under 4 hours.</strong>
           </p>
         </div>
-        <ul className={styles.cards}>
+        <ul className={styles.cards} data-reveal-stagger>
           {CARDS.map((card) => (
-            <li key={card.id} className={styles.card} data-testid="contact-card">
+            <li
+              key={card.id}
+              className={styles.card}
+              data-testid="contact-card"
+              data-reveal="fade-up"
+            >
               <span className={styles.icon} data-red={card.dark ? undefined : ""}>
                 <Image src={card.icon} alt="" width={31} height={31} unoptimized />
               </span>
@@ -83,7 +88,7 @@ export function ContactPage() {
       </section>
 
       <section className={`container ${styles.talk}`} aria-label="Visit us or write to us">
-        <div className={styles.map} data-testid="contact-map">
+        <div className={styles.map} data-testid="contact-map" data-reveal="clip-left">
           <Image
             src="/images/stores/map.png"
             alt="Map of central Copenhagen"
@@ -104,11 +109,13 @@ export function ContactPage() {
       </section>
 
       <section className={styles.faq} aria-labelledby="faq-title">
-        <p className={`${styles.label} ${styles.center}`}>Read FAQ</p>
-        <h2 id="faq-title" className={`${styles.display} ${styles.center}`}>
+        <p className={`${styles.label} ${styles.center}`} data-reveal="fade-up">
+          Read FAQ
+        </p>
+        <h2 id="faq-title" className={`${styles.display} ${styles.center}`} data-reveal="fade-up">
           Common questions
         </h2>
-        <div className={styles.accordion}>
+        <div className={styles.accordion} data-reveal="fade-up">
           <Accordion items={CONTACT_FAQS} defaultOpen={[CONTACT_FAQS[0]!.id]} />
         </div>
       </section>

@@ -6,7 +6,7 @@ import styles from "./AboutPage.module.css";
 
 function Cta({ label, href }: { label: string; href: string }) {
   return (
-    <Link href={href} className={styles.cta}>
+    <Link href={href} className={`${styles.cta} m-btn`}>
       <span>{label}</span>
       <Icon name="arrow-up-right" size={18} />
     </Link>
@@ -32,7 +32,7 @@ export function AboutPage() {
   return (
     <>
       <section className={styles.hero} aria-labelledby="about-title">
-        <div className={styles.heroImage}>
+        <div className={`${styles.heroImage} m-fade-soft`}>
           <Image
             src="/images/about/hero.jpg"
             alt="Five women of different ages and skin tones"
@@ -42,11 +42,13 @@ export function AboutPage() {
           />
         </div>
         <div className={`container ${styles.heroText}`}>
-          <p className={styles.label}>{hero.label}</p>
-          <h1 id="about-title">{hero.title}</h1>
-          <p className={styles.lead}>{hero.text}</p>
+          <p className={`${styles.label} m-enter`}>{hero.label}</p>
+          <h1 id="about-title" className="m-enter m-i1">
+            {hero.title}
+          </h1>
+          <p className={`${styles.lead} m-enter m-i2`}>{hero.text}</p>
           <Cta {...hero.cta} />
-          <dl className={styles.stats} data-testid="about-stats">
+          <dl className={`${styles.stats} m-enter m-i3`} data-testid="about-stats">
             {hero.stats.map((stat) => (
               <div key={stat.label}>
                 <dd>{stat.value}</dd>
@@ -58,13 +60,19 @@ export function AboutPage() {
       </section>
 
       <section className={`container ${styles.reasons}`} aria-labelledby="reasons-title">
-        <p className={`${styles.label} ${styles.center}`}>{reasons.label}</p>
-        <h2 id="reasons-title" className={`${styles.display} ${styles.center}`}>
+        <p className={`${styles.label} ${styles.center}`} data-reveal="fade-up">
+          {reasons.label}
+        </p>
+        <h2
+          id="reasons-title"
+          className={`${styles.display} ${styles.center}`}
+          data-reveal="fade-up"
+        >
           {reasons.title}
         </h2>
-        <ol className={styles.cards}>
+        <ol className={styles.cards} data-reveal-stagger>
           {reasons.items.map((item, index) => (
-            <li key={item.title}>
+            <li key={item.title} data-reveal="fade-up">
               <div className={styles.cardImage}>
                 <Image src={item.image} alt="" fill sizes="420px" />
                 <span aria-hidden="true">{String(index + 1).padStart(2, "0")}.</span>
@@ -76,7 +84,7 @@ export function AboutPage() {
         </ol>
       </section>
 
-      <section className={styles.quoteBand} aria-label="From our founder">
+      <section className={styles.quoteBand} aria-label="From our founder" data-reveal="fade">
         <Image src="/images/about/quote.svg" alt="" width={80} height={80} unoptimized />
         <blockquote>{quote.text}</blockquote>
         <figure>
@@ -91,10 +99,10 @@ export function AboutPage() {
       </section>
 
       <section className={`container ${styles.split}`} aria-labelledby="expert-title">
-        <div className={`${styles.splitImage} ${styles.imageStart}`}>
+        <div className={`${styles.splitImage} ${styles.imageStart}`} data-reveal="clip-left">
           <Image src={expert.image} alt="A light-therapy treatment" fill sizes="645px" />
         </div>
-        <div className={`${styles.splitText} ${styles.textEnd}`}>
+        <div className={`${styles.splitText} ${styles.textEnd}`} data-reveal="fade-up">
           <p className={styles.label}>{expert.label}</p>
           <h2 id="expert-title" className={styles.display}>
             {expert.title}
@@ -109,7 +117,7 @@ export function AboutPage() {
         className={`container ${styles.split} ${styles.splitSecond}`}
         aria-labelledby="trace-title"
       >
-        <div className={`${styles.splitText} ${styles.textStart}`}>
+        <div className={`${styles.splitText} ${styles.textStart}`} data-reveal="fade-up">
           <p className={styles.label}>{transparency.label}</p>
           <h2 id="trace-title" className={`${styles.display} ${styles.narrow}`}>
             {transparency.title}
@@ -118,20 +126,26 @@ export function AboutPage() {
           <Checks items={transparency.points} />
           <Cta {...transparency.cta} />
         </div>
-        <div className={`${styles.splitImage} ${styles.imageEnd}`}>
+        <div className={`${styles.splitImage} ${styles.imageEnd}`} data-reveal="clip-right">
           <Image src={transparency.image} alt="Natural ingredients" fill sizes="645px" />
         </div>
       </section>
 
       <section className={styles.origins} aria-labelledby="origins-title">
         <div className={styles.originsInner}>
-          <p className={`${styles.label} ${styles.center}`}>{origins.label}</p>
-          <h2 id="origins-title" className={`${styles.display} ${styles.light} ${styles.center}`}>
+          <p className={`${styles.label} ${styles.center}`} data-reveal="fade-up">
+            {origins.label}
+          </p>
+          <h2
+            id="origins-title"
+            className={`${styles.display} ${styles.light} ${styles.center}`}
+            data-reveal="fade-up"
+          >
             {origins.title}
           </h2>
-          <ol className={styles.steps}>
+          <ol className={styles.steps} data-reveal-stagger>
             {origins.steps.map((step) => (
-              <li key={step.n}>
+              <li key={step.n} data-reveal="fade-up">
                 <span className={styles.outline} aria-hidden="true">
                   {step.n}
                 </span>

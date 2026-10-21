@@ -21,7 +21,7 @@ export default function CategoriesPage() {
     <>
       <PageHero title="Categories" />
       <section className={`container ${styles.section}`} aria-labelledby="categories-title">
-        <header className={styles.intro}>
+        <header className={styles.intro} data-reveal="fade-up">
           <p className={styles.eyebrow}>Beauty essentials</p>
           <h2 id="categories-title">Everything your beauty routine needs.</h2>
           <p>
@@ -35,9 +35,9 @@ export default function CategoriesPage() {
             No categories are available yet.
           </p>
         ) : (
-          <ul className={styles.grid} data-testid="category-grid">
+          <ul className={styles.grid} data-testid="category-grid" data-reveal-stagger>
             {cards.map((c, i) => (
-              <li key={c.slug}>
+              <li key={c.slug} data-reveal="fade-up">
                 <Link href={`/shop?category=${c.slug}`} className={styles.card}>
                   <Image src={c.image} alt="" fill sizes="(min-width: 1100px) 308px, 50vw" />
                   <span className={styles.count}>{String(c.count).padStart(2, "0")} products</span>

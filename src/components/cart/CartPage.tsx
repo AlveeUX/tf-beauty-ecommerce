@@ -66,7 +66,7 @@ export function CartPage() {
       ) : null}
 
       {empty ? (
-        <div className={styles.empty} data-testid="cart-empty-page">
+        <div className={styles.empty} data-testid="cart-empty-page" data-reveal="fade-up">
           <div className={styles.illustration} aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className={styles.boxes} src="/images/cart/empty-a.svg" alt="" />
@@ -75,14 +75,14 @@ export function CartPage() {
           </div>
           <h2>Your beauty bag is empty</h2>
           <p>Discover skincare and beauty essentials made to elevate your everyday routine.</p>
-          <Link href="/shop" className={styles.dark}>
+          <Link href="/shop" className={`${styles.dark} m-btn`}>
             <span>Continue shopping</span>
             <Icon name="arrow-up-right" size={18} />
           </Link>
         </div>
       ) : (
-        <div className={styles.layout}>
-          <div className={styles.main}>
+        <div className={styles.layout} data-reveal-stagger>
+          <div className={styles.main} data-reveal="fade-up">
             <FreeShippingBar
               variant="page"
               subtotalCents={cart.subtotalCents}
@@ -173,7 +173,7 @@ export function CartPage() {
                   onChange={(e) => setCoupon(e.target.value)}
                   aria-describedby="coupon-status"
                 />
-                <button type="submit" className={styles.dark}>
+                <button type="submit" className={`${styles.dark} m-btn`}>
                   <span>Apply coupon</span>
                   <Icon name="arrow-up-right" size={18} />
                 </button>
@@ -192,7 +192,7 @@ export function CartPage() {
             </p>
           </div>
 
-          <aside className={styles.totals} aria-labelledby="cart-total-title">
+          <aside className={styles.totals} aria-labelledby="cart-total-title" data-reveal="fade-up">
             <h2 id="cart-total-title">Cart total</h2>
             <dl>
               <div>
@@ -204,7 +204,7 @@ export function CartPage() {
                 <dd data-testid="cart-total">{formatMoney(cart.subtotalCents, "full")}</dd>
               </div>
             </dl>
-            <Link href="/checkout" className={styles.checkout}>
+            <Link href="/checkout" className={`${styles.checkout} m-btn`}>
               <span>Proceed to checkout</span>
               <Icon name="arrow-up-right" size={18} />
             </Link>

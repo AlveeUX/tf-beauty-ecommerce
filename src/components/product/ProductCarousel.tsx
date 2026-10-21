@@ -14,9 +14,11 @@ export function ProductCarousel({ title, products, headingLevel = 2 }: ProductCa
   const Heading = `h${headingLevel}` as const;
   return (
     <section className={styles.section} aria-label={title}>
-      <Heading className={styles.heading}>{title}</Heading>
+      <Heading className={styles.heading} data-reveal="fade-up">
+        {title}
+      </Heading>
       <div className={styles.frame}>
-        <ProductTrack products={products} label={title} />
+        <ProductTrack products={products} label={title} reveal />
       </div>
     </section>
   );

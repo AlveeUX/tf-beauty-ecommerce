@@ -12,7 +12,7 @@ const directions = (address: string) =>
 export function StoreLocator({ now }: { now: Date }) {
   return (
     <div className={`container ${styles.page}`}>
-      <div className={styles.map} data-testid="store-map">
+      <div className={`${styles.map} m-fade-soft`} data-testid="store-map">
         <Image
           src="/images/stores/map.png"
           alt="Map of central Copenhagen showing our stores"
@@ -31,11 +31,16 @@ export function StoreLocator({ now }: { now: Date }) {
           aria-hidden="true"
         />
       </div>
-      <ul className={styles.list} aria-label="Our stores">
+      <ul className={styles.list} aria-label="Our stores" data-reveal-stagger>
         {STORES.map((store) => {
           const status = storeStatus(store.hours, store.timeZone, now);
           return (
-            <li key={store.id} className={styles.card} data-testid="store-card">
+            <li
+              key={store.id}
+              className={styles.card}
+              data-testid="store-card"
+              data-reveal="fade-up"
+            >
               <h2>{store.name}</h2>
               {store.distance ? <p className={styles.distance}>{store.distance}</p> : null}
               <address>{store.address}</address>

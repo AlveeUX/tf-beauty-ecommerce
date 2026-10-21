@@ -48,7 +48,7 @@ export function TrackForm() {
             confirmation email you should have received.
           </p>
           {formError ? (
-            <p role="alert" className={formStyles.alert} data-testid="form-error">
+            <p role="alert" className={`${formStyles.alert} m-slide-down`} data-testid="form-error">
               {formError}
             </p>
           ) : null}
@@ -70,7 +70,7 @@ export function TrackForm() {
             autoComplete="email"
             required
           />
-          <button type="submit" className={formStyles.submit} data-testid="auth-submit">
+          <button type="submit" className={`${formStyles.submit} m-btn`} data-testid="auth-submit">
             <span>Track order</span>
             <Icon name="arrow-up-right" size={18} />
           </button>
@@ -82,6 +82,7 @@ export function TrackForm() {
           className={pageStyles.section}
           aria-labelledby="track-result"
           data-testid="track-result"
+          data-reveal="fade-up"
         >
           <h2 id="track-result">
             Order {order.number} · {STATUS_LABEL[order.status]}

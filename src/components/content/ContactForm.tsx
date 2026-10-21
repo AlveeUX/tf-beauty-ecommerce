@@ -50,7 +50,13 @@ export function ContactForm() {
   }
 
   return (
-    <form className={styles.form} onSubmit={submit} noValidate data-testid="contact-form">
+    <form
+      className={styles.form}
+      onSubmit={submit}
+      noValidate
+      data-testid="contact-form"
+      data-reveal="fade-up"
+    >
       <h2>Send us a message</h2>
       <p className={styles.hint}>
         Fields marked <span aria-hidden="true">*</span>
@@ -58,12 +64,12 @@ export function ContactForm() {
         faster.
       </p>
       {sent ? (
-        <p role="status" className={styles.success} data-testid="contact-sent">
+        <p role="status" className={`${styles.success} m-slide-down`} data-testid="contact-sent">
           {sent}
         </p>
       ) : null}
       {formError ? (
-        <p role="alert" className={styles.alert} data-testid="form-error">
+        <p role="alert" className={`${styles.alert} m-slide-down`} data-testid="form-error">
           {formError}
         </p>
       ) : null}
@@ -118,7 +124,12 @@ export function ContactForm() {
           I agree to the <Link href="/policy/privacy">Privacy Policy</Link> of the website.
         </Checkbox>
       </div>
-      <button type="submit" className={styles.send} disabled={busy} data-testid="send-message">
+      <button
+        type="submit"
+        className={`${styles.send} m-btn`}
+        disabled={busy}
+        data-testid="send-message"
+      >
         <span>{busy ? "Sending…" : "Send message"}</span>
         <Icon name="arrow-up-right" size={18} />
       </button>

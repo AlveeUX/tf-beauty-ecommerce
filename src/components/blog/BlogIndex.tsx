@@ -55,7 +55,11 @@ export function BlogIndex({ layout, posts, page, pages, total, sidebar, filter }
           .
         </p>
       ) : (
-        <div className={`${styles.posts} ${styles[layout.replace("-", "_")]}`} data-layout={layout}>
+        <div
+          className={`${styles.posts} ${styles[layout.replace("-", "_")]}`}
+          data-layout={layout}
+          data-reveal-stagger
+        >
           {posts.map((post, i) => (
             <BlogCard key={post.slug} post={post} variant={VARIANT[layout]} priority={i < 2} />
           ))}

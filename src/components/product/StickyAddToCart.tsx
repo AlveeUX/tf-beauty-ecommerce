@@ -84,7 +84,7 @@ export function StickyAddToCart({
         </p>
         <button
           type="button"
-          className={styles.add}
+          className={`${styles.add} m-btn`}
           disabled={disabled}
           onClick={onAdd}
           data-testid="sticky-add"

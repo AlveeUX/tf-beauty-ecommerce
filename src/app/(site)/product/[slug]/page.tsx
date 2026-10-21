@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { pageMeta, snippet } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
@@ -57,7 +58,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
 
   return (
     <>
-      <div className={`container ${styles.crumbs}`}>
+      <div className={`container ${styles.crumbs} m-enter`}>
         <nav aria-label="Breadcrumb">
           <ol>
             <li>
@@ -85,7 +86,10 @@ export default async function ProductPage({ params, searchParams }: Props) {
           mode={gallery.mode}
           zoom={gallery.zoom}
         />
-        <div className={gallery.mode === "grid-1" ? styles.sticky : undefined}>
+        <div
+          className={[gallery.mode === "grid-1" ? styles.sticky : "", "m-enter"].join(" ").trim()}
+          style={{ "--i": 1 } as CSSProperties}
+        >
           <ProductInfo
             slug={product.slug}
             name={product.name}

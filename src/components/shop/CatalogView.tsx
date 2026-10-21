@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { BenefitStrip } from "@/components/layout/BenefitStrip";
 import { PageHero, type Crumb } from "@/components/layout/PageHero";
 import { ProductCard } from "@/components/product/ProductCard";
@@ -61,7 +62,7 @@ export function CatalogView({ title, crumbs, basePath, query, result, facets }: 
 
   const content = (
     <section className={styles.content} aria-label="Products">
-      <div className={styles.toolbar}>
+      <div className={styles.toolbar} data-reveal="fade">
         <div className={styles.left}>
           <ViewToggle layout={layout} hrefFor={hrefFor} />
           {summary}
@@ -98,9 +99,15 @@ export function CatalogView({ title, crumbs, basePath, query, result, facets }: 
           data-testid="product-grid"
           data-columns={traits.columns}
           data-view={traits.view}
+          data-reveal-stagger
         >
           {result.items.map((product, i) => (
-            <li key={product.slug}>
+            <li
+              key={product.slug}
+              {...(i < 3
+                ? { className: "m-enter", style: { "--i": i } as CSSProperties } // on screen at load: a CSS entrance
+                : { "data-reveal": "fade-up" })}
+            >
               <ProductCard
                 product={product}
                 priority={i < 3}
@@ -110,7 +117,12 @@ export function CatalogView({ title, crumbs, basePath, query, result, facets }: 
           ))}
         </ul>
       ) : (
-        <div className={styles.empty} role="status" data-testid="empty-results">
+        <div
+          className={styles.empty}
+          role="status"
+          data-testid="empty-results"
+          data-reveal="fade-up"
+        >
           <h2>No products match your filters</h2>
           <p>Try removing a filter or searching for something else.</p>
           <Link href={clearHref} className={styles.reset}>
@@ -121,7 +133,7 @@ export function CatalogView({ title, crumbs, basePath, query, result, facets }: 
 
       {traits.loadMore ? (
         canLoadMore ? (
-          <div className={styles.more}>
+          <div className={styles.more} data-reveal="fade">
             <Link
               href={loadMoreQuery ? `${basePath}?${loadMoreQuery}` : basePath}
               scroll={false}
@@ -134,7 +146,7 @@ export function CatalogView({ title, crumbs, basePath, query, result, facets }: 
           </div>
         ) : null
       ) : (
-        <div className={styles.footer}>
+        <div className={styles.footer} data-reveal="fade">
           {result.items.length > 0 ? summary : <span />}
           <Pagination
             query={query}
@@ -148,7 +160,7 @@ export function CatalogView({ title, crumbs, basePath, query, result, facets }: 
   );
 
   const sidebar = hasSidebar ? (
-    <div className={styles.inlineOnly}>
+    <div className={styles.inlineOnly} data-reveal="fade">
       <FilterSidebar facets={facets} basePath={basePath} />
     </div>
   ) : null;

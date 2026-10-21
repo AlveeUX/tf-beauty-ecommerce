@@ -31,7 +31,7 @@ export function OrderConfirmation({ number }: { number: string }) {
 
   return (
     <div className={`container ${styles.page}`}>
-      <section className={styles.banner} aria-labelledby="thanks">
+      <section className={styles.banner} aria-labelledby="thanks" data-reveal="fade-up">
         <h2 id="thanks">Thank you. Your order has been received.</h2>
         <dl className={styles.facts}>
           <div>
@@ -58,15 +58,15 @@ export function OrderConfirmation({ number }: { number: string }) {
         </p>
       </section>
       <OrderDetails order={order} />
-      <div className={styles.timeline}>
+      <div className={styles.timeline} data-reveal="fade-up">
         <h2>Order progress</h2>
         <OrderTimeline order={order} />
       </div>
-      <div className={styles.actions}>
+      <div className={styles.actions} data-reveal="fade-up">
         <Link href="/track-order" className={styles.outline}>
           Track this order
         </Link>
-        <Link href="/shop" className={styles.dark}>
+        <Link href="/shop" className={`${styles.dark} m-btn`}>
           Continue shopping
         </Link>
       </div>

@@ -49,7 +49,7 @@ export function FaqPage() {
 
   return (
     <>
-      <section className={styles.search} aria-labelledby="faq-title">
+      <section className={styles.search} aria-labelledby="faq-title" data-reveal="fade-up">
         <p className={styles.label}>Search FAQs</p>
         <h2 id="faq-title" className={styles.display}>
           Questions, answered
@@ -75,7 +75,7 @@ export function FaqPage() {
       </section>
 
       <div className={`container ${styles.page}`}>
-        <aside className={styles.side}>
+        <aside className={styles.side} data-reveal="fade">
           <nav aria-label="Topics" className={styles.tabs}>
             {FAQ_CATEGORIES.map((category) => {
               const visible = categories.some((c) => c.id === category.id);
@@ -116,6 +116,7 @@ export function FaqPage() {
                 className={styles.section}
                 aria-labelledby={`${category.id}-title`}
                 data-testid="faq-section"
+                data-reveal="fade-up"
               >
                 <header>
                   <span className={styles.icon}>

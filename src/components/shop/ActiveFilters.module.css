@@ -4,6 +4,13 @@
   gap: 15px; /* "Clear all" sits right after the chips (Figma 3:38762) */
 }
 
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: scale(var(--reveal-scale-pop));
+  }
+}
+
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -11,6 +18,7 @@
 }
 
 .chip {
+  animation: chip-in var(--duration-base) var(--ease-overshoot) backwards;
   display: inline-flex;
   align-items: center;
   gap: 4px;

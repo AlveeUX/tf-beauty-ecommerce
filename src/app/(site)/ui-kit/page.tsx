@@ -83,13 +83,13 @@ export default function UiKitPage() {
     <>
       <PageHero title="UI kit" crumbs={[{ label: "UI kit" }]} />
       <div className={`container ${styles.page}`}>
-        <p className={styles.intro}>
+        <p className={styles.intro} data-reveal="fade-up">
           Everything below is built from the components in <code>src/components</code> and the
           design tokens in <code>src/styles/tokens.css</code>. Brand name, contact details and shop
           rules come from <code>src/config/site.ts</code> ({site.name} here).
         </p>
 
-        <section className={styles.section} aria-labelledby="kit-colors">
+        <section data-reveal="fade-up" className={styles.section} aria-labelledby="kit-colors">
           <h2 id="kit-colors">Colour tokens</h2>
           <ul className={styles.swatches}>
             {COLORS.map(([token, role]) => (
@@ -98,7 +98,7 @@ export default function UiKitPage() {
           </ul>
         </section>
 
-        <section className={styles.section} aria-labelledby="kit-type">
+        <section data-reveal="fade-up" className={styles.section} aria-labelledby="kit-type">
           <h2 id="kit-type">Typography</h2>
           <p className={styles.display}>Prata for headlines and the logo</p>
           <p className={styles.script}>Allura for accents</p>
@@ -109,7 +109,7 @@ export default function UiKitPage() {
           ))}
         </section>
 
-        <section className={styles.section} aria-labelledby="kit-buttons">
+        <section data-reveal="fade-up" className={styles.section} aria-labelledby="kit-buttons">
           <h2 id="kit-buttons">Buttons</h2>
           <div className={styles.row}>
             <Button icon="bell">Primary</Button>
@@ -124,7 +124,7 @@ export default function UiKitPage() {
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="kit-prices">
+        <section data-reveal="fade-up" className={styles.section} aria-labelledby="kit-prices">
           <h2 id="kit-prices">Rating, price and free shipping</h2>
           <div className={styles.row}>
             <Rating value={4.5} count={128} />
@@ -143,7 +143,7 @@ export default function UiKitPage() {
           />
         </section>
 
-        <section className={styles.section} aria-labelledby="kit-cards">
+        <section data-reveal="fade-up" className={styles.section} aria-labelledby="kit-cards">
           <h2 id="kit-cards">Product cards</h2>
           <p className={styles.note}>
             New, best seller and hot badges, a struck-through price and the sold-out state.
@@ -157,7 +157,7 @@ export default function UiKitPage() {
 
         <InteractiveDemos />
 
-        <section className={styles.section} aria-labelledby="kit-icons">
+        <section data-reveal="fade-up" className={styles.section} aria-labelledby="kit-icons">
           <h2 id="kit-icons">Icons ({ICON_NAMES.length})</h2>
           <ul className={styles.icons}>
             {ICON_NAMES.map((name) => (

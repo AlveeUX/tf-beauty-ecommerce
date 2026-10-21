@@ -87,10 +87,14 @@ export function AddressesManager() {
   }
 
   return (
-    <div className={styles.card} data-testid="addresses">
+    <div className={styles.card} data-testid="addresses" data-reveal="fade-up">
       <h2>Addresses</h2>
       {message ? (
-        <p role="status" className={styles.statusNote} data-testid="address-message">
+        <p
+          role="status"
+          className={`${styles.statusNote} m-slide-down`}
+          data-testid="address-message"
+        >
           {message}
         </p>
       ) : null}

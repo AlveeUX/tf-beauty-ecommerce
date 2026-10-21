@@ -20,14 +20,14 @@ export function WishlistPage() {
 
   if (slugs.length === 0) {
     return (
-      <div className={`container ${styles.page}`}>
+      <div className={`container ${styles.page}`} data-reveal="fade-up">
         <div className={styles.empty} data-testid="wishlist-empty">
           <span className={styles.heart} aria-hidden="true">
             <Icon name="heart" size={32} />
           </span>
           <h2>Your wishlist is empty</h2>
           <p>Tap the heart on any product to save it here for later.</p>
-          <Link href="/shop" className={styles.dark}>
+          <Link href="/shop" className={`${styles.dark} m-btn`}>
             <span>Continue shopping</span>
             <Icon name="arrow-up-right" size={18} />
           </Link>
@@ -37,7 +37,7 @@ export function WishlistPage() {
   }
 
   return (
-    <div className={`container ${styles.page}`}>
+    <div className={`container ${styles.page}`} data-reveal="fade-up">
       {status === "error" ? (
         <p role="alert" className={styles.error}>
           We could not load your wishlist. Please refresh the page.

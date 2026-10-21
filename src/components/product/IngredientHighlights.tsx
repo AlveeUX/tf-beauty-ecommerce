@@ -12,12 +12,12 @@ export function IngredientHighlights({
   return (
     <section className={styles.section} aria-labelledby="highlights-title">
       <div className="container">
-        <h2 id="highlights-title" className={styles.heading}>
+        <h2 id="highlights-title" className={styles.heading} data-reveal="fade-up">
           {highlights.title}
         </h2>
-        <ul className={styles.grid}>
+        <ul className={styles.grid} data-reveal-stagger>
           {highlights.items.map((item) => (
-            <li key={item.title}>
+            <li key={item.title} data-reveal="fade-up">
               <div className={styles.image}>
                 <Image src={item.image} alt="" fill sizes="(min-width: 1100px) 370px, 100vw" />
               </div>

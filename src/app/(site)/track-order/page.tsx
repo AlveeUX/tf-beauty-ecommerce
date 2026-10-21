@@ -17,6 +17,7 @@ export default function TrackOrderRoute() {
       <PageHero title="Order tracking" />
       <div
         className={`container ${styles.page}`}
+        data-reveal="fade-up"
         style={{ display: "flex", flexDirection: "column", gap: 60 }}
       >
         <TrackForm />
