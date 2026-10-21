@@ -293,3 +293,78 @@
     height: var(--tap);
   }
 }
+
+/*
+ * Motion: after the headline starts, the rest of the hero arrives in steps of --stagger. CSS animations that
+ * run from the first paint (not after hydration); distances and scales come from tokens, so with reduced motion
+ * they are plain fades. The animations end on each element's normal style, so nothing changes at rest.
+ */
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+}
+
+@keyframes hero-pop {
+  from {
+    opacity: 0;
+    transform: scale(var(--reveal-scale-pop));
+  }
+}
+
+@keyframes hero-cta {
+  from {
+    opacity: 0;
+    transform: scale(calc(1 - (1 - var(--reveal-scale)) * 2.5)); /* 0.95 */
+  }
+}
+
+.eyebrow {
+  animation: hero-fade var(--duration-reveal) var(--ease) calc(var(--stagger) * 2) backwards;
+}
+
+.card {
+  animation: hero-enter var(--duration-reveal) var(--ease) calc(var(--stagger) * 4) backwards;
+}
+
+.badge {
+  --shine-delay: calc(var(--stagger) * 4 + var(--duration-reveal));
+  animation: hero-pop var(--duration-reveal) var(--ease) calc(var(--stagger) * 4) backwards;
+}
+
+.controls,
+.index {
+  animation: hero-fade var(--duration-reveal) var(--ease) calc(var(--stagger) * 6) backwards;
+}
+
+/* the call to action comes last; the overshoot ease is reserved for it */
+.cta {
+  animation: hero-cta var(--duration-base) var(--ease-overshoot) calc(var(--stagger) * 8) backwards;
+}
+
+/* a soft red glow around the badge while the pointer is on it (no pulse) */
+@media (hover: hover) and (pointer: fine) {
+  .badge::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow:
+      0 0 0 6px rgb(199 51 43 / 0.22),
+      0 0 36px 8px rgb(199 51 43 / 0.55);
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease);
+  }
+
+  .badge:hover::before {
+    opacity: 1;
+  }
+}

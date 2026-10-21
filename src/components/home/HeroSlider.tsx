@@ -69,7 +69,7 @@ export function HeroSlider({ slides }: { slides: Banner[] }) {
       </div>
 
       {badge ? (
-        <div className={styles.badge} aria-hidden="true">
+        <div className={`${styles.badge} m-shine`} aria-hidden="true">
           <Image src="/images/home/badge-fill.png" alt="" width={114} height={114} unoptimized />
           <span className={styles.badgeTop}>{badge.top}</span>
           <strong>{badge.value}</strong>

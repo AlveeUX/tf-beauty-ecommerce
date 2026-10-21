@@ -158,3 +158,34 @@ html:is([data-motion="subtle"], [data-motion="off"]) [data-loop] {
     clip-path: none !important;
   }
 }
+
+/*
+ * One-time shine (M11): a soft highlight crosses the element once, after --shine-delay (default none).
+ * The element must be positioned and have a border radius; the highlight follows it. At rest nothing is visible.
+ */
+.m-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 38%, rgb(253 251 248 / 0.5) 50%, transparent 62%)
+    0 0 / 300% 100% no-repeat;
+  animation: m-shine var(--duration-hero) var(--ease) var(--shine-delay, 0ms) backwards;
+}
+
+@keyframes m-shine {
+  from {
+    background-position: 100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-shine::after {
+    animation: none;
+  }
+}
+
+html:is([data-motion="subtle"], [data-motion="off"]) .m-shine::after {
+  animation: none;
+}
