@@ -173,11 +173,16 @@ html:is([data-motion="subtle"], [data-motion="off"]) [data-loop] {
   background: linear-gradient(
       110deg,
       transparent 38%,
-      rgb(253 251 248 / var(--shine-alpha, 0.5)) 50%,
+      rgb(var(--shine-color, 253 251 248) / var(--shine-alpha, 0.5)) 50%,
       transparent 62%
     ) -40%
     0 / 300% 100% no-repeat;
   animation: m-shine var(--duration-hero) var(--ease-standard) var(--shine-delay, 0ms) backwards;
+}
+
+/* inside a [data-reveal] block the shine waits for the reveal, so it plays when the badge comes into view */
+html.motion-ready [data-reveal]:not([data-revealed]) .m-shine::after {
+  animation-play-state: paused;
 }
 
 @keyframes m-shine {
@@ -338,5 +343,26 @@ a.m-link:focus-visible {
   .m-ring:is(a, button):not(:disabled):is(:hover, :focus-visible) {
     box-shadow: var(--ring-shadow);
     scale: var(--ring-scale);
+  }
+}
+
+/*
+ * Pop (M13): a quick grow-and-settle for a state change (a heart filled, a count changed). Put the class on a
+ * wrapper around the icon, only after the change (so nothing pops on page load); remount it (change its key) to
+ * replay. --pop-scale is 1 with reduced motion. m-pop-slot is the same wrapper before it has popped, so the
+ * icon does not move when the class is added.
+ */
+.m-pop-slot,
+.m-pop {
+  display: inline-flex;
+}
+
+.m-pop {
+  animation: m-pop calc(var(--duration-base) * 0.8) var(--ease);
+}
+
+@keyframes m-pop {
+  40% {
+    transform: scale(var(--pop-scale));
   }
 }

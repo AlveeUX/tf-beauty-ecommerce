@@ -72,9 +72,9 @@ export function ProductCard({
           />
         </Link>
         {badgeLabel ? (
-          <span className={styles.badge}>{badgeLabel}</span>
+          <span className={`${styles.badge} m-shine`}>{badgeLabel}</span>
         ) : product.badge ? (
-          <span className={styles.badge}>{BADGE_TEXT[product.badge]}</span>
+          <span className={`${styles.badge} m-shine`}>{BADGE_TEXT[product.badge]}</span>
         ) : null}
         {soldOut ? <span className={styles.soldOut}>Out of stock</span> : null}
         <ul className={styles.actions}>

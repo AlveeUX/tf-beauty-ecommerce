@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
 import { useListsUi } from "@/components/lists/ListsUi";
 import { Icon } from "@/components/ui/Icon";
@@ -33,6 +34,8 @@ export function QuickViewLink({ slug, name }: Props) {
 /** Heart on a product card: toggles the guest wishlist (WSH-001). */
 export function WishlistToggle({ slug, name }: Props) {
   const { active, toggle } = useWishlistAction(slug, name);
+  // the heart pops after a click, not when the page loads with the product already in the wishlist
+  const [pops, setPops] = useState(0);
   return (
     <button
       type="button"
@@ -40,9 +43,14 @@ export function WishlistToggle({ slug, name }: Props) {
       aria-pressed={active}
       className="m-ring"
       data-testid="card-wishlist"
-      onClick={toggle}
+      onClick={() => {
+        toggle();
+        setPops((n) => n + 1);
+      }}
     >
-      <Icon name="heart" size={16} filled={active} />
+      <span key={pops} className={pops ? "m-pop" : "m-pop-slot"}>
+        <Icon name="heart" size={16} filled={active} />
+      </span>
     </button>
   );
 }

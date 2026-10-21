@@ -45,6 +45,9 @@
 }
 
 .badge {
+  --shine-delay: var(--duration-reveal); /* the shine crosses once the card has finished entering */
+  --shine-color: 199 51 43; /* Primary: a cream highlight would not show on the cream badge */
+  --shine-alpha: 0.28;
   position: absolute;
   top: 15px;
   left: 15px;
