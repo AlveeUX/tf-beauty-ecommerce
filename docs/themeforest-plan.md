@@ -533,6 +533,7 @@ Stop at the TF1 exit gate and report evidence.
 - [x] Breakpoint tokens; header, shop, PDP, cart, checkout, carousels, modals responsive (T01-T10 done and committed locally; breakpoints 1439 / 1100 / 767, `--tap` 44px token)
 - [x] Contrast fixed; keyboard walk-through (T11: contrast audit 0 failing pairs at 1920, 1440, 1180, 768, 390 and 320; R-03 touch sizes and R-04 axe pass at 768, 390, 320 (R-04 also at 1024); R-05 keyboard and reduced-motion specs pass at 1024, 768, 390, 320)
 - [x] 5 viewports × full suite green (1920: 156 passed; responsive suite at 7 widths: 87 passed, 0 failed; C13 desktop comparison: identical page heights; evidence in D-056). **Gate G3 approved 2026-10-21 (D-057)**
+- [x] **TF3-FIX1 (2026-10-23, D-088): repair pass after the live site showed broken phone layouts** (welcome popup 840 px wide with its close button off screen, clipped captions and banners, text over text; 54 routes and variants audited at 320-1100 px; new motion-on spec `integrity.spec.ts`). Open: `R-03` fails on the three 8 px photo dots of the Home banner (D-082), the user to decide
 
 **TF4 Quality**
 - [x] Chromium, Firefox, WebKit (T01: 1920 and 390 px, D-058)
