@@ -7,6 +7,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { AddButton } from "@/components/product/CardActions";
 import { ProductTrack } from "@/components/product/ProductTrack";
 import { BundleBuilder, type Bundle } from "./BundleBuilder";
+import { FeatureSlides } from "./FeatureSlides";
 import { Testimonials } from "./Testimonials";
 import type { Banner } from "@/server/content/banners";
 import styles from "./HomeSections.module.css";
@@ -180,6 +181,11 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
   if (!banner) return null;
   const badge = banner.data.badge as { line1?: string; line2?: string; line3?: string } | undefined;
   const price = Number(banner.data.priceCents ?? 0);
+  // the banner photo, then the extra photos that fade in after it (data.slides)
+  const slides = Array.isArray(banner.data.slides)
+    ? banner.data.slides.filter((src): src is string => typeof src === "string")
+    : [];
+  const photos = [banner.image, ...slides].filter((src): src is string => Boolean(src));
   return (
     <section className={styles.drops} aria-labelledby="drops-title">
       <div className="container">
@@ -191,18 +197,7 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
         />
         <div className={styles.dropsGrid}>
           <article className={`${styles.feature} m-sweep`} data-reveal="clip-left">
-            {banner.image ? (
-              <Image
-                src={banner.image}
-                alt=""
-                width={1376}
-                height={768}
-                sizes="1021px"
-                className={styles.featureImage}
-                data-parallax-px="40"
-                data-parallax-axis="x"
-              />
-            ) : null}
+            {photos.length > 0 ? <FeatureSlides images={photos} /> : null}
             <div className={styles.featureShade} aria-hidden="true" />
             {badge ? (
               <div className={`${styles.freeBadge} m-shine`} aria-hidden="true">
@@ -249,9 +244,6 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
                 </span>
               </AddButton>
             </div>
-            <span className={styles.dots} aria-hidden="true">
-              <i data-on /> <i /> <i />
-            </span>
           </article>
 
           <ul className={styles.dropList} data-reveal-stagger>
@@ -306,7 +298,6 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
                   <AddButton
                     slugs={[String(d.data.productSlug ?? "")]}
                     className={styles.plus}
-                    tone={String(d.data.tone ?? "light")}
                     ariaLabel={`Add ${d.title} to cart`}
                   >
                     <Icon name="plus" size={20} strokeWidth={2} />

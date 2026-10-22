@@ -7,18 +7,11 @@ import { useCart } from "@/components/cart/CartProvider";
 import { Icon } from "@/components/ui/Icon";
 import type { ProductSummary } from "@/lib/catalog-types";
 import { formatMoney } from "@/lib/money";
-import { flagOn, prefersReducedMotion } from "@/lib/motion";
+import { flagOn, prefersReducedMotion, subscribeReducedMotion } from "@/lib/motion";
 import styles from "./BundleBuilder.module.css";
 
 type BundleItem = ProductSummary & { imageCrop?: { height: number; top: number } };
 export type Bundle = { label: string; products: BundleItem[]; discountPercent: number };
-
-/** Re-reads whether the visitor asked for less motion (the system setting can change while the page is open). */
-function subscribeReducedMotion(notify: () => void) {
-  const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-  query.addEventListener("change", notify);
-  return () => query.removeEventListener("change", notify);
-}
 
 /** After a click on a tab the tabs stay where the visitor put them for this long, then switching by itself resumes. */
 const HOLD_MS = 10_000;

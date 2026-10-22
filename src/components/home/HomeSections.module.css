@@ -335,15 +335,37 @@
   color: var(--color-light-01);
 }
 
-/* fill crop from the design: 117.39% wide, 10.3% off to the left (3:2752) */
-.featureImage {
+/* fill crop from the design: 117.39% wide, 10.3% off to the left (3:2752); the photos are stacked inside this layer */
+.slides {
   position: absolute;
   top: 0;
   left: -10.3%;
   width: 117.39%;
   height: 100%;
+  isolation: isolate; /* the photos' z-index stays inside the layer, below the shade, badge and text, with or without parallax */
+}
+
+/* Cross-fade: the next photo fades in on top over the hero's 1.4 s and settles from a slight zoom to rest. The photo it
+   replaces stays fully visible underneath until the new one is complete, then goes (so the light background never shows
+   through mid-fade). The timing tokens collapse for reduced motion and the "subtle" / "off" modes (tokens.css). */
+.slide {
+  z-index: 0;
   max-width: none;
-  object-fit: fill;
+  object-fit: cover;
+  opacity: 0;
+  scale: var(--hero-zoom);
+  transition:
+    opacity 0s linear var(--duration-hero),
+    scale 0s linear var(--duration-hero);
+}
+
+.slide[data-on] {
+  z-index: 1;
+  opacity: 1;
+  scale: 1;
+  transition:
+    opacity var(--duration-hero) cubic-bezier(0.45, 0, 0.2, 1),
+    scale calc(var(--duration-hero) * 4) var(--ease);
 }
 
 /* 3:2766: 339px fade from the bottom, solid until 22.4% */
@@ -462,22 +484,40 @@
   background: var(--color-secondary);
 }
 
+/* the design has the dots 50px from the banner's right and bottom edges (776px from the left of 870, 512px from the top of 570) */
 .dots {
   position: absolute;
-  top: 512px;
-  left: 776px;
+  right: 50px;
+  bottom: 50px;
+  z-index: 2;
   display: flex;
   gap: 10px;
 }
 
-.dots i {
+.dot {
+  position: relative;
   width: 8px;
   height: 8px;
+  padding: 0;
   background: var(--color-light-01);
   opacity: 0.2;
+  transition: opacity var(--duration-base) var(--ease);
 }
 
-.dots i[data-on] {
+/* a larger target than the 8px square */
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: -8px -5px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dot:hover {
+    opacity: 0.6;
+  }
+}
+
+.dot[aria-pressed="true"] {
   opacity: 1;
 }
 
@@ -587,13 +627,9 @@
     color var(--duration-fast) var(--ease);
 }
 
-.plus[data-tone="dark"] {
+/* all three look the same at rest; the circle turns black on hover or keyboard focus */
+.plus:is(:hover, :focus-visible) {
   background: var(--color-bg-dark);
-  color: var(--color-light-01);
-}
-
-.plus:hover {
-  background: var(--color-primary);
   color: var(--color-light-01);
 }
 
@@ -1611,5 +1647,9 @@
     width: var(--tap);
     height: var(--tap);
     right: 12px;
+  }
+
+  .dot::after {
+    inset: -18px -9px;
   }
 }

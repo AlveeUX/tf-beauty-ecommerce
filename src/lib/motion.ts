@@ -12,6 +12,13 @@ export function prefersReducedMotion(): boolean {
   );
 }
 
+/** For useSyncExternalStore: re-reads whether the visitor asked for less motion (the system setting can change while the page is open). */
+export function subscribeReducedMotion(notify: () => void) {
+  const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+  query.addEventListener("change", notify);
+  return () => query.removeEventListener("change", notify);
+}
+
 /** True for a mouse or trackpad. Hover effects and pointer effects run only there, never on touch. */
 export function canHover(): boolean {
   return (

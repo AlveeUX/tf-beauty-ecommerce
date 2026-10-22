@@ -9,6 +9,8 @@ export type MotionConfig = {
   pinnedCards: boolean;
   /** The Home bundle tabs switch by themselves: the rule under the active tab is a 3 second progress bar (a click holds it for 10 seconds). */
   tabsAutoplay: boolean;
+  /** The Home "Fresh drops" photo changes by itself every 3 seconds, with a slow cross-fade (a click on a dot holds it for 10 seconds). */
+  slidesAutoplay: boolean;
   tilt: boolean;
   carouselAutoplay: boolean;
   marquee: boolean;
@@ -33,6 +35,7 @@ export const motionConfig: MotionConfig = {
   magnetic: true,
   pinnedCards: true,
   tabsAutoplay: true,
+  slidesAutoplay: true,
   tilt: false,
   carouselAutoplay: false,
   marquee: true,
