@@ -929,3 +929,10 @@ Not verified: Firefox and WebKit; any viewport below 1920 (responsive work is P1
 - **Checked:** `git check-ignore` with the old file as the exclude list drops 20 files under `src/data` (matching rule: line 9, `data`); with the new file 0 of them, 0 of `src`, `public`, `scripts`, `assets`, `package.json`, the lockfile and `next.config.ts`, and still 53 files under `tests/visual` (the baselines it exists to skip). **Not run:** the Vercel build itself (the next deployment will show it).
 - **Note for the user:** the "Redeploy" button reuses the same source files, so it would fail the same way; the fix has to be pushed (a push to `themeforest` starts a new production build by itself).
 - **Decided by:** Claude (the fix); the user supplied the screenshot.
+
+## D-086 · 2026-10-22 · TF7 · The public Vercel demo shows placeholder images on purpose
+- **Decision (the user):** "do not change any Vercel environment variables. Keep the public demo on placeholder images, since showing real photos may not suit a ThemeForest demo (D-080)."
+- **State:** the demo is live at https://tf-beauty-ecommerce.vercel.app (Vercel project `tf-beauty-ecommerce`, team `treetech`; production branch `themeforest`, D-084; the build failure fixed in D-085). `NEXT_PUBLIC_DEMO_IMAGES` is **deliberately not set** in Production (or anywhere in Vercel), so the Vercel build's `prebuild` (`images.mjs apply`) writes the default placeholder set over the committed photos, and the live site shows the grey "width x height" tiles. Seen live after the D-085 fix: a product picture is 6 620 bytes (the real photo is 183 959).
+- **This withdraws** the suggestion made after D-085 to set `NEXT_PUBLIC_DEMO_IMAGES=figma` on Vercel. Do not set it. The design's photos stay local (`npm run images:figma`) and in git (D-080); a Vercel build always produces the placeholder look, which is also the look the ThemeForest zip must have.
+- **Not changed by Claude:** no Vercel setting or environment variable. The production-branch change was the user's own.
+- **Decided by:** the user.
