@@ -498,6 +498,12 @@
 
 /* Tablet and phone: no hover, so the action stack is always visible and its buttons are 44px targets */
 @media (max-width: 1100px) {
+  /* the design's 536px is for a 308px-wide card; in a two-column tablet grid the photo is taller, and a fixed
+     height would let the Add to cart bar fall past the card edge */
+  .cta {
+    height: auto;
+  }
+
   .actions {
     opacity: 1;
     transform: none;

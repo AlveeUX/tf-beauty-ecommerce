@@ -215,12 +215,26 @@
     align-self: center;
   }
 
+  /* the wordmark with the tagline under it, as in the other pages' header (the desktop tagline is
+     positioned on the design's coordinates, which would land it on top of the wordmark here) */
   .logo {
     align-self: center;
     margin-top: 0;
-    display: flex;
-    align-items: center;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
     min-height: var(--tap);
+  }
+
+  .wordmark {
+    margin-right: -7.356px; /* the trailing letter-spacing would offset the mark */
+  }
+
+  .tagline {
+    position: static;
+    margin-top: 6px;
+    line-height: 1;
   }
 
   .icons {
@@ -248,17 +262,28 @@
     display: none;
   }
 
+  /* [menu] [logo] [search and bag], the logo centred like the other pages */
   .main {
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: 0; /* the tablet 8px gap would shift the logo left of centre at 320px */
     padding-inline: 16px;
+  }
+
+  /* the two 44px icons touch: the desktop's 20px gap would make the right column wider than the left and push
+     the logo off the screen's centre at 320px */
+  .tools {
+    justify-self: end;
+    gap: 0;
   }
 
   .wordmark {
     font-size: 22px;
     letter-spacing: 5.5px;
+    margin-right: -5.5px;
   }
 
   .tagline {
-    top: 26px;
+    margin-top: 4px;
     font-size: 8px;
   }
 }

@@ -5,6 +5,8 @@
   inset: 0;
   z-index: 200;
   display: grid;
+  /* a bare auto column would grow to the dialog's 840px and push it off a phone screen */
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   padding: 24px;
   background: rgb(36 28 27 / 0.7);
@@ -189,10 +191,14 @@
 }
 
 @media (max-width: 1100px) {
+  /* The picture is hidden, so the dialog is just the form column (docs/responsive-spec.md 6.7). */
   .dialog {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 480px;
     height: auto;
     max-height: calc(100vh - 48px);
+    max-height: calc(100dvh - 48px);
     overflow-y: auto;
   }
 
@@ -201,15 +207,52 @@
   }
 
   .content {
-    padding-bottom: 40px;
+    padding-block: 64px 40px;
+  }
+
+  .title,
+  .thanks {
+    width: auto;
+  }
+
+  .input,
+  .submit {
+    width: 100%;
   }
 
   .note {
     position: static;
+    width: auto;
     margin-top: 30px;
   }
 
   .error {
     position: static;
+  }
+
+  /* a 44px target in the corner that stays put while the form scrolls */
+  .close {
+    position: sticky;
+    top: 0;
+    justify-self: end;
+    width: var(--tap);
+    height: var(--tap);
+    margin: 0 0 calc(-1 * var(--tap));
+    background: var(--color-bg-body);
+  }
+}
+
+@media (max-width: 767px) {
+  .overlay {
+    padding: 16px;
+  }
+
+  .content {
+    padding-inline: 24px;
+  }
+
+  .title {
+    font-size: 2rem;
+    line-height: 1.2;
   }
 }

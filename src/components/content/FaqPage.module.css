@@ -247,3 +247,17 @@
     position: static;
   }
 }
+
+/* Phone: a section title such as "Orders & shipping" wraps to two lines next to the 50px icon, so the header grows
+   with it instead of letting the title spill over its neighbours (the design's fixed 50px holds one line) */
+@media (max-width: 767px) {
+  .section header {
+    height: auto;
+    min-height: 50px;
+  }
+
+  .section h2 {
+    font-size: 1.75rem;
+    line-height: 34px;
+  }
+}

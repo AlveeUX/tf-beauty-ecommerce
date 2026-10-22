@@ -170,6 +170,20 @@
   .map {
     height: 420px;
   }
+
+  /* the pin sits on the design's coordinates in a 645 x 715 map; a smaller map keeps it in the middle */
+  .pin {
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+  }
+
+  /* the design's 224px holds a one-line title and address; a narrower card wraps them and needs more */
+  .card {
+    height: auto;
+    min-height: 224px;
+    padding-bottom: 25px;
+  }
 }
 
 @media (max-width: 1100px) {

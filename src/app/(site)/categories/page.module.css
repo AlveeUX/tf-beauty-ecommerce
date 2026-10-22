@@ -156,3 +156,23 @@
     line-height: 1.15;
   }
 }
+
+/* Phone: a tile is about 140px wide, and a caption of title plus a two-line list is taller than the design's
+   308 x 420 ratio leaves room for at 320px, so the tile gets a fixed height and a tighter caption (a min-height
+   next to the ratio would widen the tile instead and scroll the page sideways) */
+@media (max-width: 767px) {
+  .card {
+    aspect-ratio: auto;
+    height: 250px;
+  }
+
+  /* the caption is inset 8px, not 15, and its title is a size smaller, so "Moisturizers" fits a 320px tile */
+  .label {
+    inset: auto 8px 8px;
+    padding: 10px;
+  }
+
+  .label strong {
+    font-size: var(--text-16);
+  }
+}

@@ -336,6 +336,13 @@
     height: 380px;
   }
 
+  /* the pin sits on the design's coordinates in a 645 x 715 map; a smaller map keeps it in the middle (as the design has it) */
+  .pin {
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+  }
+
   .form {
     height: auto;
     padding-bottom: 40px;

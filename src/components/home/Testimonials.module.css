@@ -249,6 +249,13 @@ li:nth-child(even) .rating > span {
     width: 100%;
   }
 
+  /* the badge is anchored to the card's right edge (15px, as in the design); its 321px offset would leave a
+     312px phone card */
+  .verified {
+    left: auto;
+    right: 15px;
+  }
+
   /* the quote can take three lines at this width: it starts higher and the link moves down */
   .card blockquote {
     top: 432px;

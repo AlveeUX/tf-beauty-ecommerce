@@ -304,6 +304,9 @@
     right: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* room under the trimmed cap-height box so the ellipsis clip keeps descenders (g, y); see HomeSections */
+    padding-block: 3px 7px;
+    margin-top: -3px;
   }
 
   .sum {

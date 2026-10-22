@@ -1473,6 +1473,10 @@
     max-width: calc(100% - 181px);
     overflow: hidden;
     text-overflow: ellipsis;
+    /* the text box is trimmed to the cap height, so the ellipsis clip would cut the descenders (g, y, p)
+       and the tops of tall letters; the padding gives them room and the negative margin keeps the position */
+    padding-block: 3px 7px;
+    margin-top: -3px;
   }
 
   .freeBadge {
@@ -1517,9 +1521,27 @@
     width: auto;
     max-width: 404px;
   }
+
+  /* the side paragraph is placed 901px from the left of the 1320px column; narrower, it hangs from the right edge */
+  .personalHeader p.side {
+    left: auto;
+    right: 0;
+  }
 }
 
 @media (max-width: 1100px) {
+  /* ...and below the title when there is no room beside it (it was left 901px, off a tablet or phone screen) */
+  .personalHeader {
+    height: auto;
+  }
+
+  .personalHeader p.side {
+    position: static;
+    width: auto;
+    max-width: 404px;
+    margin-top: 16px;
+  }
+
   .cards,
   .lovedGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1538,8 +1560,36 @@
     height: auto;
   }
 
+  /* two rows of benefits are taller than the design's single 265px row, so the height follows the content */
   .features {
     grid-template-columns: 1fr 1fr;
+    height: auto;
+    padding-block: 24px;
+  }
+
+  .features > li {
+    padding-block: 20px;
+  }
+
+  /* Fresh drops banner: the text block sits at the bottom, inside the banner's width (the desktop
+     coordinates would put the headline and the button below the 420px banner) */
+  .featureText {
+    top: auto;
+    bottom: 28px;
+    left: 24px;
+    right: 24px;
+  }
+
+  .featureText h3 {
+    width: auto;
+    margin-top: 16px;
+    font-size: 1.9rem;
+    line-height: 1.15;
+  }
+
+  .featureCta {
+    position: static;
+    margin-top: 20px;
   }
 
   .instaGrid {
@@ -1550,6 +1600,16 @@
   .personalHeader {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* the centred header (Most loved) keeps its centring; the rule above would left-align its title */
+  .center {
+    align-items: center;
+  }
+
+  /* the dark statement card lines up with the page gutter like every other block (the design's 30px is for 1920) */
+  .editorial {
+    padding-inline: var(--gutter);
   }
 
   .title {
@@ -1584,14 +1644,21 @@
     height: 260px;
   }
 
-  .features {
-    grid-template-columns: minmax(0, 1fr);
+  /* the caption grows with its text (the design's fixed 80px holds one line, a phone tile needs up to four) */
+  .label {
     height: auto;
-    padding-block: 24px;
+    min-height: 80px;
+    padding: 14px;
   }
 
-  .features > li {
-    padding-block: 20px;
+  .label span {
+    margin-top: 8px;
+    font-size: var(--text-14);
+    line-height: 20px;
+  }
+
+  .features {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   /* section header: title, then the button underneath instead of beside it */
@@ -1602,28 +1669,12 @@
     justify-items: start;
   }
 
+  .center {
+    justify-items: center;
+  }
+
   .outlineButton {
     position: static;
-  }
-
-  /* Fresh drops banner: the text block sits at the bottom, inside the banner's width */
-  .featureText {
-    top: auto;
-    bottom: 28px;
-    left: 24px;
-    right: 24px;
-  }
-
-  .featureText h3 {
-    width: auto;
-    margin-top: 16px;
-    font-size: 1.9rem;
-    line-height: 1.15;
-  }
-
-  .featureCta {
-    position: static;
-    margin-top: 20px;
   }
 
   .freeBadge {

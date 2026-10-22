@@ -239,4 +239,11 @@
     height: auto;
     gap: 8px 12px;
   }
+
+  /* the plan's description wraps to two or three lines here, which the design's fixed 88px cannot hold */
+  .option {
+    height: auto;
+    min-height: 88px;
+    padding: 14px 16px;
+  }
 }
