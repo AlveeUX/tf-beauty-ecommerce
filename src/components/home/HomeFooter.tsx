@@ -6,14 +6,14 @@ import styles from "./HomeChrome.module.css";
 import { site } from "@/config/site";
 import { FooterGroup } from "@/components/layout/FooterGroup";
 
-type Column = { title: string; links: { label: string; href: string; active?: boolean }[] };
+type Column = { title: string; links: { label: string; href: string }[] };
 
 /** Figma order: Shop now, Quick link, Get help, Socials (3:3311..3:3320). */
 const COLUMNS: Column[] = [
   {
     title: "Shop now",
     links: [
-      { label: "All Products", href: "/shop", active: true },
+      { label: "All Products", href: "/shop" },
       { label: "Best Sellers", href: "/shop?badge=best-seller" },
       { label: "Skincare", href: "/shop?category=skincare" },
       { label: "Sets & Bundles", href: "/shop?collection=sets-bundles" },
@@ -46,7 +46,7 @@ const COLUMNS: Column[] = [
 ];
 
 const SOCIALS = [
-  { label: "Facebook", icon: "soc-facebook", network: "facebook", active: true },
+  { label: "Facebook", icon: "soc-facebook", network: "facebook" },
   { label: "Instagram", icon: "soc-instagram", network: "instagram" },
   { label: "Twitter", icon: "soc-twitter", network: "twitter" },
   { label: "Linked-in", icon: "soc-linkedin", network: "linkedin" },
@@ -89,9 +89,7 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
               <ul>
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    <Link href={l.href} className={l.active ? styles.footActive : "m-link"}>
-                      {l.label}
-                    </Link>
+                    <Link href={l.href}>{l.label}</Link>
                   </li>
                 ))}
               </ul>
@@ -101,19 +99,16 @@ export function HomeFooter({ portrait }: { portrait?: string | null }) {
             <ul className={styles.socials}>
               {SOCIALS.map((s) => (
                 <li key={s.label}>
-                  <a
-                    href={site.socials[s.network]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={"active" in s ? styles.footActive : undefined}
-                  >
-                    <Image
-                      src={`${ASSET}/${s.icon}.svg`}
-                      alt=""
-                      width={28}
-                      height={28}
-                      unoptimized
-                    />
+                  <a href={site.socials[s.network]} target="_blank" rel="noopener noreferrer">
+                    <span className={styles.socialIcon}>
+                      <Image
+                        src={`${ASSET}/${s.icon}.svg`}
+                        alt=""
+                        width={28}
+                        height={28}
+                        unoptimized
+                      />
+                    </span>
                     <span>{s.label}</span>
                   </a>
                 </li>

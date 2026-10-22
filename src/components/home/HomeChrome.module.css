@@ -561,19 +561,12 @@
   line-height: 37px;
   text-transform: uppercase;
   color: var(--color-light-01);
+  transition: color var(--duration-fast) var(--ease);
 }
 
-.columns li a:hover {
+/* every link is white and only turns red on hover or keyboard focus (no underline, no pre-selected link) */
+.columns li a:is(:hover, :focus-visible) {
   color: var(--color-primary);
-}
-
-.footActive {
-  text-decoration: underline;
-  text-decoration-thickness: 6%;
-}
-
-.columns li a.footActive {
-  color: #e0544a; /* Secondary on the dark footer was 1.9:1 (TF3) */
 }
 
 /* socials: 28px glyph + label, 41px pitch */
@@ -593,30 +586,51 @@
   gap: 9px;
 }
 
-.socials a img {
+/* the round icon: the design's neutral circle at rest, a Primary disc fades in underneath on hover or focus */
+.socialIcon {
+  position: relative;
+  display: block;
   flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.socialIcon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease);
+}
+
+.socialIcon img {
+  position: relative;
+  display: block;
+}
+
+.socials a:is(:hover, :focus-visible) .socialIcon::before {
+  opacity: 1;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .socials a img {
+  .socialIcon {
     transition:
       filter var(--duration-base) var(--ease),
       scale var(--duration-fast) var(--ease);
   }
 
-  .socials a:is(:hover, :focus-visible) img {
+  .socials a:is(:hover, :focus-visible) .socialIcon {
     filter: drop-shadow(0 0 6px rgb(199 51 43 / 0.7));
     scale: var(--ring-scale);
   }
 }
 
-.socials a span {
+.socials a span:not(.socialIcon) {
   margin-top: 9px;
   text-box: trim-both cap alphabetic;
-}
-
-.columns .socials a.footActive {
-  color: var(--color-light-01);
 }
 
 .copy {

@@ -1,6 +1,9 @@
 <svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Group 1171276249">
-<circle id="Ellipse 6" cx="14" cy="14" r="14" fill="#C7332B"/>
+<g id="Ellipse 6">
+<circle cx="14" cy="14" r="14" fill="#FDFBF8" fill-opacity="0.08"/>
+<circle cx="14" cy="14" r="13.5" stroke="#FDFBF8" stroke-opacity="0.08"/>
+</g>
 <g id="facebook 1" clip-path="url(#clip0_0_20)">
 <path id="Vector" d="M17.5026 8.16602H15.7526C14.9791 8.16602 14.2372 8.47331 13.6902 9.02029C13.1432 9.56727 12.8359 10.3091 12.8359 11.0827V12.8327H11.0859V15.166H12.8359V19.8327H15.1693V15.166H16.9193L17.5026 12.8327H15.1693V11.0827C15.1693 10.928 15.2307 10.7796 15.3401 10.6702C15.4495 10.5608 15.5979 10.4993 15.7526 10.4993H17.5026V8.16602Z" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round" stroke="#FDFBF8"/>
 </g>
