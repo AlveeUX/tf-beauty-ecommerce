@@ -3,9 +3,10 @@
 tests/visual/baselines
 tests/visual/references
 
-# Test output and local data
+# Test output and local files. Anchored with "/": a bare "data" would also match src/data, the template's JSON data,
+# and the build would fail with those files missing.
 test-results
 playwright-report
-data
-uploads
+/data
+/uploads
 *.tsbuildinfo
