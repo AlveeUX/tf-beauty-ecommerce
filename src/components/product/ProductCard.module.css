@@ -94,6 +94,36 @@
   color: var(--color-light-01);
 }
 
+/* The label's shine repeats while the visitor stays on the page: one soft pass every 7 s (the pass is the first 20% of
+   the cycle, 1.4 s, then it rests), each card a little out of step with its neighbours (--shine-phase 0 to 4, set in
+   ProductCard.tsx). It is the shine of motion.css (m-shine) made to loop, with the same highlight. Reduced motion and
+   the "subtle" / "off" modes show no shine: motion.css switches the animation off with a higher specificity. */
+@media (prefers-reduced-motion: no-preference) {
+  span.badge::after {
+    animation: badge-shine 7s infinite backwards;
+    animation-delay: calc(var(--shine-delay) + var(--shine-phase, 0) * 0.9s);
+  }
+}
+
+@keyframes badge-shine {
+  0% {
+    visibility: visible;
+    background-position: 140% 0;
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  20% {
+    visibility: visible;
+    background-position: -40% 0;
+  }
+
+  20.01%,
+  100% {
+    visibility: hidden;
+    background-position: 140% 0;
+  }
+}
+
 .soldOut {
   position: absolute;
   left: 15px;

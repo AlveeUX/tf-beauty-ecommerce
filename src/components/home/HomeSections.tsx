@@ -202,21 +202,6 @@ export function FreshDrops({ banner, items }: { banner: Banner | undefined; item
             {badge ? (
               <div className={`${styles.freeBadge} m-shine`} aria-hidden="true">
                 <Image
-                  src="/images/home/fresh/badge-ring.svg"
-                  alt=""
-                  width={130}
-                  height={130}
-                  unoptimized
-                />
-                <Image
-                  className={styles.freeFill}
-                  src="/images/home/fresh/badge-fill.png"
-                  alt=""
-                  width={114}
-                  height={114}
-                  unoptimized
-                />
-                <Image
                   className={styles.freeTruck}
                   src="/images/home/fresh/truck.svg"
                   alt=""

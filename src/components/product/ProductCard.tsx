@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { formatMoney } from "@/lib/money";
 import { Rating } from "@/components/ui/Rating";
@@ -55,6 +56,11 @@ export function ProductCard({
 }: ProductCardProps) {
   const href = `/product/${product.slug}`;
   const soldOut = product.inStock === false;
+  // the label's repeating shine starts 0 to 4 steps late, by product, so the labels of a row do not all flash together
+  // (the same on the server and the client)
+  const shinePhase = {
+    "--shine-phase": [...product.slug].reduce((sum, c) => sum + c.charCodeAt(0), 0) % 5,
+  } as CSSProperties;
   return (
     <article
       className={`${styles.card} ${tone === "light" ? styles.light : ""} ${layout === "cta" ? styles.cta : ""} ${layout === "row" ? styles.row : ""}`}
@@ -84,9 +90,13 @@ export function ProductCard({
           ) : null}
         </Link>
         {badgeLabel ? (
-          <span className={`${styles.badge} m-shine`}>{badgeLabel}</span>
+          <span className={`${styles.badge} m-shine`} style={shinePhase}>
+            {badgeLabel}
+          </span>
         ) : product.badge ? (
-          <span className={`${styles.badge} m-shine`}>{BADGE_TEXT[product.badge]}</span>
+          <span className={`${styles.badge} m-shine`} style={shinePhase}>
+            {BADGE_TEXT[product.badge]}
+          </span>
         ) : null}
         {soldOut ? <span className={styles.soldOut}>Out of stock</span> : null}
         <ul className={styles.actions}>

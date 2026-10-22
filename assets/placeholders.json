@@ -306,12 +306,6 @@
     "alpha": false
   },
   {
-    "path": "home/fresh/badge-fill.png",
-    "width": 228,
-    "height": 228,
-    "alpha": true
-  },
-  {
     "path": "home/hero.jpg",
     "width": 2048,
     "height": 1152,

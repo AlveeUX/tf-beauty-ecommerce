@@ -385,19 +385,24 @@
   left: 710px;
   width: 130px;
   height: 130px;
+  background: var(--color-primary); /* the design's dark disc, in our Primary red */
   text-align: center;
   text-transform: uppercase;
+}
+
+/* the design's dashed inner ring, 8px in from the edge */
+.freeBadge::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px dashed rgb(253 251 248 / 0.5);
+  border-radius: 50%;
 }
 
 .freeBadge img {
   position: absolute;
   top: 0;
   left: 0;
-}
-
-.freeBadge .freeFill {
-  top: 8px;
-  left: 8px;
 }
 
 .freeBadge .freeTruck {
@@ -429,7 +434,7 @@
   font-weight: var(--weight-medium);
   line-height: 18.142px;
   letter-spacing: 0.2117px;
-  color: var(--color-light-02);
+  color: var(--color-light-01); /* light-02 was 3.3:1 on the red */
 }
 
 .featureText {
