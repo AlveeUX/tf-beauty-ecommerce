@@ -1705,7 +1705,61 @@
     right: 12px;
   }
 
+  /* "Fresh drops" dots: each button is the 44px target and the 8px square is drawn inside it (an 8px button with a
+     larger invisible hit area still failed the touch-size check). The group ends 6px from the banner's right edge,
+     so the last square sits at the text's 24px inset, level with the button. */
+  .dots {
+    right: 6px;
+    bottom: 29px;
+    gap: 0;
+  }
+
+  .dot {
+    width: var(--tap);
+    height: var(--tap);
+    background: none;
+    opacity: 1;
+  }
+
+  .dot::before {
+    content: "";
+    position: absolute;
+    inset: calc((var(--tap) - 8px) / 2);
+    background: var(--color-light-01);
+    opacity: 0.2;
+    transition: opacity var(--duration-base) var(--ease);
+  }
+
+  .dot[aria-pressed="true"]::before {
+    opacity: 1;
+  }
+
   .dot::after {
-    inset: -18px -9px;
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) and (hover: hover) and (pointer: fine) {
+  /* the hover fade moves from the button to the square inside it */
+  .dot:hover {
+    opacity: 1;
+  }
+
+  .dot:not([aria-pressed="true"]):hover::before {
+    opacity: 0.6;
+  }
+}
+
+/* Phone: the dots get their own 44px row under the button, left-aligned with the text (beside it they sat on the
+   button at 320px, and three 44px targets do not fit next to it) */
+@media (max-width: 767px) {
+  .featureText {
+    bottom: 56px;
+  }
+
+  .dots {
+    right: auto;
+    left: 6px;
+    bottom: 6px;
   }
 }

@@ -50,12 +50,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding-top: 20px;
+  /* Figma 3:4845 at 1920: the breadcrumb icon spans y 304-320 and the title's cap top sits at y 351, in a 480px banner that
+     starts at y 110; 22px between the two lines and a 10px offset (5px of centring) reproduce that */
+  gap: 22px;
+  padding: 10px var(--gutter) 0;
 }
 
+/* the global reset only clears `ul`; an `ol` kept the browser's 40px left padding, which pushed the trail 20px right of the title's centre */
 .crumbs {
   animation: page-hero-up var(--duration-reveal) var(--ease) calc(var(--stagger) * 3) backwards;
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -82,6 +88,7 @@
   font-size: var(--text-56);
   font-weight: var(--weight-regular);
   line-height: 66px;
+  text-align: center; /* a long title wraps on a phone: its lines centre on the breadcrumb, not on the left edge */
 }
 
 @media (max-width: 767px) {
